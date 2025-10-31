@@ -3,6 +3,7 @@
   "textures": {
     "top":    "minecraft:block/snow",
     "side":   "koppenclimatemod:block/oxisol_grass/side_snowed",
-    "bottom": "koppenclimatemod:block/oxisol"
+    "bottom": "koppenclimatemod:block/oxisol",
+    "particle": "koppenclimatemod:block/oxisol"
   }
 }

@@ -1,7 +1,6 @@
 {
   "replace": false,
   "values": [
-    "koppenclimatemod:oxisol",
     "koppenclimatemod:oxisol_grass"
   ]
 }
