@@ -51,6 +51,7 @@ public class KoppenClimateMod {
     private void addCreative(BuildCreativeModeTabContentsEvent event) {
         if(event.getTabKey() == CreativeModeTabs.BUILDING_BLOCKS) {
             event.accept(ModBlocks.OXISOL);
+            event.accept(ModBlocks.OXISOL_GRASS);
         }
     }
 

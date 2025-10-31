@@ -1,12 +1,15 @@
 package net.krisplis.koppenclimate.block;
 
 import net.krisplis.koppenclimate.KoppenClimateMod;
+import net.krisplis.koppenclimate.block.custom.OxisolGrassBlock;
 import net.krisplis.koppenclimate.item.ModItems;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
+import net.minecraft.world.level.material.MapColor;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -20,8 +23,22 @@ public class ModBlocks {
 
     public static final RegistryObject<Block> OXISOL = registerBlock("oxisol",
             () -> new Block(BlockBehaviour.Properties.of()
-                    .strength(0.6F).requiresCorrectToolForDrops().sound(SoundType.ROOTED_DIRT)));
+                    .mapColor(MapColor.TERRACOTTA_ORANGE)
+                    .strength(0.5F)
+                    .sound(SoundType.GRAVEL)
+                    .instrument(NoteBlockInstrument.BASS)
+            )
+    );
 
+    public static final RegistryObject<Block> OXISOL_GRASS = registerBlock("oxisol_grass",
+            () -> new OxisolGrassBlock(BlockBehaviour.Properties
+                    .of().mapColor(MapColor.GRASS)   // like grass
+                    .strength(0.6F)
+                    .sound(SoundType.GRASS)
+                    .randomTicks(),                  // required for spread/decay
+                    OXISOL                            // your base oxisol block
+            )
+    );
 
     private static <T extends Block> RegistryObject<T> registerBlock(String name, Supplier<T> block) {
         RegistryObject<T> toReturn = BLOCKS.register(name, block);

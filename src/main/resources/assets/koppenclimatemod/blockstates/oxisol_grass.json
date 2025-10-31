@@ -1,0 +1,6 @@
+{
+  "variants": {
+    "snowy=false": { "model": "koppenclimatemod:block/oxisol_grass" },
+    "snowy=true":  { "model": "koppenclimatemod:block/oxisol_grass_snow" }
+  }
+}

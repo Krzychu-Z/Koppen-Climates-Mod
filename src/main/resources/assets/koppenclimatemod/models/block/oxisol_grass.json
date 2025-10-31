@@ -1,0 +1,21 @@
+{
+  "parent": "minecraft:block/block",
+  "textures": {
+    "top":    "minecraft:block/grass_block_top",
+    "side":   "koppenclimatemod:block/oxisol_grass/side",
+    "bottom": "koppenclimatemod:block/oxisol"
+  },
+  "elements": [
+    {
+      "from": [0,0,0], "to": [16,16,16],
+      "faces": {
+        "up":    { "texture": "#top",    "tintindex": 0 },
+        "down":  { "texture": "#bottom" },
+        "north": { "texture": "#side" },
+        "south": { "texture": "#side" },
+        "west":  { "texture": "#side" },
+        "east":  { "texture": "#side" }
+      }
+    }
+  ]
+}

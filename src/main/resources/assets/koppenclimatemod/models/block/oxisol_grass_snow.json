@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/cube_bottom_top",
+  "textures": {
+    "top":    "minecraft:block/snow",
+    "side":   "koppenclimatemod:block/oxisol_grass/side_snowed",
+    "bottom": "koppenclimatemod:block/oxisol"
+  }
+}
