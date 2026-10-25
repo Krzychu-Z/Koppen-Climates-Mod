@@ -1,0 +1,17 @@
+Notatki:
+
+- banany powinny być jadalne i dawac tyle samo serc co marchewka
+- palm beach is covered in grass blocks and dirt, which is not what I've imagined - only white sand!!
+- Amazon Jungle (Af) must have more bamboo and more animals spawned (Spawn as many as possible)
+- Amazon Jungle river must have more yellow color!!
+- When it rains the sky must not change its color (except for Jungle beach where it turns the same grey colour which exists in Amazon Jungle (Af))
+- Basically the sky color in Amazon Jungle (Af) comes from the fact that it is always cloudy there
+- River banks must be full of mangroves
+- Biome placement is as follows: Amazon Jungle (Af) must only border other warm biomes and the Jungle beach biome must only border Amazon Jungle (Af) from the land and warm ocean from the sea (not lukewarm - pick the hottest option with corals and stuff)
+- Add ambient sounds associated with a tropical rainforest (birds and similar) for jungle beach do the same but quieter and add some wind sounds
+- Amazon Jungle (Af) should have more 2x2 trees just like a dark oak forest - we need this dark element
+- Terrain generation (not sure if you have enough permissions) should ideally be as flat as possible
+- There should be more bats and bee hives in the Amazon Jungle biome
+- This biome is the one biome where entrances to lush caves should be found out - via Azalea trees around ponds full of axolotls
+- Crocodiles swim too fast - they can only be so fast when actively hunting or fighting - most of the day they should sleep on the bank/beach with their jaws open
+- Crocodiles sounds should only be emitted when crocodile is hurt
