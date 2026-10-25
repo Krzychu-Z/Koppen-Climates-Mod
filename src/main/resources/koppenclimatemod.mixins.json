@@ -1,0 +1,12 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "net.krisplis.koppenclimate.mixin",
+  "compatibilityLevel": "JAVA_21",
+  "client": [
+    "ClientLevelSkyMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

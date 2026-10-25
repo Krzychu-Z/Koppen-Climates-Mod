@@ -13,6 +13,10 @@
           "min_inclusive": 8,
           "max_inclusive": 20
         }
+      },
+      {
+        "type": "minecraft:beehive",
+        "probability": 0.05
       }
     ],
     "dirt_provider": {

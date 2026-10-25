@@ -26,12 +26,14 @@ import net.minecraft.world.level.levelgen.feature.configurations.FeatureConfigur
 // touching only columns whose surface lies in the configured biome:
 //   jungle: grass -> oxisol grass, dirt -> oxisol, with patches of podzol
 //   river:  a riverbed and banks of dirt, podzol and oxisol, never sand
-//   beach:  sand -> white sand
+//   beach:  every soil and sand block in the top layer -> white sand
 // and in all three, stone in the top LIMESTONE_DEPTH blocks becomes yellow limestone.
 public class BiomeSurfaceFeature extends Feature<BiomeSurfaceFeature.Config> {
     private static final int LIMESTONE_DEPTH = 15;
     // how far down soil and sand are rewritten below the surface
     private static final int SOIL_DEPTH = 5;
+    // the beach's white sand layer, from the surface down
+    private static final int BEACH_SAND_DEPTH = 4;
 
     public BiomeSurfaceFeature(Codec<Config> codec) {
         super(codec);
@@ -121,7 +123,11 @@ public class BiomeSurfaceFeature extends Feature<BiomeSurfaceFeature.Config> {
                 yield ModBlocks.OXISOL.get().defaultBlockState();
             }
             case BEACH -> {
-                if (state.is(Blocks.SAND)) yield ModBlocks.WHITE_SAND.get().defaultBlockState();
+                // vanilla's surface rules only make sand for minecraft:beach itself, so this biome comes out
+                // grassy: turn every soil and sand block near the surface into white sand
+                boolean soilOrSand = state.is(BlockTags.SAND) || state.is(BlockTags.DIRT) || state.is(Blocks.GRAVEL)
+                        || state.is(Blocks.SANDSTONE) || state.is(Blocks.CLAY);
+                if (depth <= BEACH_SAND_DEPTH && soilOrSand) yield ModBlocks.WHITE_SAND.get().defaultBlockState();
                 yield null;
             }
         };

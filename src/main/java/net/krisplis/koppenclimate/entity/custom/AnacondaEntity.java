@@ -65,7 +65,7 @@ public class AnacondaEntity extends PathfinderMob {
                 .add(Attributes.MAX_HEALTH, 30.0)
                 .add(Attributes.MOVEMENT_SPEED, 0.22)
                 .add(Attributes.ATTACK_DAMAGE, 5.0)
-                .add(Attributes.FOLLOW_RANGE, 16.0)
+                .add(Attributes.FOLLOW_RANGE, 18.0)
                 .add(Attributes.KNOCKBACK_RESISTANCE, 0.6);
     }
 

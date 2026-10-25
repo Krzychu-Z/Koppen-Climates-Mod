@@ -23,7 +23,12 @@
     },
     "sky_color": 10989235,
     "water_color": 4159204,
-    "water_fog_color": 329011
+    "water_fog_color": 329011,
+    "ambient_sound": "koppenclimatemod:ambient.rainforest.loop",
+    "additions_sound": {
+      "sound": "koppenclimatemod:ambient.rainforest.additions",
+      "tick_chance": 0.02
+    }
   },
   "features": [
     [
@@ -31,7 +36,8 @@
     ],
     [
       "minecraft:lake_lava_underground",
-      "minecraft:lake_lava_surface"
+      "minecraft:lake_lava_surface",
+      "koppenclimatemod:amazon_ponds"
     ],
     [
       "minecraft:amethyst_geode"
@@ -85,6 +91,7 @@
       "koppenclimatemod:amazon_mahogany",
       "koppenclimatemod:amazon_giant_mahogany",
       "koppenclimatemod:amazon_mangroves",
+      "koppenclimatemod:amazon_azaleas",
       "koppenclimatemod:amazon_bamboo",
       "koppenclimatemod:amazon_dark_oaks",
       "koppenclimatemod:amazon_palms",
@@ -114,64 +121,77 @@
     "ambient": [
       {
         "type": "minecraft:bat",
-        "maxCount": 8,
+        "weight": 40,
         "minCount": 8,
-        "weight": 10
+        "maxCount": 8
       }
     ],
-    "axolotls": [],
+    "axolotls": [
+      {
+        "type": "minecraft:axolotl",
+        "weight": 10,
+        "minCount": 4,
+        "maxCount": 6
+      }
+    ],
     "creature": [
       {
         "type": "minecraft:parrot",
-        "weight": 40,
-        "minCount": 1,
-        "maxCount": 2
+        "weight": 60,
+        "minCount": 2,
+        "maxCount": 4
       },
       {
         "type": "minecraft:frog",
-        "weight": 30,
-        "minCount": 2,
-        "maxCount": 5
+        "weight": 45,
+        "minCount": 3,
+        "maxCount": 6
       },
       {
         "type": "minecraft:chicken",
-        "weight": 10,
+        "weight": 20,
         "minCount": 4,
-        "maxCount": 4
+        "maxCount": 6
       },
       {
         "type": "minecraft:pig",
-        "weight": 10,
+        "weight": 20,
         "minCount": 4,
-        "maxCount": 4
+        "maxCount": 6
       },
       {
         "type": "minecraft:cow",
-        "weight": 8,
+        "weight": 15,
         "minCount": 4,
-        "maxCount": 4
+        "maxCount": 6
       },
       {
         "type": "minecraft:sheep",
-        "weight": 6,
+        "weight": 12,
+        "minCount": 4,
+        "maxCount": 6
+      },
+      {
+        "type": "minecraft:rabbit",
+        "weight": 10,
         "minCount": 2,
         "maxCount": 4
       },
       {
         "type": "koppenclimatemod:anaconda",
-        "weight": 5,
+        "weight": 8,
         "minCount": 1,
-        "maxCount": 1
+        "maxCount": 2
       },
       {
         "type": "koppenclimatemod:black_panther",
-        "weight": 3,
+        "weight": 5,
         "minCount": 1,
-        "maxCount": 1
+        "maxCount": 2
       },
       {
         "type": "koppenclimatemod:crocodile",
-        "weight": 2,
+        "weight": 3,
         "minCount": 1,
         "maxCount": 2
       }
@@ -257,5 +277,6 @@
     ],
     "water_creature": []
   },
-  "temperature": 0.95
+  "temperature": 0.95,
+  "creature_spawn_probability": 0.4
 }

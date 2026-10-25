@@ -17,7 +17,12 @@
     },
     "sky_color": 5223679,
     "water_color": 4249807,
-    "water_fog_color": 2799792
+    "water_fog_color": 2799792,
+    "ambient_sound": "koppenclimatemod:ambient.jungle_beach.loop",
+    "additions_sound": {
+      "sound": "koppenclimatemod:ambient.jungle_beach.additions",
+      "tick_chance": 0.008
+    }
   },
   "features": [
     [
@@ -188,5 +193,6 @@
     ],
     "water_creature": []
   },
-  "temperature": 0.95
+  "temperature": 0.95,
+  "creature_spawn_probability": 0.3
 }

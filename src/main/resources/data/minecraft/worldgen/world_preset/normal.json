@@ -12,7 +12,11 @@
           },
           "jungle": "koppenclimatemod:amazon_jungle",
           "river": "koppenclimatemod:amazon_jungle_river",
-          "beach": "koppenclimatemod:jungle_beach"
+          "beach": "koppenclimatemod:jungle_beach",
+          "underground": "minecraft:lush_caves",
+          "warm_land": "minecraft:sparse_jungle",
+          "warm_swamp": "minecraft:mangrove_swamp",
+          "warm_ocean": "minecraft:warm_ocean"
         },
         "settings": "minecraft:overworld"
       }

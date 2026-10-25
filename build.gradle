@@ -77,6 +77,9 @@ minecraft {
             // You can set various levels here.
             // Please read: https://stackoverflow.com/questions/2031163/when-to-use-the-different-log-levels
             property 'forge.logging.console.level', 'debug'
+
+            // load the mod's mixins (the Af sky colour) when running from the dev environment
+            arg '-mixin.config=koppenclimatemod.mixins.json'
         }
 
         client {
@@ -175,7 +178,9 @@ tasks.named('jar', Jar).configure {
             'Specification-Version'   : '1', // We are version 1 of ourselves
             'Implementation-Title'    : project.name,
             'Implementation-Version'  : project.jar.archiveVersion,
-            'Implementation-Vendor'   : mod_authors
+            'Implementation-Vendor'   : mod_authors,
+            // tells Mixin which config to load from the built jar
+            'MixinConfigs'            : 'koppenclimatemod.mixins.json'
         ])
     }
 }

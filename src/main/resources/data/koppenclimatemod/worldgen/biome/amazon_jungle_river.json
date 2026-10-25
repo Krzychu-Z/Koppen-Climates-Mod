@@ -16,13 +16,18 @@
       "tick_delay": 6000
     },
     "sky_color": 10989235,
-    "water_color": 11901525,
-    "water_fog_color": 9073728,
+    "water_color": 13216058,
+    "water_fog_color": 10650918,
     "music": {
       "max_delay": 24000,
       "min_delay": 12000,
       "replace_current_music": false,
       "sound": "minecraft:music.overworld.jungle"
+    },
+    "ambient_sound": "koppenclimatemod:ambient.rainforest.loop",
+    "additions_sound": {
+      "sound": "koppenclimatemod:ambient.rainforest.additions",
+      "tick_chance": 0.02
     }
   },
   "features": [
@@ -243,5 +248,6 @@
       }
     ]
   },
-  "temperature": 0.95
+  "temperature": 0.95,
+  "creature_spawn_probability": 0.3
 }

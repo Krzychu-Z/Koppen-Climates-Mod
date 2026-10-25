@@ -16,11 +16,11 @@ public class ModItems {
     public static final DeferredRegister<Item> ITEMS =
             DeferredRegister.create(ForgeRegistries.ITEMS, KoppenClimateMod.MOD_ID);
 
-    // Eaten like an apple; right-clicked onto the side of a banana stem it starts a new bunch,
-    // the way sweet berries work
+    // Fills you up like a carrot (3 hunger, 0.6 saturation); right-clicked onto the side of a banana stem
+    // it starts a new bunch instead, the way sweet berries work
     public static final RegistryObject<Item> BANANA = ITEMS.register("banana",
             () -> new ItemNameBlockItem(ModBlocks.BANANA_BUNCH.get(), new Item.Properties()
-                    .food(new FoodProperties.Builder().nutrition(4).saturationModifier(0.3F).build())));
+                    .food(new FoodProperties.Builder().nutrition(3).saturationModifier(0.6F).build())));
 
     // Eaten for a little food; right-clicked onto the side of a coconut palm log it starts new coconuts
     public static final RegistryObject<Item> COCONUT = ITEMS.register("coconut",

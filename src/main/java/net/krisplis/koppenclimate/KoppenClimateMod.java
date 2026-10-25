@@ -6,6 +6,7 @@ import net.krisplis.koppenclimate.effect.ModEffects;
 import net.krisplis.koppenclimate.effect.ModPotions;
 import net.krisplis.koppenclimate.entity.ModEntities;
 import net.krisplis.koppenclimate.item.ModItems;
+import net.krisplis.koppenclimate.sound.ModSounds;
 import net.krisplis.koppenclimate.worldgen.ModWorldgen;
 import net.krisplis.koppenclimate.worldgen.tree.ModTreePlacers;
 import net.minecraft.world.item.CreativeModeTabs;
@@ -49,6 +50,7 @@ public class KoppenClimateMod {
         ModWorldgen.register(modEventBus);
         ModEffects.register(modEventBus);
         ModPotions.register(modEventBus);
+        ModSounds.register(modEventBus);
 
         // Register the item to a creative tab
         modEventBus.addListener(this::addCreative);

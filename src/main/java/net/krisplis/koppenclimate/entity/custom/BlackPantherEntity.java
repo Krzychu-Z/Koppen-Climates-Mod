@@ -40,7 +40,7 @@ public class BlackPantherEntity extends PathfinderMob {
                 .add(Attributes.MAX_HEALTH, 30.0)
                 .add(Attributes.MOVEMENT_SPEED, 0.3)
                 .add(Attributes.ATTACK_DAMAGE, 6.0)
-                .add(Attributes.FOLLOW_RANGE, 24.0)
+                .add(Attributes.FOLLOW_RANGE, 26.0)
                 .add(Attributes.ARMOR, 2.0);
     }
 
