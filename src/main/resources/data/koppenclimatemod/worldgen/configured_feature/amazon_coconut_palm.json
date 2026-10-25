@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:random_selector",
+  "config": {
+    "features": [
+      {
+        "chance": 0.4,
+        "feature": "koppenclimatemod:amazon_coconut_palm_tall"
+      },
+      {
+        "chance": 0.5,
+        "feature": "koppenclimatemod:amazon_coconut_palm_crooked"
+      }
+    ],
+    "default": "koppenclimatemod:amazon_coconut_palm_small"
+  }
+}

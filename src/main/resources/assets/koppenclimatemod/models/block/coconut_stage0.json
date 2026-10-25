@@ -1,0 +1,77 @@
+{
+  "textures": {
+    "particle": "koppenclimatemod:block/coconut/green",
+    "green": "koppenclimatemod:block/coconut/green",
+    "brown": "koppenclimatemod:block/coconut/brown"
+  },
+  "elements": [
+    {
+      "from": [
+        6,
+        11,
+        1
+      ],
+      "to": [
+        10,
+        15,
+        5
+      ],
+      "faces": {
+        "north": {
+          "uv": [
+            0,
+            0,
+            4,
+            4
+          ],
+          "texture": "#green"
+        },
+        "south": {
+          "uv": [
+            0,
+            0,
+            4,
+            4
+          ],
+          "texture": "#green"
+        },
+        "east": {
+          "uv": [
+            0,
+            0,
+            4,
+            4
+          ],
+          "texture": "#green"
+        },
+        "west": {
+          "uv": [
+            0,
+            0,
+            4,
+            4
+          ],
+          "texture": "#green"
+        },
+        "up": {
+          "uv": [
+            0,
+            0,
+            4,
+            4
+          ],
+          "texture": "#green"
+        },
+        "down": {
+          "uv": [
+            0,
+            0,
+            4,
+            4
+          ],
+          "texture": "#green"
+        }
+      }
+    }
+  ]
+}

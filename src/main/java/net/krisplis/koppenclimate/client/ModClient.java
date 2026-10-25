@@ -5,6 +5,8 @@ import net.minecraft.client.renderer.BiomeColors;
 
 import net.krisplis.koppenclimate.KoppenClimateMod;
 import net.krisplis.koppenclimate.block.ModBlocks;
+import net.krisplis.koppenclimate.entity.ModEntities;
+import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.RegisterColorHandlersEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -23,6 +25,19 @@ public final class ModClient {
             }
             return -1; // don't tint sides or bottom
         }, ModBlocks.OXISOL_GRASS.get());
+    }
+
+    @SubscribeEvent
+    public static void onRegisterLayers(EntityRenderersEvent.RegisterLayerDefinitions e) {
+        e.registerLayerDefinition(AnacondaModel.LAYER, AnacondaModel::createBodyLayer);
+        e.registerLayerDefinition(CrocodileModel.LAYER, CrocodileModel::createBodyLayer);
+    }
+
+    @SubscribeEvent
+    public static void onRegisterRenderers(EntityRenderersEvent.RegisterRenderers e) {
+        e.registerEntityRenderer(ModEntities.ANACONDA.get(), AnacondaRenderer::new);
+        e.registerEntityRenderer(ModEntities.CROCODILE.get(), CrocodileRenderer::new);
+        e.registerEntityRenderer(ModEntities.BLACK_PANTHER.get(), BlackPantherRenderer::new);
     }
 
     @SubscribeEvent

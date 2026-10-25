@@ -1,0 +1,938 @@
+{
+  "ambientocclusion": false,
+  "render_type": "minecraft:cutout",
+  "textures": {
+    "petal_east": "koppenclimatemod:block/rafflesia/petal_east",
+    "petal_west": "koppenclimatemod:block/rafflesia/petal_west",
+    "petal_south": "koppenclimatemod:block/rafflesia/petal_south",
+    "petal_north": "koppenclimatemod:block/rafflesia/petal_north",
+    "petal_side": "koppenclimatemod:block/rafflesia/petal_side",
+    "bowl_side": "koppenclimatemod:block/rafflesia/bowl_side",
+    "rim": "koppenclimatemod:block/rafflesia/rim",
+    "disc": "koppenclimatemod:block/rafflesia/disc",
+    "particle": "koppenclimatemod:block/rafflesia/petal_east"
+  },
+  "elements": [
+    {
+      "from": [
+        8.5,
+        0,
+        4.5
+      ],
+      "to": [
+        13,
+        1.75,
+        11.5
+      ],
+      "faces": {
+        "up": {
+          "uv": [
+            0,
+            0,
+            9.6,
+            16
+          ],
+          "texture": "#petal_east"
+        },
+        "north": {
+          "uv": [
+            0,
+            0,
+            16,
+            4
+          ],
+          "texture": "#petal_side"
+        },
+        "south": {
+          "uv": [
+            0,
+            0,
+            16,
+            4
+          ],
+          "texture": "#petal_side"
+        },
+        "east": {
+          "uv": [
+            0,
+            0,
+            16,
+            4
+          ],
+          "texture": "#petal_side"
+        },
+        "west": {
+          "uv": [
+            0,
+            0,
+            16,
+            4
+          ],
+          "texture": "#petal_side"
+        }
+      }
+    },
+    {
+      "from": [
+        13,
+        0,
+        6
+      ],
+      "to": [
+        16,
+        1.5,
+        10
+      ],
+      "faces": {
+        "up": {
+          "uv": [
+            9.6,
+            3.43,
+            16,
+            12.57
+          ],
+          "texture": "#petal_east"
+        },
+        "north": {
+          "uv": [
+            0,
+            0,
+            16,
+            4
+          ],
+          "texture": "#petal_side"
+        },
+        "south": {
+          "uv": [
+            0,
+            0,
+            16,
+            4
+          ],
+          "texture": "#petal_side"
+        },
+        "east": {
+          "uv": [
+            0,
+            0,
+            16,
+            4
+          ],
+          "texture": "#petal_side"
+        },
+        "west": {
+          "uv": [
+            0,
+            0,
+            16,
+            4
+          ],
+          "texture": "#petal_side"
+        }
+      }
+    },
+    {
+      "from": [
+        4.5,
+        0,
+        8.5
+      ],
+      "to": [
+        11.5,
+        1.75,
+        13
+      ],
+      "faces": {
+        "up": {
+          "uv": [
+            0,
+            0,
+            16,
+            9.6
+          ],
+          "texture": "#petal_south"
+        },
+        "north": {
+          "uv": [
+            0,
+            0,
+            16,
+            4
+          ],
+          "texture": "#petal_side"
+        },
+        "south": {
+          "uv": [
+            0,
+            0,
+            16,
+            4
+          ],
+          "texture": "#petal_side"
+        },
+        "east": {
+          "uv": [
+            0,
+            0,
+            16,
+            4
+          ],
+          "texture": "#petal_side"
+        },
+        "west": {
+          "uv": [
+            0,
+            0,
+            16,
+            4
+          ],
+          "texture": "#petal_side"
+        }
+      },
+      "rotation": {
+        "origin": [
+          8,
+          0,
+          8
+        ],
+        "axis": "y",
+        "angle": 22.5
+      }
+    },
+    {
+      "from": [
+        6,
+        0,
+        13
+      ],
+      "to": [
+        10,
+        1.5,
+        16
+      ],
+      "faces": {
+        "up": {
+          "uv": [
+            3.43,
+            9.6,
+            12.57,
+            16
+          ],
+          "texture": "#petal_south"
+        },
+        "north": {
+          "uv": [
+            0,
+            0,
+            16,
+            4
+          ],
+          "texture": "#petal_side"
+        },
+        "south": {
+          "uv": [
+            0,
+            0,
+            16,
+            4
+          ],
+          "texture": "#petal_side"
+        },
+        "east": {
+          "uv": [
+            0,
+            0,
+            16,
+            4
+          ],
+          "texture": "#petal_side"
+        },
+        "west": {
+          "uv": [
+            0,
+            0,
+            16,
+            4
+          ],
+          "texture": "#petal_side"
+        }
+      },
+      "rotation": {
+        "origin": [
+          8,
+          0,
+          8
+        ],
+        "axis": "y",
+        "angle": 22.5
+      }
+    },
+    {
+      "from": [
+        4.5,
+        0,
+        3
+      ],
+      "to": [
+        11.5,
+        1.75,
+        7.5
+      ],
+      "faces": {
+        "up": {
+          "uv": [
+            0,
+            6.4,
+            16,
+            16
+          ],
+          "texture": "#petal_north"
+        },
+        "north": {
+          "uv": [
+            0,
+            0,
+            16,
+            4
+          ],
+          "texture": "#petal_side"
+        },
+        "south": {
+          "uv": [
+            0,
+            0,
+            16,
+            4
+          ],
+          "texture": "#petal_side"
+        },
+        "east": {
+          "uv": [
+            0,
+            0,
+            16,
+            4
+          ],
+          "texture": "#petal_side"
+        },
+        "west": {
+          "uv": [
+            0,
+            0,
+            16,
+            4
+          ],
+          "texture": "#petal_side"
+        }
+      },
+      "rotation": {
+        "origin": [
+          8,
+          0,
+          8
+        ],
+        "axis": "y",
+        "angle": -22.5
+      }
+    },
+    {
+      "from": [
+        6,
+        0,
+        0
+      ],
+      "to": [
+        10,
+        1.5,
+        3
+      ],
+      "faces": {
+        "up": {
+          "uv": [
+            3.43,
+            0,
+            12.57,
+            6.4
+          ],
+          "texture": "#petal_north"
+        },
+        "north": {
+          "uv": [
+            0,
+            0,
+            16,
+            4
+          ],
+          "texture": "#petal_side"
+        },
+        "south": {
+          "uv": [
+            0,
+            0,
+            16,
+            4
+          ],
+          "texture": "#petal_side"
+        },
+        "east": {
+          "uv": [
+            0,
+            0,
+            16,
+            4
+          ],
+          "texture": "#petal_side"
+        },
+        "west": {
+          "uv": [
+            0,
+            0,
+            16,
+            4
+          ],
+          "texture": "#petal_side"
+        }
+      },
+      "rotation": {
+        "origin": [
+          8,
+          0,
+          8
+        ],
+        "axis": "y",
+        "angle": -22.5
+      }
+    },
+    {
+      "from": [
+        3,
+        0,
+        4.5
+      ],
+      "to": [
+        7.5,
+        1.75,
+        11.5
+      ],
+      "faces": {
+        "up": {
+          "uv": [
+            6.4,
+            0,
+            16,
+            16
+          ],
+          "texture": "#petal_west"
+        },
+        "north": {
+          "uv": [
+            0,
+            0,
+            16,
+            4
+          ],
+          "texture": "#petal_side"
+        },
+        "south": {
+          "uv": [
+            0,
+            0,
+            16,
+            4
+          ],
+          "texture": "#petal_side"
+        },
+        "east": {
+          "uv": [
+            0,
+            0,
+            16,
+            4
+          ],
+          "texture": "#petal_side"
+        },
+        "west": {
+          "uv": [
+            0,
+            0,
+            16,
+            4
+          ],
+          "texture": "#petal_side"
+        }
+      },
+      "rotation": {
+        "origin": [
+          8,
+          0,
+          8
+        ],
+        "axis": "y",
+        "angle": 45
+      }
+    },
+    {
+      "from": [
+        0,
+        0,
+        6
+      ],
+      "to": [
+        3,
+        1.5,
+        10
+      ],
+      "faces": {
+        "up": {
+          "uv": [
+            0,
+            3.43,
+            6.4,
+            12.57
+          ],
+          "texture": "#petal_west"
+        },
+        "north": {
+          "uv": [
+            0,
+            0,
+            16,
+            4
+          ],
+          "texture": "#petal_side"
+        },
+        "south": {
+          "uv": [
+            0,
+            0,
+            16,
+            4
+          ],
+          "texture": "#petal_side"
+        },
+        "east": {
+          "uv": [
+            0,
+            0,
+            16,
+            4
+          ],
+          "texture": "#petal_side"
+        },
+        "west": {
+          "uv": [
+            0,
+            0,
+            16,
+            4
+          ],
+          "texture": "#petal_side"
+        }
+      },
+      "rotation": {
+        "origin": [
+          8,
+          0,
+          8
+        ],
+        "axis": "y",
+        "angle": 45
+      }
+    },
+    {
+      "from": [
+        3,
+        0,
+        4.5
+      ],
+      "to": [
+        7.5,
+        1.75,
+        11.5
+      ],
+      "faces": {
+        "up": {
+          "uv": [
+            6.4,
+            0,
+            16,
+            16
+          ],
+          "texture": "#petal_west"
+        },
+        "north": {
+          "uv": [
+            0,
+            0,
+            16,
+            4
+          ],
+          "texture": "#petal_side"
+        },
+        "south": {
+          "uv": [
+            0,
+            0,
+            16,
+            4
+          ],
+          "texture": "#petal_side"
+        },
+        "east": {
+          "uv": [
+            0,
+            0,
+            16,
+            4
+          ],
+          "texture": "#petal_side"
+        },
+        "west": {
+          "uv": [
+            0,
+            0,
+            16,
+            4
+          ],
+          "texture": "#petal_side"
+        }
+      },
+      "rotation": {
+        "origin": [
+          8,
+          0,
+          8
+        ],
+        "axis": "y",
+        "angle": -45
+      }
+    },
+    {
+      "from": [
+        0,
+        0,
+        6
+      ],
+      "to": [
+        3,
+        1.5,
+        10
+      ],
+      "faces": {
+        "up": {
+          "uv": [
+            0,
+            3.43,
+            6.4,
+            12.57
+          ],
+          "texture": "#petal_west"
+        },
+        "north": {
+          "uv": [
+            0,
+            0,
+            16,
+            4
+          ],
+          "texture": "#petal_side"
+        },
+        "south": {
+          "uv": [
+            0,
+            0,
+            16,
+            4
+          ],
+          "texture": "#petal_side"
+        },
+        "east": {
+          "uv": [
+            0,
+            0,
+            16,
+            4
+          ],
+          "texture": "#petal_side"
+        },
+        "west": {
+          "uv": [
+            0,
+            0,
+            16,
+            4
+          ],
+          "texture": "#petal_side"
+        }
+      },
+      "rotation": {
+        "origin": [
+          8,
+          0,
+          8
+        ],
+        "axis": "y",
+        "angle": -45
+      }
+    },
+    {
+      "from": [
+        4.5,
+        0,
+        4.5
+      ],
+      "to": [
+        11.5,
+        5,
+        5.5
+      ],
+      "faces": {
+        "up": {
+          "uv": [
+            0,
+            0,
+            16,
+            2
+          ],
+          "texture": "#rim"
+        },
+        "north": {
+          "uv": [
+            0,
+            2,
+            16,
+            12
+          ],
+          "texture": "#bowl_side"
+        },
+        "south": {
+          "uv": [
+            0,
+            2,
+            16,
+            12
+          ],
+          "texture": "#bowl_side"
+        },
+        "east": {
+          "uv": [
+            0,
+            2,
+            16,
+            12
+          ],
+          "texture": "#bowl_side"
+        },
+        "west": {
+          "uv": [
+            0,
+            2,
+            16,
+            12
+          ],
+          "texture": "#bowl_side"
+        }
+      }
+    },
+    {
+      "from": [
+        4.5,
+        0,
+        10.5
+      ],
+      "to": [
+        11.5,
+        5,
+        11.5
+      ],
+      "faces": {
+        "up": {
+          "uv": [
+            0,
+            0,
+            16,
+            2
+          ],
+          "texture": "#rim"
+        },
+        "north": {
+          "uv": [
+            0,
+            2,
+            16,
+            12
+          ],
+          "texture": "#bowl_side"
+        },
+        "south": {
+          "uv": [
+            0,
+            2,
+            16,
+            12
+          ],
+          "texture": "#bowl_side"
+        },
+        "east": {
+          "uv": [
+            0,
+            2,
+            16,
+            12
+          ],
+          "texture": "#bowl_side"
+        },
+        "west": {
+          "uv": [
+            0,
+            2,
+            16,
+            12
+          ],
+          "texture": "#bowl_side"
+        }
+      }
+    },
+    {
+      "from": [
+        4.5,
+        0,
+        5.5
+      ],
+      "to": [
+        5.5,
+        5,
+        10.5
+      ],
+      "faces": {
+        "up": {
+          "uv": [
+            0,
+            0,
+            16,
+            2
+          ],
+          "texture": "#rim"
+        },
+        "north": {
+          "uv": [
+            0,
+            2,
+            16,
+            12
+          ],
+          "texture": "#bowl_side"
+        },
+        "south": {
+          "uv": [
+            0,
+            2,
+            16,
+            12
+          ],
+          "texture": "#bowl_side"
+        },
+        "east": {
+          "uv": [
+            0,
+            2,
+            16,
+            12
+          ],
+          "texture": "#bowl_side"
+        },
+        "west": {
+          "uv": [
+            0,
+            2,
+            16,
+            12
+          ],
+          "texture": "#bowl_side"
+        }
+      }
+    },
+    {
+      "from": [
+        10.5,
+        0,
+        5.5
+      ],
+      "to": [
+        11.5,
+        5,
+        10.5
+      ],
+      "faces": {
+        "up": {
+          "uv": [
+            0,
+            0,
+            16,
+            2
+          ],
+          "texture": "#rim"
+        },
+        "north": {
+          "uv": [
+            0,
+            2,
+            16,
+            12
+          ],
+          "texture": "#bowl_side"
+        },
+        "south": {
+          "uv": [
+            0,
+            2,
+            16,
+            12
+          ],
+          "texture": "#bowl_side"
+        },
+        "east": {
+          "uv": [
+            0,
+            2,
+            16,
+            12
+          ],
+          "texture": "#bowl_side"
+        },
+        "west": {
+          "uv": [
+            0,
+            2,
+            16,
+            12
+          ],
+          "texture": "#bowl_side"
+        }
+      }
+    },
+    {
+      "from": [
+        5.5,
+        0,
+        5.5
+      ],
+      "to": [
+        10.5,
+        2.5,
+        10.5
+      ],
+      "faces": {
+        "up": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#disc"
+        }
+      }
+    }
+  ]
+}

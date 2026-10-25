@@ -2,8 +2,17 @@ package net.krisplis.koppenclimate;
 
 import com.mojang.logging.LogUtils;
 import net.krisplis.koppenclimate.block.ModBlocks;
+import net.krisplis.koppenclimate.effect.ModEffects;
+import net.krisplis.koppenclimate.effect.ModPotions;
+import net.krisplis.koppenclimate.entity.ModEntities;
 import net.krisplis.koppenclimate.item.ModItems;
+import net.krisplis.koppenclimate.worldgen.ModWorldgen;
+import net.krisplis.koppenclimate.worldgen.tree.ModTreePlacers;
 import net.minecraft.world.item.CreativeModeTabs;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.ComposterBlock;
+import net.minecraft.world.level.block.FireBlock;
+import net.minecraft.world.level.block.FlowerPotBlock;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.BuildCreativeModeTabContentsEvent;
@@ -35,6 +44,11 @@ public class KoppenClimateMod {
 
         ModBlocks.register(modEventBus);
         ModItems.register(modEventBus);
+        ModTreePlacers.register(modEventBus);
+        ModEntities.register(modEventBus);
+        ModWorldgen.register(modEventBus);
+        ModEffects.register(modEventBus);
+        ModPotions.register(modEventBus);
 
         // Register the item to a creative tab
         modEventBus.addListener(this::addCreative);
@@ -44,7 +58,36 @@ public class KoppenClimateMod {
     }
 
     private void commonSetup(final FMLCommonSetupEvent event) {
+        // These vanilla maps aren't thread safe, so fill them on the main thread
+        event.enqueueWork(() -> {
+            FlowerPotBlock pot = (FlowerPotBlock) Blocks.FLOWER_POT;
+            pot.addPlant(ModBlocks.COCONUT_PALM_SAPLING.getId(), ModBlocks.POTTED_COCONUT_PALM_SAPLING);
+            pot.addPlant(ModBlocks.MAHOGANY_SAPLING.getId(), ModBlocks.POTTED_MAHOGANY_SAPLING);
+            pot.addPlant(ModBlocks.BANANA_SAPLING.getId(), ModBlocks.POTTED_BANANA_SAPLING);
 
+            ComposterBlock.COMPOSTABLES.put(ModBlocks.BANANA_SAPLING.get().asItem(), 0.3F);
+            ComposterBlock.COMPOSTABLES.put(ModBlocks.BANANA_LEAVES.get().asItem(), 0.3F);
+            ComposterBlock.COMPOSTABLES.put(ModItems.BANANA.get(), 0.65F);
+            ComposterBlock.COMPOSTABLES.put(ModBlocks.RAFFLESIA.get().asItem(), 0.65F);
+            ComposterBlock.COMPOSTABLES.put(ModItems.COCONUT.get(), 0.65F);
+
+            ComposterBlock.COMPOSTABLES.put(ModBlocks.COCONUT_PALM_SAPLING.get().asItem(), 0.3F);
+            ComposterBlock.COMPOSTABLES.put(ModBlocks.COCONUT_PALM_LEAVES.get().asItem(), 0.3F);
+            ComposterBlock.COMPOSTABLES.put(ModBlocks.MAHOGANY_SAPLING.get().asItem(), 0.3F);
+            ComposterBlock.COMPOSTABLES.put(ModBlocks.MAHOGANY_LEAVES.get().asItem(), 0.3F);
+
+            // Same burn odds as vanilla wood and leaves: (block, encouragement, flammability)
+            FireBlock fire = (FireBlock) Blocks.FIRE;
+            fire.setFlammable(ModBlocks.COCONUT_PALM_LOG.get(), 5, 5);
+            fire.setFlammable(ModBlocks.COCONUT_PALM_PLANKS.get(), 5, 20);
+            fire.setFlammable(ModBlocks.COCONUT_PALM_LEAVES.get(), 30, 60);
+            fire.setFlammable(ModBlocks.MAHOGANY_LOG.get(), 5, 5);
+            fire.setFlammable(ModBlocks.MAHOGANY_WOOD.get(), 5, 5);
+            fire.setFlammable(ModBlocks.MAHOGANY_PLANKS.get(), 5, 20);
+            fire.setFlammable(ModBlocks.MAHOGANY_LEAVES.get(), 30, 60);
+            fire.setFlammable(ModBlocks.BANANA_STEM.get(), 5, 5);
+            fire.setFlammable(ModBlocks.BANANA_LEAVES.get(), 30, 60);
+        });
     }
 
     // Add the example block item to the building blocks tab
@@ -52,6 +95,39 @@ public class KoppenClimateMod {
         if(event.getTabKey() == CreativeModeTabs.BUILDING_BLOCKS) {
             event.accept(ModBlocks.OXISOL);
             event.accept(ModBlocks.OXISOL_GRASS);
+            event.accept(ModBlocks.WHITE_SAND);
+            event.accept(ModBlocks.YELLOW_LIMESTONE);
+            event.accept(ModBlocks.COCONUT_PALM_LOG);
+            event.accept(ModBlocks.COCONUT_PALM_PLANKS);
+            event.accept(ModBlocks.MAHOGANY_LOG);
+            event.accept(ModBlocks.MAHOGANY_WOOD);
+            event.accept(ModBlocks.MAHOGANY_PLANKS);
+        }
+        if(event.getTabKey() == CreativeModeTabs.NATURAL_BLOCKS) {
+            event.accept(ModBlocks.WHITE_SAND);
+            event.accept(ModBlocks.COCONUT_PALM_LOG);
+            event.accept(ModBlocks.COCONUT_PALM_LEAVES);
+            event.accept(ModBlocks.COCONUT_PALM_SAPLING);
+            event.accept(ModBlocks.MAHOGANY_LOG);
+            event.accept(ModBlocks.MAHOGANY_LEAVES);
+            event.accept(ModBlocks.MAHOGANY_SAPLING);
+            event.accept(ModBlocks.BANANA_STEM);
+            event.accept(ModBlocks.BANANA_LEAVES);
+            event.accept(ModBlocks.BANANA_SAPLING);
+            event.accept(ModBlocks.RAFFLESIA);
+            event.accept(ModBlocks.YELLOW_LIMESTONE);
+        }
+        if(event.getTabKey() == CreativeModeTabs.FOOD_AND_DRINKS) {
+            event.accept(ModItems.BANANA);
+            event.accept(ModItems.COCONUT);
+        }
+        if(event.getTabKey() == CreativeModeTabs.INGREDIENTS) {
+            event.accept(ModItems.RAFFLESIA_PETAL);
+        }
+        if(event.getTabKey() == CreativeModeTabs.SPAWN_EGGS) {
+            event.accept(ModItems.ANACONDA_SPAWN_EGG);
+            event.accept(ModItems.CROCODILE_SPAWN_EGG);
+            event.accept(ModItems.BLACK_PANTHER_SPAWN_EGG);
         }
     }
 

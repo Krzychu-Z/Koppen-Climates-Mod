@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "group": "planks",
+  "ingredients": [
+    {
+      "tag": "koppenclimatemod:mahogany_logs"
+    }
+  ],
+  "result": {
+    "count": 4,
+    "id": "koppenclimatemod:mahogany_planks"
+  }
+}
