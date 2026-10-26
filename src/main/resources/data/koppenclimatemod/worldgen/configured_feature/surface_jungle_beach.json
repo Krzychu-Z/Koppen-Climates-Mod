@@ -1,7 +1,7 @@
 {
   "type": "koppenclimatemod:biome_surface",
   "config": {
-    "biome": "koppenclimatemod:jungle_beach",
+    "biome": "koppenclimatemod:tropical_beach_af",
     "style": "beach"
   }
 }

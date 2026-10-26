@@ -27,6 +27,12 @@ public class ModTreePlacers {
     public static final RegistryObject<FoliagePlacerType<MahoganyFoliagePlacer>> MAHOGANY_FOLIAGE_PLACER =
             FOLIAGE_PLACERS.register("mahogany_foliage_placer", () -> new FoliagePlacerType<>(MahoganyFoliagePlacer.CODEC));
 
+    // the African savanna's umbrella acacia and baobab
+    public static final RegistryObject<TrunkPlacerType<UmbrellaAcaciaTrunkPlacer>> UMBRELLA_ACACIA_TRUNK_PLACER =
+            TRUNK_PLACERS.register("umbrella_acacia_trunk_placer", () -> new TrunkPlacerType<>(UmbrellaAcaciaTrunkPlacer.CODEC));
+    public static final RegistryObject<TrunkPlacerType<BaobabTrunkPlacer>> BAOBAB_TRUNK_PLACER =
+            TRUNK_PLACERS.register("baobab_trunk_placer", () -> new TrunkPlacerType<>(BaobabTrunkPlacer.CODEC));
+
     public static final RegistryObject<FoliagePlacerType<BananaFoliagePlacer>> BANANA_FOLIAGE_PLACER =
             FOLIAGE_PLACERS.register("banana_foliage_placer", () -> new FoliagePlacerType<>(BananaFoliagePlacer.CODEC));
     // banana bunches and coconuts

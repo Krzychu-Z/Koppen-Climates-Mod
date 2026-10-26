@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "group": "chest_boat",
+  "ingredients": [
+    {
+      "item": "minecraft:chest"
+    },
+    {
+      "item": "koppenclimatemod:coconut_palm_boat"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "koppenclimatemod:coconut_palm_chest_boat"
+  }
+}

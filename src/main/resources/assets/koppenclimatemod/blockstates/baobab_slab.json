@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "koppenclimatemod:block/baobab_slab"
+    },
+    "type=double": {
+      "model": "koppenclimatemod:block/baobab_planks"
+    },
+    "type=top": {
+      "model": "koppenclimatemod:block/baobab_slab_top"
+    }
+  }
+}

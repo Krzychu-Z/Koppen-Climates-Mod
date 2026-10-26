@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+    "item": "koppenclimatemod:cobbled_white_limestone"
+  },
+  "result": {
+    "count": 1,
+    "id": "koppenclimatemod:cobbled_white_limestone_wall"
+  }
+}

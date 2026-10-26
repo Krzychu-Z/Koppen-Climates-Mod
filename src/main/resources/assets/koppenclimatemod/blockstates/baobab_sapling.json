@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "stage=0": {
+      "model": "koppenclimatemod:block/baobab_sapling"
+    },
+    "stage=1": {
+      "model": "koppenclimatemod:block/baobab_sapling"
+    }
+  }
+}

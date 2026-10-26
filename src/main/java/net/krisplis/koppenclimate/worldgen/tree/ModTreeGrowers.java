@@ -29,6 +29,26 @@ public class ModTreeGrowers {
     public static final TreeGrower BANANA = new TreeGrower(KoppenClimateMod.MOD_ID + ":banana",
             Optional.empty(), Optional.of(BANANA_KEY), Optional.empty());
 
+    // the baobab, from a single sapling
+    public static final ResourceKey<ConfiguredFeature<?, ?>> BAOBAB_KEY = key("baobab");
+
+    public static final TreeGrower BAOBAB = new TreeGrower(KoppenClimateMod.MOD_ID + ":baobab",
+            Optional.empty(), Optional.of(BAOBAB_KEY), Optional.empty());
+
+    // the Mediterranean trees. The Italian pine grows one of two shapes: mostly the tall umbrella, sometimes the
+    // broad forked one
+    public static final ResourceKey<ConfiguredFeature<?, ?>> OLIVE_KEY = key("olive");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> ITALIAN_PINE_KEY = key("italian_pine_umbrella");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> ITALIAN_PINE_WIDE_KEY = key("italian_pine_wide");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> CYPRESS_KEY = key("cypress");
+
+    public static final TreeGrower OLIVE = new TreeGrower(KoppenClimateMod.MOD_ID + ":olive",
+            Optional.empty(), Optional.of(OLIVE_KEY), Optional.empty());
+    public static final TreeGrower ITALIAN_PINE = new TreeGrower(KoppenClimateMod.MOD_ID + ":italian_pine", 0.35F,
+            Optional.empty(), Optional.empty(), Optional.of(ITALIAN_PINE_KEY), Optional.of(ITALIAN_PINE_WIDE_KEY), Optional.empty(), Optional.empty());
+    public static final TreeGrower CYPRESS = new TreeGrower(KoppenClimateMod.MOD_ID + ":cypress",
+            Optional.empty(), Optional.of(CYPRESS_KEY), Optional.empty());
+
     private static ResourceKey<ConfiguredFeature<?, ?>> key(String name) {
         return ResourceKey.create(Registries.CONFIGURED_FEATURE, ResourceLocation.fromNamespaceAndPath(KoppenClimateMod.MOD_ID, name));
     }

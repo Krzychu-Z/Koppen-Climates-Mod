@@ -2,6 +2,9 @@
   "replace": false,
   "values": [
     "#koppenclimatemod:coconut_palm_logs",
-    "#koppenclimatemod:mahogany_logs"
+    "#koppenclimatemod:mahogany_logs",
+    "#koppenclimatemod:baobab_logs",
+    "#koppenclimatemod:olive_logs",
+    "#koppenclimatemod:italian_pine_logs"
   ]
 }

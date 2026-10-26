@@ -9,7 +9,7 @@
   ],
   "spawners": {
     "type": "koppenclimatemod:crocodile",
-    "weight": 3,
+    "weight": 12,
     "minCount": 1,
     "maxCount": 2
   }

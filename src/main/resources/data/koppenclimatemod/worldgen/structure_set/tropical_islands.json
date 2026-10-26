@@ -1,0 +1,14 @@
+{
+  "structures": [
+    {
+      "structure": "koppenclimatemod:tropical_island",
+      "weight": 1
+    }
+  ],
+  "placement": {
+    "type": "minecraft:random_spread",
+    "spacing": 4,
+    "separation": 0,
+    "salt": 72913455
+  }
+}

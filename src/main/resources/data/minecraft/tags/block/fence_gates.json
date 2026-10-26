@@ -1,0 +1,10 @@
+{
+  "replace": false,
+  "values": [
+    "koppenclimatemod:mahogany_fence_gate",
+    "koppenclimatemod:coconut_palm_fence_gate",
+    "koppenclimatemod:baobab_fence_gate",
+    "koppenclimatemod:olive_fence_gate",
+    "koppenclimatemod:italian_pine_fence_gate"
+  ]
+}

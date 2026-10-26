@@ -1,7 +1,7 @@
 {
   "type": "koppenclimatemod:biome_surface",
   "config": {
-    "biome": "koppenclimatemod:amazon_jungle",
+    "biome": "koppenclimatemod:amazon_jungle_af",
     "style": "jungle"
   }
 }

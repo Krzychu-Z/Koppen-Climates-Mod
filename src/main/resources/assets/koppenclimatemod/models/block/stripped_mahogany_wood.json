@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column",
+  "textures": {
+    "end": "koppenclimatemod:block/stripped_mahogany_log",
+    "side": "koppenclimatemod:block/stripped_mahogany_log"
+  }
+}

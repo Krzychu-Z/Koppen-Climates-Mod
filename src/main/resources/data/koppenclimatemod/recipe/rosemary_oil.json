@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "koppenclimatemod:rosemary_sprig"
+    },
+    {
+      "item": "koppenclimatemod:rosemary_sprig"
+    },
+    {
+      "item": "koppenclimatemod:rosemary_sprig"
+    },
+    {
+      "item": "minecraft:glass_bottle"
+    }
+  ],
+  "result": {
+    "id": "koppenclimatemod:rosemary_oil",
+    "count": 1
+  }
+}

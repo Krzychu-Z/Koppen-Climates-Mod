@@ -121,6 +121,9 @@ public class CrocodileEntity extends PathfinderMob {
         this.targetSelector.addGoal(1, new HurtByTargetGoal(this));
         this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, Player.class, 10, true, false,
                 p -> p.distanceTo(this) < AMBUSH_RANGE));
+        // villagers are ambushed just like players
+        this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, net.minecraft.world.entity.npc.AbstractVillager.class,
+                HUNT_INTERVAL, true, false, v -> v.distanceTo(this) < AMBUSH_RANGE));
         for (Class<? extends Mob> prey : java.util.List.of(Pig.class, Sheep.class, Chicken.class, Rabbit.class, Frog.class)) {
             this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, prey, HUNT_INTERVAL, true, false, null));
         }

@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "pattern": [
+    "##",
+    "##"
+  ],
+  "key": {
+    "#": {
+      "item": "koppenclimatemod:white_limestone"
+    }
+  },
+  "result": {
+    "count": 4,
+    "id": "koppenclimatemod:cut_white_limestone"
+  }
+}

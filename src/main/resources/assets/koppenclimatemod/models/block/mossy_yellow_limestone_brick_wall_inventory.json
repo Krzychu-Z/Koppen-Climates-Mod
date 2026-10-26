@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/wall_inventory",
+  "textures": {
+    "wall": "koppenclimatemod:block/mossy_yellow_limestone_bricks"
+  }
+}

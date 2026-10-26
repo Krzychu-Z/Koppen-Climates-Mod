@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
-    "koppenclimatemod:yellow_limestone"
+    "koppenclimatemod:yellow_limestone",
+    "koppenclimatemod:white_limestone"
   ]
 }

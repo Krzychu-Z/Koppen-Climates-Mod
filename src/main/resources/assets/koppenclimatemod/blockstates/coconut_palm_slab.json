@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "koppenclimatemod:block/coconut_palm_slab"
+    },
+    "type=double": {
+      "model": "koppenclimatemod:block/coconut_palm_planks"
+    },
+    "type=top": {
+      "model": "koppenclimatemod:block/coconut_palm_slab_top"
+    }
+  }
+}

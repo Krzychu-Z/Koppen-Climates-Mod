@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "snowy=false": {
+      "model": "koppenclimatemod:block/cinnamon_grass_block"
+    },
+    "snowy=true": {
+      "model": "koppenclimatemod:block/cinnamon_grass_block"
+    }
+  }
+}

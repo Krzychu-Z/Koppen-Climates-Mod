@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/slab",
+  "textures": {
+    "bottom": "koppenclimatemod:block/cut_white_limestone",
+    "side": "koppenclimatemod:block/cut_white_limestone",
+    "top": "koppenclimatemod:block/cut_white_limestone"
+  }
+}

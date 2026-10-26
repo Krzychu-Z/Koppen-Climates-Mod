@@ -27,9 +27,16 @@ import net.minecraft.world.level.levelgen.feature.configurations.FeatureConfigur
 //   jungle: grass -> oxisol grass, dirt -> oxisol, with patches of podzol
 //   river:  a riverbed and banks of dirt, podzol and oxisol, never sand
 //   beach:  every soil and sand block in the top layer -> white sand
-// and in all three, stone in the top LIMESTONE_DEPTH blocks becomes yellow limestone.
+//   savanna: grass -> savanna (yellow) oxisol grass, dirt -> oxisol
+//   mediterranean: grass -> cinnamon grass, dirt -> cinnamon dirt (terra rossa), and bare white rock wherever the
+//                  hillside is steep and in scattered outcrops, like the karst of the Dalmatian coast
+//   mediterranean_beach: a shore of white gravel only, above and below the water
+// and in all of them, stone in the top LIMESTONE_DEPTH blocks becomes limestone: yellow in the tropics, white in
+// the Mediterranean.
 public class BiomeSurfaceFeature extends Feature<BiomeSurfaceFeature.Config> {
     private static final int LIMESTONE_DEPTH = 15;
+    // savanna water this shallow (or shallower) is filled in
+    private static final int SAVANNA_FILL_DEPTH = 12;
     // how far down soil and sand are rewritten below the surface
     private static final int SOIL_DEPTH = 5;
     // the beach's white sand layer, from the surface down
@@ -40,7 +47,12 @@ public class BiomeSurfaceFeature extends Feature<BiomeSurfaceFeature.Config> {
     }
 
     public enum Style implements StringRepresentable {
-        JUNGLE("jungle"), RIVER("river"), BEACH("beach");
+        JUNGLE("jungle"), RIVER("river"), BEACH("beach"), SAVANNA("savanna"),
+        MEDITERRANEAN("mediterranean"), MEDITERRANEAN_BEACH("mediterranean_beach");
+
+        boolean mediterranean() {
+            return this == MEDITERRANEAN || this == MEDITERRANEAN_BEACH;
+        }
 
         public static final Codec<Style> CODEC = StringRepresentable.fromEnum(Style::values);
         private final String name;
@@ -80,12 +92,36 @@ public class BiomeSurfaceFeature extends Feature<BiomeSurfaceFeature.Config> {
                 if (!level.getBiome(pos).is(config.biome())) continue;
 
                 boolean underwater = level.getFluidState(pos.above()).is(FluidTags.WATER);
+                if (config.style() == Style.SAVANNA && underwater) {
+                    // the dry savanna keeps no ponds or inlets of its own: its shallow water is filled in level with
+                    // the water's surface, so its shores run straight along the edge of the sea and the rivers
+                    int surface = level.getHeight(Heightmap.Types.WORLD_SURFACE_WG, x, z) - 1;
+                    if (surface - top <= SAVANNA_FILL_DEPTH) {
+                        for (int y = top + 1; y <= surface; y++) {
+                            pos.set(x, y, z);
+                            if (!level.getFluidState(pos).isEmpty() || level.getBlockState(pos).canBeReplaced()) {
+                                level.setBlock(pos, (y == surface ? ModBlocks.SAVANNA_OXISOL_GRASS : ModBlocks.OXISOL).get().defaultBlockState(),
+                                        Block.UPDATE_CLIENTS);
+                            }
+                        }
+                        top = surface;
+                        underwater = false;
+                        changed = true;
+                    }
+                }
+                // on a steep Mediterranean hillside (or in a scattered outcrop) the white rock shows through
+                boolean bareRock = config.style() == Style.MEDITERRANEAN && !underwater
+                        && (steep(level, x, z, top) || patch(x, z, 9));
+                BlockState rock = (config.style().mediterranean() ? ModBlocks.WHITE_LIMESTONE : ModBlocks.YELLOW_LIMESTONE).get().defaultBlockState();
                 for (int depth = 0; depth <= LIMESTONE_DEPTH; depth++) {
                     pos.set(x, top - depth, z);
                     BlockState state = level.getBlockState(pos);
                     BlockState replacement = depth <= SOIL_DEPTH ? soil(config.style(), state, depth, underwater, x, z) : null;
+                    if (bareRock && depth <= 2 && (state.is(BlockTags.DIRT) || state.is(Blocks.STONE))) {
+                        replacement = rock;
+                    }
                     if (replacement == null && state.is(Blocks.STONE)) {
-                        replacement = ModBlocks.YELLOW_LIMESTONE.get().defaultBlockState();
+                        replacement = rock;
                     }
                     if (replacement != null && replacement != state) {
                         level.setBlock(pos, replacement, Block.UPDATE_CLIENTS);
@@ -122,15 +158,50 @@ public class BiomeSurfaceFeature extends Feature<BiomeSurfaceFeature.Config> {
                 }
                 yield ModBlocks.OXISOL.get().defaultBlockState();
             }
+            case SAVANNA -> {
+                // the dry savanna: yellow-grassed oxisol, and oxisol in place of every dirt
+                if (depth == 0 && state.is(Blocks.GRASS_BLOCK)) yield ModBlocks.SAVANNA_OXISOL_GRASS.get().defaultBlockState();
+                if (state.is(Blocks.DIRT) || state.is(Blocks.COARSE_DIRT) || state.is(Blocks.ROOTED_DIRT)) {
+                    yield ModBlocks.OXISOL.get().defaultBlockState();
+                }
+                yield null;
+            }
+            case MEDITERRANEAN -> {
+                // terra rossa under olive-green grass
+                if (depth == 0 && state.is(Blocks.GRASS_BLOCK)) yield ModBlocks.CINNAMON_GRASS_BLOCK.get().defaultBlockState();
+                if (state.is(Blocks.DIRT) || state.is(Blocks.COARSE_DIRT) || state.is(Blocks.ROOTED_DIRT) || state.is(Blocks.PODZOL)) {
+                    yield ModBlocks.CINNAMON_DIRT.get().defaultBlockState();
+                }
+                yield null;
+            }
+            case MEDITERRANEAN_BEACH -> {
+                // nothing but white gravel on the shore and the sea floor beside it
+                boolean loose = state.is(BlockTags.SAND) || state.is(BlockTags.DIRT) || state.is(Blocks.GRAVEL)
+                        || state.is(Blocks.SANDSTONE) || state.is(Blocks.CLAY) || state.is(Blocks.STONE);
+                if (depth <= BEACH_SAND_DEPTH && loose) yield ModBlocks.WHITE_GRAVEL.get().defaultBlockState();
+                if (state.is(BlockTags.DIRT)) yield ModBlocks.CINNAMON_DIRT.get().defaultBlockState();
+                yield null;
+            }
             case BEACH -> {
                 // vanilla's surface rules only make sand for minecraft:beach itself, so this biome comes out
                 // grassy: turn every soil and sand block near the surface into white sand
                 boolean soilOrSand = state.is(BlockTags.SAND) || state.is(BlockTags.DIRT) || state.is(Blocks.GRAVEL)
                         || state.is(Blocks.SANDSTONE) || state.is(Blocks.CLAY);
                 if (depth <= BEACH_SAND_DEPTH && soilOrSand) yield ModBlocks.WHITE_SAND.get().defaultBlockState();
+                // any soil left deeper down is oxisol, never ordinary dirt or grass
+                if (state.is(BlockTags.DIRT)) yield ModBlocks.OXISOL.get().defaultBlockState();
                 yield null;
             }
         };
+    }
+
+    // the ground drops or climbs 3 or more blocks to a neighbouring column
+    private static boolean steep(WorldGenLevel level, int x, int z, int top) {
+        for (int[] d : new int[][]{{1, 0}, {-1, 0}, {0, 1}, {0, -1}}) {
+            int h = level.getHeight(Heightmap.Types.OCEAN_FLOOR_WG, x + d[0], z + d[1]) - 1;
+            if (Math.abs(h - top) >= 3) return true;
+        }
+        return false;
     }
 
     // Blotchy patches about 4 blocks across: true for roughly 1 in `oneIn` of them

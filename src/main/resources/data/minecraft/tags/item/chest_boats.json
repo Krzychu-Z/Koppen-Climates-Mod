@@ -1,0 +1,10 @@
+{
+  "replace": false,
+  "values": [
+    "koppenclimatemod:mahogany_chest_boat",
+    "koppenclimatemod:coconut_palm_chest_boat",
+    "koppenclimatemod:baobab_chest_boat",
+    "koppenclimatemod:olive_chest_boat",
+    "koppenclimatemod:italian_pine_chest_boat"
+  ]
+}

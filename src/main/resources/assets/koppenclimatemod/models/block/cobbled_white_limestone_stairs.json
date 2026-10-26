@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/stairs",
+  "textures": {
+    "bottom": "koppenclimatemod:block/cobbled_white_limestone",
+    "side": "koppenclimatemod:block/cobbled_white_limestone",
+    "top": "koppenclimatemod:block/cobbled_white_limestone"
+  }
+}

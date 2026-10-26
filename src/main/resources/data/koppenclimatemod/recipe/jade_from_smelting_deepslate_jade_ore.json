@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:smelting",
+  "category": "misc",
+  "group": "jade",
+  "ingredient": {
+    "item": "koppenclimatemod:deepslate_jade_ore"
+  },
+  "result": {
+    "id": "koppenclimatemod:jade",
+    "count": 1
+  },
+  "experience": 1.0,
+  "cookingtime": 200
+}

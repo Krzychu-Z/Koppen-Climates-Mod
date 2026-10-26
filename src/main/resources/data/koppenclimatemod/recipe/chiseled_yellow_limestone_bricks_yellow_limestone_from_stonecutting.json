@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+    "item": "koppenclimatemod:yellow_limestone"
+  },
+  "result": {
+    "count": 1,
+    "id": "koppenclimatemod:chiseled_yellow_limestone_bricks"
+  }
+}

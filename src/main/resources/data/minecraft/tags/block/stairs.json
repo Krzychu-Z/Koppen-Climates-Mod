@@ -1,0 +1,15 @@
+{
+  "replace": false,
+  "values": [
+    "koppenclimatemod:yellow_limestone_stairs",
+    "koppenclimatemod:cobbled_yellow_limestone_stairs",
+    "koppenclimatemod:mossy_cobbled_yellow_limestone_stairs",
+    "koppenclimatemod:yellow_limestone_brick_stairs",
+    "koppenclimatemod:mossy_yellow_limestone_brick_stairs",
+    "koppenclimatemod:white_limestone_stairs",
+    "koppenclimatemod:cobbled_white_limestone_stairs",
+    "koppenclimatemod:mossy_cobbled_white_limestone_stairs",
+    "koppenclimatemod:white_limestone_brick_stairs",
+    "koppenclimatemod:mossy_white_limestone_brick_stairs"
+  ]
+}

@@ -10,15 +10,21 @@
             "type": "minecraft:multi_noise",
             "preset": "minecraft:overworld"
           },
-          "jungle": "koppenclimatemod:amazon_jungle",
-          "river": "koppenclimatemod:amazon_jungle_river",
-          "beach": "koppenclimatemod:jungle_beach",
+          "jungle": "koppenclimatemod:amazon_jungle_af",
+          "monsoon": "koppenclimatemod:tropical_monsoon_aw",
+          "rice_terraces": "koppenclimatemod:rice_terraces_aw",
+          "river": "koppenclimatemod:amazon_jungle_river_af",
+          "beach": "koppenclimatemod:tropical_beach_af",
           "underground": "minecraft:lush_caves",
-          "warm_land": "minecraft:sparse_jungle",
+          "warm_land": "koppenclimatemod:tropical_monsoon_aw",
           "warm_swamp": "minecraft:mangrove_swamp",
-          "warm_ocean": "minecraft:warm_ocean"
+          "warm_ocean": "minecraft:warm_ocean",
+          "island_summit": "minecraft:plains",
+          "savanna": "koppenclimatemod:african_savanna_as",
+          "mediterranean": "koppenclimatemod:mediterranean_csa",
+          "mediterranean_beach": "koppenclimatemod:mediterranean_beach_csa"
         },
-        "settings": "minecraft:overworld"
+        "settings": "koppenclimatemod:overworld"
       }
     },
     "minecraft:the_end": {

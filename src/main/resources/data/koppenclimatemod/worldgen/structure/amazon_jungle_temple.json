@@ -1,0 +1,6 @@
+{
+  "type": "koppenclimatemod:amazon_jungle_temple",
+  "biomes": "#koppenclimatemod:tropical_forests",
+  "step": "surface_structures",
+  "spawn_overrides": {}
+}

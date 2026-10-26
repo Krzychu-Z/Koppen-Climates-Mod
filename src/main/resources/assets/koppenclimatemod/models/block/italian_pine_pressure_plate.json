@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/pressure_plate_up",
+  "textures": {
+    "texture": "koppenclimatemod:block/italian_pine_planks"
+  }
+}

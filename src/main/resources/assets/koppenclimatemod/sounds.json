@@ -1,187 +1,120 @@
 {
-  "ambient.rainforest.loop": {
+  "ambient.amazon.day": {
     "sounds": [
       {
-        "name": "minecraft:mob/bee/loop1",
-        "volume": 0.08,
-        "pitch": 1.8
+        "name": "koppenclimatemod:ambience/jungle_day",
+        "volume": 0.3,
+        "stream": true
       }
     ]
   },
-  "ambient.rainforest.additions": {
+  "ambient.amazon.night": {
     "sounds": [
       {
-        "name": "minecraft:mob/parrot/idle1",
-        "volume": 0.7,
-        "pitch": 1.0
-      },
-      {
-        "name": "minecraft:mob/parrot/idle1",
-        "volume": 0.5,
-        "pitch": 1.25
-      },
-      {
-        "name": "minecraft:mob/parrot/idle2",
-        "volume": 0.7,
-        "pitch": 1.0
-      },
-      {
-        "name": "minecraft:mob/parrot/idle2",
-        "volume": 0.5,
-        "pitch": 1.25
-      },
-      {
-        "name": "minecraft:mob/parrot/idle3",
-        "volume": 0.7,
-        "pitch": 1.0
-      },
-      {
-        "name": "minecraft:mob/parrot/idle3",
-        "volume": 0.5,
-        "pitch": 1.25
-      },
-      {
-        "name": "minecraft:mob/parrot/idle4",
-        "volume": 0.7,
-        "pitch": 1.0
-      },
-      {
-        "name": "minecraft:mob/parrot/idle4",
-        "volume": 0.5,
-        "pitch": 1.25
-      },
-      {
-        "name": "minecraft:mob/parrot/idle5",
-        "volume": 0.7,
-        "pitch": 1.0
-      },
-      {
-        "name": "minecraft:mob/parrot/idle5",
-        "volume": 0.5,
-        "pitch": 1.25
-      },
-      {
-        "name": "minecraft:mob/parrot/idle6",
-        "volume": 0.7,
-        "pitch": 1.0
-      },
-      {
-        "name": "minecraft:mob/parrot/idle6",
-        "volume": 0.5,
-        "pitch": 1.25
-      },
-      {
-        "name": "minecraft:mob/frog/idle1",
-        "volume": 0.6,
-        "pitch": 0.9
-      },
-      {
-        "name": "minecraft:mob/frog/idle2",
-        "volume": 0.6,
-        "pitch": 0.9
-      },
-      {
-        "name": "minecraft:mob/frog/idle3",
-        "volume": 0.6,
-        "pitch": 0.9
-      },
-      {
-        "name": "minecraft:mob/frog/idle4",
-        "volume": 0.6,
-        "pitch": 0.9
-      },
-      {
-        "name": "minecraft:mob/frog/idle5",
-        "volume": 0.6,
-        "pitch": 0.9
-      },
-      {
-        "name": "minecraft:mob/frog/idle6",
-        "volume": 0.6,
-        "pitch": 0.9
-      },
-      {
-        "name": "minecraft:mob/frog/idle7",
-        "volume": 0.6,
-        "pitch": 0.9
-      },
-      {
-        "name": "minecraft:mob/frog/idle8",
-        "volume": 0.6,
-        "pitch": 0.9
+        "name": "koppenclimatemod:ambience/jungle_night",
+        "volume": 0.3,
+        "stream": true
       }
     ]
   },
-  "ambient.jungle_beach.loop": {
+  "ambient.jungle_beach.day": {
     "sounds": [
       {
-        "name": "minecraft:item/elytra/elytra_loop",
-        "volume": 0.18,
-        "pitch": 0.55
+        "name": "koppenclimatemod:ambience/beach_day",
+        "volume": 0.3,
+        "stream": true
       }
     ]
   },
-  "ambient.jungle_beach.additions": {
+  "ambient.jungle_beach.night": {
     "sounds": [
       {
-        "name": "minecraft:mob/parrot/idle1",
-        "volume": 0.315,
-        "pitch": 1.0
+        "name": "koppenclimatemod:ambience/beach_night",
+        "volume": 0.3,
+        "stream": true
+      }
+    ]
+  },
+  "ambient.african_savanna.day": {
+    "sounds": [
+      {
+        "name": "koppenclimatemod:ambience/savanna_day",
+        "volume": 0.6,
+        "stream": true
+      }
+    ]
+  },
+  "ambient.african_savanna.night": {
+    "sounds": [
+      {
+        "name": "koppenclimatemod:ambience/savanna_night",
+        "volume": 0.6,
+        "stream": true
+      }
+    ]
+  },
+  "entity.elephant.trumpet": {
+    "subtitle": "subtitles.koppenclimatemod.elephant",
+    "sounds": [
+      {
+        "name": "koppenclimatemod:entity/elephant_trumpet"
+      }
+    ]
+  },
+  "entity.lion.roar": {
+    "subtitle": "subtitles.koppenclimatemod.lion",
+    "sounds": [
+      {
+        "name": "koppenclimatemod:entity/lion_roar1"
       },
       {
-        "name": "minecraft:mob/parrot/idle1",
-        "volume": 0.225,
-        "pitch": 1.25
+        "name": "koppenclimatemod:entity/lion_roar2"
+      }
+    ]
+  },
+  "entity.lion.hurt": {
+    "subtitle": "subtitles.koppenclimatemod.lion_hurt",
+    "sounds": [
+      {
+        "name": "koppenclimatemod:entity/lion_hurt1"
       },
       {
-        "name": "minecraft:mob/parrot/idle2",
-        "volume": 0.315,
-        "pitch": 1.0
-      },
+        "name": "koppenclimatemod:entity/lion_hurt2"
+      }
+    ]
+  },
+  "entity.lion.death": {
+    "subtitle": "subtitles.koppenclimatemod.lion_death",
+    "sounds": [
       {
-        "name": "minecraft:mob/parrot/idle2",
-        "volume": 0.225,
-        "pitch": 1.25
-      },
+        "name": "koppenclimatemod:entity/lion_death"
+      }
+    ]
+  },
+  "ambient.mediterranean.day": {
+    "sounds": [
       {
-        "name": "minecraft:mob/parrot/idle3",
-        "volume": 0.315,
-        "pitch": 1.0
-      },
+        "name": "koppenclimatemod:ambience/mediterranean_day",
+        "volume": 0.6,
+        "stream": true
+      }
+    ]
+  },
+  "ambient.mediterranean.night": {
+    "sounds": [
       {
-        "name": "minecraft:mob/parrot/idle3",
-        "volume": 0.225,
-        "pitch": 1.25
-      },
+        "name": "koppenclimatemod:ambience/mediterranean_night",
+        "volume": 0.6,
+        "stream": true
+      }
+    ]
+  },
+  "ambient.mediterranean.owl": {
+    "subtitle": "subtitles.koppenclimatemod.owl",
+    "sounds": [
       {
-        "name": "minecraft:mob/parrot/idle4",
-        "volume": 0.315,
-        "pitch": 1.0
-      },
-      {
-        "name": "minecraft:mob/parrot/idle4",
-        "volume": 0.225,
-        "pitch": 1.25
-      },
-      {
-        "name": "minecraft:mob/parrot/idle5",
-        "volume": 0.315,
-        "pitch": 1.0
-      },
-      {
-        "name": "minecraft:mob/parrot/idle5",
-        "volume": 0.225,
-        "pitch": 1.25
-      },
-      {
-        "name": "minecraft:mob/parrot/idle6",
-        "volume": 0.315,
-        "pitch": 1.0
-      },
-      {
-        "name": "minecraft:mob/parrot/idle6",
-        "volume": 0.225,
-        "pitch": 1.25
+        "name": "koppenclimatemod:entity/owl_hoot",
+        "volume": 0.8
       }
     ]
   }

@@ -1,0 +1,18 @@
+{
+  "structures": [
+    {
+      "structure": "koppenclimatemod:amazon_village",
+      "weight": 1
+    }
+  ],
+  "placement": {
+    "type": "minecraft:random_spread",
+    "spacing": 34,
+    "separation": 8,
+    "salt": 28461937,
+    "exclusion_zone": {
+      "other_set": "koppenclimatemod:amazon_jungle_temples",
+      "chunk_count": 4
+    }
+  }
+}

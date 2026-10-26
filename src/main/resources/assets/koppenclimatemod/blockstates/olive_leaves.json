@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "olives=false": {
+      "model": "koppenclimatemod:block/olive_leaves"
+    },
+    "olives=true": {
+      "model": "koppenclimatemod:block/olive_leaves_fruit"
+    }
+  }
+}

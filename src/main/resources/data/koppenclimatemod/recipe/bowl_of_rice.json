@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "koppenclimatemod:rice"
+    },
+    {
+      "item": "koppenclimatemod:rice"
+    },
+    {
+      "item": "koppenclimatemod:rice"
+    },
+    {
+      "item": "minecraft:bowl"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "koppenclimatemod:bowl_of_rice"
+  }
+}

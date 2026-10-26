@@ -1,0 +1,10 @@
+{
+  "replace": false,
+  "values": [
+    "koppenclimatemod:mahogany_slab",
+    "koppenclimatemod:coconut_palm_slab",
+    "koppenclimatemod:baobab_slab",
+    "koppenclimatemod:olive_slab",
+    "koppenclimatemod:italian_pine_slab"
+  ]
+}

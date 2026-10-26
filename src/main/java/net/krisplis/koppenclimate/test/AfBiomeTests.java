@@ -37,7 +37,7 @@ public class AfBiomeTests {
     @GameTest(template = TEMPLATE)
     public static void afBiomesAreRegistered(GameTestHelper helper) {
         var biomes = helper.getLevel().registryAccess().registryOrThrow(Registries.BIOME);
-        for (ResourceKey<Biome> key : java.util.List.of(ModBiomes.AMAZON_JUNGLE, ModBiomes.AMAZON_JUNGLE_RIVER, ModBiomes.JUNGLE_BEACH)) {
+        for (ResourceKey<Biome> key : java.util.List.of(ModBiomes.AMAZON_JUNGLE, ModBiomes.AMAZON_JUNGLE_RIVER, ModBiomes.TROPICAL_BEACH)) {
             helper.assertTrue(biomes.containsKey(key), key.location() + " is not registered");
             helper.assertTrue(biomes.getHolderOrThrow(key).is(ModBiomes.AF), key.location() + " is missing from the af biome tag");
         }

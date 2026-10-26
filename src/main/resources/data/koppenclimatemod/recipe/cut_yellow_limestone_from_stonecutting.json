@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+    "item": "koppenclimatemod:yellow_limestone"
+  },
+  "result": {
+    "count": 1,
+    "id": "koppenclimatemod:cut_yellow_limestone"
+  }
+}

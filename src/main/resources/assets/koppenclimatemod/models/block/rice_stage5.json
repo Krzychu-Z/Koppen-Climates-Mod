@@ -1,0 +1,6 @@
+{
+  "parent": "koppenclimatemod:block/rice_crop",
+  "textures": {
+    "crop": "koppenclimatemod:block/rice_stage5"
+  }
+}

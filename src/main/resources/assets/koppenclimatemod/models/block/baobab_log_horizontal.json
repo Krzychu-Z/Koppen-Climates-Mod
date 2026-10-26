@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column_horizontal",
+  "textures": {
+    "end": "koppenclimatemod:block/baobab_log_top",
+    "side": "koppenclimatemod:block/baobab_log"
+  }
+}

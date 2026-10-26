@@ -18,7 +18,9 @@ import net.minecraft.world.entity.PathfinderMob;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.util.Mth;
-import net.minecraft.world.entity.ai.goal.FloatGoal;
+import net.minecraft.world.entity.ai.control.SmoothSwimmingLookControl;
+import net.minecraft.world.entity.ai.goal.BreathAirGoal;
+import net.minecraft.world.entity.ai.goal.RandomSwimmingGoal;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
 import net.minecraft.world.entity.ai.goal.MeleeAttackGoal;
@@ -35,9 +37,17 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 
 import java.util.EnumSet;
+import net.krisplis.koppenclimate.entity.AnacondaPart;
+import net.minecraft.world.entity.MoverType;
+import net.minecraft.world.entity.ai.control.SmoothSwimmingMoveControl;
+import net.minecraft.world.entity.ai.navigation.AmphibiousPathNavigation;
+import net.minecraft.world.entity.ai.navigation.PathNavigation;
+import net.minecraft.world.level.pathfinder.PathType;
+import net.minecraft.world.phys.Vec3;
+import net.minecraftforge.entity.PartEntity;
 
 // A green anaconda: neutral to players (it fights back when hurt), hunts small animals,
-// and its bite constricts, slowing whatever it hits. It swims at the surface.
+// and its bite constricts, slowing whatever it hits. It swims fast underwater and comes up for air like a dolphin.
 // When idle it curls up in a coil to rest, like a sleeping fox: hitting it, prey to hunt,
 // or a player walking right up (not sneaking) wakes it.
 public class AnacondaEntity extends PathfinderMob {
@@ -56,13 +66,105 @@ public class AnacondaEntity extends PathfinderMob {
     // the model is about 5.5 blocks long but the hitbox is short, so widen the box used for culling
     private static final double MODEL_REACH = 3.5;
 
+    // swim speed and land speed, as multiples of MOVEMENT_SPEED: as quick in the water as crocodiles were
+    // before they were slowed down to a drift
+    private static final float SWIM_SPEED = 1.6F;
+    private static final float WALK_SPEED = 1.0F;
+    private static final int MAX_AIR = 4800;
+
+    // Extra hitboxes along the body, front to back, as blocks ahead of the middle (minus is behind).
+    // The main hitbox covers the middle; together they cover the snake from head to tail.
+    private static final float[] PART_OFFSETS = {2.1F, 1.2F, -1.2F, -2.1F};
+    private static final float PART_WIDTH = 1.0F;
+    private static final float PART_HEIGHT = 0.7F;
+    // coiled up, the snake is only about 1.5 blocks across, so the boxes pull in to the middle
+    private static final float COILED_PART_SPREAD = 0.3F;
+    private final AnacondaPart[] parts;
+
     public AnacondaEntity(EntityType<? extends PathfinderMob> type, Level level) {
         super(type, level);
+        this.moveControl = new SmoothSwimmingMoveControl(this, 85, 10, SWIM_SPEED, WALK_SPEED, true);
+        this.lookControl = new SmoothSwimmingLookControl(this, 20);
+        this.setPathfindingMalus(PathType.WATER, 0.0F);
+        this.parts = new AnacondaPart[PART_OFFSETS.length];
+        for (int i = 0; i < this.parts.length; i++) {
+            this.parts[i] = new AnacondaPart(this, PART_WIDTH, PART_HEIGHT);
+        }
+        // the parts take the ids right after the snake's, the way the ender dragon's do
+        this.setId(ENTITY_COUNTER.getAndAdd(this.parts.length + 1) + 1);
+    }
+
+    @Override
+    public void setId(int id) {
+        super.setId(id);
+        // the parts don't exist yet while the Entity constructor hands out the first id
+        if (this.parts != null) {
+            for (int i = 0; i < this.parts.length; i++) {
+                this.parts[i].setId(id + i + 1);
+            }
+        }
+    }
+
+    // it holds its breath for four minutes, like a dolphin, and fills its lungs at once at the surface
+    @Override
+    public int getMaxAirSupply() {
+        return MAX_AIR;
+    }
+
+    @Override
+    protected int increaseAirSupply(int currentAir) {
+        return this.getMaxAirSupply();
+    }
+
+    @Override
+    public boolean isPushedByFluid() {
+        return false;
+    }
+
+    @Override
+    public boolean isMultipartEntity() {
+        return true;
+    }
+
+    @Override
+    public PartEntity<?>[] getParts() {
+        return this.parts;
+    }
+
+    @Override
+    protected PathNavigation createNavigation(Level level) {
+        return new AmphibiousPathNavigation(this, level);
+    }
+
+    // In the water it swims freely, as fast as it likes; on land it slithers along normally
+    @Override
+    public void travel(Vec3 input) {
+        if (this.isControlledByLocalInstance() && this.isInWater()) {
+            this.moveRelative(this.getSpeed(), input);
+            this.move(MoverType.SELF, this.getDeltaMovement());
+            this.setDeltaMovement(this.getDeltaMovement().scale(0.9));
+            if (this.getTarget() == null) {
+                this.setDeltaMovement(this.getDeltaMovement().add(0.0, -0.005, 0.0));
+            }
+        } else {
+            super.travel(input);
+        }
+    }
+
+    /** Lays the extra hitboxes along the body, following the way it faces. */
+    private void updateParts() {
+        float yaw = this.yBodyRot * Mth.DEG_TO_RAD;
+        double forwardX = -Mth.sin(yaw), forwardZ = Mth.cos(yaw);
+        float spread = Mth.lerp(this.coilAmount, 1.0F, COILED_PART_SPREAD);
+        for (int i = 0; i < this.parts.length; i++) {
+            double offset = PART_OFFSETS[i] * spread;
+            this.parts[i].follow(this.getX() + forwardX * offset, this.getY(), this.getZ() + forwardZ * offset);
+        }
     }
 
     public static AttributeSupplier.Builder createAttributes() {
         return Mob.createMobAttributes()
-                .add(Attributes.MAX_HEALTH, 30.0)
+                .add(Attributes.MAX_HEALTH, 6.0)   // one blow of an iron (or better) sword or axe
                 .add(Attributes.MOVEMENT_SPEED, 0.22)
                 .add(Attributes.ATTACK_DAMAGE, 5.0)
                 .add(Attributes.FOLLOW_RANGE, 18.0)
@@ -104,6 +206,7 @@ public class AnacondaEntity extends PathfinderMob {
         super.tick();
         this.prevCoilAmount = this.coilAmount;
         this.coilAmount += ((this.isCoiled() ? 1.0F : 0.0F) - this.coilAmount) * COIL_BLEND_SPEED;
+        this.updateParts();
         // something to hunt or fight: uncoil
         if (!this.level().isClientSide && this.isCoiled() && this.getTarget() != null) {
             this.setCoiled(false);
@@ -120,9 +223,11 @@ public class AnacondaEntity extends PathfinderMob {
 
     @Override
     protected void registerGoals() {
-        this.goalSelector.addGoal(0, new FloatGoal(this));
+        // like a dolphin it swims underwater and comes up to the surface for air when it runs low
+        this.goalSelector.addGoal(0, new BreathAirGoal(this));
         this.goalSelector.addGoal(1, new MeleeAttackGoal(this, 1.3, false));
         this.goalSelector.addGoal(2, new CoilUpGoal(this));
+        this.goalSelector.addGoal(3, new RandomSwimmingGoal(this, 1.0, 40));
         this.goalSelector.addGoal(3, new RandomStrollGoal(this, 0.8));
         this.goalSelector.addGoal(4, new LookAtPlayerGoal(this, Player.class, 6.0F));
         this.goalSelector.addGoal(5, new RandomLookAroundGoal(this));
@@ -131,6 +236,9 @@ public class AnacondaEntity extends PathfinderMob {
         this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, Chicken.class, HUNT_INTERVAL, true, false, null));
         this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, Rabbit.class, HUNT_INTERVAL, true, false, null));
         this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, Frog.class, HUNT_INTERVAL, true, false, null));
+        // villagers (vanilla, Thai and Amazon) are prey too
+        this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, net.minecraft.world.entity.npc.AbstractVillager.class,
+                HUNT_INTERVAL, true, false, null));
     }
 
     @Override

@@ -1,6 +1,9 @@
 {
   "replace": false,
   "values": [
-    "koppenclimatemod:coconut_palm_log"
+    "koppenclimatemod:coconut_palm_log",
+    "koppenclimatemod:coconut_palm_wood",
+    "koppenclimatemod:stripped_coconut_palm_log",
+    "koppenclimatemod:stripped_coconut_palm_wood"
   ]
 }

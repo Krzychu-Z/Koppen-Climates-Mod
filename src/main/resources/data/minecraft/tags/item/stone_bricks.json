@@ -1,0 +1,13 @@
+{
+  "replace": false,
+  "values": [
+    "koppenclimatemod:yellow_limestone_bricks",
+    "koppenclimatemod:mossy_yellow_limestone_bricks",
+    "koppenclimatemod:cracked_yellow_limestone_bricks",
+    "koppenclimatemod:chiseled_yellow_limestone_bricks",
+    "koppenclimatemod:white_limestone_bricks",
+    "koppenclimatemod:mossy_white_limestone_bricks",
+    "koppenclimatemod:cracked_white_limestone_bricks",
+    "koppenclimatemod:chiseled_white_limestone_bricks"
+  ]
+}

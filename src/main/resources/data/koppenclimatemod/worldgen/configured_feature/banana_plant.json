@@ -37,7 +37,7 @@
     "dirt_provider": {
       "type": "minecraft:simple_state_provider",
       "state": {
-        "Name": "minecraft:dirt"
+        "Name": "koppenclimatemod:oxisol"
       }
     },
     "minimum_size": {
@@ -50,14 +50,10 @@
       {
         "type": "koppenclimatemod:hanging_fruit",
         "block": "koppenclimatemod:banana_bunch",
-        "probability": 0.9,
+        "probability": 1.0,
         "min_depth": 0,
-        "levels": 2,
-        "count": {
-          "type": "minecraft:uniform",
-          "min_inclusive": 1,
-          "max_inclusive": 2
-        }
+        "levels": 3,
+        "count": 4
       }
     ],
     "ignore_vines": true,

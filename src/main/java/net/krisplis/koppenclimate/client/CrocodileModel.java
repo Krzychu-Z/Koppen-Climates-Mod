@@ -24,8 +24,15 @@ public class CrocodileModel extends HierarchicalModel<CrocodileEntity> {
     private static final float LEG_SPLAY = 0.35F;
     // legs fold back along the body to swim
     private static final float SWIM_LEG_TUCK = 1.3F;
-    private static final float BASK_JAW_OPEN = 0.8F;
     private static final float BITE_JAW_OPEN = 0.9F;
+    // resting: the upper jaw (with the skull) gapes 45 degrees up while the lower jaw lies flat on the ground
+    private static final float BASK_GAPE = Mth.PI / 4.0F;
+    // resting: the belly drops onto the ground and the legs lie out flat to the sides
+    private static final float BASK_BODY_DROP = 4.0F;
+    private static final float BASK_LEG_LIFT = 1.5F;
+    // resting: the tail curls round towards the body, each segment bending a little more than the last
+    private static final float[] BASK_TAIL_CURL = {0.45F, 0.65F, 0.75F, 0.85F};
+    private static final float BASK_TAIL_DROP = 1.5F;
 
     private final ModelPart root;
     private final ModelPart body;
@@ -38,6 +45,8 @@ public class CrocodileModel extends HierarchicalModel<CrocodileEntity> {
     // set per frame in prepareMobModel
     private float bask;
     private float swim;
+    // which way this crocodile curls its tail when it rests
+    private float curlSide = 1.0F;
 
     public CrocodileModel(ModelPart root) {
         this.root = root;
@@ -107,12 +116,14 @@ public class CrocodileModel extends HierarchicalModel<CrocodileEntity> {
     public void prepareMobModel(CrocodileEntity entity, float limbSwing, float limbSwingAmount, float partialTick) {
         this.bask = entity.getBaskAmount(partialTick);
         this.swim = entity.isInWater() ? 1.0F : 0.0F;
+        this.curlSide = (entity.getId() & 1) == 0 ? 1.0F : -1.0F;
     }
 
     @Override
     public void setupAnim(CrocodileEntity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
         this.root().getAllParts().forEach(ModelPart::resetPose);
         float moving = Math.min(limbSwingAmount, 1.0F);
+        float bask = this.bask;
 
         // walking: diagonal pairs of legs step together, the body swaying a little with them
         float step = Mth.cos(limbSwing * 0.9F) * moving;
@@ -126,15 +137,49 @@ public class CrocodileModel extends HierarchicalModel<CrocodileEntity> {
         // the tail sweeps side to side, harder when it swims; a wave runs down it
         float amplitude = 0.08F + moving * 0.2F + this.swim * 0.25F;
         for (int i = 0; i < this.tail.length; i++) {
-            this.tail[i].yRot = amplitude * Mth.sin(ageInTicks * 0.1F + limbSwing * 0.6F - i * 0.8F);
+            float sway = amplitude * Mth.sin(ageInTicks * 0.1F + limbSwing * 0.6F - i * 0.8F);
+            // resting: curled round to one side, with only a faint twitch left in it
+            this.tail[i].yRot = Mth.lerp(bask, sway, this.curlSide * BASK_TAIL_CURL[i] + sway * 0.15F);
         }
 
-        this.head.yRot = netHeadYaw * Mth.DEG_TO_RAD * 0.3F;
-        this.head.xRot = headPitch * Mth.DEG_TO_RAD * 0.3F - this.bask * 0.15F;
-        // jaws: open wide while basking, snap during a bite (attackTime runs 0 -> 1)
+        // resting: belly on the ground, legs turned 90 degrees to lie flat out to the sides
+        this.body.y += BASK_BODY_DROP * bask;
+        this.tail[0].y += BASK_TAIL_DROP * bask;
+        ModelPart[] leftLegs = {this.frontLeftLeg, this.backLeftLeg};
+        ModelPart[] rightLegs = {this.frontRightLeg, this.backRightLeg};
+        for (ModelPart leg : leftLegs) {
+            leg.zRot = Mth.lerp(bask, -LEG_SPLAY, -Mth.HALF_PI);
+            leg.xRot = Mth.lerp(bask, leg.xRot, 0.0F);
+            leg.y -= BASK_LEG_LIFT * bask;
+        }
+        for (ModelPart leg : rightLegs) {
+            leg.zRot = Mth.lerp(bask, LEG_SPLAY, Mth.HALF_PI);
+            leg.xRot = Mth.lerp(bask, leg.xRot, 0.0F);
+            leg.y -= BASK_LEG_LIFT * bask;
+        }
+
+        // the head follows where it looks, but holds still while it rests
+        float lookYaw = netHeadYaw * Mth.DEG_TO_RAD * 0.3F;
+        float lookPitch = headPitch * Mth.DEG_TO_RAD * 0.3F;
+        // resting: the skull and upper jaw tip back 45 degrees from the ground
+        this.head.yRot = Mth.lerp(bask, lookYaw, 0.0F);
+        this.head.xRot = Mth.lerp(bask, lookPitch, -BASK_GAPE);
+
+        // a bite snaps the jaws (attackTime runs 0 -> 1)
         float bite = this.attackTime > 0.0F ? Mth.sin(this.attackTime * Mth.PI) * BITE_JAW_OPEN : 0.0F;
-        float open = Math.max(this.bask * BASK_JAW_OPEN, bite);
-        this.lowerJaw.xRot = open;
-        this.upperJaw.xRot = -open * 0.25F;
+        this.upperJaw.xRot = -bite * 0.25F;
+        // resting: the lower jaw counter-rotates so it stays level, and its hinge is moved back to where it
+        // was before the head tipped, so it keeps lying flat on the ground under the gaping upper jaw
+        float jawLevel = -this.head.xRot * bask;
+        this.lowerJaw.xRot = Math.max(bite, 0.0F) + jawLevel;
+        if (bask > 0.0F) {
+            float a = -this.head.xRot;
+            float cos = Mth.cos(a), sin = Mth.sin(a);
+            float y0 = this.lowerJaw.y, z0 = this.lowerJaw.z;
+            float y1 = y0 * cos - z0 * sin;
+            float z1 = y0 * sin + z0 * cos;
+            this.lowerJaw.y = Mth.lerp(bask, y0, y1);
+            this.lowerJaw.z = Mth.lerp(bask, z0, z1);
+        }
     }
 }

@@ -1,0 +1,10 @@
+{
+  "replace": false,
+  "values": [
+    "koppenclimatemod:mahogany_door",
+    "koppenclimatemod:coconut_palm_door",
+    "koppenclimatemod:baobab_door",
+    "koppenclimatemod:olive_door",
+    "koppenclimatemod:italian_pine_door"
+  ]
+}

@@ -56,6 +56,9 @@ public class BlackPantherEntity extends PathfinderMob {
         this.targetSelector.addGoal(1, new HurtByTargetGoal(this));
         this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, Player.class, 10, true, false,
                 p -> this.level().isNight()));
+        // villagers are stalked at any time of day
+        this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, net.minecraft.world.entity.npc.AbstractVillager.class,
+                HUNT_INTERVAL, true, false, null));
         this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, Pig.class, HUNT_INTERVAL, true, false, null));
         this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, Sheep.class, HUNT_INTERVAL, true, false, null));
         this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, Chicken.class, HUNT_INTERVAL, true, false, null));

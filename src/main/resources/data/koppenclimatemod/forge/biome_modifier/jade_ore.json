@@ -1,0 +1,9 @@
+{
+  "type": "forge:add_features",
+  "biomes": "#minecraft:is_overworld",
+  "features": [
+    "koppenclimatemod:ore_jade_small",
+    "koppenclimatemod:ore_jade_large"
+  ],
+  "step": "underground_ores"
+}

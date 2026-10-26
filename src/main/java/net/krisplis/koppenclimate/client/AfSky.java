@@ -43,11 +43,11 @@ public final class AfSky {
         Vec3 sky = CubicSampler.gaussianSampleVec3(pos.subtract(2.0, 2.0, 2.0).scale(0.25), (x, y, z) -> {
             Holder<Biome> biome = biomes.getNoiseBiomeAtQuart(x, y, z);
             Vec3 colour = Vec3.fromRGB24(biome.value().getSkyColor()).scale(daylight);
-            if (biome.is(ModBiomes.AMAZON_JUNGLE) || biome.is(ModBiomes.AMAZON_JUNGLE_RIVER)) {
+            if (ModBiomes.isRainforest(biome)) {
                 nearAf[0] = true;
                 return colour;
             }
-            if (biome.is(ModBiomes.JUNGLE_BEACH)) {
+            if (biome.is(ModBiomes.TROPICAL_BEACH)) {
                 nearAf[0] = true;
                 return colour.lerp(OVERCAST.scale(daylight), rain);
             }
@@ -86,8 +86,8 @@ public final class AfSky {
         if (camera.getFluidInCamera() != FogType.NONE || camera.getEntity() == null) return;
         Level level = camera.getEntity().level();
         Holder<Biome> biome = level.getBiome(camera.getBlockPosition());
-        boolean overcast = biome.is(ModBiomes.AMAZON_JUNGLE) || biome.is(ModBiomes.AMAZON_JUNGLE_RIVER);
-        boolean beach = biome.is(ModBiomes.JUNGLE_BEACH);
+        boolean overcast = ModBiomes.isRainforest(biome);
+        boolean beach = biome.is(ModBiomes.TROPICAL_BEACH);
         if (!overcast && !beach) return;
 
         float partialTick = (float) event.getPartialTick();

@@ -1,8 +1,8 @@
 {
   "replace": false,
   "values": [
-    "koppenclimatemod:amazon_jungle",
-    "koppenclimatemod:amazon_jungle_river",
-    "koppenclimatemod:jungle_beach"
+    "koppenclimatemod:amazon_jungle_af",
+    "koppenclimatemod:amazon_jungle_river_af",
+    "koppenclimatemod:tropical_beach_af"
   ]
 }

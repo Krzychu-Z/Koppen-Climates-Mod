@@ -3,6 +3,10 @@
   "values": [
     "koppenclimatemod:coconut_palm_sapling",
     "koppenclimatemod:mahogany_sapling",
-    "koppenclimatemod:banana_sapling"
+    "koppenclimatemod:banana_sapling",
+    "koppenclimatemod:baobab_sapling",
+    "koppenclimatemod:olive_sapling",
+    "koppenclimatemod:italian_pine_sapling",
+    "koppenclimatemod:cypress_sapling"
   ]
 }

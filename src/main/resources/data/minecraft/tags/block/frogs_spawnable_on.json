@@ -2,6 +2,7 @@
   "replace": false,
   "values": [
     "koppenclimatemod:oxisol_grass",
-    "minecraft:podzol"
+    "minecraft:podzol",
+    "koppenclimatemod:savanna_oxisol_grass"
   ]
 }

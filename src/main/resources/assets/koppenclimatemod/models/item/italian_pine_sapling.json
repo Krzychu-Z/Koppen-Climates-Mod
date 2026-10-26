@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "koppenclimatemod:block/italian_pine_sapling"
+  }
+}

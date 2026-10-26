@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+    "item": "koppenclimatemod:mossy_yellow_limestone_bricks"
+  },
+  "result": {
+    "count": 1,
+    "id": "koppenclimatemod:mossy_yellow_limestone_brick_stairs"
+  }
+}

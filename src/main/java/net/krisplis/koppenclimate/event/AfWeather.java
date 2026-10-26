@@ -29,7 +29,8 @@ public final class AfWeather {
         if (event.phase != TickEvent.Phase.END || !(event.level instanceof ServerLevel level)) return;
         if (level.dimension() != Level.OVERWORLD || level.getDayTime() % 24000L != SHOWER_TIME || level.isRaining()) return;
 
-        boolean someoneInAf = level.players().stream().anyMatch(p -> level.getBiome(p.blockPosition()).is(ModBiomes.AF));
+        boolean someoneInAf = level.players().stream().anyMatch(p -> level.getBiome(p.blockPosition()).is(ModBiomes.AF)
+                || ModBiomes.isMonsoon(level.getBiome(p.blockPosition())));
         if (!someoneInAf) return;
 
         RandomSource random = level.getRandom();

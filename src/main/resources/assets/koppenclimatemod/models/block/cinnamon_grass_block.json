@@ -1,0 +1,10 @@
+{
+  "parent": "minecraft:block/grass_block",
+  "textures": {
+    "particle": "koppenclimatemod:block/cinnamon_dirt",
+    "bottom": "koppenclimatemod:block/cinnamon_dirt",
+    "top": "minecraft:block/grass_block_top",
+    "side": "koppenclimatemod:block/cinnamon_grass_block_side",
+    "overlay": "minecraft:block/grass_block_side_overlay"
+  }
+}

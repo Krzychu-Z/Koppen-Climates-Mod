@@ -2,6 +2,8 @@
   "replace": false,
   "values": [
     "koppenclimatemod:mahogany_log",
-    "koppenclimatemod:mahogany_wood"
+    "koppenclimatemod:mahogany_wood",
+    "koppenclimatemod:stripped_mahogany_log",
+    "koppenclimatemod:stripped_mahogany_wood"
   ]
 }

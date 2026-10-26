@@ -1,0 +1,7 @@
+{
+  "type": "koppenclimatemod:thai_village",
+  "biomes": "#koppenclimatemod:thai_village_biomes",
+  "step": "surface_structures",
+  "terrain_adaptation": "none",
+  "spawn_overrides": {}
+}

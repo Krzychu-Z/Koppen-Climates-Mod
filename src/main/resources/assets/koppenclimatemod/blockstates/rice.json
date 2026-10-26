@@ -1,0 +1,28 @@
+{
+  "variants": {
+    "age=0": {
+      "model": "koppenclimatemod:block/rice_stage0"
+    },
+    "age=1": {
+      "model": "koppenclimatemod:block/rice_stage1"
+    },
+    "age=2": {
+      "model": "koppenclimatemod:block/rice_stage2"
+    },
+    "age=3": {
+      "model": "koppenclimatemod:block/rice_stage3"
+    },
+    "age=4": {
+      "model": "koppenclimatemod:block/rice_stage4"
+    },
+    "age=5": {
+      "model": "koppenclimatemod:block/rice_stage5"
+    },
+    "age=6": {
+      "model": "koppenclimatemod:block/rice_stage6"
+    },
+    "age=7": {
+      "model": "koppenclimatemod:block/rice_stage7"
+    }
+  }
+}

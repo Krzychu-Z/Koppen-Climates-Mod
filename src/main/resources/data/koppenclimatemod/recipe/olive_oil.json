@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "koppenclimatemod:olive"
+    },
+    {
+      "item": "koppenclimatemod:olive"
+    },
+    {
+      "item": "koppenclimatemod:olive"
+    },
+    {
+      "item": "minecraft:glass_bottle"
+    }
+  ],
+  "result": {
+    "id": "koppenclimatemod:olive_oil",
+    "count": 1
+  }
+}

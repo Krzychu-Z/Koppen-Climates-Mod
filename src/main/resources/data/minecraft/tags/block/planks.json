@@ -2,6 +2,9 @@
   "replace": false,
   "values": [
     "koppenclimatemod:coconut_palm_planks",
-    "koppenclimatemod:mahogany_planks"
+    "koppenclimatemod:mahogany_planks",
+    "koppenclimatemod:baobab_planks",
+    "koppenclimatemod:olive_planks",
+    "koppenclimatemod:italian_pine_planks"
   ]
 }

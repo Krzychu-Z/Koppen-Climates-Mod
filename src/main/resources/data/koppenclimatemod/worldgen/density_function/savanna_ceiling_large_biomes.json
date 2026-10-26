@@ -1,0 +1,31 @@
+{
+  "type": "minecraft:cache_2d",
+  "argument": {
+    "type": "koppenclimatemod:savanna_ceiling",
+    "continents": "minecraft:overworld_large_biomes/continents",
+    "temperature": {
+      "type": "minecraft:shifted_noise",
+      "noise": "minecraft:temperature_large",
+      "shift_x": "minecraft:shift_x",
+      "shift_y": 0.0,
+      "shift_z": "minecraft:shift_z",
+      "xz_scale": 0.25,
+      "y_scale": 0.0
+    },
+    "humidity": {
+      "type": "minecraft:shifted_noise",
+      "noise": "minecraft:vegetation_large",
+      "shift_x": "minecraft:shift_x",
+      "shift_y": 0.0,
+      "shift_z": "minecraft:shift_z",
+      "xz_scale": 0.25,
+      "y_scale": 0.0
+    },
+    "undulation": {
+      "type": "minecraft:noise",
+      "noise": "minecraft:surface",
+      "xz_scale": 0.4,
+      "y_scale": 0.0
+    }
+  }
+}

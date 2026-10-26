@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "koppenclimatemod:block/mossy_yellow_limestone_brick_slab"
+    },
+    "type=double": {
+      "model": "koppenclimatemod:block/mossy_yellow_limestone_bricks"
+    },
+    "type=top": {
+      "model": "koppenclimatemod:block/mossy_yellow_limestone_brick_slab_top"
+    }
+  }
+}

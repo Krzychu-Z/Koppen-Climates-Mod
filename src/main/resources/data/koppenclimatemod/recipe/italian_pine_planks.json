@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "group": "planks",
+  "ingredients": [
+    {
+      "tag": "koppenclimatemod:italian_pine_logs"
+    }
+  ],
+  "result": {
+    "count": 4,
+    "id": "koppenclimatemod:italian_pine_planks"
+  }
+}

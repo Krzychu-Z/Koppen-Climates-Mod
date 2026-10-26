@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "koppenclimatemod:block/mahogany_slab"
+    },
+    "type=double": {
+      "model": "koppenclimatemod:block/mahogany_planks"
+    },
+    "type=top": {
+      "model": "koppenclimatemod:block/mahogany_slab_top"
+    }
+  }
+}

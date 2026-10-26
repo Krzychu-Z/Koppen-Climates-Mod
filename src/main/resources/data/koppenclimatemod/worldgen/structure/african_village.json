@@ -1,0 +1,7 @@
+{
+  "type": "koppenclimatemod:african_village",
+  "biomes": "#koppenclimatemod:african_village_biomes",
+  "step": "top_layer_modification",
+  "terrain_adaptation": "beard_thin",
+  "spawn_overrides": {}
+}

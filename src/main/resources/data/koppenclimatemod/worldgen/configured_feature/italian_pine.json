@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:random_selector",
+  "config": {
+    "features": [
+      {
+        "chance": 0.35,
+        "feature": {
+          "feature": "koppenclimatemod:italian_pine_wide",
+          "placement": []
+        }
+      }
+    ],
+    "default": {
+      "feature": "koppenclimatemod:italian_pine_umbrella",
+      "placement": []
+    }
+  }
+}

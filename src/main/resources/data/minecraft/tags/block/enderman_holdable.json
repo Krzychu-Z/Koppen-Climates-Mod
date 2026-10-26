@@ -2,6 +2,10 @@
   "replace": false,
   "values": [
     "koppenclimatemod:oxisol",
-    "koppenclimatemod:oxisol_grass"
+    "koppenclimatemod:oxisol_grass",
+    "koppenclimatemod:savanna_oxisol_grass",
+    "koppenclimatemod:cinnamon_grass_block",
+    "koppenclimatemod:cinnamon_dirt",
+    "koppenclimatemod:white_gravel"
   ]
 }

@@ -3,8 +3,12 @@
   "minVersion": "0.8",
   "package": "net.krisplis.koppenclimate.mixin",
   "compatibilityLevel": "JAVA_21",
+  "mixins": [
+    "VillagerTradesMixin"
+  ],
   "client": [
-    "ClientLevelSkyMixin"
+    "ClientLevelSkyMixin",
+    "VillagerProfessionLayerMixin"
   ],
   "injectors": {
     "defaultRequire": 1

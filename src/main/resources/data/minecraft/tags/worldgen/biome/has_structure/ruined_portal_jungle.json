@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
-    "koppenclimatemod:amazon_jungle"
+    "koppenclimatemod:amazon_jungle_af",
+    "koppenclimatemod:tropical_monsoon_aw"
   ]
 }

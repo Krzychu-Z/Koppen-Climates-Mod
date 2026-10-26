@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "#": {
+      "item": "koppenclimatemod:mossy_cobbled_white_limestone"
+    }
+  },
+  "pattern": [
+    "###"
+  ],
+  "result": {
+    "count": 6,
+    "id": "koppenclimatemod:mossy_cobbled_white_limestone_slab"
+  }
+}

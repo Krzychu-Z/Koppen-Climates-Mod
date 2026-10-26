@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:smelting",
+  "category": "blocks",
+  "cookingtime": 200,
+  "experience": 0.1,
+  "ingredient": {
+    "item": "koppenclimatemod:cobbled_white_limestone"
+  },
+  "result": {
+    "id": "koppenclimatemod:white_limestone"
+  }
+}

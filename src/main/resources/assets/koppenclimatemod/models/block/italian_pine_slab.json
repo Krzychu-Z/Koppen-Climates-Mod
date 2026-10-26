@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/slab",
+  "textures": {
+    "bottom": "koppenclimatemod:block/italian_pine_planks",
+    "side": "koppenclimatemod:block/italian_pine_planks",
+    "top": "koppenclimatemod:block/italian_pine_planks"
+  }
+}

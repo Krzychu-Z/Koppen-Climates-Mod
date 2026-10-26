@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "half=lower": {
+      "model": "koppenclimatemod:block/tall_rosemary_bottom"
+    },
+    "half=upper": {
+      "model": "koppenclimatemod:block/tall_rosemary_top"
+    }
+  }
+}

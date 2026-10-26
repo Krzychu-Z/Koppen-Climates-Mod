@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "powered=false": {
+      "model": "koppenclimatemod:block/yellow_limestone_pressure_plate"
+    },
+    "powered=true": {
+      "model": "koppenclimatemod:block/yellow_limestone_pressure_plate_down"
+    }
+  }
+}

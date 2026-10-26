@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "rolls": 1.0,
+      "bonus_rolls": 0.0,
+      "conditions": [
+        {
+          "condition": "minecraft:survives_explosion"
+        }
+      ],
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "koppenclimatemod:cut_white_limestone"
+        }
+      ]
+    }
+  ],
+  "random_sequence": "koppenclimatemod:blocks/cut_white_limestone"
+}

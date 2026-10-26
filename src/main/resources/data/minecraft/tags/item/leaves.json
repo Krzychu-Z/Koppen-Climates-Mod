@@ -3,6 +3,10 @@
   "values": [
     "koppenclimatemod:coconut_palm_leaves",
     "koppenclimatemod:mahogany_leaves",
-    "koppenclimatemod:banana_leaves"
+    "koppenclimatemod:banana_leaves",
+    "koppenclimatemod:baobab_leaves",
+    "koppenclimatemod:olive_leaves",
+    "koppenclimatemod:italian_pine_leaves",
+    "koppenclimatemod:cypress_leaves"
   ]
 }

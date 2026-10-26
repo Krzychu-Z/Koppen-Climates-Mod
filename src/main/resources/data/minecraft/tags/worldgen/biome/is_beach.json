@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
-    "koppenclimatemod:jungle_beach"
+    "koppenclimatemod:tropical_beach_af",
+    "koppenclimatemod:mediterranean_beach_csa"
   ]
 }
