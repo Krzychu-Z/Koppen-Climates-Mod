@@ -60,6 +60,13 @@ public class TuscanVillageStructure extends Structure {
                     if (dx == 0 && dz == 0 || ++wet > 2) return Optional.empty();
                     continue;
                 }
+                // never up in the Mediterranean highland (Csb): no town on its mountains, not even at an edge
+                // (the biomes above were checked at about sea level, where the highland's mountains are still Csa)
+                if (surface >= net.krisplis.koppenclimate.worldgen.biome.KoppenBiomeSource.HIGHLAND_MIN_Y) return Optional.empty();
+                if (context.biomeSource().getNoiseBiome(QuartPos.fromBlock(x), QuartPos.fromBlock(surface), QuartPos.fromBlock(z),
+                        randomState.sampler()).is(net.krisplis.koppenclimate.worldgen.biome.ModBiomes.MEDITERRANEAN_HIGHLAND)) {
+                    return Optional.empty();
+                }
                 min = Math.min(min, surface);
                 max = Math.max(max, surface);
                 sum += surface;

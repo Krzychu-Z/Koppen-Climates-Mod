@@ -234,6 +234,19 @@ public class CobraEntity extends PathfinderMob {
         }
     }
 
+    /** The warning it gives a threat, and how often. */
+    protected SoundEvent warningSound() {
+        return SoundEvents.CAT_HISS;
+    }
+
+    protected float warningPitch() {
+        return 0.6F;
+    }
+
+    protected int warningInterval() {
+        return 30;
+    }
+
     boolean canSpit() {
         return this.spitCooldown == 0;
     }
@@ -323,7 +336,7 @@ public class CobraEntity extends PathfinderMob {
             this.warnTicks = 0;
             this.cobra.getNavigation().stop();
             this.cobra.setRearing(true);
-            this.cobra.playSound(SoundEvents.CAT_HISS, 1.0F, 0.6F);
+            this.cobra.playSound(this.cobra.warningSound(), 1.0F, this.cobra.warningPitch());
         }
 
         @Override
@@ -344,8 +357,8 @@ public class CobraEntity extends PathfinderMob {
             this.cobra.getNavigation().stop();
             this.cobra.getLookControl().setLookAt(threat, 30.0F, 30.0F);
             this.warnTicks++;
-            if (this.warnTicks % 30 == 0) {
-                this.cobra.playSound(SoundEvents.CAT_HISS, 1.0F, 0.6F);
+            if (this.warnTicks % this.cobra.warningInterval() == 0) {
+                this.cobra.playSound(this.cobra.warningSound(), 1.0F, this.cobra.warningPitch());
             }
             double distance = Math.sqrt(this.cobra.distanceToSqr(threat));
             // came closer than it allows, or wouldn't leave: strike

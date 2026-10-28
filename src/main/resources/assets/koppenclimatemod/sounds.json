@@ -135,5 +135,33 @@
         "stream": true
       }
     ]
+  },
+  "ambient.hot_desert.wind": {
+    "sounds": [
+      {
+        "name": "koppenclimatemod:ambience/hot_desert_wind",
+        "volume": 0.3,
+        "stream": true
+      }
+    ]
+  },
+  "entity.eagle.cry": {
+    "subtitle": "subtitles.koppenclimatemod.eagle",
+    "sounds": [
+      {
+        "name": "koppenclimatemod:entity/eagle_cry",
+        "volume": 1.0,
+        "attenuation_distance": 64
+      }
+    ]
+  },
+  "entity.rattlesnake.rattle": {
+    "subtitle": "subtitles.koppenclimatemod.rattle",
+    "sounds": [
+      {
+        "name": "koppenclimatemod:entity/rattlesnake_rattle",
+        "volume": 1.0
+      }
+    ]
   }
 }

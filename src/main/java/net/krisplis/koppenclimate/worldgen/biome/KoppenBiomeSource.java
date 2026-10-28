@@ -47,7 +47,8 @@ public class KoppenBiomeSource extends BiomeSource {
             Biome.CODEC.optionalFieldOf("savanna").forGetter(s -> s.savanna),
             Biome.CODEC.optionalFieldOf("mediterranean").forGetter(s -> s.mediterranean),
             Biome.CODEC.optionalFieldOf("mediterranean_beach").forGetter(s -> s.mediterraneanBeach),
-            CsaBiomes.CODEC.optionalFieldOf("mediterranean_zones").forGetter(s -> s.csa)
+            CsaBiomes.CODEC.optionalFieldOf("mediterranean_zones").forGetter(s -> s.csa),
+            DesertBiomes.CODEC.optionalFieldOf("deserts").forGetter(s -> s.deserts)
     ).apply(instance, KoppenBiomeSource::new));
 
     /**
@@ -55,17 +56,36 @@ public class KoppenBiomeSource extends BiomeSource {
      * which patch of the Csa takes which is up to {@link CsaZones}; the river takes vanilla's rivers in the Csa.
      */
     public record CsaBiomes(Holder<Biome> forest, Holder<Biome> oliveGrove, Holder<Biome> river, Holder<Biome> farmland,
-                            Holder<Biome> lavenderField) {
+                            Holder<Biome> lavenderField, Optional<Holder<Biome>> highland) {
         public static final com.mojang.serialization.Codec<CsaBiomes> CODEC = RecordCodecBuilder.create(i -> i.group(
                 Biome.CODEC.fieldOf("forest").forGetter(CsaBiomes::forest),
                 Biome.CODEC.fieldOf("olive_grove").forGetter(CsaBiomes::oliveGrove),
                 Biome.CODEC.fieldOf("river").forGetter(CsaBiomes::river),
                 Biome.CODEC.fieldOf("farmland").forGetter(CsaBiomes::farmland),
-                Biome.CODEC.fieldOf("lavender_field").forGetter(CsaBiomes::lavenderField)
+                Biome.CODEC.fieldOf("lavender_field").forGetter(CsaBiomes::lavenderField),
+                Biome.CODEC.optionalFieldOf("highland").forGetter(CsaBiomes::highland)
         ).apply(i, CsaBiomes::new));
 
         Stream<Holder<Biome>> all() {
-            return Stream.of(this.forest, this.oliveGrove, this.river, this.farmland, this.lavenderField);
+            return Stream.concat(Stream.of(this.forest, this.oliveGrove, this.river, this.farmland, this.lavenderField),
+                    this.highland.stream());
+        }
+    }
+
+    /**
+     * The deserts, which take the whole hot band beyond the jungle's (and the hottest, driest edge of the savanna's):
+     * the hot desert (BWh) deep inland, the continental desert (BWk) nearer the coasts, and the desert mountains
+     * (BWk) wherever the land is mountainous.
+     */
+    public record DesertBiomes(Holder<Biome> hot, Holder<Biome> continental, Holder<Biome> mountains) {
+        public static final com.mojang.serialization.Codec<DesertBiomes> CODEC = RecordCodecBuilder.create(i -> i.group(
+                Biome.CODEC.fieldOf("hot").forGetter(DesertBiomes::hot),
+                Biome.CODEC.fieldOf("continental").forGetter(DesertBiomes::continental),
+                Biome.CODEC.fieldOf("mountains").forGetter(DesertBiomes::mountains)
+        ).apply(i, DesertBiomes::new));
+
+        Stream<Holder<Biome>> all() {
+            return Stream.of(this.hot, this.continental, this.mountains);
         }
     }
 
@@ -85,9 +105,32 @@ public class KoppenBiomeSource extends BiomeSource {
     // The savanna reaches a little cooler than the jungle fringe, and deserts only keep their driest part.
     // (the same bounds unquantized, which SavannaCeiling flattens the terrain by)
     static final double SAVANNA_MIN_TEMP = 0.0, SAVANNA_MAX_TEMP = 0.55, SAVANNA_MAX_HUMIDITY = -0.1,
-            SAVANNA_DESERT_MIN_HUMIDITY = -0.35, SAVANNA_MIN_CONTINENTALNESS = -0.11;
+            SAVANNA_MIN_CONTINENTALNESS = -0.11;
     private static final long SAVANNA_MIN_TEMPERATURE = 0;
-    private static final long DESERT_MAX_HUMIDITY = -3500;
+    // The deserts' climate: the hot band beyond the jungle's, and the hottest, driest edge of the savanna's.
+    // Unquantized for SavannaCeiling, quantized for the biome choice.
+    static final double DESERT_EDGE_TEMP = 0.40, DESERT_EDGE_HUMIDITY = -0.35;
+    private static final long DESERT_EDGE_TEMPERATURE = 4000, DESERT_EDGE_HUMIDITY_Q = -3500;
+    // inland enough for the hot desert; the rivers run dry a little further out than that
+    private static final long DESERT_INLAND_CONTINENTS = 1500, DESERT_DRY_RIVER_CONTINENTS = 700;
+    // the desert mountains: vanilla's mountainous erosion, not in a valley
+    private static final long DESERT_MOUNTAIN_EROSION = -3750;
+    private static final float DESERT_MOUNTAIN_MIN_PV = -0.2F;
+
+    static boolean isDesertClimate(Climate.TargetPoint c) {
+        long t = c.temperature();
+        return t > HOT_MAX_TEMPERATURE || t > DESERT_EDGE_TEMPERATURE && c.humidity() < DESERT_EDGE_HUMIDITY_Q;
+    }
+
+    private static float peaksAndValleys(long weirdness) {
+        float w = Climate.unquantizeCoord(weirdness);
+        return -(Math.abs(Math.abs(w) - 0.6666667F) - 0.33333334F) * 3.0F;
+    }
+
+    // what keeps its own biome inside the hot desert's climate
+    private static final Set<ResourceKey<Biome>> DESERT_KEEPS = Set.of(Biomes.BEACH, Biomes.STONY_SHORE, Biomes.SNOWY_BEACH,
+            Biomes.OCEAN, Biomes.DEEP_OCEAN, Biomes.LUKEWARM_OCEAN, Biomes.DEEP_LUKEWARM_OCEAN, Biomes.WARM_OCEAN,
+            Biomes.COLD_OCEAN, Biomes.DEEP_COLD_OCEAN, Biomes.FROZEN_OCEAN, Biomes.DEEP_FROZEN_OCEAN, Biomes.MUSHROOM_FIELDS);
     private static final long SAVANNA_MIN_CONTINENTS = -1100;
     // what keeps its own biome inside the savanna's climate: water and its shores
     private static final Set<ResourceKey<Biome>> SAVANNA_KEEPS = Set.of(Biomes.RIVER, Biomes.FROZEN_RIVER, Biomes.BEACH,
@@ -104,6 +147,11 @@ public class KoppenBiomeSource extends BiomeSource {
             Biomes.CHERRY_GROVE, Biomes.WINDSWEPT_HILLS, Biomes.WINDSWEPT_FOREST, Biomes.WINDSWEPT_GRAVELLY_HILLS, Biomes.SWAMP,
             Biomes.DESERT, Biomes.SAVANNA, Biomes.SAVANNA_PLATEAU, Biomes.WINDSWEPT_SAVANNA, Biomes.TAIGA, Biomes.OLD_GROWTH_PINE_TAIGA,
             Biomes.OLD_GROWTH_SPRUCE_TAIGA);
+    // the mountain biomes, which in and around the Csa are the Mediterranean highland (Csb) above HIGHLAND_MIN_Y
+    private static final Set<ResourceKey<Biome>> CSA_MOUNTAINS = Set.of(Biomes.JAGGED_PEAKS, Biomes.FROZEN_PEAKS, Biomes.STONY_PEAKS,
+            Biomes.SNOWY_SLOPES, Biomes.GROVE, Biomes.MEADOW, Biomes.WINDSWEPT_HILLS, Biomes.WINDSWEPT_GRAVELLY_HILLS,
+            Biomes.WINDSWEPT_FOREST, Biomes.SNOWY_PLAINS, Biomes.SNOWY_TAIGA, Biomes.ICE_SPIKES);
+    public static final int HIGHLAND_MIN_Y = 100;
     private static final Set<ResourceKey<Biome>> CSA_SHORES = Set.of(Biomes.BEACH, Biomes.STONY_SHORE, Biomes.SNOWY_BEACH);
     // Vanilla puts its cave biomes at depth 0.2 and below.
     private static final long UNDERGROUND_MIN_DEPTH = 2000;
@@ -123,6 +171,8 @@ public class KoppenBiomeSource extends BiomeSource {
     private final Optional<Holder<Biome>> islandSummit;
     // the African savanna (As), which takes the place of every vanilla savanna when given
     private final Optional<Holder<Biome>> savanna;
+    // the deserts (BWh and BWk), which take the place of every vanilla desert and the whole hot band, when given
+    private final Optional<DesertBiomes> deserts;
     // the Mediterranean (Csa) and its white gravel shore
     private final Optional<Holder<Biome>> mediterranean, mediterraneanBeach;
     private final Optional<CsaBiomes> csa;
@@ -144,7 +194,7 @@ public class KoppenBiomeSource extends BiomeSource {
                              Holder<Biome> underground, Holder<Biome> warmLand, Holder<Biome> warmSwamp, Holder<Biome> warmOcean,
                              Optional<Holder<Biome>> islandSummit, Optional<Holder<Biome>> savanna,
                              Optional<Holder<Biome>> mediterranean, Optional<Holder<Biome>> mediterraneanBeach,
-                             Optional<CsaBiomes> csa) {
+                             Optional<CsaBiomes> csa, Optional<DesertBiomes> deserts) {
         this.base = base;
         this.jungle = jungle;
         this.monsoon = monsoon;
@@ -160,6 +210,7 @@ public class KoppenBiomeSource extends BiomeSource {
         this.mediterranean = mediterranean;
         this.mediterraneanBeach = mediterraneanBeach;
         this.csa = csa;
+        this.deserts = deserts;
     }
 
     @Override
@@ -169,7 +220,7 @@ public class KoppenBiomeSource extends BiomeSource {
 
     @Override
     protected Stream<Holder<Biome>> collectPossibleBiomes() {
-        return Stream.concat(this.base.possibleBiomes().stream(),
+        Stream<Holder<Biome>> stream = Stream.concat(this.base.possibleBiomes().stream(),
                 Stream.concat(Stream.of(this.jungle, this.river, this.beach, this.underground, this.warmLand, this.warmSwamp, this.warmOcean),
                         Stream.concat(Stream.concat(Stream.concat(this.islandSummit.stream(), this.savanna.stream()),
                                         Stream.concat(Stream.concat(this.mediterranean.stream(), this.mediterraneanBeach.stream()),
@@ -177,12 +228,17 @@ public class KoppenBiomeSource extends BiomeSource {
                                 Stream.concat(this.monsoon.stream(), this.riceTerraces.stream()))))
                 // vanilla's savannas never generate once the African savanna replaces them
                 .filter(b -> this.savanna.isEmpty() || !b.unwrapKey().map(VANILLA_SAVANNAS::contains).orElse(false))
-                .filter(b -> this.monsoon.isEmpty() || !b.unwrapKey().map(VANILLA_JUNGLES::contains).orElse(false));
+                .filter(b -> this.monsoon.isEmpty() || !b.unwrapKey().map(VANILLA_JUNGLES::contains).orElse(false))
+                .filter(b -> this.deserts.isEmpty() || !b.is(Biomes.DESERT));
+        stream = Stream.concat(stream, this.deserts.stream().flatMap(DesertBiomes::all));
+        return stream;
     }
 
     @Override
     public Holder<Biome> getNoiseBiome(int x, int y, int z, Climate.Sampler sampler) {
         Holder<Biome> biome = this.mappedBiome(x, y, z, sampler);
+        // any desert left (outside the desert climate) is the continental desert (BWk)
+        if (this.deserts.isPresent() && biome.is(Biomes.DESERT)) return this.deserts.get().continental();
         if (this.riceTerraces.isPresent() && this.monsoon.isPresent() && biome == this.monsoon.get()
                 && this.terraceSites(sampler).inTerraces(QuartPos.toBlock(x) + 2, QuartPos.toBlock(z) + 2, this.surfaceBiomes(sampler))) {
             return this.riceTerraces.get();
@@ -251,11 +307,22 @@ public class KoppenBiomeSource extends BiomeSource {
         }
         // the Mediterranean (Csa) takes the dry side of the temperate band; CsaHills raises the very same ground
         if (this.mediterranean.isPresent() && climate.depth() < UNDERGROUND_MIN_DEPTH && isMediterraneanClimate(climate)) {
-            if (biome.unwrapKey().map(CSA_LAND::contains).orElse(false)) return this.csaLand(x, y, z, sampler);
+            boolean land = biome.unwrapKey().map(CSA_LAND::contains).orElse(false);
+            boolean mountain = biome.unwrapKey().map(CSA_MOUNTAINS::contains).orElse(false);
+            // high up, the Mediterranean highland (Csb)
+            Holder<Biome> highland = this.csa.flatMap(CsaBiomes::highland).orElse(null);
+            if (highland != null && (land || mountain) && QuartPos.toBlock(y) >= HIGHLAND_MIN_Y) return highland;
+            if (land || mountain) return this.csaLand(x, y, z, sampler);
             if (this.csa.isPresent() && biome.is(Biomes.RIVER)) return this.csa.get().river();
             if (this.mediterraneanBeach.isPresent() && biome.unwrapKey().map(CSA_SHORES::contains).orElse(false)) {
                 return this.mediterraneanBeach.get();
             }
+        }
+        // the mountains just around it are highland too
+        if (this.mediterranean.isPresent() && climate.depth() < UNDERGROUND_MIN_DEPTH && isNearMediterraneanClimate(climate)
+                && biome.unwrapKey().map(CSA_MOUNTAINS::contains).orElse(false) && QuartPos.toBlock(y) >= HIGHLAND_MIN_Y) {
+            Holder<Biome> highland = this.csa.flatMap(CsaBiomes::highland).orElse(null);
+            if (highland != null) return highland;
         }
         // the sea off the Mediterranean is lukewarm, a little beyond its coast too, so its beaches only ever meet lukewarm water
         if (this.mediterranean.isPresent() && climate.depth() < UNDERGROUND_MIN_DEPTH && isNearMediterraneanClimate(climate)) {
@@ -265,6 +332,24 @@ public class KoppenBiomeSource extends BiomeSource {
                 Holder<Biome> sea = this.base.possibleBiomes().stream().filter(b -> b.is(lukewarm)).findFirst().orElse(null);
                 if (sea != null) return sea;
             }
+        }
+        // the deserts take the whole hot band beyond the jungle's - every bit of land in it (deserts, badlands,
+        // savannas, hills); only the sea, its shores and mushroom islands keep their own biomes
+        if (this.deserts.isPresent() && climate.depth() < UNDERGROUND_MIN_DEPTH && isDesertClimate(climate)
+                && !biome.unwrapKey().map(DESERT_KEEPS::contains).orElse(false)) {
+            DesertBiomes d = this.deserts.get();
+            boolean mountains = climate.erosion() < DESERT_MOUNTAIN_EROSION
+                    && peaksAndValleys(climate.weirdness()) > DESERT_MOUNTAIN_MIN_PV;
+            long c = climate.continentalness();
+            if (biome.is(Biomes.RIVER)) {
+                // creeks run on through the mountains and near the coast; further inland the rivers have run dry
+                // (HotDesertSurfaceFeature fills their beds with sand), so the hot desert never meets water
+                if (mountains || c < DESERT_DRY_RIVER_CONTINENTS) return biome;
+                return c >= DESERT_INLAND_CONTINENTS ? d.hot() : d.continental();
+            }
+            if (mountains) return d.mountains();
+            // the hot desert lies deep inland; nearer the sea it's the continental desert
+            return c >= DESERT_INLAND_CONTINENTS ? d.hot() : d.continental();
         }
         // vanilla savannas outside that climate (the hottest, driest ones) are desert
         if (this.savanna.isPresent() && biome.unwrapKey().map(VANILLA_SAVANNAS::contains).orElse(false)) {
@@ -331,7 +416,8 @@ public class KoppenBiomeSource extends BiomeSource {
     static boolean isSavannaClimate(Climate.TargetPoint c) {
         return c.continentalness() >= SAVANNA_MIN_CONTINENTS && c.humidity() < FRINGE_MIN_HUMIDITY
                 && c.temperature() >= SAVANNA_MIN_TEMPERATURE
-                && (c.temperature() <= HOT_MAX_TEMPERATURE || c.humidity() >= DESERT_MAX_HUMIDITY);
+                && c.temperature() <= HOT_MAX_TEMPERATURE
+                && !(c.temperature() > DESERT_EDGE_TEMPERATURE && c.humidity() < DESERT_EDGE_HUMIDITY_Q);
     }
 
     private Holder<Biome> islandBiome(int qx, int qy, int qz, Climate.Sampler sampler) {

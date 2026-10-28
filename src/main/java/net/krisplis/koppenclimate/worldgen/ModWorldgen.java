@@ -23,6 +23,9 @@ public class ModWorldgen {
     public static final DeferredRegister<MapCodec<? extends BiomeSource>> BIOME_SOURCES =
             DeferredRegister.create(Registries.BIOME_SOURCE, KoppenClimateMod.MOD_ID);
 
+    public static final RegistryObject<Feature<net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration>> HOT_DESERT_SURFACE =
+            FEATURES.register("hot_desert_surface", () -> new net.krisplis.koppenclimate.worldgen.feature.HotDesertSurfaceFeature(
+                    net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration.CODEC));
     public static final RegistryObject<Feature<BiomeSurfaceFeature.Config>> BIOME_SURFACE =
             FEATURES.register("biome_surface", () -> new BiomeSurfaceFeature(BiomeSurfaceFeature.Config.CODEC));
 

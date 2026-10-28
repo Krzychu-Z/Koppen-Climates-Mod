@@ -424,6 +424,8 @@ public class TuscanVillagePiece extends StructurePiece {
                 this.set(level, box, x, f - 1, z, st(Blocks.STONE));
                 // a little courtyard here and there, with a potted nerium
                 if (c == GARDEN && Math.floorMod(x * 7 + z * 13, 9) == 0) this.set(level, box, x, f + 1, z, st(ModBlocks.POTTED_NERIUM.get()));
+                // and rose bushes in little beds
+                if (c == GARDEN && Math.floorMod(x * 7 + z * 13, 9) == 4) this.roseBush(level, box, x, z, f);
             }
         }
         // nerium hedges all round the outside of the town, with gaps where the streets leave it and toward the fields
@@ -438,6 +440,8 @@ public class TuscanVillagePiece extends StructurePiece {
                 this.set(level, box, p[0], f + 1, p[1], nerium);
             }
         }
+        // rose bushes at the corners of the piazza
+        for (int[] p : new int[][]{{-5, -7}, {5, -7}, {-7, 5}, {7, 5}, {-7, -5}, {7, -5}}) this.roseBush(level, box, p[0], p[1], f);
         for (int[] p : new int[][]{{-6, -6}, {6, -6}, {-6, 6}, {6, 6}}) {
             this.set(level, box, p[0], f + 1, p[1], st(ModBlocks.POTTED_NERIUM.get()));
             // lamp posts at the corners of the square
@@ -445,6 +449,14 @@ public class TuscanVillagePiece extends StructurePiece {
             this.set(level, box, p[0] + Integer.signum(p[0]), f + 2, p[1] + Integer.signum(p[1]), st(ModBlocks.WHITE_LIMESTONE_BRICK_WALL.get()));
             this.set(level, box, p[0] + Integer.signum(p[0]), f + 3, p[1] + Integer.signum(p[1]), st(Blocks.LANTERN));
         }
+    }
+
+    /** A rose bush in a bed of earth. */
+    void roseBush(WorldGenLevel level, BoundingBox box, int x, int z, int f) {
+        BlockState rose = Blocks.ROSE_BUSH.defaultBlockState();
+        this.set(level, box, x, f, z, st(Blocks.GRASS_BLOCK));
+        this.set(level, box, x, f + 1, z, rose.setValue(net.minecraft.world.level.block.DoublePlantBlock.HALF, DoubleBlockHalf.LOWER));
+        this.set(level, box, x, f + 2, z, rose.setValue(net.minecraft.world.level.block.DoublePlantBlock.HALF, DoubleBlockHalf.UPPER));
     }
 
     /** A small fountain: a round basin with a column in the middle, water spilling from its top. */

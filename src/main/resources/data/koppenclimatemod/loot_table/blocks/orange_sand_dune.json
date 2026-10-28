@@ -1,0 +1,114 @@
+{
+  "type": "minecraft:block",
+  "random_sequence": "koppenclimatemod:blocks/orange_sand_dune",
+  "pools": [
+    {
+      "rolls": 1.0,
+      "bonus_rolls": 0.0,
+      "conditions": [
+        {
+          "condition": "minecraft:survives_explosion"
+        }
+      ],
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "koppenclimatemod:orange_sand_dune",
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": 2.0,
+              "conditions": [
+                {
+                  "condition": "minecraft:block_state_property",
+                  "block": "koppenclimatemod:orange_sand_dune",
+                  "properties": {
+                    "layers": "2"
+                  }
+                }
+              ]
+            },
+            {
+              "function": "minecraft:set_count",
+              "count": 3.0,
+              "conditions": [
+                {
+                  "condition": "minecraft:block_state_property",
+                  "block": "koppenclimatemod:orange_sand_dune",
+                  "properties": {
+                    "layers": "3"
+                  }
+                }
+              ]
+            },
+            {
+              "function": "minecraft:set_count",
+              "count": 4.0,
+              "conditions": [
+                {
+                  "condition": "minecraft:block_state_property",
+                  "block": "koppenclimatemod:orange_sand_dune",
+                  "properties": {
+                    "layers": "4"
+                  }
+                }
+              ]
+            },
+            {
+              "function": "minecraft:set_count",
+              "count": 5.0,
+              "conditions": [
+                {
+                  "condition": "minecraft:block_state_property",
+                  "block": "koppenclimatemod:orange_sand_dune",
+                  "properties": {
+                    "layers": "5"
+                  }
+                }
+              ]
+            },
+            {
+              "function": "minecraft:set_count",
+              "count": 6.0,
+              "conditions": [
+                {
+                  "condition": "minecraft:block_state_property",
+                  "block": "koppenclimatemod:orange_sand_dune",
+                  "properties": {
+                    "layers": "6"
+                  }
+                }
+              ]
+            },
+            {
+              "function": "minecraft:set_count",
+              "count": 7.0,
+              "conditions": [
+                {
+                  "condition": "minecraft:block_state_property",
+                  "block": "koppenclimatemod:orange_sand_dune",
+                  "properties": {
+                    "layers": "7"
+                  }
+                }
+              ]
+            },
+            {
+              "function": "minecraft:set_count",
+              "count": 8.0,
+              "conditions": [
+                {
+                  "condition": "minecraft:block_state_property",
+                  "block": "koppenclimatemod:orange_sand_dune",
+                  "properties": {
+                    "layers": "8"
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,35 @@
+{
+  "elements": [
+    {
+      "element": {
+        "element_type": "minecraft:legacy_single_pool_element",
+        "location": "minecraft:village/desert/terminators/terminator_01",
+        "processors": {
+          "processors": [
+            {
+              "processor_type": "koppenclimatemod:desert_recolor"
+            }
+          ]
+        },
+        "projection": "terrain_matching"
+      },
+      "weight": 1
+    },
+    {
+      "element": {
+        "element_type": "minecraft:legacy_single_pool_element",
+        "location": "minecraft:village/desert/zombie/terminators/terminator_02",
+        "processors": {
+          "processors": [
+            {
+              "processor_type": "koppenclimatemod:desert_recolor"
+            }
+          ]
+        },
+        "projection": "terrain_matching"
+      },
+      "weight": 1
+    }
+  ],
+  "fallback": "minecraft:empty"
+}

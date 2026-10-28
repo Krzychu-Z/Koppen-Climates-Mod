@@ -93,6 +93,10 @@ public class ModItems {
             () -> new ForgeSpawnEggItem(ModEntities.SHARK, 0x6E7C86, 0xE6E8E4, new Item.Properties()));
     public static final RegistryObject<Item> CRAB_SPAWN_EGG = ITEMS.register("crab_spawn_egg",
             () -> new ForgeSpawnEggItem(ModEntities.CRAB, 0xC8321E, 0xF0B060, new Item.Properties()));
+    public static final RegistryObject<Item> EAGLE_SPAWN_EGG = ITEMS.register("eagle_spawn_egg",
+            () -> new ForgeSpawnEggItem(ModEntities.EAGLE, 0x5A3A22, 0xD9A441, new Item.Properties()));
+    public static final RegistryObject<Item> RATTLESNAKE_SPAWN_EGG = ITEMS.register("rattlesnake_spawn_egg",
+            () -> new ForgeSpawnEggItem(ModEntities.RATTLESNAKE, 0xB89A6A, 0x5A4330, new Item.Properties()));
     public static final RegistryObject<Item> VIPER_SPAWN_EGG = ITEMS.register("viper_spawn_egg",
             () -> new ForgeSpawnEggItem(ModEntities.VIPER, 0x9A8466, 0x3E3226, new Item.Properties()));
     public static final RegistryObject<Item> COBRA_SPAWN_EGG = ITEMS.register("cobra_spawn_egg",

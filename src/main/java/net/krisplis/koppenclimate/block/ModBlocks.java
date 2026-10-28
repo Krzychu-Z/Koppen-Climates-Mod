@@ -77,6 +77,25 @@ public class ModBlocks {
                     BlockBehaviour.Properties.ofFullCopy(Blocks.SAND).mapColor(MapColor.QUARTZ))
     );
 
+    // ------------------------------------------------------------------ the hot desert (BWh)
+    // its yellow-orange sand, the sand drifted into dunes on top of it, and the sandstone under it
+    public static final RegistryObject<ColoredFallingBlock> ORANGE_SAND = registerBlock("orange_sand",
+            () -> new ColoredFallingBlock(new ColorRGBA(0xE0A04C),
+                    BlockBehaviour.Properties.ofFullCopy(Blocks.SAND).mapColor(MapColor.COLOR_ORANGE))
+    );
+    public static final RegistryObject<Block> ORANGE_SAND_DUNE = registerBlock("orange_sand_dune",
+            () -> new net.krisplis.koppenclimate.block.custom.SandDuneBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.SAND)
+                    .mapColor(MapColor.COLOR_ORANGE).forceSolidOff().pushReaction(net.minecraft.world.level.material.PushReaction.DESTROY))
+    );
+    // the continental desert's (BWk) silvery-green grass tufts
+    public static final RegistryObject<Block> SILVER_GRASS = registerBlock("silver_grass",
+            () -> new net.krisplis.koppenclimate.block.custom.SilverGrassBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.SHORT_GRASS)
+                    .mapColor(MapColor.COLOR_LIGHT_GRAY))
+    );
+    public static final RegistryObject<Block> ORANGE_SANDSTONE = registerBlock("orange_sandstone",
+            () -> new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.SANDSTONE).mapColor(MapColor.COLOR_ORANGE))
+    );
+
     // Coconut palm wood set: properties copied from jungle wood
     public static final RegistryObject<RotatedPillarBlock> COCONUT_PALM_LOG = registerBlock("coconut_palm_log",
             () -> new RotatedPillarBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.JUNGLE_LOG))

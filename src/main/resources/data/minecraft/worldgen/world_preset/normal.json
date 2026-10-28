@@ -23,12 +23,18 @@
           "savanna": "koppenclimatemod:african_savanna_as",
           "mediterranean": "koppenclimatemod:mediterranean_shrubland_csa",
           "mediterranean_beach": "koppenclimatemod:mediterranean_beach_csa",
+          "deserts": {
+            "hot": "koppenclimatemod:hot_desert_bwh",
+            "continental": "koppenclimatemod:continental_desert_bwk",
+            "mountains": "koppenclimatemod:desert_mountains_bwk"
+          },
           "mediterranean_zones": {
             "forest": "koppenclimatemod:mediterranean_forest_csa",
             "olive_grove": "koppenclimatemod:olive_grove_csa",
             "river": "koppenclimatemod:mediterranean_river_csa",
             "farmland": "koppenclimatemod:mediterranean_farmland_csa",
-            "lavender_field": "koppenclimatemod:lavender_field_csa"
+            "lavender_field": "koppenclimatemod:lavender_field_csa",
+            "highland": "koppenclimatemod:mediterranean_highland_csb"
           }
         },
         "settings": "koppenclimatemod:overworld"

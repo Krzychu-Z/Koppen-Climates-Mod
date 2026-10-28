@@ -41,7 +41,7 @@ import java.util.List;
  *       battlements and rubble at its foot in the water. A walk runs all round inside the wall.</li>
  *   <li>On it stand at most sixteen white stone houses with red tiled roofs and shuttered windows, about a small
  *       square with a well, and a little chapel with a bell gable (preslica) on its front.</li>
- *   <li>Between the houses are gardens full of lavender, with Italian stone pines, cypresses and coconut palms, a small vineyard of red
+ *   <li>Between the houses are gardens full of lavender and rose bushes, with Italian stone pines, cypresses and coconut palms, a small vineyard of red
  *       wine and a plot of tomatoes, both grown on poles in lines.</li>
  *   <li>On the side facing the shore is a small harbour: a quay at the foot of steps down from the town, and a
  *       breakwater sheltering a basin of still water. No boats are moored there.</li>
@@ -352,9 +352,12 @@ public class CroatianVillagePiece extends TuscanVillagePiece {
                 };
                 this.set(level, box, x, f, z, floor);
                 // the gardens are full of lavender, all but where the trees stand
-                if (c == GARDEN && !trees.contains(((long) x << 32) ^ (z & 0xFFFFFFFFL))
-                        && Math.floorMod((x * 92821L + z * 68917L) ^ this.seed, 10L) < 7) {
+                long bloom = Math.floorMod((x * 92821L + z * 68917L) ^ this.seed, 10L);
+                if (c == GARDEN && !trees.contains(((long) x << 32) ^ (z & 0xFFFFFFFFL)) && bloom < 7) {
                     this.set(level, box, x, f + 1, z, st(ModBlocks.LAVENDER.get()));
+                } else if (c == GARDEN && !trees.contains(((long) x << 32) ^ (z & 0xFFFFFFFFL)) && bloom == 7) {
+                    // and rose bushes among it
+                    this.roseBush(level, box, x, z, f);
                 }
                 if (c == VINES || c == TOMATO_PLOT) {
                     // a line of poles, then a one-block path, and so on

@@ -41,6 +41,8 @@ public class CobraModel extends HierarchicalModel<CobraEntity> {
 
     // the black mamba uses this body without the hood
     protected boolean hooded = true;
+    // the rattlesnake: when alarmed it lifts and shakes its tail instead of rearing its head
+    protected boolean rattler = false;
 
     // 0 = lying flat, 1 = reared; set per frame in prepareMobModel
     private float rear;
@@ -107,7 +109,9 @@ public class CobraModel extends HierarchicalModel<CobraEntity> {
     @Override
     public void setupAnim(CobraEntity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
         this.root().getAllParts().forEach(ModelPart::resetPose);
-        float r = this.rear;
+        float alarm = this.rear;
+        // a rattler raises its head only a little, coiled, and its tail goes up instead
+        float r = this.rattler ? alarm * 0.35F : alarm;
         float flat = 1.0F - r;
 
         // slithering: a wave runs down the body while it moves, and a slow idle drift when it doesn't
@@ -133,6 +137,13 @@ public class CobraModel extends HierarchicalModel<CobraEntity> {
         this.neck1.xRot += strike * 0.9F * r;
         this.neck2.xRot += strike * 0.4F * r;
         this.jaw.xRot = Math.max(strike, 0.35F * r);
+
+        if (this.rattler && alarm > 0.01F) {
+            int last = this.tail.length - 1;
+            this.tail[last - 1].xRot = -0.9F * alarm;
+            this.tail[last].xRot = -0.7F * alarm;
+            this.tail[last].yRot += Mth.sin(ageInTicks * 3.0F) * 0.3F * alarm;
+        }
 
         // the hood spreads as it rears
         boolean hood = this.hooded && r > 0.05F;

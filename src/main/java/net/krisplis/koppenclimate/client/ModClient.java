@@ -67,6 +67,7 @@ public final class ModClient {
         e.registerLayerDefinition(ScorpionModel.LAYER, ScorpionModel::createBodyLayer);
         e.registerLayerDefinition(SharkModel.LAYER, SharkModel::createBodyLayer);
         e.registerLayerDefinition(CrabModel.LAYER, CrabModel::createBodyLayer);
+        e.registerLayerDefinition(EagleModel.LAYER, EagleModel::createBodyLayer);
         e.registerLayerDefinition(LionModel.LAYER, LionModel::createBodyLayer);
         e.registerLayerDefinition(ElephantModel.LAYER, ElephantModel::createBodyLayer);
         e.registerLayerDefinition(RhinoModel.LAYER, RhinoModel::createBodyLayer);
@@ -85,6 +86,8 @@ public final class ModClient {
         e.registerEntityRenderer(ModEntities.SCORPION.get(), ScorpionRenderer::new);
         e.registerEntityRenderer(ModEntities.SHARK.get(), SharkRenderer::new);
         e.registerEntityRenderer(ModEntities.CRAB.get(), CrabRenderer::new);
+        e.registerEntityRenderer(ModEntities.EAGLE.get(), EagleRenderer::new);
+        e.registerEntityRenderer(ModEntities.RATTLESNAKE.get(), SavannaRenderers::rattlesnake);
         e.registerEntityRenderer(ModEntities.BLACK_MAMBA.get(), SavannaRenderers::mamba);
         e.registerEntityRenderer(ModEntities.LION.get(), SavannaRenderers::lion);
         e.registerEntityRenderer(ModEntities.ELEPHANT.get(), SavannaRenderers::elephant);

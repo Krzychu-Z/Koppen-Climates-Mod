@@ -35,6 +35,8 @@ public final class CsaHills implements DensityFunction {
     public static final double FAR = 1000.0;
     // the farmland and olive groves are levelled to this height (their grass at y 64)
     private static final double FLAT = 64.5, FARMLAND_EASE = 32.0;
+    // the highland's rolling tops: between HIGHLAND_TOP and HIGHLAND_TOP + HIGHLAND_ROLL
+    private static final double HIGHLAND_TOP = 126.0, HIGHLAND_ROLL = 30.0;
     private final DensityFunction continents, temperature, humidity, ridges, hills;
     // false: the height up to which the ground is filled in; true: the height above which it is cut away
     // (the farmland and olive groves are levelled; everywhere else it is FAR)
@@ -109,7 +111,11 @@ public final class CsaHills implements DensityFunction {
             default -> {
             }
         }
-        if (this.ceiling) return top;
+        if (this.ceiling) {
+            // the mountains here (the Mediterranean highland, Csb) are worn down on top into rolling hills
+            double highland = HIGHLAND_TOP + HIGHLAND_ROLL * n;
+            return Math.min(top, Mth.lerp(ease(w / 0.5), FAR, highland));
+        }
         return fill < 61.0 ? NONE : fill;
     }
 
@@ -126,7 +132,7 @@ public final class CsaHills implements DensityFunction {
 
     @Override
     public double minValue() {
-        return this.ceiling ? 60.0 : NONE;
+        return this.ceiling ? 60.0 : NONE;   // (the highland cap is never lower than HIGHLAND_TOP)
     }
 
     @Override

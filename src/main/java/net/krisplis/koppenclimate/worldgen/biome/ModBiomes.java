@@ -31,6 +31,12 @@ public class ModBiomes {
     public static final TagKey<Biome> IS_MEDITERRANEAN = TagKey.create(Registries.BIOME,
             ResourceLocation.fromNamespaceAndPath(KoppenClimateMod.MOD_ID, "is_mediterranean"));
     public static final ResourceKey<Biome> MEDITERRANEAN_BEACH = key("mediterranean_beach_csa");
+    // the hot desert (BWh), in place of vanilla's desert
+    public static final ResourceKey<Biome> HOT_DESERT = key("hot_desert_bwh");
+    public static final ResourceKey<Biome> CONTINENTAL_DESERT = key("continental_desert_bwk");
+    public static final ResourceKey<Biome> DESERT_MOUNTAINS = key("desert_mountains_bwk");
+    // the Mediterranean highland (Csb), on the mountains in and around the Csa
+    public static final ResourceKey<Biome> MEDITERRANEAN_HIGHLAND = key("mediterranean_highland_csb");
 
     // all three Af biomes (tags/worldgen/biome/af.json)
     public static final TagKey<Biome> AF = TagKey.create(Registries.BIOME, ResourceLocation.fromNamespaceAndPath(KoppenClimateMod.MOD_ID, "af"));
@@ -48,7 +54,13 @@ public class ModBiomes {
     /** Every Csa biome, its beach included (by key, so it never depends on biome tags reaching the client). */
     public static boolean isMediterranean(net.minecraft.core.Holder<Biome> biome) {
         return biome.is(MEDITERRANEAN) || biome.is(MEDITERRANEAN_FOREST) || biome.is(OLIVE_GROVE) || biome.is(MEDITERRANEAN_RIVER)
-                || biome.is(MEDITERRANEAN_FARMLAND) || biome.is(LAVENDER_FIELD) || biome.is(MEDITERRANEAN_BEACH);
+                || biome.is(MEDITERRANEAN_FARMLAND) || biome.is(LAVENDER_FIELD) || biome.is(MEDITERRANEAN_BEACH)
+                || biome.is(MEDITERRANEAN_HIGHLAND);
+    }
+
+    /** The three deserts: hot (BWh), continental (BWk) and the desert mountains (BWk). */
+    public static boolean isDesert(net.minecraft.core.Holder<Biome> biome) {
+        return biome.is(HOT_DESERT) || biome.is(CONTINENTAL_DESERT) || biome.is(DESERT_MOUNTAINS);
     }
 
     private static ResourceKey<Biome> key(String name) {

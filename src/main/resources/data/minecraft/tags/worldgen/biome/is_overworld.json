@@ -13,6 +13,10 @@
     "koppenclimatemod:olive_grove_csa",
     "koppenclimatemod:mediterranean_farmland_csa",
     "koppenclimatemod:lavender_field_csa",
-    "koppenclimatemod:mediterranean_river_csa"
+    "koppenclimatemod:mediterranean_river_csa",
+    "koppenclimatemod:hot_desert_bwh",
+    "koppenclimatemod:continental_desert_bwk",
+    "koppenclimatemod:desert_mountains_bwk",
+    "koppenclimatemod:mediterranean_highland_csb"
   ]
 }

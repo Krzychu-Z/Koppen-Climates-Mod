@@ -32,9 +32,9 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 
 /**
- * A shark of the warm seas. It's extremely aggressive: anything swimming within a long way - players, villagers,
- * animals, fish, squid, dolphins - is hunted down at speed and bitten hard, and a player bobbing in a boat over the
- * water is fair game too. Only getting out of the water saves you. Stranded on land, it flops and slowly suffocates.
+ * A shark of the warm seas. It hunts fish and squid, and now and then a player swimming close by (never one in a
+ * boat); it bites hard, then has had its fill and swims off for a while. Hit it and it turns on you. Getting out
+ * of the water, or away from it, saves you. Stranded on land, it flops and slowly suffocates.
  */
 public class SharkEntity extends WaterAnimal {
     private static final EntityDataAccessor<Boolean> HUNTING = SynchedEntityData.defineId(SharkEntity.class, EntityDataSerializers.BOOLEAN);
@@ -49,9 +49,9 @@ public class SharkEntity extends WaterAnimal {
     public static AttributeSupplier.Builder createAttributes() {
         return Mob.createMobAttributes()
                 .add(Attributes.MAX_HEALTH, 30.0)
-                .add(Attributes.MOVEMENT_SPEED, 1.4)
-                .add(Attributes.ATTACK_DAMAGE, 7.0)
-                .add(Attributes.FOLLOW_RANGE, 32.0)
+                .add(Attributes.MOVEMENT_SPEED, 1.15)
+                .add(Attributes.ATTACK_DAMAGE, 5.0)
+                .add(Attributes.FOLLOW_RANGE, 16.0)
                 .add(Attributes.KNOCKBACK_RESISTANCE, 0.6);
     }
 
@@ -73,22 +73,38 @@ public class SharkEntity extends WaterAnimal {
 
     @Override
     protected void registerGoals() {
-        this.goalSelector.addGoal(1, new MeleeAttackGoal(this, 1.6, true));
+        this.goalSelector.addGoal(1, new MeleeAttackGoal(this, 1.25, true));
         this.goalSelector.addGoal(4, new RandomSwimmingGoal(this, 1.0, 10));
         this.goalSelector.addGoal(5, new RandomLookAroundGoal(this));
         this.targetSelector.addGoal(1, new HurtByTargetGoal(this).setAlertOthers(SharkEntity.class));
-        // no need to see its prey: it smells it from afar, and checks often
-        this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, Player.class, 2, false, false, this::isPrey));
-        this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, LivingEntity.class, 4, false, false, this::isPrey));
+        // it notices a swimmer close by now and then, and fish more often
+        this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, Player.class, 40, true, false, this::isPrey));
+        this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, LivingEntity.class, 60, true, false, this::isPrey));
     }
 
     /** Anything in (or floating right on) the water, except other sharks. */
     private boolean isPrey(LivingEntity entity) {
-        if (entity instanceof SharkEntity || this.level().getDifficulty() == Difficulty.PEACEFUL) return false;
-        if (entity instanceof Player p && (p.isCreative() || p.isSpectator())) return false;
-        if (!inOrOnWater(entity)) return false;
-        return entity instanceof Player || entity instanceof AbstractVillager || entity instanceof Animal
-                || entity instanceof AbstractFish || entity instanceof WaterAnimal;
+        if (this.calm > 0 || entity instanceof SharkEntity || this.level().getDifficulty() == Difficulty.PEACEFUL) return false;
+        if (entity instanceof Player p) {
+            // only a player swimming close by, not one in a boat
+            return !p.isCreative() && !p.isSpectator() && p.isInWater() && this.distanceTo(p) < PLAYER_RANGE;
+        }
+        return entity.isInWater() && (entity instanceof AbstractFish || entity instanceof WaterAnimal && !(entity instanceof net.minecraft.world.entity.animal.Dolphin));
+    }
+
+    // after a bite it's had its fill for a while, and swims off
+    private static final int CALM_TICKS = 240;
+    private static final double PLAYER_RANGE = 10.0, GIVE_UP_RANGE = 20.0;
+    private int calm;
+
+    @Override
+    public boolean doHurtTarget(net.minecraft.world.entity.Entity target) {
+        boolean hit = super.doHurtTarget(target);
+        if (hit) {
+            this.calm = CALM_TICKS;
+            this.setTarget(null);
+        }
+        return hit;
     }
 
     private static boolean inOrOnWater(LivingEntity entity) {
@@ -99,9 +115,11 @@ public class SharkEntity extends WaterAnimal {
     @Override
     protected void customServerAiStep() {
         super.customServerAiStep();
+        if (this.calm > 0) this.calm--;
         LivingEntity target = this.getTarget();
-        // once its prey is out of the water, it gives up
-        if (target != null && (!target.isAlive() || !inOrOnWater(target) && this.tickCount % 20 == 0)) {
+        // once its prey is out of the water, or has got away, it gives up
+        if (target != null && (!target.isAlive() || this.calm > 0 || this.distanceTo(target) > GIVE_UP_RANGE
+                || !inOrOnWater(target) && this.tickCount % 20 == 0)) {
             this.setTarget(null);
             target = null;
         }

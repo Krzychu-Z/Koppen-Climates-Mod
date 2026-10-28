@@ -31,6 +31,10 @@ public class ModSounds {
     public static final RegistryObject<SoundEvent> MEDITERRANEAN_BEACH_DAY = register("ambient.mediterranean_beach.day");
     public static final RegistryObject<SoundEvent> MEDITERRANEAN_BEACH_NIGHT = register("ambient.mediterranean_beach.night");
     public static final RegistryObject<SoundEvent> OWL = register("ambient.mediterranean.owl");
+    // the hot desert (BWh): its wind by day, and the cry of its eagles
+    public static final RegistryObject<SoundEvent> HOT_DESERT_WIND = register("ambient.hot_desert.wind");
+    public static final RegistryObject<SoundEvent> EAGLE = register("entity.eagle.cry");
+    public static final RegistryObject<SoundEvent> RATTLESNAKE_RATTLE = register("entity.rattlesnake.rattle");
 
     // the savanna's elephants (trumpeting) and lions (roaring)
     public static final RegistryObject<SoundEvent> ELEPHANT = register("entity.elephant.trumpet");

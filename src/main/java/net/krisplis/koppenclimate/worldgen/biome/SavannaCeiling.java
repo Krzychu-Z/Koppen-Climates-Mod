@@ -54,9 +54,10 @@ public final class SavannaCeiling implements DensityFunction {
         double land = ease((c - KoppenBiomeSource.SAVANNA_MIN_CONTINENTALNESS) / COAST_EDGE);
         double dry = ease((KoppenBiomeSource.SAVANNA_MAX_HUMIDITY - h) / CLIMATE_EDGE);
         double warm = ease((t - KoppenBiomeSource.SAVANNA_MIN_TEMP) / CLIMATE_EDGE);
-        // beyond the jungle's temperature band only the deserts' less parched edges are savanna
-        double notDesert = Math.max(ease((KoppenBiomeSource.SAVANNA_MAX_TEMP - t) / CLIMATE_EDGE),
-                ease((h - KoppenBiomeSource.SAVANNA_DESERT_MIN_HUMIDITY) / CLIMATE_EDGE));
+        // the hot band beyond the jungle's, and the hottest, driest edge of its own, are the deserts'
+        double notDesert = ease((KoppenBiomeSource.SAVANNA_MAX_TEMP - t) / CLIMATE_EDGE)
+                * Math.max(ease((KoppenBiomeSource.DESERT_EDGE_TEMP - t) / CLIMATE_EDGE),
+                ease((h - KoppenBiomeSource.DESERT_EDGE_HUMIDITY) / CLIMATE_EDGE));
         return land * dry * warm * notDesert;
     }
 

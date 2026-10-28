@@ -1,0 +1,28 @@
+{
+  "variants": {
+    "layers=1": {
+      "model": "koppenclimatemod:block/orange_sand_dune_height2"
+    },
+    "layers=2": {
+      "model": "koppenclimatemod:block/orange_sand_dune_height4"
+    },
+    "layers=3": {
+      "model": "koppenclimatemod:block/orange_sand_dune_height6"
+    },
+    "layers=4": {
+      "model": "koppenclimatemod:block/orange_sand_dune_height8"
+    },
+    "layers=5": {
+      "model": "koppenclimatemod:block/orange_sand_dune_height10"
+    },
+    "layers=6": {
+      "model": "koppenclimatemod:block/orange_sand_dune_height12"
+    },
+    "layers=7": {
+      "model": "koppenclimatemod:block/orange_sand_dune_height14"
+    },
+    "layers=8": {
+      "model": "koppenclimatemod:block/orange_sand"
+    }
+  }
+}

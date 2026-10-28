@@ -3,7 +3,7 @@
   "biomes": "minecraft:warm_ocean",
   "spawners": {
     "type": "koppenclimatemod:shark",
-    "weight": 12,
+    "weight": 6,
     "minCount": 1,
     "maxCount": 2
   }

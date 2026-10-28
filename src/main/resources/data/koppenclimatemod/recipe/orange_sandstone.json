@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "pattern": [
+    "##",
+    "##"
+  ],
+  "key": {
+    "#": {
+      "item": "koppenclimatemod:orange_sand"
+    }
+  },
+  "result": {
+    "id": "koppenclimatemod:orange_sandstone",
+    "count": 1
+  }
+}

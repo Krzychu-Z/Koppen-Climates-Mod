@@ -9,7 +9,8 @@
   ],
   "client": [
     "ClientLevelSkyMixin",
-    "VillagerProfessionLayerMixin"
+    "VillagerProfessionLayerMixin",
+    "LevelRendererCloudsMixin"
   ],
   "injectors": {
     "defaultRequire": 1

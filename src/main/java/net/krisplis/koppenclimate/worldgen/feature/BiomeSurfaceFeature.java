@@ -49,11 +49,12 @@ public class BiomeSurfaceFeature extends Feature<BiomeSurfaceFeature.Config> {
     public enum Style implements StringRepresentable {
         JUNGLE("jungle"), RIVER("river"), BEACH("beach"), SAVANNA("savanna"),
         MEDITERRANEAN("mediterranean"), MEDITERRANEAN_BEACH("mediterranean_beach"),
-        MEDITERRANEAN_FOREST("mediterranean_forest"), MEDITERRANEAN_RIVER("mediterranean_river"), WINE_TERRACES("wine_terraces");
+        MEDITERRANEAN_FOREST("mediterranean_forest"), MEDITERRANEAN_RIVER("mediterranean_river"), WINE_TERRACES("wine_terraces"),
+        MEDITERRANEAN_HIGHLAND("mediterranean_highland");
 
         boolean mediterranean() {
             return this == MEDITERRANEAN || this == MEDITERRANEAN_BEACH || this == MEDITERRANEAN_FOREST
-                    || this == MEDITERRANEAN_RIVER || this == WINE_TERRACES;
+                    || this == MEDITERRANEAN_RIVER || this == WINE_TERRACES || this == MEDITERRANEAN_HIGHLAND;
         }
 
         public static final Codec<Style> CODEC = StringRepresentable.fromEnum(Style::values);
@@ -113,6 +114,7 @@ public class BiomeSurfaceFeature extends Feature<BiomeSurfaceFeature.Config> {
                 }
                 // on a steep Mediterranean hillside (or in a scattered outcrop) the white rock shows through
                 boolean bareRock = !underwater && ((config.style() == Style.MEDITERRANEAN && (steep(level, x, z, top) || patch(x, z, 9)))
+                        || (config.style() == Style.MEDITERRANEAN_HIGHLAND && steep(level, x, z, top))
                         || (config.style() == Style.MEDITERRANEAN_FOREST && steep(level, x, z, top)));
                 BlockState rock = (config.style().mediterranean() ? ModBlocks.WHITE_LIMESTONE : ModBlocks.YELLOW_LIMESTONE).get().defaultBlockState();
                 for (int depth = 0; depth <= LIMESTONE_DEPTH; depth++) {
@@ -183,6 +185,13 @@ public class BiomeSurfaceFeature extends Feature<BiomeSurfaceFeature.Config> {
                 }
                 if (state.is(Blocks.DIRT) || state.is(Blocks.COARSE_DIRT)) yield ModBlocks.CINNAMON_DIRT.get().defaultBlockState();
                 yield null;
+            }
+            case MEDITERRANEAN_HIGHLAND -> {
+                // the highland: bare terra rossa, no grass sward, and no snow or ice on its tops
+                boolean loose = state.is(BlockTags.DIRT) || state.is(Blocks.GRASS_BLOCK) || state.is(Blocks.SNOW_BLOCK)
+                        || state.is(Blocks.POWDER_SNOW) || state.is(Blocks.PACKED_ICE) || state.is(Blocks.ICE)
+                        || state.is(Blocks.GRAVEL) || state.is(BlockTags.SAND) || state.is(Blocks.CALCITE);
+                yield loose ? ModBlocks.CINNAMON_DIRT.get().defaultBlockState() : null;
             }
             case WINE_TERRACES -> {
                 // bare, worked terra rossa: no grass between the vines

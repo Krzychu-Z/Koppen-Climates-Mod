@@ -24,7 +24,7 @@ public class GlowwormParticle extends TextureSheetParticle {
         this.homeY = y;
         this.homeZ = z;
         this.pickSprite(sprites);
-        this.quadSize = 0.045F + this.random.nextFloat() * 0.02F;
+        this.quadSize = 0.011F + this.random.nextFloat() * 0.005F;
         this.lifetime = 80 + this.random.nextInt(100);
         this.gravity = 0.0F;
         this.hasPhysics = true;

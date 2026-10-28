@@ -35,6 +35,19 @@ public final class AfAmbience {
 
     @Nullable
     private static Loop current;
+    // whether the player is in the hot desert or the Mediterranean, where there are no clouds (see LevelRendererCloudsMixin)
+    private static volatile boolean hideClouds;
+    // whether the player is by one of the Dalmatian island towns (out in the sea, so known by its Venetian villagers)
+    private static boolean nearIslandTown;
+
+    public static boolean hideClouds() {
+        return hideClouds;
+    }
+
+    private static boolean nearVenetians(Minecraft mc, LocalPlayer player) {
+        return !mc.level.getEntitiesOfClass(net.minecraft.world.entity.npc.Villager.class, player.getBoundingBox().inflate(56.0),
+                v -> v.getVillagerData().getType() == net.krisplis.koppenclimate.village.VillageRegistry.VENETIAN.get()).isEmpty();
+    }
 
     private AfAmbience() {
     }
@@ -49,7 +62,19 @@ public final class AfAmbience {
         owls(mc, player);
         SoundEvent wanted = null;
         if (player != null && mc.level != null && !player.isRemoved()) {
-            wanted = pick(mc.level.getBiome(player.blockPosition()), mc.level.getDayTime());
+            Holder<Biome> here = mc.level.getBiome(player.blockPosition());
+            // no clouds over the hot desert or the Mediterranean
+            hideClouds = here.is(ModBiomes.HOT_DESERT) || ModBiomes.isMediterranean(here);
+            wanted = pick(here, mc.level.getDayTime());
+            // the Dalmatian island towns stand out in the sea: around one, the sea sounds like the Mediterranean beach
+            if (player.tickCount % 40 == 0) nearIslandTown = nearVenetians(mc, player);
+            if (wanted == null && nearIslandTown && here.is(net.minecraft.tags.BiomeTags.IS_OCEAN)) {
+                long time = Math.floorMod(mc.level.getDayTime(), 24000L);
+                boolean night = time >= NIGHT_START && time < NIGHT_END;
+                wanted = (night ? ModSounds.MEDITERRANEAN_BEACH_NIGHT : ModSounds.MEDITERRANEAN_BEACH_DAY).get();
+            }
+        } else {
+            hideClouds = false;
         }
         if (current != null && (current.isStopped() || !mc.getSoundManager().isActive(current))) {
             current = null;
@@ -126,7 +151,7 @@ public final class AfAmbience {
         Holder<Biome> biome = mc.level.getBiome(player.blockPosition());
         // outside the night or the biome, check again in a few seconds rather than waiting out a whole pause
         if (time < NIGHT_START || time >= NIGHT_END
-                || !ModBiomes.isMediterranean(biome)) {
+                || !(ModBiomes.isMediterranean(biome) || ModBiomes.isDesert(biome))) {
             owlCooldown = 100;
             return;
         }
@@ -150,6 +175,10 @@ public final class AfAmbience {
         }
         if (biome.is(ModBiomes.MEDITERRANEAN_BEACH)) {
             return (night ? ModSounds.MEDITERRANEAN_BEACH_NIGHT : ModSounds.MEDITERRANEAN_BEACH_DAY).get();
+        }
+        if (ModBiomes.isDesert(biome)) {
+            // the wind over the sand by day; at night it drops, and only the owls are heard
+            return night ? null : ModSounds.HOT_DESERT_WIND.get();
         }
         if (ModBiomes.isMediterranean(biome)) {
             return (night ? ModSounds.MEDITERRANEAN_NIGHT : ModSounds.MEDITERRANEAN_DAY).get();

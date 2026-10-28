@@ -146,6 +146,10 @@ public class KoppenClimateMod {
             event.accept(ModBlocks.TERRACOTTA_ROOF_TILES);
         }
         if (tab == CreativeModeTabs.NATURAL_BLOCKS) {
+            event.accept(ModBlocks.ORANGE_SAND);
+            event.accept(ModBlocks.ORANGE_SAND_DUNE);
+            event.accept(ModBlocks.ORANGE_SANDSTONE);
+            event.accept(ModBlocks.SILVER_GRASS);
             for (var b : java.util.List.of(ModBlocks.WHITE_LIMESTONE, ModBlocks.CINNAMON_GRASS_BLOCK, ModBlocks.CINNAMON_DIRT,
                     ModBlocks.WHITE_GRAVEL, ModBlocks.ROSEMARY, ModBlocks.TALL_ROSEMARY, ModBlocks.OLIVE_LOG, ModBlocks.OLIVE_LEAVES,
                     ModBlocks.OLIVE_SAPLING, ModBlocks.ITALIAN_PINE_LOG, ModBlocks.ITALIAN_PINE_LEAVES, ModBlocks.ITALIAN_PINE_SAPLING,
@@ -450,6 +454,8 @@ public class KoppenClimateMod {
             event.accept(ModItems.VIPER_SPAWN_EGG);
             event.accept(ModItems.SHARK_SPAWN_EGG);
             event.accept(ModItems.CRAB_SPAWN_EGG);
+            event.accept(ModItems.EAGLE_SPAWN_EGG);
+            event.accept(ModItems.RATTLESNAKE_SPAWN_EGG);
         }
     }
 

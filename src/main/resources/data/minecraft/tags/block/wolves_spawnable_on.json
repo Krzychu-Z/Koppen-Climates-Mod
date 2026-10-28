@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
-    "koppenclimatemod:cinnamon_grass_block"
+    "koppenclimatemod:cinnamon_grass_block",
+    "koppenclimatemod:cinnamon_dirt"
   ]
 }

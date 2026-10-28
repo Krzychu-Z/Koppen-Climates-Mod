@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:block",
+  "random_sequence": "koppenclimatemod:blocks/orange_sandstone",
+  "pools": [
+    {
+      "rolls": 1.0,
+      "bonus_rolls": 0.0,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "koppenclimatemod:orange_sandstone"
+        }
+      ],
+      "conditions": [
+        {
+          "condition": "minecraft:survives_explosion"
+        }
+      ]
+    }
+  ]
+}

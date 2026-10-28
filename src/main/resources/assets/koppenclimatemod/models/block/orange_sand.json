@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/cube_bottom_top",
+  "textures": {
+    "top": "koppenclimatemod:block/orange_sand/top",
+    "bottom": "koppenclimatemod:block/orange_sand/top",
+    "side": "koppenclimatemod:block/orange_sand/side"
+  }
+}

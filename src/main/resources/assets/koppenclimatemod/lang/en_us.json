@@ -370,5 +370,19 @@
   "block.koppenclimatemod.potted_nerium": "Potted Nerium",
   "item.koppenclimatemod.tomato": "Tomato",
   "structure.koppenclimatemod.tuscan_village": "Tuscan Village",
-  "structure.koppenclimatemod.croatian_village": "Dalmatian Island Town"
+  "structure.koppenclimatemod.croatian_village": "Dalmatian Island Town",
+  "block.koppenclimatemod.orange_sand": "Orange Sand",
+  "block.koppenclimatemod.orange_sand_dune": "Orange Sand Dune",
+  "block.koppenclimatemod.orange_sandstone": "Orange Sandstone",
+  "biome.koppenclimatemod.hot_desert_bwh": "Hot Desert (BWh)",
+  "entity.koppenclimatemod.eagle": "Brown Eagle",
+  "item.koppenclimatemod.eagle_spawn_egg": "Brown Eagle Spawn Egg",
+  "subtitles.koppenclimatemod.eagle": "Eagle cries",
+  "block.koppenclimatemod.silver_grass": "Silver Grass",
+  "entity.koppenclimatemod.rattlesnake": "Rattlesnake",
+  "item.koppenclimatemod.rattlesnake_spawn_egg": "Rattlesnake Spawn Egg",
+  "subtitles.koppenclimatemod.rattle": "Rattlesnake rattles",
+  "biome.koppenclimatemod.continental_desert_bwk": "Continental Desert (BWk)",
+  "biome.koppenclimatemod.desert_mountains_bwk": "Desert Mountains (BWk)",
+  "biome.koppenclimatemod.mediterranean_highland_csb": "Mediterranean Highland (Csb)"
 }

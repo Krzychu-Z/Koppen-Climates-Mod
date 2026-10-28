@@ -86,6 +86,21 @@ public class ModEntities {
                     .clientTrackingRange(8)
                     .build("crab"));
 
+    // a brown eagle of the hot desert, soaring high over the sand
+    public static final RegistryObject<EntityType<net.krisplis.koppenclimate.entity.custom.EagleEntity>> EAGLE = ENTITY_TYPES.register("eagle",
+            () -> EntityType.Builder.of(net.krisplis.koppenclimate.entity.custom.EagleEntity::new, MobCategory.CREATURE)
+                    .sized(0.9F, 0.6F)
+                    .eyeHeight(0.4F)
+                    .clientTrackingRange(12)
+                    .build("eagle"));
+
+    // the rattlesnake of the continental deserts: a viper's size
+    public static final RegistryObject<EntityType<net.krisplis.koppenclimate.entity.custom.RattlesnakeEntity>> RATTLESNAKE = ENTITY_TYPES.register("rattlesnake",
+            () -> EntityType.Builder.of(net.krisplis.koppenclimate.entity.custom.RattlesnakeEntity::new, MobCategory.CREATURE)
+                    .sized(0.55F, 0.3F)
+                    .clientTrackingRange(8)
+                    .build("rattlesnake"));
+
     // a termite of the African savanna: a little pale insect, living around its colony's mound
     public static final RegistryObject<EntityType<net.krisplis.koppenclimate.entity.custom.TermiteEntity>> TERMITE = ENTITY_TYPES.register("termite",
             () -> EntityType.Builder.of(net.krisplis.koppenclimate.entity.custom.TermiteEntity::new, MobCategory.CREATURE)
@@ -180,6 +195,8 @@ public class ModEntities {
         event.put(VIPER.get(), net.krisplis.koppenclimate.entity.custom.ViperEntity.createAttributes().build());
         event.put(SHARK.get(), net.krisplis.koppenclimate.entity.custom.SharkEntity.createAttributes().build());
         event.put(CRAB.get(), net.krisplis.koppenclimate.entity.custom.CrabEntity.createAttributes().build());
+        event.put(EAGLE.get(), net.krisplis.koppenclimate.entity.custom.EagleEntity.createAttributes().build());
+        event.put(RATTLESNAKE.get(), net.krisplis.koppenclimate.entity.custom.RattlesnakeEntity.createAttributes().build());
         event.put(TERMITE.get(), net.krisplis.koppenclimate.entity.custom.TermiteEntity.createAttributes().build());
         event.put(SCORPION.get(), net.krisplis.koppenclimate.entity.custom.ScorpionEntity.createAttributes().build());
         event.put(BLACK_MAMBA.get(), net.krisplis.koppenclimate.entity.custom.MambaEntity.createAttributes().build());
@@ -231,6 +248,10 @@ public class ModEntities {
                 WaterAnimal::checkSurfaceWaterAnimalSpawnRules, SpawnPlacementRegisterEvent.Operation.REPLACE);
         event.register(CRAB.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
                 net.krisplis.koppenclimate.entity.custom.CrabEntity::checkCrabSpawnRules, SpawnPlacementRegisterEvent.Operation.REPLACE);
+        event.register(EAGLE.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+                net.krisplis.koppenclimate.entity.custom.EagleEntity::checkEagleSpawnRules, SpawnPlacementRegisterEvent.Operation.REPLACE);
+        event.register(RATTLESNAKE.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+                Mob::checkMobSpawnRules, SpawnPlacementRegisterEvent.Operation.REPLACE);
         // cave spiders may also come out by day in the Amazon (see AmazonSpawns)
         // (an extra OR rule keeps vanilla's placement type and heightmap, so it doesn't pass any)
         event.register(EntityType.CAVE_SPIDER, AmazonSpawns::caveSpiderInDaylight, SpawnPlacementRegisterEvent.Operation.OR);

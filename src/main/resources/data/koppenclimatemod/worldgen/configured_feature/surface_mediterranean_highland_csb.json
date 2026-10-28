@@ -1,0 +1,7 @@
+{
+  "type": "koppenclimatemod:biome_surface",
+  "config": {
+    "biome": "koppenclimatemod:mediterranean_highland_csb",
+    "style": "mediterranean_highland"
+  }
+}

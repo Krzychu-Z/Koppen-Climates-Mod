@@ -2,6 +2,10 @@
   "replace": false,
   "values": [
     "koppenclimatemod:cinnamon_grass_block",
-    "koppenclimatemod:white_gravel"
+    "koppenclimatemod:white_gravel",
+    "koppenclimatemod:orange_sand",
+    "koppenclimatemod:orange_sand_dune",
+    "koppenclimatemod:cinnamon_dirt",
+    "minecraft:terracotta"
   ]
 }

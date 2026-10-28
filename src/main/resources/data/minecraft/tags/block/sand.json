@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
-    "koppenclimatemod:white_sand"
+    "koppenclimatemod:white_sand",
+    "koppenclimatemod:orange_sand"
   ]
 }

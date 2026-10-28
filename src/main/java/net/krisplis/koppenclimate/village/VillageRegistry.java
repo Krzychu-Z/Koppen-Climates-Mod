@@ -99,7 +99,16 @@ public final class VillageRegistry {
     public static final RegistryObject<StructurePieceType> THAI_VILLAGE_PIECE =
             STRUCTURE_PIECES.register("thai_village", () -> (StructurePieceType.ContextlessType) ThaiVillagePiece::new);
 
+    // ---------------------------------------------------------------- desert villages in the mod's desert colours
+
+    public static final DeferredRegister<net.minecraft.world.level.levelgen.structure.templatesystem.StructureProcessorType<?>> PROCESSORS =
+            DeferredRegister.create(Registries.STRUCTURE_PROCESSOR, KoppenClimateMod.MOD_ID);
+
+    public static final RegistryObject<net.minecraft.world.level.levelgen.structure.templatesystem.StructureProcessorType<DesertRecolorProcessor>> DESERT_RECOLOR =
+            PROCESSORS.register("desert_recolor", () -> () -> DesertRecolorProcessor.CODEC);
+
     public static void register(IEventBus eventBus) {
+        PROCESSORS.register(eventBus);
         VILLAGER_TYPES.register(eventBus);
         ENTITY_TYPES.register(eventBus);
         ITEMS.register(eventBus);
