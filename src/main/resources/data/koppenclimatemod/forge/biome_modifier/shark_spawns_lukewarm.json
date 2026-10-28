@@ -1,0 +1,13 @@
+{
+  "type": "forge:add_spawns",
+  "biomes": [
+    "minecraft:lukewarm_ocean",
+    "minecraft:deep_lukewarm_ocean"
+  ],
+  "spawners": {
+    "type": "koppenclimatemod:shark",
+    "weight": 3,
+    "minCount": 1,
+    "maxCount": 1
+  }
+}

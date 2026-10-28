@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/door_bottom_left_open",
+  "textures": {
+    "bottom": "koppenclimatemod:block/fig_door_bottom",
+    "top": "koppenclimatemod:block/fig_door_top"
+  },
+  "render_type": "minecraft:cutout"
+}

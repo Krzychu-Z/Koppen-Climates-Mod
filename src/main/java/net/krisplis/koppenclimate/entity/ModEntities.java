@@ -11,6 +11,7 @@ import net.krisplis.koppenclimate.entity.custom.PiranhaEntity;
 import net.minecraft.world.entity.animal.WaterAnimal;
 import net.krisplis.koppenclimate.event.AmazonSpawns;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.entity.SpawnPlacementTypes;
@@ -62,6 +63,29 @@ public class ModEntities {
                     .clientTrackingRange(10)
                     .build("cobra"));
 
+    // the Mediterranean (Csa) viper: a cobra's ways in a smaller, milder snake
+    public static final RegistryObject<EntityType<net.krisplis.koppenclimate.entity.custom.ViperEntity>> VIPER = ENTITY_TYPES.register("viper",
+            () -> EntityType.Builder.of(net.krisplis.koppenclimate.entity.custom.ViperEntity::new, MobCategory.CREATURE)
+                    .sized(0.55F, 0.3F)
+                    .clientTrackingRange(8)
+                    .build("viper"));
+
+    // a shark of the warm seas, some three blocks long
+    public static final RegistryObject<EntityType<net.krisplis.koppenclimate.entity.custom.SharkEntity>> SHARK = ENTITY_TYPES.register("shark",
+            () -> EntityType.Builder.of(net.krisplis.koppenclimate.entity.custom.SharkEntity::new, MobCategory.WATER_CREATURE)
+                    .sized(1.4F, 0.9F)
+                    .eyeHeight(0.5F)
+                    .clientTrackingRange(10)
+                    .build("shark"));
+
+    // a little red crab of the warm beaches, a scorpion's size
+    public static final RegistryObject<EntityType<net.krisplis.koppenclimate.entity.custom.CrabEntity>> CRAB = ENTITY_TYPES.register("crab",
+            () -> EntityType.Builder.of(net.krisplis.koppenclimate.entity.custom.CrabEntity::new, MobCategory.CREATURE)
+                    .sized(0.5F, 0.3F)
+                    .eyeHeight(0.25F)
+                    .clientTrackingRange(8)
+                    .build("crab"));
+
     // a termite of the African savanna: a little pale insect, living around its colony's mound
     public static final RegistryObject<EntityType<net.krisplis.koppenclimate.entity.custom.TermiteEntity>> TERMITE = ENTITY_TYPES.register("termite",
             () -> EntityType.Builder.of(net.krisplis.koppenclimate.entity.custom.TermiteEntity::new, MobCategory.CREATURE)
@@ -100,6 +124,11 @@ public class ModEntities {
     public static final RegistryObject<EntityType<net.krisplis.koppenclimate.entity.custom.JackalEntity>> JACKAL = ENTITY_TYPES.register("jackal",
             () -> EntityType.Builder.of(net.krisplis.koppenclimate.entity.custom.JackalEntity::new, MobCategory.CREATURE)
                     .sized(0.72F, 1.0F).eyeHeight(0.82F).clientTrackingRange(10).build("jackal"));
+
+    // the tropical forests' pig: reddish-brown with mud-dark spots
+    public static final RegistryObject<EntityType<net.krisplis.koppenclimate.entity.custom.WarmPigEntity>> WARM_PIG = ENTITY_TYPES.register("warm_pig",
+            () -> EntityType.Builder.of(net.krisplis.koppenclimate.entity.custom.WarmPigEntity::new, MobCategory.CREATURE)
+                    .sized(0.9F, 0.9F).passengerAttachments(0.86875F).clientTrackingRange(10).build("warm_pig"));
 
     // the mod's wooden boats, sized like vanilla's (which wood they are is in the entity: ModBoatWood)
     public static final RegistryObject<EntityType<ModBoat>> BOAT = ENTITY_TYPES.register("boat",
@@ -148,6 +177,9 @@ public class ModEntities {
         event.put(BLACK_PANTHER.get(), BlackPantherEntity.createAttributes().build());
         event.put(PIRANHA.get(), PiranhaEntity.createAttributes().build());
         event.put(COBRA.get(), CobraEntity.createAttributes().build());
+        event.put(VIPER.get(), net.krisplis.koppenclimate.entity.custom.ViperEntity.createAttributes().build());
+        event.put(SHARK.get(), net.krisplis.koppenclimate.entity.custom.SharkEntity.createAttributes().build());
+        event.put(CRAB.get(), net.krisplis.koppenclimate.entity.custom.CrabEntity.createAttributes().build());
         event.put(TERMITE.get(), net.krisplis.koppenclimate.entity.custom.TermiteEntity.createAttributes().build());
         event.put(SCORPION.get(), net.krisplis.koppenclimate.entity.custom.ScorpionEntity.createAttributes().build());
         event.put(BLACK_MAMBA.get(), net.krisplis.koppenclimate.entity.custom.MambaEntity.createAttributes().build());
@@ -156,6 +188,7 @@ public class ModEntities {
         event.put(RHINO.get(), net.krisplis.koppenclimate.entity.custom.RhinoEntity.createAttributes().build());
         event.put(LION.get(), net.krisplis.koppenclimate.entity.custom.LionEntity.createAttributes().build());
         event.put(ZEBRA.get(), net.krisplis.koppenclimate.entity.custom.ZebraEntity.createAttributes().build());
+        event.put(WARM_PIG.get(), net.minecraft.world.entity.animal.Pig.createAttributes().build());
         event.put(JACKAL.get(), net.krisplis.koppenclimate.entity.custom.JackalEntity.createAttributes().build());
     }
 
@@ -168,7 +201,7 @@ public class ModEntities {
                 (type, level, reason, pos, random) -> Mob.checkMobSpawnRules(type, level, reason, pos, random) && nearWater(level, pos, 6),
                 SpawnPlacementRegisterEvent.Operation.REPLACE);
         // the savanna's animals stand on its grass; rhinos only by its ponds
-        for (var type : java.util.List.of(GIRAFFE.get(), ELEPHANT.get(), LION.get(), ZEBRA.get(), JACKAL.get())) {
+        for (var type : java.util.List.of(GIRAFFE.get(), ELEPHANT.get(), LION.get(), ZEBRA.get(), JACKAL.get(), WARM_PIG.get())) {
             registerAnimal(event, type);
         }
         event.register(RHINO.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
@@ -185,14 +218,35 @@ public class ModEntities {
                 Mob::checkMobSpawnRules, SpawnPlacementRegisterEvent.Operation.REPLACE);
         event.register(COBRA.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
                 Mob::checkMobSpawnRules, SpawnPlacementRegisterEvent.Operation.REPLACE);
+        event.register(VIPER.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+                Mob::checkMobSpawnRules, SpawnPlacementRegisterEvent.Operation.REPLACE);
         // cod may also spawn in the shallow paddies of the rice terraces, high up the hills (see RiceTerraces)
         event.register(EntityType.COD, net.krisplis.koppenclimate.worldgen.feature.RiceTerracesFeature::codInPaddy,
                 SpawnPlacementRegisterEvent.Operation.OR);
         // like vanilla fish: in the water near the surface
         event.register(PIRANHA.get(), SpawnPlacementTypes.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
                 WaterAnimal::checkSurfaceWaterAnimalSpawnRules, SpawnPlacementRegisterEvent.Operation.REPLACE);
+        // sharks: in the sea near its surface; crabs: on beach sand, like turtles
+        event.register(SHARK.get(), SpawnPlacementTypes.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+                WaterAnimal::checkSurfaceWaterAnimalSpawnRules, SpawnPlacementRegisterEvent.Operation.REPLACE);
+        event.register(CRAB.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+                net.krisplis.koppenclimate.entity.custom.CrabEntity::checkCrabSpawnRules, SpawnPlacementRegisterEvent.Operation.REPLACE);
         // cave spiders may also come out by day in the Amazon (see AmazonSpawns)
         // (an extra OR rule keeps vanilla's placement type and heightmap, so it doesn't pass any)
         event.register(EntityType.CAVE_SPIDER, AmazonSpawns::caveSpiderInDaylight, SpawnPlacementRegisterEvent.Operation.OR);
+        // bats also fly out over the Mediterranean at night, not only in caves
+        event.register(EntityType.BAT, ModEntities::batOverMediterranean, SpawnPlacementRegisterEvent.Operation.OR);
+    }
+
+    private static final net.minecraft.tags.TagKey<net.minecraft.world.level.biome.Biome> MEDITERRANEAN_BIOMES =
+            net.minecraft.tags.TagKey.create(net.minecraft.core.registries.Registries.BIOME,
+                    net.minecraft.resources.ResourceLocation.fromNamespaceAndPath("koppenclimatemod", "is_mediterranean"));
+
+    private static boolean batOverMediterranean(EntityType<net.minecraft.world.entity.ambient.Bat> type,
+                                                net.minecraft.world.level.ServerLevelAccessor level, MobSpawnType reason,
+                                                net.minecraft.core.BlockPos pos, net.minecraft.util.RandomSource random) {
+        if (!level.getBiome(pos).is(MEDITERRANEAN_BIOMES)) return false;
+        if (!level.getLevel().isNight() || level.getBrightness(net.minecraft.world.level.LightLayer.BLOCK, pos) > 4) return false;
+        return level.getBlockState(pos).isAir() && level.getBlockState(pos.above()).isAir();
     }
 }

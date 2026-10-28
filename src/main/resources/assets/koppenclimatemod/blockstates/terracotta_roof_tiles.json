@@ -1,0 +1,79 @@
+{
+  "variants": {
+    "facing=north,shape=straight": {
+      "model": "koppenclimatemod:block/terracotta_roof_tiles"
+    },
+    "facing=north,shape=outer_left": {
+      "model": "koppenclimatemod:block/terracotta_roof_tiles_outer"
+    },
+    "facing=north,shape=outer_right": {
+      "model": "koppenclimatemod:block/terracotta_roof_tiles_outer",
+      "y": 90
+    },
+    "facing=north,shape=inner_left": {
+      "model": "koppenclimatemod:block/terracotta_roof_tiles_inner"
+    },
+    "facing=north,shape=inner_right": {
+      "model": "koppenclimatemod:block/terracotta_roof_tiles_inner",
+      "y": 90
+    },
+    "facing=east,shape=straight": {
+      "model": "koppenclimatemod:block/terracotta_roof_tiles",
+      "y": 90
+    },
+    "facing=east,shape=outer_left": {
+      "model": "koppenclimatemod:block/terracotta_roof_tiles_outer",
+      "y": 90
+    },
+    "facing=east,shape=outer_right": {
+      "model": "koppenclimatemod:block/terracotta_roof_tiles_outer",
+      "y": 180
+    },
+    "facing=east,shape=inner_left": {
+      "model": "koppenclimatemod:block/terracotta_roof_tiles_inner",
+      "y": 90
+    },
+    "facing=east,shape=inner_right": {
+      "model": "koppenclimatemod:block/terracotta_roof_tiles_inner",
+      "y": 180
+    },
+    "facing=south,shape=straight": {
+      "model": "koppenclimatemod:block/terracotta_roof_tiles",
+      "y": 180
+    },
+    "facing=south,shape=outer_left": {
+      "model": "koppenclimatemod:block/terracotta_roof_tiles_outer",
+      "y": 180
+    },
+    "facing=south,shape=outer_right": {
+      "model": "koppenclimatemod:block/terracotta_roof_tiles_outer",
+      "y": 270
+    },
+    "facing=south,shape=inner_left": {
+      "model": "koppenclimatemod:block/terracotta_roof_tiles_inner",
+      "y": 180
+    },
+    "facing=south,shape=inner_right": {
+      "model": "koppenclimatemod:block/terracotta_roof_tiles_inner",
+      "y": 270
+    },
+    "facing=west,shape=straight": {
+      "model": "koppenclimatemod:block/terracotta_roof_tiles",
+      "y": 270
+    },
+    "facing=west,shape=outer_left": {
+      "model": "koppenclimatemod:block/terracotta_roof_tiles_outer",
+      "y": 270
+    },
+    "facing=west,shape=outer_right": {
+      "model": "koppenclimatemod:block/terracotta_roof_tiles_outer"
+    },
+    "facing=west,shape=inner_left": {
+      "model": "koppenclimatemod:block/terracotta_roof_tiles_inner",
+      "y": 270
+    },
+    "facing=west,shape=inner_right": {
+      "model": "koppenclimatemod:block/terracotta_roof_tiles_inner"
+    }
+  }
+}

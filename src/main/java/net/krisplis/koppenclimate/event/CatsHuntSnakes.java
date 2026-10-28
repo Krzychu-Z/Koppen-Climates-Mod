@@ -20,6 +20,7 @@ public final class CatsHuntSnakes {
     @SubscribeEvent
     public static void onJoin(EntityJoinLevelEvent event) {
         if (event.getLevel().isClientSide() || !(event.getEntity() instanceof Cat cat)) return;
+        // (CobraEntity covers the black mamba and the viper as well)
         cat.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(cat, CobraEntity.class, 10, true, false,
                 snake -> !cat.isOrderedToSit()));
     }

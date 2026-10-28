@@ -8,6 +8,11 @@
     "koppenclimatemod:cobbled_white_limestone_wall",
     "koppenclimatemod:mossy_cobbled_white_limestone_wall",
     "koppenclimatemod:white_limestone_brick_wall",
-    "koppenclimatemod:mossy_white_limestone_brick_wall"
+    "koppenclimatemod:mossy_white_limestone_brick_wall",
+    "koppenclimatemod:marble_wall",
+    "koppenclimatemod:polished_marble_wall",
+    "koppenclimatemod:marble_brick_wall",
+    "koppenclimatemod:mossy_marble_brick_wall",
+    "koppenclimatemod:marble_tile_wall"
   ]
 }

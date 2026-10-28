@@ -45,6 +45,7 @@ public final class AfAmbience {
         Minecraft mc = Minecraft.getInstance();
         LocalPlayer player = mc.player;
         mosquitoes(mc, player);
+        glowworms(mc, player);
         owls(mc, player);
         SoundEvent wanted = null;
         if (player != null && mc.level != null && !player.isRemoved()) {
@@ -68,7 +69,8 @@ public final class AfAmbience {
     private static void mosquitoes(Minecraft mc, @Nullable LocalPlayer player) {
         if (player == null || mc.level == null || mc.isPaused() || player.tickCount % 40 != 0) return;
         Holder<Biome> biome = mc.level.getBiome(player.blockPosition());
-        if (!biome.is(ModBiomes.AMAZON_JUNGLE) && !biome.is(ModBiomes.AMAZON_JUNGLE_RIVER) && !biome.is(ModBiomes.RICE_TERRACES)) return;
+        // every tropical rain forest (A climates): the Amazon and its river, the monsoon forest and the rice terraces
+        if (!ModBiomes.isRainforest(biome) && !biome.is(ModBiomes.RICE_TERRACES)) return;
         var random = mc.level.random;
         // somewhere in the open air around the player, at about head height - never in water, never up in the canopy
         double cx = 0, cy = 0, cz = 0;
@@ -88,6 +90,31 @@ public final class AfAmbience {
         }
     }
 
+    // on Mediterranean nights, glowworms: just like the mosquitoes - every second, a little cloud of them hovering
+    // somewhere in the open air around the player at about head height - but glowing, and only at night
+    private static void glowworms(Minecraft mc, @Nullable LocalPlayer player) {
+        if (player == null || mc.level == null || mc.isPaused() || player.tickCount % 20 != 0) return;
+        long time = Math.floorMod(mc.level.getDayTime(), 24000L);
+        if (time < NIGHT_START || time >= NIGHT_END) return;
+        if (!ModBiomes.isMediterranean(mc.level.getBiome(player.blockPosition()))) return;
+        var random = mc.level.random;
+        double cx = 0, cy = 0, cz = 0;
+        boolean found = false;
+        for (int attempt = 0; attempt < 6 && !found; attempt++) {
+            cx = player.getX() + (random.nextDouble() - 0.5) * 12.0;
+            cz = player.getZ() + (random.nextDouble() - 0.5) * 12.0;
+            cy = player.getY() + random.nextDouble() * 2.5;
+            net.minecraft.core.BlockPos at = net.minecraft.core.BlockPos.containing(cx, cy, cz);
+            found = mc.level.getBlockState(at).isAir() && mc.level.getFluidState(at).isEmpty();
+        }
+        if (!found) return;
+        int count = 2 + random.nextInt(4);
+        for (int i = 0; i < count; i++) {
+            mc.level.addParticle(net.krisplis.koppenclimate.particle.ModParticles.GLOWWORM.get(),
+                    cx + random.nextGaussian() * 0.8, cy + random.nextGaussian() * 0.4, cz + random.nextGaussian() * 0.8, 0, 0, 0);
+        }
+    }
+
     // now and then at night in the Mediterranean, an owl hoots somewhere out in the trees
     private static int owlCooldown = 200;
 
@@ -95,15 +122,20 @@ public final class AfAmbience {
         if (player == null || mc.level == null || mc.isPaused()) return;
         if (--owlCooldown > 0) return;
         var random = mc.level.random;
-        owlCooldown = 500 + random.nextInt(1100);
         long time = Math.floorMod(mc.level.getDayTime(), 24000L);
-        if (time < NIGHT_START || time >= NIGHT_END) return;
         Holder<Biome> biome = mc.level.getBiome(player.blockPosition());
-        if (!biome.is(ModBiomes.MEDITERRANEAN) && !biome.is(ModBiomes.MEDITERRANEAN_BEACH)) return;
-        double angle = random.nextDouble() * Math.PI * 2, distance = 12 + random.nextDouble() * 14;
+        // outside the night or the biome, check again in a few seconds rather than waiting out a whole pause
+        if (time < NIGHT_START || time >= NIGHT_END
+                || !ModBiomes.isMediterranean(biome)) {
+            owlCooldown = 100;
+            return;
+        }
+        // roughly every 15-40 seconds, close enough to hear clearly over the crickets
+        owlCooldown = 300 + random.nextInt(500);
+        double angle = random.nextDouble() * Math.PI * 2, distance = 6 + random.nextDouble() * 6;
         mc.getSoundManager().play(new net.minecraft.client.resources.sounds.SimpleSoundInstance(ModSounds.OWL.get(), SoundSource.AMBIENT,
-                0.7F + random.nextFloat() * 0.3F, 0.9F + random.nextFloat() * 0.2F, SoundInstance.createUnseededRandom(),
-                player.getX() + Math.cos(angle) * distance, player.getY() + 4 + random.nextDouble() * 6, player.getZ() + Math.sin(angle) * distance));
+                0.9F + random.nextFloat() * 0.1F, 0.9F + random.nextFloat() * 0.2F, SoundInstance.createUnseededRandom(),
+                player.getX() + Math.cos(angle) * distance, player.getY() + 2 + random.nextDouble() * 4, player.getZ() + Math.sin(angle) * distance));
     }
 
     @Nullable
@@ -116,7 +148,10 @@ public final class AfAmbience {
         if (biome.is(ModBiomes.AFRICAN_SAVANNA)) {
             return (night ? ModSounds.SAVANNA_NIGHT : ModSounds.SAVANNA_DAY).get();
         }
-        if (biome.is(ModBiomes.MEDITERRANEAN) || biome.is(ModBiomes.MEDITERRANEAN_BEACH)) {
+        if (biome.is(ModBiomes.MEDITERRANEAN_BEACH)) {
+            return (night ? ModSounds.MEDITERRANEAN_BEACH_NIGHT : ModSounds.MEDITERRANEAN_BEACH_DAY).get();
+        }
+        if (ModBiomes.isMediterranean(biome)) {
             return (night ? ModSounds.MEDITERRANEAN_NIGHT : ModSounds.MEDITERRANEAN_DAY).get();
         }
         if (biome.is(ModBiomes.TROPICAL_BEACH)) {

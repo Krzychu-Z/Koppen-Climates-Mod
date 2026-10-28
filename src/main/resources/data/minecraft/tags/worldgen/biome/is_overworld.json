@@ -7,7 +7,12 @@
     "koppenclimatemod:tropical_monsoon_aw",
     "koppenclimatemod:rice_terraces_aw",
     "koppenclimatemod:african_savanna_as",
-    "koppenclimatemod:mediterranean_csa",
-    "koppenclimatemod:mediterranean_beach_csa"
+    "koppenclimatemod:mediterranean_beach_csa",
+    "koppenclimatemod:mediterranean_shrubland_csa",
+    "koppenclimatemod:mediterranean_forest_csa",
+    "koppenclimatemod:olive_grove_csa",
+    "koppenclimatemod:mediterranean_farmland_csa",
+    "koppenclimatemod:lavender_field_csa",
+    "koppenclimatemod:mediterranean_river_csa"
   ]
 }

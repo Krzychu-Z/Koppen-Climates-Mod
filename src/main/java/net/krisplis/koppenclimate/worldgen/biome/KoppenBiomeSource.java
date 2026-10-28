@@ -46,8 +46,31 @@ public class KoppenBiomeSource extends BiomeSource {
             Biome.CODEC.optionalFieldOf("island_summit").forGetter(s -> s.islandSummit),
             Biome.CODEC.optionalFieldOf("savanna").forGetter(s -> s.savanna),
             Biome.CODEC.optionalFieldOf("mediterranean").forGetter(s -> s.mediterranean),
-            Biome.CODEC.optionalFieldOf("mediterranean_beach").forGetter(s -> s.mediterraneanBeach)
+            Biome.CODEC.optionalFieldOf("mediterranean_beach").forGetter(s -> s.mediterraneanBeach),
+            CsaBiomes.CODEC.optionalFieldOf("mediterranean_zones").forGetter(s -> s.csa)
     ).apply(instance, KoppenBiomeSource::new));
+
+    /**
+     * The rest of the Mediterranean (Csa) biomes, beside "mediterranean" (the shrubland, the commonest) and its beach:
+     * which patch of the Csa takes which is up to {@link CsaZones}; the river takes vanilla's rivers in the Csa.
+     */
+    public record CsaBiomes(Holder<Biome> forest, Holder<Biome> oliveGrove, Holder<Biome> river, Holder<Biome> farmland,
+                            Holder<Biome> lavenderField) {
+        public static final com.mojang.serialization.Codec<CsaBiomes> CODEC = RecordCodecBuilder.create(i -> i.group(
+                Biome.CODEC.fieldOf("forest").forGetter(CsaBiomes::forest),
+                Biome.CODEC.fieldOf("olive_grove").forGetter(CsaBiomes::oliveGrove),
+                Biome.CODEC.fieldOf("river").forGetter(CsaBiomes::river),
+                Biome.CODEC.fieldOf("farmland").forGetter(CsaBiomes::farmland),
+                Biome.CODEC.fieldOf("lavender_field").forGetter(CsaBiomes::lavenderField)
+        ).apply(i, CsaBiomes::new));
+
+        Stream<Holder<Biome>> all() {
+            return Stream.of(this.forest, this.oliveGrove, this.river, this.farmland, this.lavenderField);
+        }
+    }
+
+    // below this block y the Csa's ground is all shrubland: its patches of other biomes are only on the surface
+    private static final int CSA_PATCH_MIN_Y = 50;
 
     // Climate values come quantized: multiplied by 10000.
     // The Amazon's climate is vanilla's jungle climate: temperature band 3 (0.2 to 0.55), humidity 0.1 and up.
@@ -102,6 +125,10 @@ public class KoppenBiomeSource extends BiomeSource {
     private final Optional<Holder<Biome>> savanna;
     // the Mediterranean (Csa) and its white gravel shore
     private final Optional<Holder<Biome>> mediterranean, mediterraneanBeach;
+    private final Optional<CsaBiomes> csa;
+    private record CsaSalt(Climate.Sampler sampler, long salt) {
+    }
+    private volatile CsaSalt csaSalt;
     private static final Set<ResourceKey<Biome>> VANILLA_SAVANNAS = Set.of(Biomes.SAVANNA, Biomes.SAVANNA_PLATEAU, Biomes.WINDSWEPT_SAVANNA);
     // vanilla's jungles: with the Amazon and the monsoon forest in place, none of these ever generates
     private static final Set<ResourceKey<Biome>> VANILLA_JUNGLES = Set.of(Biomes.JUNGLE, Biomes.BAMBOO_JUNGLE, Biomes.SPARSE_JUNGLE);
@@ -116,7 +143,8 @@ public class KoppenBiomeSource extends BiomeSource {
                              Optional<Holder<Biome>> riceTerraces, Holder<Biome> river, Holder<Biome> beach,
                              Holder<Biome> underground, Holder<Biome> warmLand, Holder<Biome> warmSwamp, Holder<Biome> warmOcean,
                              Optional<Holder<Biome>> islandSummit, Optional<Holder<Biome>> savanna,
-                             Optional<Holder<Biome>> mediterranean, Optional<Holder<Biome>> mediterraneanBeach) {
+                             Optional<Holder<Biome>> mediterranean, Optional<Holder<Biome>> mediterraneanBeach,
+                             Optional<CsaBiomes> csa) {
         this.base = base;
         this.jungle = jungle;
         this.monsoon = monsoon;
@@ -131,6 +159,7 @@ public class KoppenBiomeSource extends BiomeSource {
         this.savanna = savanna;
         this.mediterranean = mediterranean;
         this.mediterraneanBeach = mediterraneanBeach;
+        this.csa = csa;
     }
 
     @Override
@@ -143,7 +172,8 @@ public class KoppenBiomeSource extends BiomeSource {
         return Stream.concat(this.base.possibleBiomes().stream(),
                 Stream.concat(Stream.of(this.jungle, this.river, this.beach, this.underground, this.warmLand, this.warmSwamp, this.warmOcean),
                         Stream.concat(Stream.concat(Stream.concat(this.islandSummit.stream(), this.savanna.stream()),
-                                        Stream.concat(this.mediterranean.stream(), this.mediterraneanBeach.stream())),
+                                        Stream.concat(Stream.concat(this.mediterranean.stream(), this.mediterraneanBeach.stream()),
+                                                this.csa.stream().flatMap(CsaBiomes::all))),
                                 Stream.concat(this.monsoon.stream(), this.riceTerraces.stream()))))
                 // vanilla's savannas never generate once the African savanna replaces them
                 .filter(b -> this.savanna.isEmpty() || !b.unwrapKey().map(VANILLA_SAVANNAS::contains).orElse(false))
@@ -221,9 +251,19 @@ public class KoppenBiomeSource extends BiomeSource {
         }
         // the Mediterranean (Csa) takes the dry side of the temperate band; CsaHills raises the very same ground
         if (this.mediterranean.isPresent() && climate.depth() < UNDERGROUND_MIN_DEPTH && isMediterraneanClimate(climate)) {
-            if (biome.unwrapKey().map(CSA_LAND::contains).orElse(false)) return this.mediterranean.get();
+            if (biome.unwrapKey().map(CSA_LAND::contains).orElse(false)) return this.csaLand(x, y, z, sampler);
+            if (this.csa.isPresent() && biome.is(Biomes.RIVER)) return this.csa.get().river();
             if (this.mediterraneanBeach.isPresent() && biome.unwrapKey().map(CSA_SHORES::contains).orElse(false)) {
                 return this.mediterraneanBeach.get();
+            }
+        }
+        // the sea off the Mediterranean is lukewarm, a little beyond its coast too, so its beaches only ever meet lukewarm water
+        if (this.mediterranean.isPresent() && climate.depth() < UNDERGROUND_MIN_DEPTH && isNearMediterraneanClimate(climate)) {
+            ResourceKey<Biome> lukewarm = biome.is(Biomes.DEEP_OCEAN) || biome.is(Biomes.DEEP_COLD_OCEAN) || biome.is(Biomes.DEEP_FROZEN_OCEAN)
+                    ? Biomes.DEEP_LUKEWARM_OCEAN : Biomes.LUKEWARM_OCEAN;
+            if (biome.unwrapKey().map(CSA_SEAS::contains).orElse(false)) {
+                Holder<Biome> sea = this.base.possibleBiomes().stream().filter(b -> b.is(lukewarm)).findFirst().orElse(null);
+                if (sea != null) return sea;
             }
         }
         // vanilla savannas outside that climate (the hottest, driest ones) are desert
@@ -250,6 +290,35 @@ public class KoppenBiomeSource extends BiomeSource {
             return this.warmOcean;
         }
         return biome;
+    }
+
+    private static final Set<ResourceKey<Biome>> CSA_SEAS = Set.of(Biomes.OCEAN, Biomes.DEEP_OCEAN, Biomes.COLD_OCEAN,
+            Biomes.DEEP_COLD_OCEAN, Biomes.FROZEN_OCEAN, Biomes.DEEP_FROZEN_OCEAN, Biomes.WARM_OCEAN);
+
+    // the Mediterranean climate widened by a margin, for the seas off its coasts
+    static boolean isNearMediterraneanClimate(Climate.TargetPoint c) {
+        long t = c.temperature(), h = c.humidity();
+        return t >= CSA_MIN_TEMPERATURE - 1000 && t < CSA_MAX_TEMPERATURE + 1000 && h < CSA_MAX_HUMIDITY_Q + 1000;
+    }
+
+    /** Which of the Mediterranean's land biomes this spot falls in (see CsaZones). */
+    private Holder<Biome> csaLand(int x, int y, int z, Climate.Sampler sampler) {
+        if (this.csa.isEmpty()) return this.mediterranean.get();
+        CsaSalt cached = this.csaSalt;
+        if (cached == null || cached.sampler() != sampler) {
+            cached = new CsaSalt(sampler, CsaZones.salt(sampler.temperature()));
+            this.csaSalt = cached;
+        }
+        CsaBiomes b = this.csa.get();
+        int bx = QuartPos.toBlock(x) + 2, by = QuartPos.toBlock(y), bz = QuartPos.toBlock(z) + 2;
+        if (by < CSA_PATCH_MIN_Y) return this.mediterranean.get();
+        return switch (CsaZones.at(bx, bz, cached.salt(), sampler.weirdness()).zone()) {
+            case FOREST -> b.forest();
+            case OLIVE_GROVE -> b.oliveGrove();
+            case FARMLAND -> b.farmland();
+            case LAVENDER_FIELD -> b.lavenderField();
+            case SHRUBLAND -> this.mediterranean.get();
+        };
     }
 
     static boolean isMediterraneanClimate(Climate.TargetPoint c) {

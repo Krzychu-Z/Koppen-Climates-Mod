@@ -32,6 +32,9 @@ import java.util.Map;
  *       with its own flat crown, together making a wide, ragged umbrella;</li>
  *   <li>{@code cypress}: the Mediterranean cypress - a narrow dark green column, widest a third of the way up
  *       and tapering to a point, on a spruce trunk;</li>
+ *   <li>{@code fig}: a low, sprawling fig tree - a short trunk splitting into several limbs reaching out sideways
+ *       under one broad, rounded, dark green crown;</li>
+ *   <li>{@code lemon}: a small lemon tree - a short trunk and a dense round crown;</li>
  *   <li>{@code olive}: a small, gnarled olive tree - a short twisting trunk (sometimes two) splitting into
  *       crooked branches under lumpy clumps of two-tone leaves, some already carrying olives.</li>
  * </ul>
@@ -39,7 +42,8 @@ import java.util.Map;
  */
 public class MediterraneanTreeFeature extends Feature<MediterraneanTreeFeature.Config> {
     public enum Kind implements StringRepresentable {
-        ITALIAN_PINE_UMBRELLA("italian_pine_umbrella"), ITALIAN_PINE_WIDE("italian_pine_wide"), CYPRESS("cypress"), OLIVE("olive");
+        ITALIAN_PINE_UMBRELLA("italian_pine_umbrella"), ITALIAN_PINE_WIDE("italian_pine_wide"), CYPRESS("cypress"), OLIVE("olive"),
+        FIG("fig"), LEMON("lemon");
 
         public static final Codec<Kind> CODEC = StringRepresentable.fromEnum(Kind::values);
         private final String name;
@@ -142,6 +146,8 @@ public class MediterraneanTreeFeature extends Feature<MediterraneanTreeFeature.C
             case ITALIAN_PINE_WIDE -> widePine(origin, random);
             case CYPRESS -> cypress(origin, random);
             case OLIVE -> olive(origin, random);
+            case FIG -> fig(origin, random);
+            case LEMON -> lemon(origin, random);
         };
 
         // room to grow: the wood may only go where there's air, plants or leaves
@@ -185,6 +191,8 @@ public class MediterraneanTreeFeature extends Feature<MediterraneanTreeFeature.C
             case ITALIAN_PINE_UMBRELLA, ITALIAN_PINE_WIDE -> ModBlocks.ITALIAN_PINE_LEAVES.get().defaultBlockState();
             case CYPRESS -> ModBlocks.CYPRESS_LEAVES.get().defaultBlockState();
             case OLIVE -> ModBlocks.OLIVE_LEAVES.get().defaultBlockState();
+            case FIG -> ModBlocks.FIG_LEAVES.get().defaultBlockState();
+            case LEMON -> ModBlocks.LEMON_LEAVES.get().defaultBlockState();
         };
         for (Map.Entry<BlockPos, Integer> e : distance.entrySet()) {
             BlockPos pos = e.getKey();
@@ -193,9 +201,35 @@ public class MediterraneanTreeFeature extends Feature<MediterraneanTreeFeature.C
             if (state.hasProperty(OliveLeavesBlock.OLIVES)) {
                 state = state.setValue(OliveLeavesBlock.OLIVES, random.nextFloat() < 0.3F);
             }
+            if (state.hasProperty(net.krisplis.koppenclimate.block.custom.FruitLeavesBlock.FRUIT)) {
+                float f = random.nextFloat();
+                state = state.setValue(net.krisplis.koppenclimate.block.custom.FruitLeavesBlock.FRUIT, f < 0.6F ? 0 : f < 0.8F ? 1 : 2);
+            }
             level.setBlock(pos, state, 19);
         }
+        // now and then wild bees have made their nest on a fig's trunk
+        if (context.config().kind() == Kind.FIG && random.nextInt(5) == 0) {
+            beeNest(level, origin, random);
+        }
         return true;
+    }
+
+    private static void beeNest(WorldGenLevel level, BlockPos origin, RandomSource random) {
+        for (int tries = 0; tries < 6; tries++) {
+            Direction side = randomSide(random);
+            BlockPos log = origin.above(1 + random.nextInt(2));
+            if (!level.getBlockState(log).is(BlockTags.LOGS)) continue;
+            BlockPos nest = log.relative(side);
+            if (!level.getBlockState(nest).isAir() || !level.getBlockState(nest.relative(side)).isAir()) continue;
+            level.setBlock(nest, Blocks.BEE_NEST.defaultBlockState().setValue(net.minecraft.world.level.block.BeehiveBlock.FACING, side), 2);
+            if (level.getBlockEntity(nest) instanceof net.minecraft.world.level.block.entity.BeehiveBlockEntity hive) {
+                int bees = 2 + random.nextInt(2);
+                for (int i = 0; i < bees; i++) {
+                    hive.storeBee(net.minecraft.world.level.block.entity.BeehiveBlockEntity.Occupant.create(random.nextInt(599)));
+                }
+            }
+            return;
+        }
     }
 
     private static boolean canReplace(WorldGenLevel level, BlockPos pos) {
@@ -235,11 +269,15 @@ public class MediterraneanTreeFeature extends Feature<MediterraneanTreeFeature.C
             BlockPos tip = top.offset(Math.round(len * Mth.cos(a)), 1, Math.round(len * Mth.sin(a)));
             plan.limb(top, tip);
         }
-        // the umbrella: a broad flat underside, a slightly smaller layer above and a low dome
+        // the leader runs on up into the crown
+        plan.log(top.above(1), Direction.Axis.Y);
+        plan.log(top.above(2), Direction.Axis.Y);
+        // the umbrella: narrow underneath, spreading out layer by layer to a broad, flat top, 4-5 layers deep
         float radius = 4.5F + random.nextFloat() * 1.5F;
-        plan.disc(top.above(1), radius, random, 0.5F);
-        plan.disc(top.above(2), radius - 0.8F, random, 0.4F);
-        plan.disc(top.above(3), radius - 2.6F, random, 0.5F);
+        float[] shrink = random.nextBoolean() ? new float[]{1.8F, 0.9F, 0.3F, 0.0F} : new float[]{2.8F, 1.3F, 0.6F, 0.2F, 0.0F};
+        for (int i = 0; i < shrink.length; i++) {
+            plan.disc(top.above(1 + i), radius - shrink[i], random, i == 0 ? 0.5F : 0.35F);
+        }
         return plan;
     }
 
@@ -256,9 +294,13 @@ public class MediterraneanTreeFeature extends Feature<MediterraneanTreeFeature.C
             int out = 3 + random.nextInt(2), up = 3 + random.nextInt(3);
             BlockPos tip = fork.offset(Math.round(out * Mth.cos(a)), up, Math.round(out * Mth.sin(a)));
             plan.limb(fork, tip);
+            plan.log(tip.above(), Direction.Axis.Y);
+            // each limb carries its own thick crown, 4 layers deep, narrow below and broad and flat on top
             float radius = 3.2F + random.nextFloat();
-            plan.disc(tip.above(1), radius, random, 0.5F);
-            plan.disc(tip.above(2), radius - 1.0F, random, 0.5F);
+            float[] shrink = {2.2F, 1.0F, 0.3F, 0.0F};
+            for (int l = 0; l < shrink.length; l++) {
+                plan.disc(tip.above(1 + l), radius - shrink[l], random, l == 0 ? 0.5F : 0.35F);
+            }
         }
         return plan;
     }
@@ -295,7 +337,7 @@ public class MediterraneanTreeFeature extends Feature<MediterraneanTreeFeature.C
         for (int s = 0; s < stems; s++) {
             BlockPos pos = s == 0 ? origin : origin.relative(randomSide(random));
             if (s > 0) plan.log(pos, randomSide(random).getAxis());
-            int height = 2 + random.nextInt(3);
+            int height = 2 + random.nextInt(2);
             // a short, twisting trunk: it wanders a block sideways now and then on its way up
             for (int y = 0; y < height; y++) {
                 plan.log(pos, Direction.Axis.Y);
@@ -312,13 +354,44 @@ public class MediterraneanTreeFeature extends Feature<MediterraneanTreeFeature.C
             float start = random.nextFloat() * Mth.TWO_PI;
             for (int i = 0; i < branches; i++) {
                 float a = start + i * Mth.TWO_PI / branches + (random.nextFloat() - 0.5F) * 0.6F;
-                int out = 2 + random.nextInt(2), up = 1 + random.nextInt(2);
+                int out = 2 + random.nextInt(2), up = 1;
                 BlockPos tip = pos.offset(Math.round(out * Mth.cos(a)), up, Math.round(out * Mth.sin(a)));
                 plan.limb(pos, tip);
-                plan.blob(tip.above(), 2.0F + random.nextFloat() * 0.8F, 0.7F, random);
+                plan.blob(tip.above(), 2.0F + random.nextFloat() * 0.8F, 0.6F, random);
             }
-            plan.blob(pos.above(2), 1.8F, 0.7F, random);
+            plan.blob(pos.above(2), 1.8F, 0.6F, random);
         }
+        // an olive is a low tree: nothing of it above the 6th block
+        plan.logs.keySet().removeIf(p -> p.getY() > origin.getY() + 5);
+        plan.leaves.keySet().removeIf(p -> p.getY() > origin.getY() + 5);
+        return plan;
+    }
+
+    // ---------------------------------------------------------------- the fig tree
+    private static Plan fig(BlockPos origin, RandomSource random) {
+        Plan plan = new Plan(ModBlocks.FIG_LOG.get().defaultBlockState());
+        int trunk = 2 + random.nextInt(2);
+        for (int y = 0; y < trunk; y++) plan.log(origin.above(y), Direction.Axis.Y);
+        BlockPos fork = origin.above(trunk - 1);
+        int limbs = 3 + random.nextInt(2);
+        float start = random.nextFloat() * Mth.TWO_PI;
+        for (int i = 0; i < limbs; i++) {
+            float a = start + i * Mth.TWO_PI / limbs + (random.nextFloat() - 0.5F) * 0.4F;
+            int out = 3 + random.nextInt(2);
+            BlockPos tip = fork.offset(Math.round(out * Mth.cos(a)), 1 + random.nextInt(2), Math.round(out * Mth.sin(a)));
+            plan.limb(fork, tip);
+            plan.blob(tip.above(), 2.4F + random.nextFloat() * 0.6F, 0.6F, random);
+        }
+        plan.blob(fork.above(3), 2.6F, 0.6F, random);
+        return plan;
+    }
+
+    // ---------------------------------------------------------------- the lemon tree
+    private static Plan lemon(BlockPos origin, RandomSource random) {
+        Plan plan = new Plan(Blocks.OAK_LOG.defaultBlockState());
+        int trunk = 2 + random.nextInt(2);
+        for (int y = 0; y < trunk + 1; y++) plan.log(origin.above(y), Direction.Axis.Y);
+        plan.blob(origin.above(trunk + 1), 2.2F + random.nextFloat() * 0.5F, 0.9F, random);
         return plan;
     }
 }

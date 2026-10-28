@@ -1,0 +1,9 @@
+{
+  "parent": "minecraft:block/template_potted_azalea_bush",
+  "render_type": "minecraft:cutout",
+  "textures": {
+    "plant": "minecraft:block/potted_azalea_bush_plant",
+    "side": "koppenclimatemod:block/nerium",
+    "top": "koppenclimatemod:block/nerium"
+  }
+}

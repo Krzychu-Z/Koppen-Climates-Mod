@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:smelting",
+  "category": "food",
+  "cookingtime": 200,
+  "experience": 0.2,
+  "ingredient": {
+    "item": "koppenclimatemod:agave_leaves"
+  },
+  "result": {
+    "id": "koppenclimatemod:agave_mash"
+  }
+}

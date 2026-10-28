@@ -10,6 +10,11 @@
     "koppenclimatemod:cobbled_white_limestone_stairs",
     "koppenclimatemod:mossy_cobbled_white_limestone_stairs",
     "koppenclimatemod:white_limestone_brick_stairs",
-    "koppenclimatemod:mossy_white_limestone_brick_stairs"
+    "koppenclimatemod:mossy_white_limestone_brick_stairs",
+    "koppenclimatemod:marble_stairs",
+    "koppenclimatemod:polished_marble_stairs",
+    "koppenclimatemod:marble_brick_stairs",
+    "koppenclimatemod:mossy_marble_brick_stairs",
+    "koppenclimatemod:marble_tile_stairs"
   ]
 }

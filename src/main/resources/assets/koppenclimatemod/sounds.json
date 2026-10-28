@@ -95,7 +95,7 @@
     "sounds": [
       {
         "name": "koppenclimatemod:ambience/mediterranean_day",
-        "volume": 0.6,
+        "volume": 0.42,
         "stream": true
       }
     ]
@@ -104,7 +104,7 @@
     "sounds": [
       {
         "name": "koppenclimatemod:ambience/mediterranean_night",
-        "volume": 0.6,
+        "volume": 0.42,
         "stream": true
       }
     ]
@@ -114,7 +114,25 @@
     "sounds": [
       {
         "name": "koppenclimatemod:entity/owl_hoot",
-        "volume": 0.8
+        "volume": 1.0
+      }
+    ]
+  },
+  "ambient.mediterranean_beach.day": {
+    "sounds": [
+      {
+        "name": "koppenclimatemod:ambience/mediterranean_beach_day",
+        "volume": 0.42,
+        "stream": true
+      }
+    ]
+  },
+  "ambient.mediterranean_beach.night": {
+    "sounds": [
+      {
+        "name": "koppenclimatemod:ambience/mediterranean_beach_night",
+        "volume": 0.42,
+        "stream": true
       }
     ]
   }

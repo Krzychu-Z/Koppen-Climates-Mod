@@ -184,6 +184,10 @@ public class ModBlocks {
     );
 
     // Rice, growing in a block of water. No block item of its own: rice seeds (ModItems.RICE_SEEDS) plant it
+    // barley, the Mediterranean farmland's second grain (item: ModItems.BARLEY_SEEDS)
+    public static final RegistryObject<net.krisplis.koppenclimate.block.custom.BarleyBlock> BARLEY = BLOCKS.register("barley",
+            () -> new net.krisplis.koppenclimate.block.custom.BarleyBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.WHEAT))
+    );
     public static final RegistryObject<RiceBlock> RICE = BLOCKS.register("rice",
             () -> new RiceBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.WHEAT).sound(SoundType.WET_GRASS))
     );
@@ -483,6 +487,62 @@ public class ModBlocks {
             () -> new ModWallHangingSignBlock(ModWoodTypes.ITALIAN_PINE, signProperties(MapColor.TERRACOTTA_ORANGE).lootFrom(ITALIAN_PINE_HANGING_SIGN))
     );
 
+    // ------------------------------------------------------------------ fig wood family (Mediterranean)
+    // smooth pale-grey bark; soft creamy wood
+    public static final RegistryObject<RotatedPillarBlock> FIG_LOG = registerBlock("fig_log",
+            () -> new RotatedPillarBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_LOG).mapColor(MapColor.COLOR_LIGHT_GRAY))
+    );
+    public static final RegistryObject<RotatedPillarBlock> FIG_WOOD = registerBlock("fig_wood",
+            () -> new RotatedPillarBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_WOOD).mapColor(MapColor.COLOR_LIGHT_GRAY))
+    );
+    public static final RegistryObject<RotatedPillarBlock> STRIPPED_FIG_LOG = registerBlock("stripped_fig_log",
+            () -> new RotatedPillarBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.STRIPPED_OAK_LOG).mapColor(MapColor.SAND))
+    );
+    public static final RegistryObject<RotatedPillarBlock> STRIPPED_FIG_WOOD = registerBlock("stripped_fig_wood",
+            () -> new RotatedPillarBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.STRIPPED_OAK_WOOD).mapColor(MapColor.SAND))
+    );
+    public static final RegistryObject<Block> FIG_PLANKS = registerBlock("fig_planks",
+            () -> new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_PLANKS).mapColor(MapColor.SAND))
+    );
+    public static final RegistryObject<StairBlock> FIG_STAIRS = registerBlock("fig_stairs",
+            () -> new StairBlock(FIG_PLANKS.get().defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(FIG_PLANKS.get()))
+    );
+    public static final RegistryObject<SlabBlock> FIG_SLAB = registerBlock("fig_slab",
+            () -> new SlabBlock(BlockBehaviour.Properties.ofFullCopy(FIG_PLANKS.get()))
+    );
+    public static final RegistryObject<FenceBlock> FIG_FENCE = registerBlock("fig_fence",
+            () -> new FenceBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_FENCE).mapColor(MapColor.SAND))
+    );
+    public static final RegistryObject<FenceGateBlock> FIG_FENCE_GATE = registerBlock("fig_fence_gate",
+            () -> new FenceGateBlock(ModWoodTypes.FIG, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_FENCE_GATE).mapColor(MapColor.SAND))
+    );
+    // item: ModItems.FIG_DOOR
+    public static final RegistryObject<DoorBlock> FIG_DOOR = BLOCKS.register("fig_door",
+            () -> new DoorBlock(ModWoodTypes.FIG.setType(), BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_DOOR))
+    );
+    public static final RegistryObject<TrapDoorBlock> FIG_TRAPDOOR = registerBlock("fig_trapdoor",
+            () -> new TrapDoorBlock(ModWoodTypes.FIG.setType(), BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_TRAPDOOR))
+    );
+    public static final RegistryObject<PressurePlateBlock> FIG_PRESSURE_PLATE = registerBlock("fig_pressure_plate",
+            () -> new PressurePlateBlock(ModWoodTypes.FIG.setType(), BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_PRESSURE_PLATE))
+    );
+    public static final RegistryObject<ButtonBlock> FIG_BUTTON = registerBlock("fig_button",
+            () -> new ButtonBlock(ModWoodTypes.FIG.setType(), 30, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_BUTTON))
+    );
+    public static final RegistryObject<ModStandingSignBlock> FIG_SIGN = BLOCKS.register("fig_sign",
+            () -> new ModStandingSignBlock(ModWoodTypes.FIG, signProperties(MapColor.SAND))
+    );
+    public static final RegistryObject<ModWallSignBlock> FIG_WALL_SIGN = BLOCKS.register("fig_wall_sign",
+            () -> new ModWallSignBlock(ModWoodTypes.FIG, signProperties(MapColor.SAND).lootFrom(FIG_SIGN))
+    );
+    public static final RegistryObject<ModHangingSignBlock> FIG_HANGING_SIGN = BLOCKS.register("fig_hanging_sign",
+            () -> new ModHangingSignBlock(ModWoodTypes.FIG, signProperties(MapColor.SAND))
+    );
+    public static final RegistryObject<ModWallHangingSignBlock> FIG_WALL_HANGING_SIGN = BLOCKS.register("fig_wall_hanging_sign",
+            () -> new ModWallHangingSignBlock(ModWoodTypes.FIG, signProperties(MapColor.SAND).lootFrom(FIG_HANGING_SIGN))
+    );
+
+
     // ------------------------------------------------------------------ cypress (Mediterranean): leaves on a spruce trunk, no wood of its own
     public static final RegistryObject<LeavesBlock> CYPRESS_LEAVES = registerBlock("cypress_leaves",
             () -> new LeavesBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.SPRUCE_LEAVES).mapColor(MapColor.COLOR_GREEN))
@@ -495,12 +555,107 @@ public class ModBlocks {
                     BlockBehaviour.Properties.ofFullCopy(Blocks.POTTED_SPRUCE_SAPLING))
     );
 
+    // ------------------------------------------------------------------ fig and lemon trees (Mediterranean, rare): fruit-bearing leaves
+    public static final RegistryObject<LeavesBlock> FIG_LEAVES = registerBlock("fig_leaves",
+            () -> new net.krisplis.koppenclimate.block.custom.FruitLeavesBlock(() -> net.krisplis.koppenclimate.item.ModItems.FIG.get(), 20, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_LEAVES).mapColor(MapColor.COLOR_GREEN))
+    );
+    public static final RegistryObject<SaplingBlock> FIG_SAPLING = registerBlock("fig_sapling",
+            () -> new SaplingBlock(net.krisplis.koppenclimate.worldgen.tree.ModTreeGrowers.FIG, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_SAPLING))
+    );
+    public static final RegistryObject<FlowerPotBlock> POTTED_FIG_SAPLING = BLOCKS.register("potted_fig_sapling",
+            () -> new FlowerPotBlock(() -> (FlowerPotBlock) Blocks.FLOWER_POT, FIG_SAPLING, BlockBehaviour.Properties.ofFullCopy(Blocks.POTTED_OAK_SAPLING))
+    );
+    public static final RegistryObject<LeavesBlock> LEMON_LEAVES = registerBlock("lemon_leaves",
+            () -> new net.krisplis.koppenclimate.block.custom.FruitLeavesBlock(() -> net.krisplis.koppenclimate.item.ModItems.LEMON.get(), 25, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_LEAVES).mapColor(MapColor.PLANT))
+    );
+    public static final RegistryObject<SaplingBlock> LEMON_SAPLING = registerBlock("lemon_sapling",
+            () -> new SaplingBlock(net.krisplis.koppenclimate.worldgen.tree.ModTreeGrowers.LEMON, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_SAPLING))
+    );
+    public static final RegistryObject<FlowerPotBlock> POTTED_LEMON_SAPLING = BLOCKS.register("potted_lemon_sapling",
+            () -> new FlowerPotBlock(() -> (FlowerPotBlock) Blocks.FLOWER_POT, LEMON_SAPLING, BlockBehaviour.Properties.ofFullCopy(Blocks.POTTED_OAK_SAPLING))
+    );
+    // lavender: the Mediterranean's only flower, and a rare one
+    public static final RegistryObject<net.minecraft.world.level.block.FlowerBlock> LAVENDER = registerBlock("lavender",
+            () -> new net.minecraft.world.level.block.FlowerBlock(MobEffects.REGENERATION, 5.0F,
+                    BlockBehaviour.Properties.ofFullCopy(Blocks.ALLIUM).mapColor(MapColor.COLOR_PURPLE))
+    );
+    public static final RegistryObject<FlowerPotBlock> POTTED_LAVENDER = BLOCKS.register("potted_lavender",
+            () -> new FlowerPotBlock(() -> (FlowerPotBlock) Blocks.FLOWER_POT, LAVENDER, BlockBehaviour.Properties.ofFullCopy(Blocks.POTTED_ALLIUM))
+    );
+
+    // ------------------------------------------------------------------ agave, nerium and the grapevine (Mediterranean)
+    // the agave rosette (AGE 0-3) and the woody flower stalk a grown one sends up
+    public static final RegistryObject<Block> AGAVE = registerBlock("agave",
+            () -> new net.krisplis.koppenclimate.block.custom.AgaveBlock(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_LIGHT_GREEN)
+                    .noCollission().instabreak().sound(SoundType.AZALEA).randomTicks()
+                    .ignitedByLava().pushReaction(net.minecraft.world.level.material.PushReaction.DESTROY))
+    );
+    public static final RegistryObject<Block> AGAVE_STALK = BLOCKS.register("agave_stalk",
+            () -> new net.krisplis.koppenclimate.block.custom.AgaveStalkBlock(BlockBehaviour.Properties.of().mapColor(MapColor.WOOD)
+                    .strength(0.6F).sound(SoundType.BAMBOO).noOcclusion().ignitedByLava()
+                    .pushReaction(net.minecraft.world.level.material.PushReaction.DESTROY))
+    );
+    // nerium (oleander): a poisonous flowering bush, built of these blocks
+    public static final RegistryObject<Block> NERIUM = registerBlock("nerium",
+            () -> new net.krisplis.koppenclimate.block.custom.NeriumBlock(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_PINK)
+                    .strength(0.3F).sound(SoundType.AZALEA_LEAVES).randomTicks().noOcclusion()
+                    .isValidSpawn((st, l, p, e) -> false).isSuffocating((st, l, p) -> false).isViewBlocking((st, l, p) -> false)
+                    .ignitedByLava().pushReaction(net.minecraft.world.level.material.PushReaction.DESTROY))
+    );
+    // a wine pole, for a grapevine to climb
+    public static final RegistryObject<Block> WINE_POLE = registerBlock("wine_pole",
+            () -> new net.krisplis.koppenclimate.block.custom.WinePoleBlock(BlockBehaviour.Properties.of().mapColor(MapColor.WOOD)
+                    .strength(0.8F).sound(SoundType.WOOD).noOcclusion().ignitedByLava()
+                    .pushReaction(net.minecraft.world.level.material.PushReaction.DESTROY))
+    );
+
+    // terracotta roof tiles (coppi): a sheet of tiles tilted at 45 degrees, for the red roofs of Tuscany
+    public static final RegistryObject<Block> TERRACOTTA_ROOF_TILES = registerBlock("terracotta_roof_tiles",
+            () -> new net.krisplis.koppenclimate.block.custom.RoofTileBlock(BlockBehaviour.Properties.of().mapColor(MapColor.TERRACOTTA_RED)
+                    .strength(1.25F, 4.2F).sound(SoundType.DECORATED_POT).requiresCorrectToolForDrops().noOcclusion())
+    );
+    // a nerium kept in a flower pot
+    public static final RegistryObject<FlowerPotBlock> POTTED_NERIUM = BLOCKS.register("potted_nerium",
+            () -> new FlowerPotBlock(() -> (FlowerPotBlock) Blocks.FLOWER_POT, NERIUM, BlockBehaviour.Properties.ofFullCopy(Blocks.POTTED_AZALEA))
+    );
+
+    // ------------------------------------------------------------------ marble (Mediterranean): Carrara-white, for classical building
+    private static BlockBehaviour.Properties marble() {
+        return BlockBehaviour.Properties.ofFullCopy(Blocks.STONE).mapColor(MapColor.QUARTZ).strength(1.6F, 6.0F);
+    }
+    public static final RegistryObject<Block> MARBLE = registerBlock("marble", () -> new Block(marble()));
+    public static final RegistryObject<Block> POLISHED_MARBLE = registerBlock("polished_marble", () -> new Block(marble()));
+    public static final RegistryObject<Block> MARBLE_BRICKS = registerBlock("marble_bricks", () -> new Block(marble()));
+    public static final RegistryObject<Block> CRACKED_MARBLE_BRICKS = registerBlock("cracked_marble_bricks", () -> new Block(marble()));
+    public static final RegistryObject<Block> MOSSY_MARBLE_BRICKS = registerBlock("mossy_marble_bricks", () -> new Block(marble()));
+    public static final RegistryObject<Block> MARBLE_TILES = registerBlock("marble_tiles", () -> new Block(marble()));
+    public static final RegistryObject<Block> CHISELED_MARBLE = registerBlock("chiseled_marble", () -> new Block(marble()));
+    public static final RegistryObject<Block> MARBLE_COLUMN_CAPITAL = registerBlock("marble_column_capital", () -> new Block(marble()));
+    public static final RegistryObject<Block> MARBLE_COLUMN_BASE = registerBlock("marble_column_base", () -> new Block(marble()));
+    public static final RegistryObject<RotatedPillarBlock> MARBLE_PILLAR = registerBlock("marble_pillar", () -> new RotatedPillarBlock(marble()));
+    public static final RegistryObject<RotatedPillarBlock> FLUTED_MARBLE_COLUMN = registerBlock("fluted_marble_column", () -> new RotatedPillarBlock(marble()));
+    public static final RegistryObject<StairBlock> MARBLE_STAIRS = registerBlock("marble_stairs", () -> new StairBlock(MARBLE.get().defaultBlockState(), marble()));
+    public static final RegistryObject<SlabBlock> MARBLE_SLAB = registerBlock("marble_slab", () -> new SlabBlock(marble()));
+    public static final RegistryObject<WallBlock> MARBLE_WALL = registerBlock("marble_wall", () -> new WallBlock(marble().forceSolidOn()));
+    public static final RegistryObject<StairBlock> POLISHED_MARBLE_STAIRS = registerBlock("polished_marble_stairs", () -> new StairBlock(POLISHED_MARBLE.get().defaultBlockState(), marble()));
+    public static final RegistryObject<SlabBlock> POLISHED_MARBLE_SLAB = registerBlock("polished_marble_slab", () -> new SlabBlock(marble()));
+    public static final RegistryObject<WallBlock> POLISHED_MARBLE_WALL = registerBlock("polished_marble_wall", () -> new WallBlock(marble().forceSolidOn()));
+    public static final RegistryObject<StairBlock> MARBLE_BRICK_STAIRS = registerBlock("marble_brick_stairs", () -> new StairBlock(MARBLE_BRICKS.get().defaultBlockState(), marble()));
+    public static final RegistryObject<SlabBlock> MARBLE_BRICK_SLAB = registerBlock("marble_brick_slab", () -> new SlabBlock(marble()));
+    public static final RegistryObject<WallBlock> MARBLE_BRICK_WALL = registerBlock("marble_brick_wall", () -> new WallBlock(marble().forceSolidOn()));
+    public static final RegistryObject<StairBlock> MOSSY_MARBLE_BRICK_STAIRS = registerBlock("mossy_marble_brick_stairs", () -> new StairBlock(MOSSY_MARBLE_BRICKS.get().defaultBlockState(), marble()));
+    public static final RegistryObject<SlabBlock> MOSSY_MARBLE_BRICK_SLAB = registerBlock("mossy_marble_brick_slab", () -> new SlabBlock(marble()));
+    public static final RegistryObject<WallBlock> MOSSY_MARBLE_BRICK_WALL = registerBlock("mossy_marble_brick_wall", () -> new WallBlock(marble().forceSolidOn()));
+    public static final RegistryObject<StairBlock> MARBLE_TILE_STAIRS = registerBlock("marble_tile_stairs", () -> new StairBlock(MARBLE_TILES.get().defaultBlockState(), marble()));
+    public static final RegistryObject<SlabBlock> MARBLE_TILE_SLAB = registerBlock("marble_tile_slab", () -> new SlabBlock(marble()));
+    public static final RegistryObject<WallBlock> MARBLE_TILE_WALL = registerBlock("marble_tile_wall", () -> new WallBlock(marble().forceSolidOn()));
+
     // ------------------------------------------------------------------ Mediterranean ground and plants
     // terra rossa: the red-brown soil of the limestone hills
     public static final RegistryObject<Block> CINNAMON_DIRT = registerBlock("cinnamon_dirt",
             () -> new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.DIRT).mapColor(MapColor.TERRACOTTA_RED))
     );
-    // grass on cinnamon dirt, tinted by the biome's grass colour like vanilla grass; spreads over cinnamon dirt
+    // grass on cinnamon dirt, drawn in the dry silvery-to-straw green of the Mediterranean; spreads over cinnamon dirt
     public static final RegistryObject<Block> CINNAMON_GRASS_BLOCK = registerBlock("cinnamon_grass_block",
             () -> new OxisolGrassBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.GRASS_BLOCK), CINNAMON_DIRT)
     );
@@ -513,12 +668,14 @@ public class ModBlocks {
     public static final RegistryObject<Block> ROSEMARY = registerBlock("rosemary",
             () -> new net.krisplis.koppenclimate.block.custom.RosemaryBlock(BlockBehaviour.Properties.of().mapColor(MapColor.PLANT)
                     .noCollission().strength(0.4F).sound(SoundType.AZALEA).ignitedByLava()
-                    .offsetType(BlockBehaviour.OffsetType.XZ).pushReaction(net.minecraft.world.level.material.PushReaction.DESTROY))
+                    .noOcclusion().isViewBlocking((st, l, p) -> false).isSuffocating((st, l, p) -> false)
+                    .pushReaction(net.minecraft.world.level.material.PushReaction.DESTROY))
     );
     public static final RegistryObject<Block> TALL_ROSEMARY = registerBlock("tall_rosemary",
             () -> new net.krisplis.koppenclimate.block.custom.TallRosemaryBlock(BlockBehaviour.Properties.of().mapColor(MapColor.PLANT)
                     .noCollission().strength(0.4F).sound(SoundType.AZALEA).ignitedByLava()
-                    .offsetType(BlockBehaviour.OffsetType.XZ).pushReaction(net.minecraft.world.level.material.PushReaction.DESTROY))
+                    .noOcclusion().isViewBlocking((st, l, p) -> false).isSuffocating((st, l, p) -> false)
+                    .pushReaction(net.minecraft.world.level.material.PushReaction.DESTROY))
     );
 
     // ------------------------------------------------------------------ African savanna ground

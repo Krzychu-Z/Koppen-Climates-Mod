@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
-    "koppenclimatemod:rice"
+    "koppenclimatemod:rice",
+    "koppenclimatemod:barley"
   ]
 }

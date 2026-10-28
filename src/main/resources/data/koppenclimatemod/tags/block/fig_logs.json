@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "koppenclimatemod:fig_log",
+    "koppenclimatemod:fig_wood",
+    "koppenclimatemod:stripped_fig_log",
+    "koppenclimatemod:stripped_fig_wood"
+  ]
+}

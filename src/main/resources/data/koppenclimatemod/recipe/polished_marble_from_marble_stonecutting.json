@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+    "item": "koppenclimatemod:marble"
+  },
+  "result": {
+    "count": 1,
+    "id": "koppenclimatemod:polished_marble"
+  }
+}

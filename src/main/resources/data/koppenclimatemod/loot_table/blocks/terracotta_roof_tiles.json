@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:block",
+  "random_sequence": "koppenclimatemod:blocks/terracotta_roof_tiles",
+  "pools": [
+    {
+      "rolls": 1.0,
+      "bonus_rolls": 0.0,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "koppenclimatemod:terracotta_roof_tiles"
+        }
+      ],
+      "conditions": [
+        {
+          "condition": "minecraft:survives_explosion"
+        }
+      ]
+    }
+  ]
+}

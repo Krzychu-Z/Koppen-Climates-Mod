@@ -196,21 +196,44 @@
           }
         },
         "argument2": {
-          "type": "minecraft:clamp",
-          "min": -1.0,
-          "max": 1.0,
-          "input": {
-            "type": "minecraft:mul",
-            "argument1": 0.25,
-            "argument2": {
-              "type": "minecraft:add",
-              "argument1": "koppenclimatemod:savanna_ceiling_large_biomes",
+          "type": "minecraft:min",
+          "argument1": {
+            "type": "minecraft:clamp",
+            "min": -1.0,
+            "max": 1.0,
+            "input": {
+              "type": "minecraft:mul",
+              "argument1": 0.25,
               "argument2": {
-                "type": "minecraft:y_clamped_gradient",
-                "from_y": -64,
-                "to_y": 320,
-                "from_value": 64.0,
-                "to_value": -320.0
+                "type": "minecraft:add",
+                "argument1": "koppenclimatemod:savanna_ceiling_large_biomes",
+                "argument2": {
+                  "type": "minecraft:y_clamped_gradient",
+                  "from_y": -64,
+                  "to_y": 320,
+                  "from_value": 64.0,
+                  "to_value": -320.0
+                }
+              }
+            }
+          },
+          "argument2": {
+            "type": "minecraft:clamp",
+            "min": -1.0,
+            "max": 1.0,
+            "input": {
+              "type": "minecraft:mul",
+              "argument1": 0.25,
+              "argument2": {
+                "type": "minecraft:add",
+                "argument1": "koppenclimatemod:csa_ceiling_large_biomes",
+                "argument2": {
+                  "type": "minecraft:y_clamped_gradient",
+                  "from_y": -64,
+                  "to_y": 320,
+                  "from_value": 64.0,
+                  "to_value": -320.0
+                }
               }
             }
           }

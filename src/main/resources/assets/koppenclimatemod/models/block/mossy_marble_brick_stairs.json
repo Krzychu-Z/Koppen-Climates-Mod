@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/stairs",
+  "textures": {
+    "bottom": "koppenclimatemod:block/mossy_marble_bricks",
+    "side": "koppenclimatemod:block/mossy_marble_bricks",
+    "top": "koppenclimatemod:block/mossy_marble_bricks"
+  }
+}

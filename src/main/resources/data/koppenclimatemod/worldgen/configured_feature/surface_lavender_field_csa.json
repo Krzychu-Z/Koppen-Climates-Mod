@@ -1,0 +1,7 @@
+{
+  "type": "koppenclimatemod:biome_surface",
+  "config": {
+    "biome": "koppenclimatemod:lavender_field_csa",
+    "style": "mediterranean_forest"
+  }
+}

@@ -28,6 +28,8 @@ public class ModSounds {
     // the Mediterranean, by day and by night (the night is the day with crickets over it), and its owls
     public static final RegistryObject<SoundEvent> MEDITERRANEAN_DAY = register("ambient.mediterranean.day");
     public static final RegistryObject<SoundEvent> MEDITERRANEAN_NIGHT = register("ambient.mediterranean.night");
+    public static final RegistryObject<SoundEvent> MEDITERRANEAN_BEACH_DAY = register("ambient.mediterranean_beach.day");
+    public static final RegistryObject<SoundEvent> MEDITERRANEAN_BEACH_NIGHT = register("ambient.mediterranean_beach.night");
     public static final RegistryObject<SoundEvent> OWL = register("ambient.mediterranean.owl");
 
     // the savanna's elephants (trumpeting) and lions (roaring)

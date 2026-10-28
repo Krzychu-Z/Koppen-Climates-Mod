@@ -65,6 +65,11 @@ public final class ThaiVillagers {
             Map<ResourceKey<Biome>, VillagerType> map = (Map<ResourceKey<Biome>, VillagerType>) field.get(null);
             map.put(ModBiomes.TROPICAL_MONSOON, VillageRegistry.THAI.get());
             map.put(ModBiomes.RICE_TERRACES, VillageRegistry.THAI.get());
+            // and villagers born in the Mediterranean (Csa) are Venetian (see TuscanVillagePiece)
+            for (var csa : java.util.List.of(ModBiomes.MEDITERRANEAN, ModBiomes.MEDITERRANEAN_FOREST, ModBiomes.OLIVE_GROVE,
+                    ModBiomes.MEDITERRANEAN_RIVER, ModBiomes.MEDITERRANEAN_FARMLAND, ModBiomes.LAVENDER_FIELD, ModBiomes.MEDITERRANEAN_BEACH)) {
+                map.put(csa, VillageRegistry.VENETIAN.get());
+            }
         } catch (ReflectiveOperationException | RuntimeException e) {
             KoppenClimateMod.LOGGER.warn("Couldn't make villagers born in the monsoon country Thai", e);
         }

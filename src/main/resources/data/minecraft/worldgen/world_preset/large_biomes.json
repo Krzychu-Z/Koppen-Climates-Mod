@@ -21,8 +21,15 @@
           "warm_ocean": "minecraft:warm_ocean",
           "island_summit": "minecraft:plains",
           "savanna": "koppenclimatemod:african_savanna_as",
-          "mediterranean": "koppenclimatemod:mediterranean_csa",
-          "mediterranean_beach": "koppenclimatemod:mediterranean_beach_csa"
+          "mediterranean": "koppenclimatemod:mediterranean_shrubland_csa",
+          "mediterranean_beach": "koppenclimatemod:mediterranean_beach_csa",
+          "mediterranean_zones": {
+            "forest": "koppenclimatemod:mediterranean_forest_csa",
+            "olive_grove": "koppenclimatemod:olive_grove_csa",
+            "river": "koppenclimatemod:mediterranean_river_csa",
+            "farmland": "koppenclimatemod:mediterranean_farmland_csa",
+            "lavender_field": "koppenclimatemod:lavender_field_csa"
+          }
         },
         "settings": "koppenclimatemod:large_biomes"
       }

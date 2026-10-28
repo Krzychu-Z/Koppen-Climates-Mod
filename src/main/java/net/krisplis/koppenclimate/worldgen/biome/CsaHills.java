@@ -21,7 +21,8 @@ public final class CsaHills implements DensityFunction {
             DensityFunction.HOLDER_HELPER_CODEC.fieldOf("temperature").forGetter(f -> f.temperature),
             DensityFunction.HOLDER_HELPER_CODEC.fieldOf("humidity").forGetter(f -> f.humidity),
             DensityFunction.HOLDER_HELPER_CODEC.fieldOf("ridges").forGetter(f -> f.ridges),
-            DensityFunction.HOLDER_HELPER_CODEC.fieldOf("hills").forGetter(f -> f.hills)
+            DensityFunction.HOLDER_HELPER_CODEC.fieldOf("hills").forGetter(f -> f.hills),
+            com.mojang.serialization.Codec.BOOL.optionalFieldOf("ceiling", false).forGetter(f -> f.ceiling)
     ).apply(instance, CsaHills::new));
     public static final KeyDispatchDataCodec<CsaHills> CODEC = KeyDispatchDataCodec.of(MAP_CODEC);
 
@@ -30,15 +31,30 @@ public final class CsaHills implements DensityFunction {
     private static final double BASE = 64.0, LOW = 10.0, HIGH = 32.0;
     private static final double CLIMATE_EDGE = 0.04, COAST_EDGE = 0.08, RIVER_EDGE = 0.18;
 
+    // the ceiling version: no ceiling at all
+    public static final double FAR = 1000.0;
+    // the farmland and olive groves are levelled to this height (their grass at y 64)
+    private static final double FLAT = 64.5, FARMLAND_EASE = 32.0;
     private final DensityFunction continents, temperature, humidity, ridges, hills;
+    // false: the height up to which the ground is filled in; true: the height above which it is cut away
+    // (the farmland and olive groves are levelled; everywhere else it is FAR)
+    private final boolean ceiling;
+    private volatile Long salt;
 
     public CsaHills(DensityFunction continents, DensityFunction temperature, DensityFunction humidity,
-                    DensityFunction ridges, DensityFunction hills) {
+                    DensityFunction ridges, DensityFunction hills, boolean ceiling) {
         this.continents = continents;
         this.temperature = temperature;
         this.humidity = humidity;
         this.ridges = ridges;
         this.hills = hills;
+        this.ceiling = ceiling;
+    }
+
+    private long salt() {
+        Long s = this.salt;
+        if (s == null) this.salt = s = CsaZones.salt(this.temperature);
+        return s;
     }
 
     private static double ease(double t) {
@@ -58,18 +74,43 @@ public final class CsaHills implements DensityFunction {
         return land * cool * notSavanna * notTropical * dry;
     }
 
-    @Override
-    public double compute(FunctionContext context) {
+    /** The hill height here (a fill height; 60 or less is none), and the climate weight; null outside the Csa. */
+    private double[] hillsAt(FunctionContext context) {
         double h = this.humidity.compute(context);
-        if (h >= KoppenBiomeSource.CSA_MAX_HUMIDITY) return NONE;
+        if (h >= KoppenBiomeSource.CSA_MAX_HUMIDITY) return null;
         double t = this.temperature.compute(context);
-        if (t <= KoppenBiomeSource.CSA_MIN_TEMP || t >= KoppenBiomeSource.CSA_MAX_TEMP) return NONE;
+        if (t <= KoppenBiomeSource.CSA_MIN_TEMP || t >= KoppenBiomeSource.CSA_MAX_TEMP) return null;
         double w = weight(this.continents.compute(context), t, h);
-        if (w <= 0.0) return NONE;
+        if (w <= 0.0) return null;
         double river = ease(Math.abs(this.ridges.compute(context)) / RIVER_EDGE);
         double n = Mth.clamp(this.hills.compute(context) * 0.5 + 0.5, 0.0, 1.0);
         double height = (LOW + HIGH * n * n) * w * river;
-        return height < 1.0 ? NONE : BASE + height;
+        return new double[]{height < 1.0 ? 60.0 : BASE + height, w, river, n};
+    }
+
+    @Override
+    public double compute(FunctionContext context) {
+        double outside = this.ceiling ? FAR : NONE;
+        double[] here = this.hillsAt(context);
+        if (here == null) return outside;
+        double hills = here[0], w = here[1], river = here[2], n = here[3];
+        boolean dry = river >= 0.6;   // not in or right by a river channel, which is left as it is
+        // no ponds or lakes on the Mediterranean's dry land: hollows are filled up to the farmland level
+        double fill = dry ? Math.max(hills, Mth.lerp(ease((w - 0.2) / 0.2), 60.0, FLAT)) : hills, top = FAR;
+        CsaZones.Spot spot = CsaZones.at(context.blockX(), context.blockZ(), this.salt(), this.ridges);
+        switch (spot.zone()) {
+            case FARMLAND, OLIVE_GROVE -> {
+                // levelled perfectly flat just above the sea, right up to the river banks; eased in over the
+                // outer FARMLAND_EASE blocks of the patch
+                double e = ease(spot.edge() / FARMLAND_EASE) * w;
+                fill = Mth.lerp(e, fill, dry ? FLAT : 60.0);
+                top = Mth.lerp(e, FAR, FLAT);
+            }
+            default -> {
+            }
+        }
+        if (this.ceiling) return top;
+        return fill < 61.0 ? NONE : fill;
     }
 
     @Override
@@ -80,17 +121,17 @@ public final class CsaHills implements DensityFunction {
     @Override
     public DensityFunction mapAll(Visitor visitor) {
         return visitor.apply(new CsaHills(this.continents.mapAll(visitor), this.temperature.mapAll(visitor),
-                this.humidity.mapAll(visitor), this.ridges.mapAll(visitor), this.hills.mapAll(visitor)));
+                this.humidity.mapAll(visitor), this.ridges.mapAll(visitor), this.hills.mapAll(visitor), this.ceiling));
     }
 
     @Override
     public double minValue() {
-        return NONE;
+        return this.ceiling ? 60.0 : NONE;
     }
 
     @Override
     public double maxValue() {
-        return BASE + LOW + HIGH;
+        return this.ceiling ? FAR : BASE + LOW + HIGH;
     }
 
     @Override

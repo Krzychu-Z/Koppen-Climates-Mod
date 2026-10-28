@@ -1,0 +1,77 @@
+{
+ "parent": "minecraft:block/block",
+ "textures": {
+  "particle": "koppenclimatemod:block/agave_stalk",
+  "s": "koppenclimatemod:block/agave_stalk"
+ },
+ "elements": [
+  {
+   "from": [
+    7,
+    0,
+    7
+   ],
+   "to": [
+    9,
+    16,
+    9
+   ],
+   "faces": {
+    "north": {
+     "uv": [
+      7,
+      0,
+      9,
+      16
+     ],
+     "texture": "#s"
+    },
+    "south": {
+     "uv": [
+      7,
+      0,
+      9,
+      16
+     ],
+     "texture": "#s"
+    },
+    "east": {
+     "uv": [
+      7,
+      0,
+      9,
+      16
+     ],
+     "texture": "#s"
+    },
+    "west": {
+     "uv": [
+      7,
+      0,
+      9,
+      16
+     ],
+     "texture": "#s"
+    },
+    "up": {
+     "uv": [
+      7,
+      7,
+      9,
+      9
+     ],
+     "texture": "#s"
+    },
+    "down": {
+     "uv": [
+      7,
+      7,
+      9,
+      9
+     ],
+     "texture": "#s"
+    }
+   }
+  }
+ ]
+}

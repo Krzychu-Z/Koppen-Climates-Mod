@@ -2,24 +2,8 @@
   "feature": "koppenclimatemod:cypress",
   "placement": [
     {
-      "type": "minecraft:count",
-      "count": {
-        "type": "minecraft:weighted_list",
-        "distribution": [
-          {
-            "data": 0,
-            "weight": 7
-          },
-          {
-            "data": 1,
-            "weight": 2
-          },
-          {
-            "data": 2,
-            "weight": 1
-          }
-        ]
-      }
+      "type": "minecraft:rarity_filter",
+      "chance": 7
     },
     {
       "type": "minecraft:in_square"

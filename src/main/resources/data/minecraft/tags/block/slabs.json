@@ -14,6 +14,11 @@
     "koppenclimatemod:smooth_white_limestone_slab",
     "koppenclimatemod:white_limestone_brick_slab",
     "koppenclimatemod:mossy_white_limestone_brick_slab",
-    "koppenclimatemod:cut_white_limestone_slab"
+    "koppenclimatemod:cut_white_limestone_slab",
+    "koppenclimatemod:marble_slab",
+    "koppenclimatemod:polished_marble_slab",
+    "koppenclimatemod:marble_brick_slab",
+    "koppenclimatemod:mossy_marble_brick_slab",
+    "koppenclimatemod:marble_tile_slab"
   ]
 }

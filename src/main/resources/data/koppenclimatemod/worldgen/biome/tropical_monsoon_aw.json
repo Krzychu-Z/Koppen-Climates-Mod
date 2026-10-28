@@ -141,24 +141,6 @@
         "maxCount": 6
       },
       {
-        "type": "minecraft:pig",
-        "weight": 20,
-        "minCount": 4,
-        "maxCount": 6
-      },
-      {
-        "type": "minecraft:cow",
-        "weight": 15,
-        "minCount": 4,
-        "maxCount": 6
-      },
-      {
-        "type": "minecraft:sheep",
-        "weight": 12,
-        "minCount": 4,
-        "maxCount": 6
-      },
-      {
         "type": "minecraft:rabbit",
         "weight": 10,
         "minCount": 2,
@@ -181,6 +163,12 @@
         "weight": 25,
         "minCount": 1,
         "maxCount": 2
+      },
+      {
+        "type": "koppenclimatemod:warm_pig",
+        "weight": 40,
+        "minCount": 2,
+        "maxCount": 4
       }
     ],
     "misc": [],

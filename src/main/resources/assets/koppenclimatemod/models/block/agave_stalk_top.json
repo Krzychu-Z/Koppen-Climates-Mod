@@ -1,0 +1,157 @@
+{
+ "parent": "minecraft:block/block",
+ "ambientocclusion": false,
+ "render_type": "minecraft:cutout",
+ "textures": {
+  "particle": "koppenclimatemod:block/agave_stalk_top",
+  "s": "koppenclimatemod:block/agave_stalk",
+  "c": "koppenclimatemod:block/agave_stalk_top"
+ },
+ "elements": [
+  {
+   "from": [
+    7,
+    0,
+    7
+   ],
+   "to": [
+    9,
+    8,
+    9
+   ],
+   "faces": {
+    "north": {
+     "uv": [
+      7,
+      8,
+      9,
+      16
+     ],
+     "texture": "#s"
+    },
+    "south": {
+     "uv": [
+      7,
+      8,
+      9,
+      16
+     ],
+     "texture": "#s"
+    },
+    "east": {
+     "uv": [
+      7,
+      8,
+      9,
+      16
+     ],
+     "texture": "#s"
+    },
+    "west": {
+     "uv": [
+      7,
+      8,
+      9,
+      16
+     ],
+     "texture": "#s"
+    },
+    "down": {
+     "uv": [
+      7,
+      7,
+      9,
+      9
+     ],
+     "texture": "#s"
+    }
+   }
+  },
+  {
+   "from": [
+    0.8,
+    0,
+    8
+   ],
+   "to": [
+    15.2,
+    16,
+    8
+   ],
+   "shade": false,
+   "rotation": {
+    "origin": [
+     8,
+     8,
+     8
+    ],
+    "axis": "y",
+    "angle": 45,
+    "rescale": true
+   },
+   "faces": {
+    "north": {
+     "uv": [
+      0,
+      0,
+      16,
+      16
+     ],
+     "texture": "#c"
+    },
+    "south": {
+     "uv": [
+      0,
+      0,
+      16,
+      16
+     ],
+     "texture": "#c"
+    }
+   }
+  },
+  {
+   "from": [
+    8,
+    0,
+    0.8
+   ],
+   "to": [
+    8,
+    16,
+    15.2
+   ],
+   "shade": false,
+   "rotation": {
+    "origin": [
+     8,
+     8,
+     8
+    ],
+    "axis": "y",
+    "angle": 45,
+    "rescale": true
+   },
+   "faces": {
+    "west": {
+     "uv": [
+      0,
+      0,
+      16,
+      16
+     ],
+     "texture": "#c"
+    },
+    "east": {
+     "uv": [
+      0,
+      0,
+      16,
+      16
+     ],
+     "texture": "#c"
+    }
+   }
+  }
+ ]
+}

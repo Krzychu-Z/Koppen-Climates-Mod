@@ -162,11 +162,14 @@ public class CobraEntity extends PathfinderMob {
     @Override
     public boolean doHurtTarget(Entity target) {
         boolean hit = super.doHurtTarget(target);
-        if (hit && target instanceof LivingEntity living) {
-            living.addEffect(new MobEffectInstance(MobEffects.POISON, VENOM_TICKS, POISON_AMPLIFIER), this);
-            living.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, VENOM_TICKS, SLOWNESS_AMPLIFIER), this);
-        }
+        if (hit && target instanceof LivingEntity living) this.envenom(living);
         return hit;
+    }
+
+    /** The venom of its bite. */
+    protected void envenom(LivingEntity victim) {
+        victim.addEffect(new MobEffectInstance(MobEffects.POISON, VENOM_TICKS, POISON_AMPLIFIER), this);
+        victim.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, VENOM_TICKS, SLOWNESS_AMPLIFIER), this);
     }
 
     @Override

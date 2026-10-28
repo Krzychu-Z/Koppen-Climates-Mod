@@ -20,8 +20,9 @@ import net.minecraft.client.renderer.MultiBufferSource;
 
 import java.util.Set;
 
-// Thai villagers wear their own work clothes: when the profession outfit of a (living, not zombie) Thai villager
-// is drawn, the texture comes from textures/entity/villager/thai_profession/ instead of vanilla's. Professions
+// Thai and Venetian villagers wear their own work clothes: when the profession outfit of a (living, not zombie) Thai
+// or Venetian villager is drawn, the texture comes from textures/entity/villager/thai_profession/ (or
+// venetian_profession/) instead of vanilla's. Professions
 // from other mods keep their own outfits.
 @Mixin(VillagerProfessionLayer.class)
 public abstract class VillagerProfessionLayerMixin {
@@ -39,11 +40,14 @@ public abstract class VillagerProfessionLayerMixin {
     private ResourceLocation koppenclimatemod$thaiOutfit(EntityModel<?> model, ResourceLocation texture, PoseStack pose,
                                                          MultiBufferSource buffers, int light, LivingEntity entity, int color) {
         if (!"villager".equals(this.path) || !(entity instanceof VillagerDataHolder holder)) return texture;
-        if (holder.getVillagerData().getType() != VillageRegistry.THAI.get()) return texture;
+        var type = holder.getVillagerData().getType();
+        String folder = type == VillageRegistry.THAI.get() ? "thai_profession"
+                : type == VillageRegistry.VENETIAN.get() ? "venetian_profession" : null;
+        if (folder == null) return texture;
         VillagerProfession profession = holder.getVillagerData().getProfession();
         ResourceLocation key = BuiltInRegistries.VILLAGER_PROFESSION.getKey(profession);
         if (!"minecraft".equals(key.getNamespace()) || !KOPPENCLIMATEMOD$THAI_OUTFITS.contains(key.getPath())) return texture;
         return ResourceLocation.fromNamespaceAndPath(KoppenClimateMod.MOD_ID,
-                "textures/entity/villager/thai_profession/" + key.getPath() + ".png");
+                "textures/entity/villager/" + folder + "/" + key.getPath() + ".png");
     }
 }

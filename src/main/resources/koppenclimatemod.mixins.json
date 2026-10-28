@@ -4,7 +4,8 @@
   "package": "net.krisplis.koppenclimate.mixin",
   "compatibilityLevel": "JAVA_21",
   "mixins": [
-    "VillagerTradesMixin"
+    "VillagerTradesMixin",
+    "BadOmenMixin"
   ],
   "client": [
     "ClientLevelSkyMixin",

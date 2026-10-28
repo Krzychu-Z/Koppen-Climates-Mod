@@ -1,0 +1,162 @@
+{
+  "has_precipitation": true,
+  "temperature": 0.9,
+  "downfall": 0.35,
+  "effects": {
+    "fog_color": 12638463,
+    "sky_color": 7972607,
+    "water_color": 2075094,
+    "water_fog_color": 749204,
+    "grass_color": 11580534,
+    "foliage_color": 10331498,
+    "mood_sound": {
+      "block_search_extent": 8,
+      "offset": 2.0,
+      "sound": "minecraft:ambient.cave",
+      "tick_delay": 6000
+    }
+  },
+  "spawners": {
+    "ambient": [
+      {
+        "type": "minecraft:bat",
+        "weight": 10,
+        "minCount": 8,
+        "maxCount": 8
+      }
+    ],
+    "axolotls": [],
+    "misc": [],
+    "underground_water_creature": [],
+    "water_ambient": [],
+    "water_creature": [],
+    "creature": [
+      {
+        "type": "minecraft:sheep",
+        "weight": 10,
+        "minCount": 2,
+        "maxCount": 4
+      },
+      {
+        "type": "minecraft:rabbit",
+        "weight": 6,
+        "minCount": 2,
+        "maxCount": 3
+      },
+      {
+        "type": "minecraft:goat",
+        "weight": 4,
+        "minCount": 1,
+        "maxCount": 3
+      },
+      {
+        "type": "minecraft:donkey",
+        "weight": 4,
+        "minCount": 1,
+        "maxCount": 3
+      },
+      {
+        "type": "minecraft:wolf",
+        "weight": 3,
+        "minCount": 2,
+        "maxCount": 4
+      },
+      {
+        "type": "minecraft:cat",
+        "weight": 2,
+        "minCount": 1,
+        "maxCount": 2
+      },
+      {
+        "type": "minecraft:horse",
+        "weight": 1,
+        "minCount": 2,
+        "maxCount": 4
+      },
+      {
+        "type": "koppenclimatemod:scorpion",
+        "weight": 3,
+        "minCount": 1,
+        "maxCount": 2
+      },
+      {
+        "type": "koppenclimatemod:viper",
+        "weight": 10,
+        "minCount": 1,
+        "maxCount": 1
+      }
+    ],
+    "monster": [
+      {
+        "type": "minecraft:spider",
+        "weight": 100,
+        "minCount": 1,
+        "maxCount": 2
+      }
+    ]
+  },
+  "spawn_costs": {},
+  "carvers": {
+    "air": [
+      "minecraft:cave",
+      "minecraft:cave_extra_underground"
+    ]
+  },
+  "features": [
+    [
+      "koppenclimatemod:surface_mediterranean_shrubland_csa"
+    ],
+    [],
+    [
+      "minecraft:amethyst_geode"
+    ],
+    [
+      "minecraft:monster_room",
+      "minecraft:monster_room_deep"
+    ],
+    [],
+    [],
+    [
+      "koppenclimatemod:ore_marble_csa",
+      "minecraft:ore_dirt",
+      "minecraft:ore_gravel",
+      "minecraft:ore_granite_upper",
+      "minecraft:ore_granite_lower",
+      "minecraft:ore_diorite_upper",
+      "minecraft:ore_diorite_lower",
+      "minecraft:ore_andesite_upper",
+      "minecraft:ore_andesite_lower",
+      "minecraft:ore_tuff",
+      "minecraft:underwater_magma",
+      "minecraft:disk_sand",
+      "minecraft:disk_clay",
+      "minecraft:disk_gravel",
+      "koppenclimatemod:ore_coal_csa",
+      "koppenclimatemod:ore_iron_csa",
+      "koppenclimatemod:ore_copper_csa",
+      "koppenclimatemod:ore_gold_csa",
+      "koppenclimatemod:ore_redstone_csa",
+      "koppenclimatemod:ore_lapis_csa",
+      "koppenclimatemod:ore_diamond_csa",
+      "koppenclimatemod:ore_emerald_csa"
+    ],
+    [],
+    [],
+    [
+      "minecraft:glow_lichen",
+      "koppenclimatemod:shrubland_olives",
+      "koppenclimatemod:shrubland_italian_pines",
+      "koppenclimatemod:shrubland_cypresses",
+      "koppenclimatemod:shrubland_dry_grass",
+      "koppenclimatemod:shrubland_cactus",
+      "koppenclimatemod:shrubland_rosemary",
+      "koppenclimatemod:shrubland_lavender",
+      "koppenclimatemod:shrubland_agave",
+      "koppenclimatemod:shrubland_nerium",
+      "koppenclimatemod:shrubland_dead_bushes"
+    ],
+    [
+      "minecraft:freeze_top_layer"
+    ]
+  ]
+}

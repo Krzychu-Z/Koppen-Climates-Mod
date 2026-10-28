@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:random_selector",
+  "config": {
+    "features": [
+      {
+        "chance": 0.5,
+        "feature": {
+          "feature": "koppenclimatemod:wild_red_grapevine",
+          "placement": []
+        }
+      }
+    ],
+    "default": {
+      "feature": "koppenclimatemod:wild_green_grapevine",
+      "placement": []
+    }
+  }
+}

@@ -112,6 +112,12 @@
         "weight": 15,
         "minCount": 2,
         "maxCount": 4
+      },
+      {
+        "type": "koppenclimatemod:warm_pig",
+        "weight": 25,
+        "minCount": 2,
+        "maxCount": 4
       }
     ],
     "water_ambient": [

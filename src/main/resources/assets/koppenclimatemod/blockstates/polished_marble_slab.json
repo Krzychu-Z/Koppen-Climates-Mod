@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "koppenclimatemod:block/polished_marble_slab"
+    },
+    "type=double": {
+      "model": "koppenclimatemod:block/polished_marble"
+    },
+    "type=top": {
+      "model": "koppenclimatemod:block/polished_marble_slab_top"
+    }
+  }
+}

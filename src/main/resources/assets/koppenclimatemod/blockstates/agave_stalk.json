@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "top=false": {
+      "model": "koppenclimatemod:block/agave_stalk"
+    },
+    "top=true": {
+      "model": "koppenclimatemod:block/agave_stalk_top"
+    }
+  }
+}

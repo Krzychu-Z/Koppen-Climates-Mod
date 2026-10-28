@@ -49,6 +49,11 @@ public class ModTreeGrowers {
     public static final TreeGrower CYPRESS = new TreeGrower(KoppenClimateMod.MOD_ID + ":cypress",
             Optional.empty(), Optional.of(CYPRESS_KEY), Optional.empty());
 
+    public static final TreeGrower FIG = new TreeGrower(KoppenClimateMod.MOD_ID + ":fig",
+            Optional.empty(), Optional.of(key("fig")), Optional.empty());
+    public static final TreeGrower LEMON = new TreeGrower(KoppenClimateMod.MOD_ID + ":lemon",
+            Optional.empty(), Optional.of(key("lemon")), Optional.empty());
+
     private static ResourceKey<ConfiguredFeature<?, ?>> key(String name) {
         return ResourceKey.create(Registries.CONFIGURED_FEATURE, ResourceLocation.fromNamespaceAndPath(KoppenClimateMod.MOD_ID, name));
     }

@@ -1,0 +1,52 @@
+{
+  "variants": {
+    "age=0,grape=none": {
+      "model": "koppenclimatemod:block/wine_pole"
+    },
+    "age=1,grape=none": {
+      "model": "koppenclimatemod:block/wine_pole"
+    },
+    "age=2,grape=none": {
+      "model": "koppenclimatemod:block/wine_pole"
+    },
+    "age=3,grape=none": {
+      "model": "koppenclimatemod:block/wine_pole"
+    },
+    "age=0,grape=red": {
+      "model": "koppenclimatemod:block/wine_pole_grapevine_young"
+    },
+    "age=1,grape=red": {
+      "model": "koppenclimatemod:block/wine_pole_grapevine"
+    },
+    "age=2,grape=red": {
+      "model": "koppenclimatemod:block/wine_pole_grapevine_unripe"
+    },
+    "age=3,grape=red": {
+      "model": "koppenclimatemod:block/wine_pole_grapevine_red"
+    },
+    "age=0,grape=green": {
+      "model": "koppenclimatemod:block/wine_pole_grapevine_young"
+    },
+    "age=1,grape=green": {
+      "model": "koppenclimatemod:block/wine_pole_grapevine"
+    },
+    "age=2,grape=green": {
+      "model": "koppenclimatemod:block/wine_pole_grapevine_unripe"
+    },
+    "age=3,grape=green": {
+      "model": "koppenclimatemod:block/wine_pole_grapevine_green"
+    },
+    "age=0,grape=tomato": {
+      "model": "koppenclimatemod:block/wine_pole_tomato_plant_young"
+    },
+    "age=1,grape=tomato": {
+      "model": "koppenclimatemod:block/wine_pole_tomato_plant"
+    },
+    "age=2,grape=tomato": {
+      "model": "koppenclimatemod:block/wine_pole_tomato_plant_unripe"
+    },
+    "age=3,grape=tomato": {
+      "model": "koppenclimatemod:block/wine_pole_tomato_plant_ripe"
+    }
+  }
+}

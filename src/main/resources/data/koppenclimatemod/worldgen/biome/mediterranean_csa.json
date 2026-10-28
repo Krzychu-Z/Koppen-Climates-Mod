@@ -7,8 +7,8 @@
     "sky_color": 7972607,
     "water_color": 2075094,
     "water_fog_color": 749204,
-    "grass_color": 10136156,
-    "foliage_color": 8362572,
+    "grass_color": 11580534,
+    "foliage_color": 10331498,
     "mood_sound": {
       "block_search_extent": 8,
       "offset": 2.0,
@@ -34,12 +34,6 @@
       {
         "type": "minecraft:sheep",
         "weight": 10,
-        "minCount": 2,
-        "maxCount": 4
-      },
-      {
-        "type": "minecraft:cow",
-        "weight": 8,
         "minCount": 2,
         "maxCount": 4
       },
@@ -88,40 +82,10 @@
     ],
     "monster": [
       {
-        "type": "minecraft:zombie",
-        "weight": 30,
-        "minCount": 1,
-        "maxCount": 2
-      },
-      {
-        "type": "minecraft:skeleton",
-        "weight": 30,
-        "minCount": 1,
-        "maxCount": 2
-      },
-      {
         "type": "minecraft:spider",
-        "weight": 30,
+        "weight": 100,
         "minCount": 1,
         "maxCount": 2
-      },
-      {
-        "type": "minecraft:creeper",
-        "weight": 20,
-        "minCount": 1,
-        "maxCount": 1
-      },
-      {
-        "type": "minecraft:enderman",
-        "weight": 3,
-        "minCount": 1,
-        "maxCount": 2
-      },
-      {
-        "type": "minecraft:zombie_villager",
-        "weight": 2,
-        "minCount": 1,
-        "maxCount": 1
       }
     ]
   },
@@ -151,6 +115,7 @@
     [],
     [],
     [
+      "koppenclimatemod:ore_marble_csa",
       "minecraft:ore_dirt",
       "minecraft:ore_gravel",
       "minecraft:ore_granite_upper",
@@ -160,26 +125,18 @@
       "minecraft:ore_andesite_upper",
       "minecraft:ore_andesite_lower",
       "minecraft:ore_tuff",
-      "minecraft:ore_coal_upper",
-      "minecraft:ore_coal_lower",
-      "minecraft:ore_iron_upper",
-      "minecraft:ore_iron_middle",
-      "minecraft:ore_iron_small",
-      "minecraft:ore_gold",
-      "minecraft:ore_gold_lower",
-      "minecraft:ore_redstone",
-      "minecraft:ore_redstone_lower",
-      "minecraft:ore_diamond",
-      "minecraft:ore_diamond_medium",
-      "minecraft:ore_diamond_large",
-      "minecraft:ore_diamond_buried",
-      "minecraft:ore_lapis",
-      "minecraft:ore_lapis_buried",
-      "minecraft:ore_copper",
       "minecraft:underwater_magma",
       "minecraft:disk_sand",
       "minecraft:disk_clay",
-      "minecraft:disk_gravel"
+      "minecraft:disk_gravel",
+      "koppenclimatemod:ore_coal_csa",
+      "koppenclimatemod:ore_iron_csa",
+      "koppenclimatemod:ore_copper_csa",
+      "koppenclimatemod:ore_gold_csa",
+      "koppenclimatemod:ore_redstone_csa",
+      "koppenclimatemod:ore_lapis_csa",
+      "koppenclimatemod:ore_diamond_csa",
+      "koppenclimatemod:ore_emerald_csa"
     ],
     [],
     [
@@ -191,8 +148,15 @@
       "koppenclimatemod:mediterranean_olives",
       "koppenclimatemod:mediterranean_italian_pines",
       "koppenclimatemod:mediterranean_cypresses",
+      "koppenclimatemod:mediterranean_figs",
+      "koppenclimatemod:mediterranean_lemons",
+      "koppenclimatemod:mediterranean_oaks",
       "koppenclimatemod:mediterranean_rosemary",
       "koppenclimatemod:mediterranean_dry_grass",
+      "koppenclimatemod:mediterranean_agave",
+      "koppenclimatemod:mediterranean_grapevine",
+      "koppenclimatemod:mediterranean_cactus",
+      "koppenclimatemod:mediterranean_lavender",
       "minecraft:brown_mushroom_normal",
       "minecraft:red_mushroom_normal"
     ],

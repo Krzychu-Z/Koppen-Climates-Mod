@@ -30,6 +30,13 @@
     "koppenclimatemod:stripped_italian_pine_wood",
     "koppenclimatemod:italian_pine_wood",
     "koppenclimatemod:rosemary",
-    "koppenclimatemod:tall_rosemary"
+    "koppenclimatemod:tall_rosemary",
+    "koppenclimatemod:fig_log",
+    "koppenclimatemod:fig_planks",
+    "koppenclimatemod:stripped_fig_log",
+    "koppenclimatemod:stripped_fig_wood",
+    "koppenclimatemod:fig_wood",
+    "koppenclimatemod:wine_pole",
+    "koppenclimatemod:agave_stalk"
   ]
 }

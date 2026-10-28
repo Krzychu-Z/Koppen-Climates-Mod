@@ -2,6 +2,7 @@
   "replace": false,
   "values": [
     "koppenclimatemod:cobbled_yellow_limestone",
-    "koppenclimatemod:cobbled_white_limestone"
+    "koppenclimatemod:cobbled_white_limestone",
+    "koppenclimatemod:marble"
   ]
 }

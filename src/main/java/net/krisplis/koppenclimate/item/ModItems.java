@@ -69,6 +69,9 @@ public class ModItems {
     // planted in a block of water over dirt, like seeds in farmland
     public static final RegistryObject<Item> RICE_SEEDS = ITEMS.register("rice_seeds",
             () -> new ItemNameBlockItem(ModBlocks.RICE.get(), new Item.Properties()));
+    public static final RegistryObject<Item> BARLEY_SEEDS = ITEMS.register("barley_seeds",
+            () -> new ItemNameBlockItem(ModBlocks.BARLEY.get(), new Item.Properties()));
+    public static final RegistryObject<Item> BARLEY = ITEMS.register("barley", () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> RICE = ITEMS.register("rice",
             () -> new Item(new Item.Properties()));
     // three rice and a bowl: fills a third of the hunger bar (7 of its 20 points) and gives the bowl back
@@ -86,6 +89,12 @@ public class ModItems {
                     .rarity(net.minecraft.world.item.Rarity.RARE)));
 
     // dark brown with a sandy belly and hood
+    public static final RegistryObject<Item> SHARK_SPAWN_EGG = ITEMS.register("shark_spawn_egg",
+            () -> new ForgeSpawnEggItem(ModEntities.SHARK, 0x6E7C86, 0xE6E8E4, new Item.Properties()));
+    public static final RegistryObject<Item> CRAB_SPAWN_EGG = ITEMS.register("crab_spawn_egg",
+            () -> new ForgeSpawnEggItem(ModEntities.CRAB, 0xC8321E, 0xF0B060, new Item.Properties()));
+    public static final RegistryObject<Item> VIPER_SPAWN_EGG = ITEMS.register("viper_spawn_egg",
+            () -> new ForgeSpawnEggItem(ModEntities.VIPER, 0x9A8466, 0x3E3226, new Item.Properties()));
     public static final RegistryObject<Item> COBRA_SPAWN_EGG = ITEMS.register("cobra_spawn_egg",
             () -> new ForgeSpawnEggItem(ModEntities.COBRA, 0x3A2E1E, 0xD9C28A, new Item.Properties()));
 
@@ -131,6 +140,16 @@ public class ModItems {
             () -> new ModBoatItem(false, ModBoatWood.ITALIAN_PINE, new Item.Properties().stacksTo(1)));
     public static final RegistryObject<Item> ITALIAN_PINE_CHEST_BOAT = ITEMS.register("italian_pine_chest_boat",
             () -> new ModBoatItem(true, ModBoatWood.ITALIAN_PINE, new Item.Properties().stacksTo(1)));
+    public static final RegistryObject<Item> FIG_DOOR = ITEMS.register("fig_door",
+            () -> new DoubleHighBlockItem(ModBlocks.FIG_DOOR.get(), new Item.Properties()));
+    public static final RegistryObject<Item> FIG_SIGN = ITEMS.register("fig_sign",
+            () -> new SignItem(new Item.Properties().stacksTo(16), ModBlocks.FIG_SIGN.get(), ModBlocks.FIG_WALL_SIGN.get()));
+    public static final RegistryObject<Item> FIG_HANGING_SIGN = ITEMS.register("fig_hanging_sign",
+            () -> new HangingSignItem(ModBlocks.FIG_HANGING_SIGN.get(), ModBlocks.FIG_WALL_HANGING_SIGN.get(), new Item.Properties().stacksTo(16)));
+    public static final RegistryObject<Item> FIG_BOAT = ITEMS.register("fig_boat",
+            () -> new ModBoatItem(false, ModBoatWood.FIG, new Item.Properties().stacksTo(1)));
+    public static final RegistryObject<Item> FIG_CHEST_BOAT = ITEMS.register("fig_chest_boat",
+            () -> new ModBoatItem(true, ModBoatWood.FIG, new Item.Properties().stacksTo(1)));
     // ------------------------------------------------------------------ the Mediterranean's harvest
     // an olive, picked from olive leaves: a mouthful of food, but mostly for pressing into oil
     public static final RegistryObject<Item> OLIVE = ITEMS.register("olive",
@@ -139,6 +158,24 @@ public class ModItems {
     public static final RegistryObject<Item> OLIVE_OIL = ITEMS.register("olive_oil",
             () -> new net.krisplis.koppenclimate.item.custom.OliveOilItem(new Item.Properties().stacksTo(16)
                     .craftRemainder(net.minecraft.world.item.Items.GLASS_BOTTLE)));
+    // a ripe fig, a meal in itself (one and a half hearts); and a sour lemon (half a heart), for acids later
+    public static final RegistryObject<Item> FIG = ITEMS.register("fig",
+            () -> new Item(new Item.Properties().food(new FoodProperties.Builder().nutrition(3).saturationModifier(0.5F).build())));
+    public static final RegistryObject<Item> LEMON = ITEMS.register("lemon",
+            () -> new Item(new Item.Properties().food(new FoodProperties.Builder().nutrition(1).saturationModifier(0.2F).build())));
+    // agave leaves, and the sweet mash they cook down to (for tequila, later)
+    public static final RegistryObject<Item> AGAVE_LEAVES = ITEMS.register("agave_leaves", () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> AGAVE_MASH = ITEMS.register("agave_mash", () -> new Item(new Item.Properties()));
+    // twigs of the poisonous nerium (for poisons, later)
+    public static final RegistryObject<Item> NERIUM_TWIGS = ITEMS.register("nerium_twigs", () -> new Item(new Item.Properties()));
+    // wine grapes: a heart each, and planted on a wine pole they grow a vine
+    public static final RegistryObject<Item> RED_WINE_GRAPES = ITEMS.register("red_wine_grapes",
+            () -> new Item(new Item.Properties().food(new FoodProperties.Builder().nutrition(2).saturationModifier(0.3F).build())));
+    public static final RegistryObject<Item> GREEN_WINE_GRAPES = ITEMS.register("green_wine_grapes",
+            () -> new Item(new Item.Properties().food(new FoodProperties.Builder().nutrition(2).saturationModifier(0.3F).build())));
+    // a tomato: two hearts, and planted on a wine pole it grows a tomato plant
+    public static final RegistryObject<Item> TOMATO = ITEMS.register("tomato",
+            () -> new Item(new Item.Properties().food(new FoodProperties.Builder().nutrition(4).saturationModifier(0.4F).build())));
     // a sprig of wild rosemary, and the oil pressed from it
     public static final RegistryObject<Item> ROSEMARY_SPRIG = ITEMS.register("rosemary_sprig", () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> ROSEMARY_OIL = ITEMS.register("rosemary_oil",
@@ -174,6 +211,8 @@ public class ModItems {
             () -> new net.minecraftforge.common.ForgeSpawnEggItem(net.krisplis.koppenclimate.entity.ModEntities.RHINO, 0x7C746A, 0xAAA08C, new Item.Properties()));
     public static final RegistryObject<Item> LION_SPAWN_EGG = ITEMS.register("lion_spawn_egg",
             () -> new net.minecraftforge.common.ForgeSpawnEggItem(net.krisplis.koppenclimate.entity.ModEntities.LION, 0xC49652, 0x704622, new Item.Properties()));
+    public static final RegistryObject<Item> WARM_PIG_SPAWN_EGG = ITEMS.register("warm_pig_spawn_egg",
+            () -> new net.minecraftforge.common.ForgeSpawnEggItem(net.krisplis.koppenclimate.entity.ModEntities.WARM_PIG, 0xB0644A, 0x5A3022, new Item.Properties()));
     public static final RegistryObject<Item> ZEBRA_SPAWN_EGG = ITEMS.register("zebra_spawn_egg",
             () -> new net.minecraftforge.common.ForgeSpawnEggItem(net.krisplis.koppenclimate.entity.ModEntities.ZEBRA, 0xEEEEEE, 0x202020, new Item.Properties()));
     public static final RegistryObject<Item> JACKAL_SPAWN_EGG = ITEMS.register("jackal_spawn_egg",

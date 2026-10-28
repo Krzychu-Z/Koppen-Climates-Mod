@@ -32,7 +32,7 @@ public final class ModClient {
                         : GrassColor.get(0.5D, 1.0D);
             }
             return -1; // don't tint sides or bottom
-        }, ModBlocks.OXISOL_GRASS.get(), ModBlocks.CINNAMON_GRASS_BLOCK.get());
+        }, ModBlocks.OXISOL_GRASS.get());
     }
 
 
@@ -46,6 +46,7 @@ public final class ModClient {
             Sheets.addWoodType(ModWoodTypes.BAOBAB);
             Sheets.addWoodType(ModWoodTypes.OLIVE);
             Sheets.addWoodType(ModWoodTypes.ITALIAN_PINE);
+            Sheets.addWoodType(ModWoodTypes.FIG);
         });
     }
 
@@ -53,6 +54,7 @@ public final class ModClient {
     @SubscribeEvent
     public static void onRegisterParticles(net.minecraftforge.client.event.RegisterParticleProvidersEvent e) {
         e.registerSpriteSet(net.krisplis.koppenclimate.particle.ModParticles.MOSQUITO.get(), MosquitoParticle.Provider::new);
+        e.registerSpriteSet(net.krisplis.koppenclimate.particle.ModParticles.GLOWWORM.get(), GlowwormParticle.Provider::new);
     }
 
     @SubscribeEvent
@@ -63,6 +65,8 @@ public final class ModClient {
         e.registerLayerDefinition(CobraModel.LAYER, CobraModel::createBodyLayer);
         e.registerLayerDefinition(TermiteModel.LAYER, TermiteModel::createBodyLayer);
         e.registerLayerDefinition(ScorpionModel.LAYER, ScorpionModel::createBodyLayer);
+        e.registerLayerDefinition(SharkModel.LAYER, SharkModel::createBodyLayer);
+        e.registerLayerDefinition(CrabModel.LAYER, CrabModel::createBodyLayer);
         e.registerLayerDefinition(LionModel.LAYER, LionModel::createBodyLayer);
         e.registerLayerDefinition(ElephantModel.LAYER, ElephantModel::createBodyLayer);
         e.registerLayerDefinition(RhinoModel.LAYER, RhinoModel::createBodyLayer);
@@ -76,8 +80,11 @@ public final class ModClient {
         e.registerEntityRenderer(ModEntities.BLACK_PANTHER.get(), BlackPantherRenderer::new);
         e.registerEntityRenderer(ModEntities.PIRANHA.get(), PiranhaRenderer::new);
         e.registerEntityRenderer(ModEntities.COBRA.get(), CobraRenderer::new);
+        e.registerEntityRenderer(ModEntities.VIPER.get(), SavannaRenderers::viper);
         e.registerEntityRenderer(ModEntities.TERMITE.get(), TermiteRenderer::new);
         e.registerEntityRenderer(ModEntities.SCORPION.get(), ScorpionRenderer::new);
+        e.registerEntityRenderer(ModEntities.SHARK.get(), SharkRenderer::new);
+        e.registerEntityRenderer(ModEntities.CRAB.get(), CrabRenderer::new);
         e.registerEntityRenderer(ModEntities.BLACK_MAMBA.get(), SavannaRenderers::mamba);
         e.registerEntityRenderer(ModEntities.LION.get(), SavannaRenderers::lion);
         e.registerEntityRenderer(ModEntities.ELEPHANT.get(), SavannaRenderers::elephant);
@@ -85,6 +92,15 @@ public final class ModClient {
         e.registerEntityRenderer(ModEntities.GIRAFFE.get(), SavannaRenderers::giraffe);
         e.registerEntityRenderer(ModEntities.JACKAL.get(), SavannaRenderers::jackal);
         e.registerEntityRenderer(ModEntities.ZEBRA.get(), SavannaRenderers.Zebra::new);
+        e.registerEntityRenderer(ModEntities.WARM_PIG.get(), ctx -> new net.minecraft.client.renderer.entity.PigRenderer(ctx) {
+            private static final net.minecraft.resources.ResourceLocation TEXTURE =
+                    net.minecraft.resources.ResourceLocation.fromNamespaceAndPath("koppenclimatemod", "textures/entity/warm_pig.png");
+
+            @Override
+            public net.minecraft.resources.ResourceLocation getTextureLocation(net.minecraft.world.entity.animal.Pig pig) {
+                return TEXTURE;
+            }
+        });
         e.registerEntityRenderer(VillageRegistry.AMAZON_VILLAGER.get(), AmazonVillagerRenderer::new);
         e.registerEntityRenderer(VillageRegistry.AFRICAN_VILLAGER.get(), net.krisplis.koppenclimate.village.AfricanVillagerRenderer::new);
         e.registerEntityRenderer(ModEntities.BOAT.get(), context -> new ModBoatRenderer(context, false));
@@ -97,8 +113,6 @@ public final class ModClient {
     public static void onRegisterItemColors(RegisterColorHandlersEvent.Item e) {
         e.getItemColors().register((stack, tint) -> tint == 0
                 ? GrassColor.get(0.5D, 1.0D) : -1, ModBlocks.OXISOL_GRASS.get());
-        // in the inventory, cinnamon grass is the Mediterranean biome's dry olive green
-        e.getItemColors().register((stack, tint) -> tint == 0 ? 0x9AAA5C : -1, ModBlocks.CINNAMON_GRASS_BLOCK.get());
 
     }
 }

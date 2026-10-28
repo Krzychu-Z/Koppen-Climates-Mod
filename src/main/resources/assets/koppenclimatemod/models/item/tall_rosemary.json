@@ -1,6 +1,3 @@
 {
-  "parent": "minecraft:item/generated",
-  "textures": {
-    "layer0": "koppenclimatemod:block/tall_rosemary_top"
-  }
+  "parent": "koppenclimatemod:block/tall_rosemary_bottom"
 }

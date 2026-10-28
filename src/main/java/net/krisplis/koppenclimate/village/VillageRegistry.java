@@ -74,6 +74,25 @@ public final class VillageRegistry {
     // ordinary villagers, in the plain clothes of a poor Thai village (textures/entity/villager/type/thai.png)
     public static final RegistryObject<VillagerType> THAI = VILLAGER_TYPES.register("thai", () -> new VillagerType("thai"));
 
+    // ---------------------------------------------------------------- Tuscan hill towns of the Mediterranean (Csa)
+
+    // villagers dressed as 16th-century Venetians (textures/entity/villager/type/venetian.png)
+    public static final RegistryObject<VillagerType> VENETIAN = VILLAGER_TYPES.register("venetian", () -> new VillagerType("venetian"));
+
+    public static final RegistryObject<StructureType<TuscanVillageStructure>> TUSCAN_VILLAGE =
+            STRUCTURE_TYPES.register("tuscan_village", () -> () -> TuscanVillageStructure.CODEC);
+
+    public static final RegistryObject<StructurePieceType> TUSCAN_VILLAGE_PIECE =
+            STRUCTURE_PIECES.register("tuscan_village", () -> (StructurePieceType.ContextlessType) TuscanVillagePiece::new);
+
+    // ---------------------------------------------------------------- Dalmatian island towns off the Mediterranean beaches
+
+    public static final RegistryObject<StructureType<CroatianVillageStructure>> CROATIAN_VILLAGE =
+            STRUCTURE_TYPES.register("croatian_village", () -> () -> CroatianVillageStructure.CODEC);
+
+    public static final RegistryObject<StructurePieceType> CROATIAN_VILLAGE_PIECE =
+            STRUCTURE_PIECES.register("croatian_village", () -> (StructurePieceType.ContextlessType) CroatianVillagePiece::new);
+
     public static final RegistryObject<StructureType<ThaiVillageStructure>> THAI_VILLAGE =
             STRUCTURE_TYPES.register("thai_village", () -> () -> ThaiVillageStructure.CODEC);
 

@@ -15,6 +15,9 @@ public class ModParticles {
     // a lone mosquito buzzing about: the ambient particle of the Amazon jungle river and the rice terraces
     public static final RegistryObject<SimpleParticleType> MOSQUITO = PARTICLES.register("mosquito", () -> new SimpleParticleType(false));
 
+    // a glowworm's light, low over the ground on a Mediterranean (Csa) night
+    public static final RegistryObject<SimpleParticleType> GLOWWORM = PARTICLES.register("glowworm", () -> new SimpleParticleType(false));
+
     public static void register(IEventBus eventBus) {
         PARTICLES.register(eventBus);
     }

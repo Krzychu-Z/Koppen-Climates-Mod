@@ -36,6 +36,21 @@ public class ModWorldgen {
             FEATURES.register("mediterranean_tree", () -> new net.krisplis.koppenclimate.worldgen.tree.MediterraneanTreeFeature(
                     net.krisplis.koppenclimate.worldgen.tree.MediterraneanTreeFeature.Config.CODEC));
 
+    // a lone one-block cactus in the Mediterranean
+    public static final RegistryObject<Feature<net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration>> LONE_CACTUS =
+            FEATURES.register("lone_cactus", () -> new net.krisplis.koppenclimate.worldgen.feature.LoneCactusFeature(
+                    net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration.CODEC));
+
+    // a field of wheat or barley in the Mediterranean farmland, and the vineyard of the wine terraces
+    public static final RegistryObject<Feature<net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration>> CROP_FIELD =
+            FEATURES.register("crop_field", () -> new net.krisplis.koppenclimate.worldgen.feature.CropFieldFeature(net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration.CODEC));
+    public static final RegistryObject<Feature<net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration>> WINE_TERRACE_VINES =
+            FEATURES.register("wine_terrace_vines", () -> new net.krisplis.koppenclimate.worldgen.feature.WineTerraceFeature(net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration.CODEC));
+
+    // the lavender of the lavender fields
+    public static final RegistryObject<Feature<net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration>> LAVENDER_FIELD =
+            FEATURES.register("lavender_field", () -> new net.krisplis.koppenclimate.worldgen.feature.LavenderFieldFeature(net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration.CODEC));
+
     public static final RegistryObject<MapCodec<KoppenBiomeSource>> KOPPEN_BIOME_SOURCE =
             BIOME_SOURCES.register("koppen", () -> KoppenBiomeSource.CODEC);
 

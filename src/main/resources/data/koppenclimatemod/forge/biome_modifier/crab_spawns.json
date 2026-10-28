@@ -1,0 +1,14 @@
+{
+  "type": "forge:add_spawns",
+  "biomes": [
+    "minecraft:beach",
+    "koppenclimatemod:tropical_beach_af",
+    "koppenclimatemod:mediterranean_beach_csa"
+  ],
+  "spawners": {
+    "type": "koppenclimatemod:crab",
+    "weight": 20,
+    "minCount": 2,
+    "maxCount": 4
+  }
+}

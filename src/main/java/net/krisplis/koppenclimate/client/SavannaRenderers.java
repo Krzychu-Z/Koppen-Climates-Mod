@@ -82,6 +82,23 @@ public final class SavannaRenderers {
         };
     }
 
+    /** The viper: the cobra's body without a hood, much shorter and a little stouter, in its zigzag coat. */
+    public static MobRenderer<CobraEntity, CobraModel> viper(EntityRendererProvider.Context c) {
+        CobraModel model = new CobraModel(c.bakeLayer(CobraModel.LAYER));
+        model.hooded = false;
+        return new MobRenderer<>(c, model, 0.22F) {
+            @Override
+            protected void scale(CobraEntity entity, PoseStack pose, float partialTick) {
+                pose.scale(0.62F, 0.66F, 0.55F);
+            }
+
+            @Override
+            public ResourceLocation getTextureLocation(CobraEntity entity) {
+                return tex("viper");
+            }
+        };
+    }
+
     /** The jackal: a wolf, a fifth bigger, in its own coat. */
     public static MobRenderer<JackalEntity, WolfModel<JackalEntity>> jackal(EntityRendererProvider.Context c) {
         return new Scaled<>(c, new WolfModel<>(c.bakeLayer(ModelLayers.WOLF)), 0.5F, 1.2F, "jackal") {

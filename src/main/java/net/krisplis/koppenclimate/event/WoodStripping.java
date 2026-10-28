@@ -32,7 +32,9 @@ public final class WoodStripping {
                     Map.entry(ModBlocks.OLIVE_LOG.get(), ModBlocks.STRIPPED_OLIVE_LOG.get()),
                     Map.entry(ModBlocks.OLIVE_WOOD.get(), ModBlocks.STRIPPED_OLIVE_WOOD.get()),
                     Map.entry(ModBlocks.ITALIAN_PINE_LOG.get(), ModBlocks.STRIPPED_ITALIAN_PINE_LOG.get()),
-                    Map.entry(ModBlocks.ITALIAN_PINE_WOOD.get(), ModBlocks.STRIPPED_ITALIAN_PINE_WOOD.get()));
+                    Map.entry(ModBlocks.ITALIAN_PINE_WOOD.get(), ModBlocks.STRIPPED_ITALIAN_PINE_WOOD.get()),
+                    Map.entry(ModBlocks.FIG_LOG.get(), ModBlocks.STRIPPED_FIG_LOG.get()),
+                    Map.entry(ModBlocks.FIG_WOOD.get(), ModBlocks.STRIPPED_FIG_WOOD.get()));
         }
         return strippables;
     }

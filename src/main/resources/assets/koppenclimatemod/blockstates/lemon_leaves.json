@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "fruit=0": {
+      "model": "koppenclimatemod:block/lemon_leaves"
+    },
+    "fruit=1": {
+      "model": "koppenclimatemod:block/lemon_leaves_unripe"
+    },
+    "fruit=2": {
+      "model": "koppenclimatemod:block/lemon_leaves_ripe"
+    }
+  }
+}
