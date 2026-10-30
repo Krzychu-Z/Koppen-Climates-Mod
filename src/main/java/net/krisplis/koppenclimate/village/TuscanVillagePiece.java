@@ -724,11 +724,32 @@ public class TuscanVillagePiece extends StructurePiece {
         if (!h.home()) return;
         int[] bed = this.bedSpot(h, dc, ix0, iz0, ix1, iz1);
         if (bed != null) this.bed(level, box, bed[0], f + 1, bed[1], Direction.EAST);
+        int[] ws = null;
         if (h.workstation() != null) {
-            int[] ws = this.workSpot(h, dc, ix0, iz0, ix1, iz1, bed);
+            ws = this.workSpot(h, dc, ix0, iz0, ix1, iz1, bed);
             if (ws != null) this.set(level, box, ws[0], f + 1, ws[1], st(h.workstation()));
         }
+        // and the family's store: a chest or a barrel of good things
+        for (int z = iz0; z <= iz1; z++) {
+            for (int x = ix0; x <= ix1; x++) {
+                if (!clear(h, dc, x, z, ix0, iz0, ix1, iz1)) continue;
+                if (bed != null && z == bed[1] && (x == bed[0] || x == bed[0] + 1)) continue;
+                if (ws != null && x == ws[0] && z == ws[1]) continue;
+                BlockPos pos = this.at(x, f + 1, z);
+                if (!box.isInside(pos)) return;
+                boolean chest = ((x * 31 + z * 17) ^ (int) this.seed) % 2 == 0;
+                level.setBlock(pos, chest ? Blocks.CHEST.defaultBlockState()
+                        : Blocks.BARREL.defaultBlockState().setValue(net.minecraft.world.level.block.BarrelBlock.FACING, Direction.UP), 2);
+                net.minecraft.world.RandomizableContainer.setBlockEntityLootTable(level, RandomSource.create(this.seed ^ pos.asLong()), pos, CSA_LOOT);
+                return;
+            }
+        }
     }
+
+    // the rich stores of the Mediterranean towns' houses
+    static final net.minecraft.resources.ResourceKey<net.minecraft.world.level.storage.loot.LootTable> CSA_LOOT =
+            net.minecraft.resources.ResourceKey.create(net.minecraft.core.registries.Registries.LOOT_TABLE,
+                    net.minecraft.resources.ResourceLocation.fromNamespaceAndPath(net.krisplis.koppenclimate.KoppenClimateMod.MOD_ID, "chests/csa_village"));
 
     /**
      * A window two blocks tall in a wall facing {@code out}, with no glass: a pair of shutters (trapdoors, one above

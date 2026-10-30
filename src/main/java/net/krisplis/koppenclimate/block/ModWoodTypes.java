@@ -16,6 +16,8 @@ public final class ModWoodTypes {
     public static final WoodType OLIVE = WoodType.register(new WoodType(KoppenClimateMod.MOD_ID + ":olive", BlockSetType.ACACIA));
     public static final WoodType ITALIAN_PINE = WoodType.register(new WoodType(KoppenClimateMod.MOD_ID + ":italian_pine", BlockSetType.SPRUCE));
     public static final WoodType FIG = WoodType.register(new WoodType(KoppenClimateMod.MOD_ID + ":fig", BlockSetType.OAK));
+    public static final WoodType JOSHUA = WoodType.register(new WoodType(KoppenClimateMod.MOD_ID + ":joshua", BlockSetType.OAK));
+    public static final WoodType DEAD_OAK = WoodType.register(new WoodType(KoppenClimateMod.MOD_ID + ":dead_oak", BlockSetType.OAK));
 
     private ModWoodTypes() {
     }

@@ -54,6 +54,10 @@ public class ModTreeGrowers {
     public static final TreeGrower LEMON = new TreeGrower(KoppenClimateMod.MOD_ID + ":lemon",
             Optional.empty(), Optional.of(key("lemon")), Optional.empty());
 
+    // the Joshua tree of the Lush desert (BSh)
+    public static final TreeGrower JOSHUA = new TreeGrower(KoppenClimateMod.MOD_ID + ":joshua",
+            Optional.empty(), Optional.of(key("joshua_tree")), Optional.empty());
+
     private static ResourceKey<ConfiguredFeature<?, ?>> key(String name) {
         return ResourceKey.create(Registries.CONFIGURED_FEATURE, ResourceLocation.fromNamespaceAndPath(KoppenClimateMod.MOD_ID, name));
     }

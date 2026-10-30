@@ -1,0 +1,73 @@
+{
+  "parent": "minecraft:block/block",
+  "textures": {
+    "side": "koppenclimatemod:block/saguaro_side",
+    "top": "koppenclimatemod:block/saguaro_top",
+    "particle": "koppenclimatemod:block/saguaro_side"
+  },
+  "elements": [
+    {
+      "from": [
+        0,
+        3,
+        3
+      ],
+      "to": [
+        3,
+        13,
+        13
+      ],
+      "faces": {
+        "north": {
+          "uv": [
+            0,
+            3,
+            3,
+            13
+          ],
+          "texture": "#side",
+          "rotation": 90
+        },
+        "south": {
+          "uv": [
+            0,
+            3,
+            3,
+            13
+          ],
+          "texture": "#side",
+          "rotation": 90
+        },
+        "west": {
+          "uv": [
+            3,
+            3,
+            13,
+            13
+          ],
+          "texture": "#side"
+        },
+        "up": {
+          "uv": [
+            0,
+            3,
+            3,
+            13
+          ],
+          "texture": "#side",
+          "rotation": 90
+        },
+        "down": {
+          "uv": [
+            0,
+            3,
+            3,
+            13
+          ],
+          "texture": "#side",
+          "rotation": 90
+        }
+      }
+    }
+  ]
+}

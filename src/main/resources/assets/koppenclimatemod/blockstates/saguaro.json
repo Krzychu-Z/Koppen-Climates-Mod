@@ -1,0 +1,25 @@
+{
+  "multipart": [
+    {
+      "apply": {
+        "model": "koppenclimatemod:block/saguaro_core"
+      }
+    },
+    {
+      "when": {
+        "up": "true"
+      },
+      "apply": {
+        "model": "koppenclimatemod:block/saguaro_up"
+      }
+    },
+    {
+      "when": {
+        "down": "true"
+      },
+      "apply": {
+        "model": "koppenclimatemod:block/saguaro_down"
+      }
+    }
+  ]
+}

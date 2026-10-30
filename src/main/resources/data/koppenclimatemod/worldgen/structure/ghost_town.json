@@ -1,0 +1,23 @@
+{
+  "type": "koppenclimatemod:ghost_town",
+  "biomes": "#koppenclimatemod:ghost_town_biomes",
+  "step": "surface_structures",
+  "terrain_adaptation": "none",
+  "spawn_overrides": {
+    "monster": {
+      "bounding_box": "full",
+      "spawns": [
+        {
+          "type": "koppenclimatemod:cowboy_soul",
+          "weight": 1,
+          "minCount": 1,
+          "maxCount": 3
+        }
+      ]
+    },
+    "creature": {
+      "bounding_box": "full",
+      "spawns": []
+    }
+  }
+}

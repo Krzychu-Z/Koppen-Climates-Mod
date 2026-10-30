@@ -16,6 +16,10 @@ public class ModEffects {
     public static final RegistryObject<MobEffect> PSYCHEDELIA = MOB_EFFECTS.register("psychedelia",
             () -> new PsychedeliaEffect(MobEffectCategory.HARMFUL, 0xC23BD9));
 
+    // Haunted: while in a ghost town (GhostTownNights); the client turns the sky yellow for it. Nothing else.
+    public static final RegistryObject<MobEffect> HAUNTED = MOB_EFFECTS.register("haunted",
+            () -> new PsychedeliaEffect(MobEffectCategory.NEUTRAL, 0xE3C04A));
+
     public static void register(IEventBus eventBus) {
         MOB_EFFECTS.register(eventBus);
     }

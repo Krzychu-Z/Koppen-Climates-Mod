@@ -33,6 +33,9 @@ public final class ModClient {
             }
             return -1; // don't tint sides or bottom
         }, ModBlocks.OXISOL_GRASS.get());
+        // the Lush desert's dry bush: all of it in the grass's colour
+        e.getBlockColors().register((state, level, pos, tint) -> level != null && pos != null
+                ? BiomeColors.getAverageGrassColor(level, pos) : GrassColor.get(0.8D, 0.2D), ModBlocks.DRY_BUSH.get());
     }
 
 
@@ -47,6 +50,8 @@ public final class ModClient {
             Sheets.addWoodType(ModWoodTypes.OLIVE);
             Sheets.addWoodType(ModWoodTypes.ITALIAN_PINE);
             Sheets.addWoodType(ModWoodTypes.FIG);
+            Sheets.addWoodType(ModWoodTypes.JOSHUA);
+            Sheets.addWoodType(ModWoodTypes.DEAD_OAK);
         });
     }
 
@@ -68,6 +73,7 @@ public final class ModClient {
         e.registerLayerDefinition(SharkModel.LAYER, SharkModel::createBodyLayer);
         e.registerLayerDefinition(CrabModel.LAYER, CrabModel::createBodyLayer);
         e.registerLayerDefinition(EagleModel.LAYER, EagleModel::createBodyLayer);
+        e.registerLayerDefinition(CowboySoulModel.LAYER, CowboySoulModel::createBodyLayer);
         e.registerLayerDefinition(LionModel.LAYER, LionModel::createBodyLayer);
         e.registerLayerDefinition(ElephantModel.LAYER, ElephantModel::createBodyLayer);
         e.registerLayerDefinition(RhinoModel.LAYER, RhinoModel::createBodyLayer);
@@ -87,6 +93,7 @@ public final class ModClient {
         e.registerEntityRenderer(ModEntities.SHARK.get(), SharkRenderer::new);
         e.registerEntityRenderer(ModEntities.CRAB.get(), CrabRenderer::new);
         e.registerEntityRenderer(ModEntities.EAGLE.get(), EagleRenderer::new);
+        e.registerEntityRenderer(ModEntities.COWBOY_SOUL.get(), CowboySoulRenderer::new);
         e.registerEntityRenderer(ModEntities.RATTLESNAKE.get(), SavannaRenderers::rattlesnake);
         e.registerEntityRenderer(ModEntities.BLACK_MAMBA.get(), SavannaRenderers::mamba);
         e.registerEntityRenderer(ModEntities.LION.get(), SavannaRenderers::lion);
@@ -116,6 +123,7 @@ public final class ModClient {
     public static void onRegisterItemColors(RegisterColorHandlersEvent.Item e) {
         e.getItemColors().register((stack, tint) -> tint == 0
                 ? GrassColor.get(0.5D, 1.0D) : -1, ModBlocks.OXISOL_GRASS.get());
+        e.getItemColors().register((stack, tint) -> tint == 0 ? 0xA9A86A : -1, ModBlocks.DRY_BUSH.get());
 
     }
 }

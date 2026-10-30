@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column",
+  "textures": {
+    "end": "koppenclimatemod:block/stripped_dead_oak_log_top",
+    "side": "koppenclimatemod:block/stripped_dead_oak_log"
+  }
+}

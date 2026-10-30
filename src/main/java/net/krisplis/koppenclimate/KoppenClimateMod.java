@@ -117,7 +117,7 @@ public class KoppenClimateMod {
     private static void addMediterraneanCreative(BuildCreativeModeTabContentsEvent event) {
         var tab = event.getTabKey();
         if (tab == CreativeModeTabs.BUILDING_BLOCKS) {
-            for (String wood : new String[]{"olive", "italian_pine", "fig"}) {
+            for (String wood : new String[]{"olive", "italian_pine", "fig", "joshua", "dead_oak"}) {
                 for (String part : new String[]{"%s_log", "%s_wood", "stripped_%s_log", "stripped_%s_wood", "%s_planks", "%s_stairs",
                         "%s_slab", "%s_fence", "%s_fence_gate", "%s_door", "%s_trapdoor", "%s_pressure_plate", "%s_button"}) {
                     acceptById(event, String.format(part, wood));
@@ -150,6 +150,8 @@ public class KoppenClimateMod {
             event.accept(ModBlocks.ORANGE_SAND_DUNE);
             event.accept(ModBlocks.ORANGE_SANDSTONE);
             event.accept(ModBlocks.SILVER_GRASS);
+            for (var b : java.util.List.of(ModBlocks.DRY_BUSH, ModBlocks.SAGUARO, ModBlocks.SAGUARO_FLOWER, ModBlocks.JOSHUA_LOG,
+                    ModBlocks.JOSHUA_LEAVES, ModBlocks.JOSHUA_SAPLING, ModBlocks.DEAD_OAK_LOG, ModBlocks.DEAD_OAK_LEAVES)) event.accept(b);
             for (var b : java.util.List.of(ModBlocks.WHITE_LIMESTONE, ModBlocks.CINNAMON_GRASS_BLOCK, ModBlocks.CINNAMON_DIRT,
                     ModBlocks.WHITE_GRAVEL, ModBlocks.ROSEMARY, ModBlocks.TALL_ROSEMARY, ModBlocks.OLIVE_LOG, ModBlocks.OLIVE_LEAVES,
                     ModBlocks.OLIVE_SAPLING, ModBlocks.ITALIAN_PINE_LOG, ModBlocks.ITALIAN_PINE_LEAVES, ModBlocks.ITALIAN_PINE_SAPLING,
@@ -161,11 +163,13 @@ public class KoppenClimateMod {
         }
         if (tab == CreativeModeTabs.FUNCTIONAL_BLOCKS) {
             for (var i : java.util.List.of(ModItems.OLIVE_SIGN, ModItems.OLIVE_HANGING_SIGN, ModItems.ITALIAN_PINE_SIGN,
-                    ModItems.ITALIAN_PINE_HANGING_SIGN, ModItems.FIG_SIGN, ModItems.FIG_HANGING_SIGN)) event.accept(i);
+                    ModItems.ITALIAN_PINE_HANGING_SIGN, ModItems.FIG_SIGN, ModItems.FIG_HANGING_SIGN,
+                    ModItems.JOSHUA_SIGN, ModItems.JOSHUA_HANGING_SIGN, ModItems.DEAD_OAK_SIGN, ModItems.DEAD_OAK_HANGING_SIGN)) event.accept(i);
         }
         if (tab == CreativeModeTabs.TOOLS_AND_UTILITIES) {
             for (var i : java.util.List.of(ModItems.OLIVE_BOAT, ModItems.OLIVE_CHEST_BOAT, ModItems.ITALIAN_PINE_BOAT,
-                    ModItems.ITALIAN_PINE_CHEST_BOAT, ModItems.FIG_BOAT, ModItems.FIG_CHEST_BOAT)) event.accept(i);
+                    ModItems.ITALIAN_PINE_CHEST_BOAT, ModItems.FIG_BOAT, ModItems.FIG_CHEST_BOAT,
+                    ModItems.JOSHUA_BOAT, ModItems.JOSHUA_CHEST_BOAT, ModItems.DEAD_OAK_BOAT, ModItems.DEAD_OAK_CHEST_BOAT)) event.accept(i);
         }
         if (tab == CreativeModeTabs.FOOD_AND_DRINKS) {
             event.accept(ModItems.OLIVE);
@@ -292,6 +296,21 @@ public class KoppenClimateMod {
                 fire.setFlammable(wood.get(), 5, 20);
             }
             fire.setFlammable(ModBlocks.LEMON_LEAVES.get(), 30, 60);
+            // the Lush desert's dry wood burns readily; the dead oak is tinder
+            fire.setFlammable(ModBlocks.JOSHUA_LEAVES.get(), 30, 60);
+            fire.setFlammable(ModBlocks.DEAD_OAK_LEAVES.get(), 60, 100);
+            fire.setFlammable(ModBlocks.DRY_BUSH.get(), 100, 100);
+            for (var log : java.util.List.of(ModBlocks.JOSHUA_LOG, ModBlocks.JOSHUA_WOOD, ModBlocks.STRIPPED_JOSHUA_LOG,
+                    ModBlocks.STRIPPED_JOSHUA_WOOD)) fire.setFlammable(log.get(), 5, 5);
+            for (var log : java.util.List.of(ModBlocks.DEAD_OAK_LOG, ModBlocks.DEAD_OAK_WOOD, ModBlocks.STRIPPED_DEAD_OAK_LOG,
+                    ModBlocks.STRIPPED_DEAD_OAK_WOOD)) fire.setFlammable(log.get(), 10, 10);
+            for (var wood : java.util.List.of(ModBlocks.JOSHUA_PLANKS, ModBlocks.JOSHUA_STAIRS, ModBlocks.JOSHUA_SLAB, ModBlocks.JOSHUA_FENCE,
+                    ModBlocks.JOSHUA_FENCE_GATE, ModBlocks.DEAD_OAK_PLANKS, ModBlocks.DEAD_OAK_STAIRS, ModBlocks.DEAD_OAK_SLAB,
+                    ModBlocks.DEAD_OAK_FENCE, ModBlocks.DEAD_OAK_FENCE_GATE)) fire.setFlammable(wood.get(), 5, 20);
+            pot.addPlant(ModBlocks.JOSHUA_SAPLING.getId(), ModBlocks.POTTED_JOSHUA_SAPLING);
+            for (var b : java.util.List.of(ModBlocks.JOSHUA_SAPLING, ModBlocks.JOSHUA_LEAVES, ModBlocks.DRY_BUSH)) {
+                ComposterBlock.COMPOSTABLES.put(b.get().asItem(), 0.3F);
+            }
             fire.setFlammable(ModBlocks.ROSEMARY.get(), 100, 100);
             fire.setFlammable(ModBlocks.TALL_ROSEMARY.get(), 100, 100);
             fire.setFlammable(ModBlocks.LAVENDER.get(), 60, 100);
@@ -455,7 +474,11 @@ public class KoppenClimateMod {
             event.accept(ModItems.SHARK_SPAWN_EGG);
             event.accept(ModItems.CRAB_SPAWN_EGG);
             event.accept(ModItems.EAGLE_SPAWN_EGG);
+            event.accept(ModItems.COWBOY_SOUL_SPAWN_EGG);
             event.accept(ModItems.RATTLESNAKE_SPAWN_EGG);
+        }
+        if (event.getTabKey() == CreativeModeTabs.INGREDIENTS) {
+            event.accept(ModItems.BULLET);
         }
     }
 

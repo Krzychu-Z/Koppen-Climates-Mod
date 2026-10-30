@@ -16,7 +16,9 @@ public enum ModBoatWood {
     BAOBAB("baobab", ModBlocks.BAOBAB_PLANKS::get, () -> ModItems.BAOBAB_BOAT.get(), () -> ModItems.BAOBAB_CHEST_BOAT.get()),
     OLIVE("olive", ModBlocks.OLIVE_PLANKS::get, () -> ModItems.OLIVE_BOAT.get(), () -> ModItems.OLIVE_CHEST_BOAT.get()),
     ITALIAN_PINE("italian_pine", ModBlocks.ITALIAN_PINE_PLANKS::get, () -> ModItems.ITALIAN_PINE_BOAT.get(), () -> ModItems.ITALIAN_PINE_CHEST_BOAT.get()),
-    FIG("fig", ModBlocks.FIG_PLANKS::get, () -> ModItems.FIG_BOAT.get(), () -> ModItems.FIG_CHEST_BOAT.get());
+    FIG("fig", ModBlocks.FIG_PLANKS::get, () -> ModItems.FIG_BOAT.get(), () -> ModItems.FIG_CHEST_BOAT.get()),
+    JOSHUA("joshua", ModBlocks.JOSHUA_PLANKS::get, () -> ModItems.JOSHUA_BOAT.get(), () -> ModItems.JOSHUA_CHEST_BOAT.get()),
+    DEAD_OAK("dead_oak", ModBlocks.DEAD_OAK_PLANKS::get, () -> ModItems.DEAD_OAK_BOAT.get(), () -> ModItems.DEAD_OAK_CHEST_BOAT.get());
 
     private final String name;
     private final Supplier<Block> planks;

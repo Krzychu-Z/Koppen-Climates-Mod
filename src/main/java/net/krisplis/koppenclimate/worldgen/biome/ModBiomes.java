@@ -35,6 +35,10 @@ public class ModBiomes {
     public static final ResourceKey<Biome> HOT_DESERT = key("hot_desert_bwh");
     public static final ResourceKey<Biome> CONTINENTAL_DESERT = key("continental_desert_bwk");
     public static final ResourceKey<Biome> DESERT_MOUNTAINS = key("desert_mountains_bwk");
+    // the Dry steppe (BSk): the continental desert's wetter side, its ground all grass
+    public static final ResourceKey<Biome> DRY_STEPPE = key("dry_steppe_bsk");
+    // the Lush desert (BSh), in place of vanilla's badlands
+    public static final ResourceKey<Biome> LUSH_DESERT = key("lush_desert_bsh");
     // the Mediterranean highland (Csb), on the mountains in and around the Csa
     public static final ResourceKey<Biome> MEDITERRANEAN_HIGHLAND = key("mediterranean_highland_csb");
 
@@ -58,9 +62,15 @@ public class ModBiomes {
                 || biome.is(MEDITERRANEAN_HIGHLAND);
     }
 
-    /** The three deserts: hot (BWh), continental (BWk) and the desert mountains (BWk). */
+    /** The deserts: hot (BWh), the Sahel (BWk), the desert mountains (BWk), the Lush desert (BSh), and the Dry steppe (BSk). */
     public static boolean isDesert(net.minecraft.core.Holder<Biome> biome) {
-        return biome.is(HOT_DESERT) || biome.is(CONTINENTAL_DESERT) || biome.is(DESERT_MOUNTAINS);
+        return biome.is(HOT_DESERT) || biome.is(CONTINENTAL_DESERT) || biome.is(DESERT_MOUNTAINS) || isLushDesert(biome)
+                || biome.is(DRY_STEPPE);
+    }
+
+    /** The Lush desert (BSh). */
+    public static boolean isLushDesert(net.minecraft.core.Holder<Biome> biome) {
+        return biome.is(LUSH_DESERT);
     }
 
     private static ResourceKey<Biome> key(String name) {

@@ -26,7 +26,9 @@
           "deserts": {
             "hot": "koppenclimatemod:hot_desert_bwh",
             "continental": "koppenclimatemod:continental_desert_bwk",
-            "mountains": "koppenclimatemod:desert_mountains_bwk"
+            "mountains": "koppenclimatemod:desert_mountains_bwk",
+            "lush": "koppenclimatemod:lush_desert_bsh",
+            "steppe": "koppenclimatemod:dry_steppe_bsk"
           },
           "mediterranean_zones": {
             "forest": "koppenclimatemod:mediterranean_forest_csa",

@@ -54,6 +54,11 @@ public class ModWorldgen {
     public static final RegistryObject<Feature<net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration>> LAVENDER_FIELD =
             FEATURES.register("lavender_field", () -> new net.krisplis.koppenclimate.worldgen.feature.LavenderFieldFeature(net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration.CODEC));
 
+    // the Lush desert's (BSh) Joshua trees, dead oaks and saguaros
+    public static final RegistryObject<Feature<net.krisplis.koppenclimate.worldgen.feature.LushDesertTreeFeature.Config>> LUSH_DESERT_TREE =
+            FEATURES.register("lush_desert_tree", () -> new net.krisplis.koppenclimate.worldgen.feature.LushDesertTreeFeature(
+                    net.krisplis.koppenclimate.worldgen.feature.LushDesertTreeFeature.Config.CODEC));
+
     public static final RegistryObject<MapCodec<KoppenBiomeSource>> KOPPEN_BIOME_SOURCE =
             BIOME_SOURCES.register("koppen", () -> KoppenBiomeSource.CODEC);
 

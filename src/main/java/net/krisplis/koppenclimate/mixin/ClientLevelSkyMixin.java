@@ -19,4 +19,15 @@ public abstract class ClientLevelSkyMixin {
             cir.setReturnValue(sky);
         }
     }
+
+    // in a ghost town, by day the sky turns a sickly yellow
+    @Inject(method = "getSkyColor", at = @At("RETURN"), cancellable = true)
+    private void koppenclimatemod$hauntedSky(Vec3 pos, float partialTick, CallbackInfoReturnable<Vec3> cir) {
+        float haunt = net.krisplis.koppenclimate.client.AfAmbience.haunt(partialTick);
+        if (haunt <= 0.0F) return;
+        ClientLevel level = (ClientLevel) (Object) this;
+        float daylight = net.minecraft.util.Mth.clamp(net.minecraft.util.Mth.cos(level.getTimeOfDay(partialTick) * ((float) Math.PI * 2F)) * 2.0F + 0.5F, 0.0F, 1.0F);
+        Vec3 yellow = new Vec3(0.89, 0.75, 0.29).scale(daylight);
+        cir.setReturnValue(cir.getReturnValue().lerp(yellow, haunt * 0.85));
+    }
 }

@@ -86,6 +86,14 @@ public class ModEntities {
                     .clientTrackingRange(8)
                     .build("crab"));
 
+    // the cowboy souls haunting the ghost towns at night
+    public static final RegistryObject<EntityType<net.krisplis.koppenclimate.entity.custom.CowboySoulEntity>> COWBOY_SOUL = ENTITY_TYPES.register("cowboy_soul",
+            () -> EntityType.Builder.<net.krisplis.koppenclimate.entity.custom.CowboySoulEntity>of(net.krisplis.koppenclimate.entity.custom.CowboySoulEntity::new, MobCategory.MONSTER)
+                    .sized(0.6F, 1.95F)
+                    .eyeHeight(1.74F)
+                    .fireImmune()
+                    .clientTrackingRange(8)
+                    .build("cowboy_soul"));
     // a brown eagle of the hot desert, soaring high over the sand
     public static final RegistryObject<EntityType<net.krisplis.koppenclimate.entity.custom.EagleEntity>> EAGLE = ENTITY_TYPES.register("eagle",
             () -> EntityType.Builder.of(net.krisplis.koppenclimate.entity.custom.EagleEntity::new, MobCategory.CREATURE)
@@ -196,6 +204,7 @@ public class ModEntities {
         event.put(SHARK.get(), net.krisplis.koppenclimate.entity.custom.SharkEntity.createAttributes().build());
         event.put(CRAB.get(), net.krisplis.koppenclimate.entity.custom.CrabEntity.createAttributes().build());
         event.put(EAGLE.get(), net.krisplis.koppenclimate.entity.custom.EagleEntity.createAttributes().build());
+        event.put(COWBOY_SOUL.get(), net.krisplis.koppenclimate.entity.custom.CowboySoulEntity.createAttributes().build());
         event.put(RATTLESNAKE.get(), net.krisplis.koppenclimate.entity.custom.RattlesnakeEntity.createAttributes().build());
         event.put(TERMITE.get(), net.krisplis.koppenclimate.entity.custom.TermiteEntity.createAttributes().build());
         event.put(SCORPION.get(), net.krisplis.koppenclimate.entity.custom.ScorpionEntity.createAttributes().build());
@@ -252,21 +261,39 @@ public class ModEntities {
                 net.krisplis.koppenclimate.entity.custom.EagleEntity::checkEagleSpawnRules, SpawnPlacementRegisterEvent.Operation.REPLACE);
         event.register(RATTLESNAKE.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
                 Mob::checkMobSpawnRules, SpawnPlacementRegisterEvent.Operation.REPLACE);
+        event.register(COWBOY_SOUL.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+                net.minecraft.world.entity.monster.Monster::checkMonsterSpawnRules, SpawnPlacementRegisterEvent.Operation.REPLACE);
         // cave spiders may also come out by day in the Amazon (see AmazonSpawns)
         // (an extra OR rule keeps vanilla's placement type and heightmap, so it doesn't pass any)
         event.register(EntityType.CAVE_SPIDER, AmazonSpawns::caveSpiderInDaylight, SpawnPlacementRegisterEvent.Operation.OR);
         // bats also fly out over the Mediterranean at night, not only in caves
         event.register(EntityType.BAT, ModEntities::batOverMediterranean, SpawnPlacementRegisterEvent.Operation.OR);
+        // the Dry steppe (BSk) is all sand under its grass: its sheep and wolves spawn on that sand
+        event.register(EntityType.SHEEP, ModEntities::onSteppeSand, SpawnPlacementRegisterEvent.Operation.OR);
+        event.register(EntityType.WOLF, ModEntities::onSteppeSand, SpawnPlacementRegisterEvent.Operation.OR);
     }
 
     private static final net.minecraft.tags.TagKey<net.minecraft.world.level.biome.Biome> MEDITERRANEAN_BIOMES =
             net.minecraft.tags.TagKey.create(net.minecraft.core.registries.Registries.BIOME,
                     net.minecraft.resources.ResourceLocation.fromNamespaceAndPath("koppenclimatemod", "is_mediterranean"));
 
+    private static <T extends net.minecraft.world.entity.Entity> boolean onSteppeSand(EntityType<T> type,
+                                                net.minecraft.world.level.ServerLevelAccessor level, MobSpawnType reason,
+                                                net.minecraft.core.BlockPos pos, net.minecraft.util.RandomSource random) {
+        return level.getBlockState(pos.below()).is(net.minecraft.world.level.block.Blocks.SAND)
+                && level.getBiome(pos).is(net.krisplis.koppenclimate.worldgen.biome.ModBiomes.DRY_STEPPE)
+                && level.getRawBrightness(pos, 0) > 8;
+    }
+
     private static boolean batOverMediterranean(EntityType<net.minecraft.world.entity.ambient.Bat> type,
                                                 net.minecraft.world.level.ServerLevelAccessor level, MobSpawnType reason,
                                                 net.minecraft.core.BlockPos pos, net.minecraft.util.RandomSource random) {
-        if (!level.getBiome(pos).is(MEDITERRANEAN_BIOMES)) return false;
+        var biome = level.getBiome(pos);
+        // the Lush desert (BSh) is full of bats, by day as well as by night
+        if (net.krisplis.koppenclimate.worldgen.biome.ModBiomes.isLushDesert(biome)) {
+            return level.getBlockState(pos).isAir() && level.getBlockState(pos.above()).isAir();
+        }
+        if (!biome.is(MEDITERRANEAN_BIOMES)) return false;
         if (!level.getLevel().isNight() || level.getBrightness(net.minecraft.world.level.LightLayer.BLOCK, pos) > 4) return false;
         return level.getBlockState(pos).isAir() && level.getBlockState(pos.above()).isAir();
     }

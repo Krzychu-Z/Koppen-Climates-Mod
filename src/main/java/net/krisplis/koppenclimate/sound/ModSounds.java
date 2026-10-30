@@ -42,6 +42,12 @@ public class ModSounds {
     public static final RegistryObject<SoundEvent> LION_HURT = register("entity.lion.hurt");
     public static final RegistryObject<SoundEvent> LION_DEATH = register("entity.lion.death");
 
+    // the cowboy souls of the ghost towns: their voices are the ghast's (its screams, moans and death cry, in sounds.json)
+    public static final RegistryObject<SoundEvent> COWBOY_SOUL_SCREAM = register("entity.cowboy_soul.scream");
+    public static final RegistryObject<SoundEvent> COWBOY_SOUL_AMBIENT = register("entity.cowboy_soul.ambient");
+    public static final RegistryObject<SoundEvent> COWBOY_SOUL_HURT = register("entity.cowboy_soul.hurt");
+    public static final RegistryObject<SoundEvent> COWBOY_SOUL_DEATH = register("entity.cowboy_soul.death");
+
     private static RegistryObject<SoundEvent> register(String name) {
         return SOUND_EVENTS.register(name, () -> SoundEvent.createVariableRangeEvent(ResourceLocation.fromNamespaceAndPath(KoppenClimateMod.MOD_ID, name)));
     }

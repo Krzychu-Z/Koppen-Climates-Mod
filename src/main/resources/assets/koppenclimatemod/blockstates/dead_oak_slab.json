@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "koppenclimatemod:block/dead_oak_slab"
+    },
+    "type=double": {
+      "model": "koppenclimatemod:block/dead_oak_planks"
+    },
+    "type=top": {
+      "model": "koppenclimatemod:block/dead_oak_slab_top"
+    }
+  }
+}

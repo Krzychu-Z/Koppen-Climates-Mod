@@ -163,5 +163,107 @@
         "volume": 1.0
       }
     ]
+  },
+  "entity.cowboy_soul.scream": {
+    "subtitle": "subtitles.koppenclimatemod.cowboy_soul_scream",
+    "sounds": [
+      {
+        "name": "minecraft:mob/ghast/scream1",
+        "volume": 1.0,
+        "attenuation_distance": 32
+      },
+      {
+        "name": "minecraft:mob/ghast/scream2",
+        "volume": 1.0,
+        "attenuation_distance": 32
+      },
+      {
+        "name": "minecraft:mob/ghast/scream3",
+        "volume": 1.0,
+        "attenuation_distance": 32
+      },
+      {
+        "name": "minecraft:mob/ghast/scream4",
+        "volume": 1.0,
+        "attenuation_distance": 32
+      },
+      {
+        "name": "minecraft:mob/ghast/scream5",
+        "volume": 1.0,
+        "attenuation_distance": 32
+      },
+      {
+        "name": "minecraft:mob/ghast/affectionate_scream",
+        "volume": 1.0,
+        "attenuation_distance": 32
+      }
+    ]
+  },
+  "entity.cowboy_soul.ambient": {
+    "subtitle": "subtitles.koppenclimatemod.cowboy_soul_ambient",
+    "sounds": [
+      {
+        "name": "minecraft:mob/ghast/moan1",
+        "volume": 0.8
+      },
+      {
+        "name": "minecraft:mob/ghast/moan2",
+        "volume": 0.8
+      },
+      {
+        "name": "minecraft:mob/ghast/moan3",
+        "volume": 0.8
+      },
+      {
+        "name": "minecraft:mob/ghast/moan4",
+        "volume": 0.8
+      },
+      {
+        "name": "minecraft:mob/ghast/moan5",
+        "volume": 0.8
+      },
+      {
+        "name": "minecraft:mob/ghast/moan6",
+        "volume": 0.8
+      },
+      {
+        "name": "minecraft:mob/ghast/moan7",
+        "volume": 0.8
+      }
+    ]
+  },
+  "entity.cowboy_soul.hurt": {
+    "subtitle": "subtitles.koppenclimatemod.cowboy_soul_hurt",
+    "sounds": [
+      {
+        "name": "minecraft:mob/ghast/scream1",
+        "volume": 0.8
+      },
+      {
+        "name": "minecraft:mob/ghast/scream2",
+        "volume": 0.8
+      },
+      {
+        "name": "minecraft:mob/ghast/scream3",
+        "volume": 0.8
+      },
+      {
+        "name": "minecraft:mob/ghast/scream4",
+        "volume": 0.8
+      },
+      {
+        "name": "minecraft:mob/ghast/scream5",
+        "volume": 0.8
+      }
+    ]
+  },
+  "entity.cowboy_soul.death": {
+    "subtitle": "subtitles.koppenclimatemod.cowboy_soul_death",
+    "sounds": [
+      {
+        "name": "minecraft:mob/ghast/death",
+        "volume": 1.0
+      }
+    ]
   }
 }

@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "koppenclimatemod:block/joshua_slab"
+    },
+    "type=double": {
+      "model": "koppenclimatemod:block/joshua_planks"
+    },
+    "type=top": {
+      "model": "koppenclimatemod:block/joshua_slab_top"
+    }
+  }
+}

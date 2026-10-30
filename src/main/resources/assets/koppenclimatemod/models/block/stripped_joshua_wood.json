@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column",
+  "textures": {
+    "end": "koppenclimatemod:block/stripped_joshua_log",
+    "side": "koppenclimatemod:block/stripped_joshua_log"
+  }
+}

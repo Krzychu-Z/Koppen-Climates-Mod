@@ -22,6 +22,7 @@
       "y_scale": 0.0
     },
     "ridges": "minecraft:overworld/ridges",
+    "erosion": "minecraft:overworld/erosion",
     "hills": {
       "type": "minecraft:noise",
       "noise": "minecraft:surface",

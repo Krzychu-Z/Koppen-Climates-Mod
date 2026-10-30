@@ -93,6 +93,10 @@ public class ModItems {
             () -> new ForgeSpawnEggItem(ModEntities.SHARK, 0x6E7C86, 0xE6E8E4, new Item.Properties()));
     public static final RegistryObject<Item> CRAB_SPAWN_EGG = ITEMS.register("crab_spawn_egg",
             () -> new ForgeSpawnEggItem(ModEntities.CRAB, 0xC8321E, 0xF0B060, new Item.Properties()));
+    // what the cowboy souls leave behind: the bullets they never fired (5.56x45mm NATO rounds: brass case, copper-jacketed spitzer)
+    public static final RegistryObject<Item> BULLET = ITEMS.register("bullet", () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> COWBOY_SOUL_SPAWN_EGG = ITEMS.register("cowboy_soul_spawn_egg",
+            () -> new ForgeSpawnEggItem(ModEntities.COWBOY_SOUL, 0x9EA7A3, 0x5B3A22, new Item.Properties()));
     public static final RegistryObject<Item> EAGLE_SPAWN_EGG = ITEMS.register("eagle_spawn_egg",
             () -> new ForgeSpawnEggItem(ModEntities.EAGLE, 0x5A3A22, 0xD9A441, new Item.Properties()));
     public static final RegistryObject<Item> RATTLESNAKE_SPAWN_EGG = ITEMS.register("rattlesnake_spawn_egg",
@@ -154,6 +158,27 @@ public class ModItems {
             () -> new ModBoatItem(false, ModBoatWood.FIG, new Item.Properties().stacksTo(1)));
     public static final RegistryObject<Item> FIG_CHEST_BOAT = ITEMS.register("fig_chest_boat",
             () -> new ModBoatItem(true, ModBoatWood.FIG, new Item.Properties().stacksTo(1)));
+    // Joshua tree and dead oak (Lush desert, BSh)
+    public static final RegistryObject<Item> JOSHUA_DOOR = ITEMS.register("joshua_door",
+            () -> new DoubleHighBlockItem(ModBlocks.JOSHUA_DOOR.get(), new Item.Properties()));
+    public static final RegistryObject<Item> JOSHUA_SIGN = ITEMS.register("joshua_sign",
+            () -> new SignItem(new Item.Properties().stacksTo(16), ModBlocks.JOSHUA_SIGN.get(), ModBlocks.JOSHUA_WALL_SIGN.get()));
+    public static final RegistryObject<Item> JOSHUA_HANGING_SIGN = ITEMS.register("joshua_hanging_sign",
+            () -> new HangingSignItem(ModBlocks.JOSHUA_HANGING_SIGN.get(), ModBlocks.JOSHUA_WALL_HANGING_SIGN.get(), new Item.Properties().stacksTo(16)));
+    public static final RegistryObject<Item> JOSHUA_BOAT = ITEMS.register("joshua_boat",
+            () -> new ModBoatItem(false, ModBoatWood.JOSHUA, new Item.Properties().stacksTo(1)));
+    public static final RegistryObject<Item> JOSHUA_CHEST_BOAT = ITEMS.register("joshua_chest_boat",
+            () -> new ModBoatItem(true, ModBoatWood.JOSHUA, new Item.Properties().stacksTo(1)));
+    public static final RegistryObject<Item> DEAD_OAK_DOOR = ITEMS.register("dead_oak_door",
+            () -> new DoubleHighBlockItem(ModBlocks.DEAD_OAK_DOOR.get(), new Item.Properties()));
+    public static final RegistryObject<Item> DEAD_OAK_SIGN = ITEMS.register("dead_oak_sign",
+            () -> new SignItem(new Item.Properties().stacksTo(16), ModBlocks.DEAD_OAK_SIGN.get(), ModBlocks.DEAD_OAK_WALL_SIGN.get()));
+    public static final RegistryObject<Item> DEAD_OAK_HANGING_SIGN = ITEMS.register("dead_oak_hanging_sign",
+            () -> new HangingSignItem(ModBlocks.DEAD_OAK_HANGING_SIGN.get(), ModBlocks.DEAD_OAK_WALL_HANGING_SIGN.get(), new Item.Properties().stacksTo(16)));
+    public static final RegistryObject<Item> DEAD_OAK_BOAT = ITEMS.register("dead_oak_boat",
+            () -> new ModBoatItem(false, ModBoatWood.DEAD_OAK, new Item.Properties().stacksTo(1)));
+    public static final RegistryObject<Item> DEAD_OAK_CHEST_BOAT = ITEMS.register("dead_oak_chest_boat",
+            () -> new ModBoatItem(true, ModBoatWood.DEAD_OAK, new Item.Properties().stacksTo(1)));
     // ------------------------------------------------------------------ the Mediterranean's harvest
     // an olive, picked from olive leaves: a mouthful of food, but mostly for pressing into oil
     public static final RegistryObject<Item> OLIVE = ITEMS.register("olive",

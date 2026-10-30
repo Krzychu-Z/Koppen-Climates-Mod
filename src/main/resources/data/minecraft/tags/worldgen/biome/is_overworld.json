@@ -16,7 +16,9 @@
     "koppenclimatemod:mediterranean_river_csa",
     "koppenclimatemod:hot_desert_bwh",
     "koppenclimatemod:continental_desert_bwk",
+    "koppenclimatemod:dry_steppe_bsk",
     "koppenclimatemod:desert_mountains_bwk",
-    "koppenclimatemod:mediterranean_highland_csb"
+    "koppenclimatemod:mediterranean_highland_csb",
+    "koppenclimatemod:lush_desert_bsh"
   ]
 }

@@ -35,13 +35,40 @@ public final class AfAmbience {
 
     @Nullable
     private static Loop current;
-    // whether the player is in the hot desert or the Mediterranean, where there are no clouds (see LevelRendererCloudsMixin)
-    private static volatile boolean hideClouds;
+    // how far the clouds have faded away (0 = full clouds, 1 = none): they thin out gradually over the hot desert, the
+    // Sahel and the Mediterranean (see LevelRendererCloudsMixin) and come back gradually when the player leaves
+    private static volatile float cloudFade;
+    private static float cloudFadeO;
+    // ticks for the clouds to fade fully out or in
+    private static final float CLOUD_FADE_TICKS = 120.0F;
     // whether the player is by one of the Dalmatian island towns (out in the sea, so known by its Venetian villagers)
     private static boolean nearIslandTown;
 
     public static boolean hideClouds() {
-        return hideClouds;
+        return cloudFade >= 1.0F && cloudFadeO >= 1.0F;
+    }
+
+    // how visible the clouds are this frame, between 0 and 1
+    public static float cloudAlpha(float partialTick) {
+        return 1.0F - net.minecraft.util.Mth.lerp(partialTick, cloudFadeO, cloudFade);
+    }
+
+    // how far the sky has turned to the ghost towns' yellow (0-1), fading in and out over a few seconds
+    private static float haunt, hauntO;
+
+    public static float haunt(float partialTick) {
+        return net.minecraft.util.Mth.lerp(partialTick, hauntO, haunt);
+    }
+
+    private static void fadeHaunt(boolean haunted) {
+        hauntO = haunt;
+        haunt = haunted ? Math.min(1.0F, haunt + 0.02F) : Math.max(0.0F, haunt - 0.02F);
+    }
+
+    private static void fadeClouds(boolean hide) {
+        cloudFadeO = cloudFade;
+        float step = 1.0F / CLOUD_FADE_TICKS;
+        cloudFade = hide ? Math.min(1.0F, cloudFade + step) : Math.max(0.0F, cloudFade - step);
     }
 
     private static boolean nearVenetians(Minecraft mc, LocalPlayer player) {
@@ -57,14 +84,17 @@ public final class AfAmbience {
         if (event.phase != TickEvent.Phase.END) return;
         Minecraft mc = Minecraft.getInstance();
         LocalPlayer player = mc.player;
+        net.krisplis.koppenclimate.worldgen.biome.RareRain.clientStorm = mc.level != null && mc.level.isThundering();
         mosquitoes(mc, player);
         glowworms(mc, player);
         owls(mc, player);
         SoundEvent wanted = null;
         if (player != null && mc.level != null && !player.isRemoved()) {
             Holder<Biome> here = mc.level.getBiome(player.blockPosition());
-            // no clouds over the hot desert or the Mediterranean
-            hideClouds = here.is(ModBiomes.HOT_DESERT) || ModBiomes.isMediterranean(here);
+            // no clouds over the hot desert, the Sahel or the Mediterranean
+            fadeClouds(here.is(ModBiomes.HOT_DESERT) || here.is(ModBiomes.CONTINENTAL_DESERT) || here.is(ModBiomes.DRY_STEPPE)
+                    || ModBiomes.isMediterranean(here));
+            fadeHaunt(player.hasEffect(net.krisplis.koppenclimate.effect.ModEffects.HAUNTED.getHolder().get()));
             wanted = pick(here, mc.level.getDayTime());
             // the Dalmatian island towns stand out in the sea: around one, the sea sounds like the Mediterranean beach
             if (player.tickCount % 40 == 0) nearIslandTown = nearVenetians(mc, player);
@@ -74,7 +104,7 @@ public final class AfAmbience {
                 wanted = (night ? ModSounds.MEDITERRANEAN_BEACH_NIGHT : ModSounds.MEDITERRANEAN_BEACH_DAY).get();
             }
         } else {
-            hideClouds = false;
+            cloudFade = cloudFadeO = 0.0F;
         }
         if (current != null && (current.isStopped() || !mc.getSoundManager().isActive(current))) {
             current = null;
@@ -194,6 +224,8 @@ public final class AfAmbience {
         final SoundEvent event;
         private int fade;
         private int direction = 1;
+        // how loud it gets at most: the desert wind is kept low, under everything else
+        private final float max;
 
         Loop(SoundEvent event) {
             super(event, SoundSource.AMBIENT, SoundInstance.createUnseededRandom());
@@ -203,6 +235,7 @@ public final class AfAmbience {
             this.relative = true;
             this.attenuation = SoundInstance.Attenuation.NONE;
             this.volume = 0.01F;
+            this.max = event == ModSounds.HOT_DESERT_WIND.get() ? 0.3F : 1.0F;
         }
 
         void fadeOut() {
@@ -217,7 +250,7 @@ public final class AfAmbience {
         @Override
         public void tick() {
             this.fade = Mth.clamp(this.fade + this.direction, 0, FADE_TICKS);
-            this.volume = Math.max(0.01F, (float) this.fade / FADE_TICKS);
+            this.volume = Math.max(0.01F, this.max * this.fade / FADE_TICKS);
             if (this.direction < 0 && this.fade == 0) {
                 this.stop();
             }

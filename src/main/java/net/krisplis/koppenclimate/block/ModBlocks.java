@@ -92,6 +92,27 @@ public class ModBlocks {
             () -> new net.krisplis.koppenclimate.block.custom.SilverGrassBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.SHORT_GRASS)
                     .mapColor(MapColor.COLOR_LIGHT_GRAY))
     );
+    // ------------------------------------------------------------------ Lush desert (BSh) plants
+    // the dry bush: a woody shrub like wild rosemary, in the grass's colour
+    public static final RegistryObject<Block> DRY_BUSH = registerBlock("dry_bush",
+            () -> new net.krisplis.koppenclimate.block.custom.DryBushBlock(BlockBehaviour.Properties.of().mapColor(MapColor.PLANT)
+                    .noCollission().strength(0.4F).sound(SoundType.AZALEA).ignitedByLava()
+                    .noOcclusion().isViewBlocking((st, l, p) -> false).isSuffocating((st, l, p) -> false)
+                    .pushReaction(net.minecraft.world.level.material.PushReaction.DESTROY))
+    );
+    // the giant forked saguaro cactus, and its flowers
+    public static final RegistryObject<Block> SAGUARO = registerBlock("saguaro",
+            () -> new net.krisplis.koppenclimate.block.custom.SaguaroBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.CACTUS)
+                    .strength(0.6F).noOcclusion().mapColor(MapColor.PLANT))
+    );
+    // the elbow where a saguaro's arm leaves the trunk (grown only: it drops a saguaro)
+    public static final RegistryObject<Block> SAGUARO_ARM = BLOCKS.register("saguaro_arm",
+            () -> new net.krisplis.koppenclimate.block.custom.SaguaroArmBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.CACTUS)
+                    .strength(0.6F).noOcclusion().mapColor(MapColor.PLANT)));
+    public static final RegistryObject<Block> SAGUARO_FLOWER = registerBlock("saguaro_flower",
+            () -> new net.krisplis.koppenclimate.block.custom.SaguaroFlowerBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.DANDELION)
+                    .mapColor(MapColor.SNOW))
+    );
     public static final RegistryObject<Block> ORANGE_SANDSTONE = registerBlock("orange_sandstone",
             () -> new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.SANDSTONE).mapColor(MapColor.COLOR_ORANGE))
     );
@@ -560,6 +581,136 @@ public class ModBlocks {
     public static final RegistryObject<ModWallHangingSignBlock> FIG_WALL_HANGING_SIGN = BLOCKS.register("fig_wall_hanging_sign",
             () -> new ModWallHangingSignBlock(ModWoodTypes.FIG, signProperties(MapColor.SAND).lootFrom(FIG_HANGING_SIGN))
     );
+
+
+    // ------------------------------------------------------------------ Joshua tree wood family (Lush desert, BSh)
+    // shaggy grey-brown bark; pale, fibrous tan wood
+    public static final RegistryObject<RotatedPillarBlock> JOSHUA_LOG = registerBlock("joshua_log",
+            () -> new RotatedPillarBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_LOG).mapColor(MapColor.TERRACOTTA_GRAY))
+    );
+    public static final RegistryObject<RotatedPillarBlock> JOSHUA_WOOD = registerBlock("joshua_wood",
+            () -> new RotatedPillarBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_WOOD).mapColor(MapColor.TERRACOTTA_GRAY))
+    );
+    public static final RegistryObject<RotatedPillarBlock> STRIPPED_JOSHUA_LOG = registerBlock("stripped_joshua_log",
+            () -> new RotatedPillarBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.STRIPPED_OAK_LOG).mapColor(MapColor.TERRACOTTA_WHITE))
+    );
+    public static final RegistryObject<RotatedPillarBlock> STRIPPED_JOSHUA_WOOD = registerBlock("stripped_joshua_wood",
+            () -> new RotatedPillarBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.STRIPPED_OAK_WOOD).mapColor(MapColor.TERRACOTTA_WHITE))
+    );
+    public static final RegistryObject<Block> JOSHUA_PLANKS = registerBlock("joshua_planks",
+            () -> new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_PLANKS).mapColor(MapColor.TERRACOTTA_WHITE))
+    );
+    public static final RegistryObject<StairBlock> JOSHUA_STAIRS = registerBlock("joshua_stairs",
+            () -> new StairBlock(JOSHUA_PLANKS.get().defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(JOSHUA_PLANKS.get()))
+    );
+    public static final RegistryObject<SlabBlock> JOSHUA_SLAB = registerBlock("joshua_slab",
+            () -> new SlabBlock(BlockBehaviour.Properties.ofFullCopy(JOSHUA_PLANKS.get()))
+    );
+    public static final RegistryObject<FenceBlock> JOSHUA_FENCE = registerBlock("joshua_fence",
+            () -> new FenceBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_FENCE).mapColor(MapColor.TERRACOTTA_WHITE))
+    );
+    public static final RegistryObject<FenceGateBlock> JOSHUA_FENCE_GATE = registerBlock("joshua_fence_gate",
+            () -> new FenceGateBlock(ModWoodTypes.JOSHUA, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_FENCE_GATE).mapColor(MapColor.TERRACOTTA_WHITE))
+    );
+    // item: ModItems.JOSHUA_DOOR
+    public static final RegistryObject<DoorBlock> JOSHUA_DOOR = BLOCKS.register("joshua_door",
+            () -> new DoorBlock(ModWoodTypes.JOSHUA.setType(), BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_DOOR))
+    );
+    public static final RegistryObject<TrapDoorBlock> JOSHUA_TRAPDOOR = registerBlock("joshua_trapdoor",
+            () -> new TrapDoorBlock(ModWoodTypes.JOSHUA.setType(), BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_TRAPDOOR))
+    );
+    public static final RegistryObject<PressurePlateBlock> JOSHUA_PRESSURE_PLATE = registerBlock("joshua_pressure_plate",
+            () -> new PressurePlateBlock(ModWoodTypes.JOSHUA.setType(), BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_PRESSURE_PLATE))
+    );
+    public static final RegistryObject<ButtonBlock> JOSHUA_BUTTON = registerBlock("joshua_button",
+            () -> new ButtonBlock(ModWoodTypes.JOSHUA.setType(), 30, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_BUTTON))
+    );
+    public static final RegistryObject<ModStandingSignBlock> JOSHUA_SIGN = BLOCKS.register("joshua_sign",
+            () -> new ModStandingSignBlock(ModWoodTypes.JOSHUA, signProperties(MapColor.TERRACOTTA_WHITE))
+    );
+    public static final RegistryObject<ModWallSignBlock> JOSHUA_WALL_SIGN = BLOCKS.register("joshua_wall_sign",
+            () -> new ModWallSignBlock(ModWoodTypes.JOSHUA, signProperties(MapColor.TERRACOTTA_WHITE).lootFrom(JOSHUA_SIGN))
+    );
+    public static final RegistryObject<ModHangingSignBlock> JOSHUA_HANGING_SIGN = BLOCKS.register("joshua_hanging_sign",
+            () -> new ModHangingSignBlock(ModWoodTypes.JOSHUA, signProperties(MapColor.TERRACOTTA_WHITE))
+    );
+    public static final RegistryObject<ModWallHangingSignBlock> JOSHUA_WALL_HANGING_SIGN = BLOCKS.register("joshua_wall_hanging_sign",
+            () -> new ModWallHangingSignBlock(ModWoodTypes.JOSHUA, signProperties(MapColor.TERRACOTTA_WHITE).lootFrom(JOSHUA_HANGING_SIGN))
+    );
+
+
+    // the dead oak's bare grey twigs, in place of leaves
+    public static final RegistryObject<LeavesBlock> DEAD_OAK_LEAVES = registerBlock("dead_oak_leaves",
+            () -> new LeavesBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_LEAVES).mapColor(MapColor.COLOR_GRAY)
+                    .sound(net.minecraft.world.level.block.SoundType.AZALEA))
+    );
+    public static final RegistryObject<LeavesBlock> JOSHUA_LEAVES = registerBlock("joshua_leaves",
+            () -> new LeavesBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_LEAVES).mapColor(MapColor.TERRACOTTA_GREEN))
+    );
+    // takes root in sand as well as dirt
+    public static final RegistryObject<net.krisplis.koppenclimate.block.custom.PalmSaplingBlock> JOSHUA_SAPLING = registerBlock("joshua_sapling",
+            () -> new net.krisplis.koppenclimate.block.custom.PalmSaplingBlock(net.krisplis.koppenclimate.worldgen.tree.ModTreeGrowers.JOSHUA,
+                    BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_SAPLING))
+    );
+    public static final RegistryObject<FlowerPotBlock> POTTED_JOSHUA_SAPLING = BLOCKS.register("potted_joshua_sapling",
+            () -> new FlowerPotBlock(() -> (FlowerPotBlock) Blocks.FLOWER_POT, JOSHUA_SAPLING, BlockBehaviour.Properties.ofFullCopy(Blocks.POTTED_OAK_SAPLING))
+    );
+
+    // ------------------------------------------------------------------ dead oak wood family (Lush desert, BSh)
+    // bare, sun-bleached grey bark; weathered grey wood. A dead tree: no leaves, no sapling
+    public static final RegistryObject<RotatedPillarBlock> DEAD_OAK_LOG = registerBlock("dead_oak_log",
+            () -> new RotatedPillarBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_LOG).mapColor(MapColor.COLOR_GRAY))
+    );
+    public static final RegistryObject<RotatedPillarBlock> DEAD_OAK_WOOD = registerBlock("dead_oak_wood",
+            () -> new RotatedPillarBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_WOOD).mapColor(MapColor.COLOR_GRAY))
+    );
+    public static final RegistryObject<RotatedPillarBlock> STRIPPED_DEAD_OAK_LOG = registerBlock("stripped_dead_oak_log",
+            () -> new RotatedPillarBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.STRIPPED_OAK_LOG).mapColor(MapColor.STONE))
+    );
+    public static final RegistryObject<RotatedPillarBlock> STRIPPED_DEAD_OAK_WOOD = registerBlock("stripped_dead_oak_wood",
+            () -> new RotatedPillarBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.STRIPPED_OAK_WOOD).mapColor(MapColor.STONE))
+    );
+    public static final RegistryObject<Block> DEAD_OAK_PLANKS = registerBlock("dead_oak_planks",
+            () -> new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_PLANKS).mapColor(MapColor.STONE))
+    );
+    public static final RegistryObject<StairBlock> DEAD_OAK_STAIRS = registerBlock("dead_oak_stairs",
+            () -> new StairBlock(DEAD_OAK_PLANKS.get().defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(DEAD_OAK_PLANKS.get()))
+    );
+    public static final RegistryObject<SlabBlock> DEAD_OAK_SLAB = registerBlock("dead_oak_slab",
+            () -> new SlabBlock(BlockBehaviour.Properties.ofFullCopy(DEAD_OAK_PLANKS.get()))
+    );
+    public static final RegistryObject<FenceBlock> DEAD_OAK_FENCE = registerBlock("dead_oak_fence",
+            () -> new FenceBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_FENCE).mapColor(MapColor.STONE))
+    );
+    public static final RegistryObject<FenceGateBlock> DEAD_OAK_FENCE_GATE = registerBlock("dead_oak_fence_gate",
+            () -> new FenceGateBlock(ModWoodTypes.DEAD_OAK, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_FENCE_GATE).mapColor(MapColor.STONE))
+    );
+    // item: ModItems.DEAD_OAK_DOOR
+    public static final RegistryObject<DoorBlock> DEAD_OAK_DOOR = BLOCKS.register("dead_oak_door",
+            () -> new DoorBlock(ModWoodTypes.DEAD_OAK.setType(), BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_DOOR))
+    );
+    public static final RegistryObject<TrapDoorBlock> DEAD_OAK_TRAPDOOR = registerBlock("dead_oak_trapdoor",
+            () -> new TrapDoorBlock(ModWoodTypes.DEAD_OAK.setType(), BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_TRAPDOOR))
+    );
+    public static final RegistryObject<PressurePlateBlock> DEAD_OAK_PRESSURE_PLATE = registerBlock("dead_oak_pressure_plate",
+            () -> new PressurePlateBlock(ModWoodTypes.DEAD_OAK.setType(), BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_PRESSURE_PLATE))
+    );
+    public static final RegistryObject<ButtonBlock> DEAD_OAK_BUTTON = registerBlock("dead_oak_button",
+            () -> new ButtonBlock(ModWoodTypes.DEAD_OAK.setType(), 30, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_BUTTON))
+    );
+    public static final RegistryObject<ModStandingSignBlock> DEAD_OAK_SIGN = BLOCKS.register("dead_oak_sign",
+            () -> new ModStandingSignBlock(ModWoodTypes.DEAD_OAK, signProperties(MapColor.STONE))
+    );
+    public static final RegistryObject<ModWallSignBlock> DEAD_OAK_WALL_SIGN = BLOCKS.register("dead_oak_wall_sign",
+            () -> new ModWallSignBlock(ModWoodTypes.DEAD_OAK, signProperties(MapColor.STONE).lootFrom(DEAD_OAK_SIGN))
+    );
+    public static final RegistryObject<ModHangingSignBlock> DEAD_OAK_HANGING_SIGN = BLOCKS.register("dead_oak_hanging_sign",
+            () -> new ModHangingSignBlock(ModWoodTypes.DEAD_OAK, signProperties(MapColor.STONE))
+    );
+    public static final RegistryObject<ModWallHangingSignBlock> DEAD_OAK_WALL_HANGING_SIGN = BLOCKS.register("dead_oak_wall_hanging_sign",
+            () -> new ModWallHangingSignBlock(ModWoodTypes.DEAD_OAK, signProperties(MapColor.STONE).lootFrom(DEAD_OAK_HANGING_SIGN))
+    );
+
 
 
     // ------------------------------------------------------------------ cypress (Mediterranean): leaves on a spruce trunk, no wood of its own

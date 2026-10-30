@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "koppenclimatemod:dead_oak_log",
+    "koppenclimatemod:dead_oak_wood",
+    "koppenclimatemod:stripped_dead_oak_log",
+    "koppenclimatemod:stripped_dead_oak_wood"
+  ]
+}

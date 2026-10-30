@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column_horizontal",
+  "textures": {
+    "end": "koppenclimatemod:block/joshua_log",
+    "side": "koppenclimatemod:block/joshua_log"
+  }
+}

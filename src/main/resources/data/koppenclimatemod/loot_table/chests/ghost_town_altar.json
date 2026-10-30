@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:chest",
+  "pools": [
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:music_disc_13"
+        }
+      ]
+    }
+  ],
+  "random_sequence": "koppenclimatemod:chests/ghost_town_altar"
+}

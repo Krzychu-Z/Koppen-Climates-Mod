@@ -93,6 +93,12 @@ public final class VillageRegistry {
     public static final RegistryObject<StructurePieceType> CROATIAN_VILLAGE_PIECE =
             STRUCTURE_PIECES.register("croatian_village", () -> (StructurePieceType.ContextlessType) CroatianVillagePiece::new);
 
+    // the ghost towns of the Lush desert (BSh)
+    public static final RegistryObject<StructureType<GhostTownStructure>> GHOST_TOWN =
+            STRUCTURE_TYPES.register("ghost_town", () -> () -> GhostTownStructure.CODEC);
+    public static final RegistryObject<StructurePieceType> GHOST_TOWN_PIECE =
+            STRUCTURE_PIECES.register("ghost_town", () -> (StructurePieceType.ContextlessType) GhostTownPiece::new);
+
     public static final RegistryObject<StructureType<ThaiVillageStructure>> THAI_VILLAGE =
             STRUCTURE_TYPES.register("thai_village", () -> () -> ThaiVillageStructure.CODEC);
 
