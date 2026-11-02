@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "koppenclimatemod:dried_cedar"
+    },
+    {
+      "item": "koppenclimatemod:dried_cedar"
+    },
+    {
+      "item": "minecraft:glass_bottle"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "koppenclimatemod:cedar_perfume"
+  }
+}

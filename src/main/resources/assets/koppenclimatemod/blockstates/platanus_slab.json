@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "koppenclimatemod:block/platanus_slab"
+    },
+    "type=double": {
+      "model": "koppenclimatemod:block/platanus_planks"
+    },
+    "type=top": {
+      "model": "koppenclimatemod:block/platanus_slab_top"
+    }
+  }
+}

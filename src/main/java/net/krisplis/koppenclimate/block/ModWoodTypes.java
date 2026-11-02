@@ -18,6 +18,15 @@ public final class ModWoodTypes {
     public static final WoodType FIG = WoodType.register(new WoodType(KoppenClimateMod.MOD_ID + ":fig", BlockSetType.OAK));
     public static final WoodType JOSHUA = WoodType.register(new WoodType(KoppenClimateMod.MOD_ID + ":joshua", BlockSetType.OAK));
     public static final WoodType DEAD_OAK = WoodType.register(new WoodType(KoppenClimateMod.MOD_ID + ":dead_oak", BlockSetType.OAK));
+    public static final WoodType EUCALYPTUS = WoodType.register(new WoodType(KoppenClimateMod.MOD_ID + ":eucalyptus", BlockSetType.ACACIA));
+    public static final WoodType REDWOOD = WoodType.register(new WoodType(KoppenClimateMod.MOD_ID + ":redwood", BlockSetType.SPRUCE));
+    public static final WoodType PLATANUS = WoodType.register(new WoodType(KoppenClimateMod.MOD_ID + ":platanus", BlockSetType.OAK));
+    public static final WoodType CEDAR = WoodType.register(new WoodType(KoppenClimateMod.MOD_ID + ":cedar", BlockSetType.SPRUCE));
+    public static final WoodType APPLE = WoodType.register(new WoodType(KoppenClimateMod.MOD_ID + ":apple", BlockSetType.OAK));
+    public static final WoodType APRICOT = WoodType.register(new WoodType(KoppenClimateMod.MOD_ID + ":apricot", BlockSetType.OAK));
+    public static final WoodType BLACK_POPLAR = WoodType.register(new WoodType(KoppenClimateMod.MOD_ID + ":black_poplar", BlockSetType.OAK));
+    public static final WoodType CYPRESS = WoodType.register(new WoodType(KoppenClimateMod.MOD_ID + ":cypress", BlockSetType.SPRUCE));
+    public static final WoodType LEMON = WoodType.register(new WoodType(KoppenClimateMod.MOD_ID + ":lemon", BlockSetType.OAK));
 
     private ModWoodTypes() {
     }

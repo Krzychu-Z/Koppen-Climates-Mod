@@ -2,6 +2,7 @@
   "replace": false,
   "values": [
     "koppenclimatemod:cinnamon_grass_block",
-    "koppenclimatemod:cinnamon_dirt"
+    "koppenclimatemod:cinnamon_dirt",
+    "koppenclimatemod:farmland_soil_grass_block"
   ]
 }

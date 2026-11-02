@@ -1,0 +1,28 @@
+{
+  "variants": {
+    "moisture=0": {
+      "model": "koppenclimatemod:block/tilled_farmland_soil"
+    },
+    "moisture=1": {
+      "model": "koppenclimatemod:block/tilled_farmland_soil"
+    },
+    "moisture=2": {
+      "model": "koppenclimatemod:block/tilled_farmland_soil"
+    },
+    "moisture=3": {
+      "model": "koppenclimatemod:block/tilled_farmland_soil"
+    },
+    "moisture=4": {
+      "model": "koppenclimatemod:block/tilled_farmland_soil"
+    },
+    "moisture=5": {
+      "model": "koppenclimatemod:block/tilled_farmland_soil"
+    },
+    "moisture=6": {
+      "model": "koppenclimatemod:block/tilled_farmland_soil"
+    },
+    "moisture=7": {
+      "model": "koppenclimatemod:block/tilled_farmland_soil_moist"
+    }
+  }
+}

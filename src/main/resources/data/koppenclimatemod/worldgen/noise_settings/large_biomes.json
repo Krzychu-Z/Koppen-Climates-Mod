@@ -30,133 +30,136 @@
     "final_density": {
       "type": "minecraft:max",
       "argument1": {
-        "type": "minecraft:min",
+        "type": "minecraft:max",
         "argument1": {
-          "type": "minecraft:max",
+          "type": "minecraft:min",
           "argument1": {
-            "type": "minecraft:min",
+            "type": "minecraft:max",
             "argument1": {
-              "type": "minecraft:squeeze",
-              "argument": {
-                "type": "minecraft:mul",
-                "argument1": 0.64,
-                "argument2": {
-                  "type": "minecraft:interpolated",
-                  "argument": {
-                    "type": "minecraft:blend_density",
+              "type": "minecraft:min",
+              "argument1": {
+                "type": "minecraft:squeeze",
+                "argument": {
+                  "type": "minecraft:mul",
+                  "argument1": 0.64,
+                  "argument2": {
+                    "type": "minecraft:interpolated",
                     "argument": {
-                      "type": "minecraft:add",
-                      "argument1": 0.1171875,
-                      "argument2": {
-                        "type": "minecraft:mul",
-                        "argument1": {
-                          "type": "minecraft:y_clamped_gradient",
-                          "from_value": 0.0,
-                          "from_y": -64,
-                          "to_value": 1.0,
-                          "to_y": -40
-                        },
+                      "type": "minecraft:blend_density",
+                      "argument": {
+                        "type": "minecraft:add",
+                        "argument1": 0.1171875,
                         "argument2": {
-                          "type": "minecraft:add",
-                          "argument1": -0.1171875,
+                          "type": "minecraft:mul",
+                          "argument1": {
+                            "type": "minecraft:y_clamped_gradient",
+                            "from_value": 0.0,
+                            "from_y": -64,
+                            "to_value": 1.0,
+                            "to_y": -40
+                          },
                           "argument2": {
                             "type": "minecraft:add",
-                            "argument1": -0.078125,
+                            "argument1": -0.1171875,
                             "argument2": {
-                              "type": "minecraft:mul",
-                              "argument1": {
-                                "type": "minecraft:y_clamped_gradient",
-                                "from_value": 1.0,
-                                "from_y": 240,
-                                "to_value": 0.0,
-                                "to_y": 256
-                              },
+                              "type": "minecraft:add",
+                              "argument1": -0.078125,
                               "argument2": {
-                                "type": "minecraft:add",
-                                "argument1": 0.078125,
+                                "type": "minecraft:mul",
+                                "argument1": {
+                                  "type": "minecraft:y_clamped_gradient",
+                                  "from_value": 1.0,
+                                  "from_y": 240,
+                                  "to_value": 0.0,
+                                  "to_y": 256
+                                },
                                 "argument2": {
-                                  "type": "minecraft:range_choice",
-                                  "input": "minecraft:overworld_large_biomes/sloped_cheese",
-                                  "max_exclusive": 1.5625,
-                                  "min_inclusive": -1000000.0,
-                                  "when_in_range": {
-                                    "type": "minecraft:min",
-                                    "argument1": "minecraft:overworld_large_biomes/sloped_cheese",
-                                    "argument2": {
-                                      "type": "minecraft:mul",
-                                      "argument1": 5.0,
-                                      "argument2": "minecraft:overworld/caves/entrances"
-                                    }
-                                  },
-                                  "when_out_of_range": {
-                                    "type": "minecraft:max",
-                                    "argument1": {
+                                  "type": "minecraft:add",
+                                  "argument1": 0.078125,
+                                  "argument2": {
+                                    "type": "minecraft:range_choice",
+                                    "input": "minecraft:overworld_large_biomes/sloped_cheese",
+                                    "max_exclusive": 1.5625,
+                                    "min_inclusive": -1000000.0,
+                                    "when_in_range": {
                                       "type": "minecraft:min",
+                                      "argument1": "minecraft:overworld_large_biomes/sloped_cheese",
+                                      "argument2": {
+                                        "type": "minecraft:mul",
+                                        "argument1": 5.0,
+                                        "argument2": "minecraft:overworld/caves/entrances"
+                                      }
+                                    },
+                                    "when_out_of_range": {
+                                      "type": "minecraft:max",
                                       "argument1": {
                                         "type": "minecraft:min",
                                         "argument1": {
-                                          "type": "minecraft:add",
+                                          "type": "minecraft:min",
                                           "argument1": {
-                                            "type": "minecraft:mul",
-                                            "argument1": 4.0,
+                                            "type": "minecraft:add",
+                                            "argument1": {
+                                              "type": "minecraft:mul",
+                                              "argument1": 4.0,
+                                              "argument2": {
+                                                "type": "minecraft:square",
+                                                "argument": {
+                                                  "type": "minecraft:noise",
+                                                  "noise": "minecraft:cave_layer",
+                                                  "xz_scale": 1.0,
+                                                  "y_scale": 8.0
+                                                }
+                                              }
+                                            },
                                             "argument2": {
-                                              "type": "minecraft:square",
-                                              "argument": {
-                                                "type": "minecraft:noise",
-                                                "noise": "minecraft:cave_layer",
-                                                "xz_scale": 1.0,
-                                                "y_scale": 8.0
+                                              "type": "minecraft:add",
+                                              "argument1": {
+                                                "type": "minecraft:clamp",
+                                                "input": {
+                                                  "type": "minecraft:add",
+                                                  "argument1": 0.27,
+                                                  "argument2": {
+                                                    "type": "minecraft:noise",
+                                                    "noise": "minecraft:cave_cheese",
+                                                    "xz_scale": 1.0,
+                                                    "y_scale": 0.6666666666666666
+                                                  }
+                                                },
+                                                "max": 1.0,
+                                                "min": -1.0
+                                              },
+                                              "argument2": {
+                                                "type": "minecraft:clamp",
+                                                "input": {
+                                                  "type": "minecraft:add",
+                                                  "argument1": 1.5,
+                                                  "argument2": {
+                                                    "type": "minecraft:mul",
+                                                    "argument1": -0.64,
+                                                    "argument2": "minecraft:overworld_large_biomes/sloped_cheese"
+                                                  }
+                                                },
+                                                "max": 0.5,
+                                                "min": 0.0
                                               }
                                             }
                                           },
-                                          "argument2": {
-                                            "type": "minecraft:add",
-                                            "argument1": {
-                                              "type": "minecraft:clamp",
-                                              "input": {
-                                                "type": "minecraft:add",
-                                                "argument1": 0.27,
-                                                "argument2": {
-                                                  "type": "minecraft:noise",
-                                                  "noise": "minecraft:cave_cheese",
-                                                  "xz_scale": 1.0,
-                                                  "y_scale": 0.6666666666666666
-                                                }
-                                              },
-                                              "max": 1.0,
-                                              "min": -1.0
-                                            },
-                                            "argument2": {
-                                              "type": "minecraft:clamp",
-                                              "input": {
-                                                "type": "minecraft:add",
-                                                "argument1": 1.5,
-                                                "argument2": {
-                                                  "type": "minecraft:mul",
-                                                  "argument1": -0.64,
-                                                  "argument2": "minecraft:overworld_large_biomes/sloped_cheese"
-                                                }
-                                              },
-                                              "max": 0.5,
-                                              "min": 0.0
-                                            }
-                                          }
+                                          "argument2": "minecraft:overworld/caves/entrances"
                                         },
-                                        "argument2": "minecraft:overworld/caves/entrances"
+                                        "argument2": {
+                                          "type": "minecraft:add",
+                                          "argument1": "minecraft:overworld/caves/spaghetti_2d",
+                                          "argument2": "minecraft:overworld/caves/spaghetti_roughness_function"
+                                        }
                                       },
                                       "argument2": {
-                                        "type": "minecraft:add",
-                                        "argument1": "minecraft:overworld/caves/spaghetti_2d",
-                                        "argument2": "minecraft:overworld/caves/spaghetti_roughness_function"
+                                        "type": "minecraft:range_choice",
+                                        "input": "minecraft:overworld/caves/pillars",
+                                        "max_exclusive": 0.03,
+                                        "min_inclusive": -1000000.0,
+                                        "when_in_range": -1000000.0,
+                                        "when_out_of_range": "minecraft:overworld/caves/pillars"
                                       }
-                                    },
-                                    "argument2": {
-                                      "type": "minecraft:range_choice",
-                                      "input": "minecraft:overworld/caves/pillars",
-                                      "max_exclusive": 0.03,
-                                      "min_inclusive": -1000000.0,
-                                      "when_in_range": -1000000.0,
-                                      "when_out_of_range": "minecraft:overworld/caves/pillars"
                                     }
                                   }
                                 }
@@ -168,30 +171,119 @@
                     }
                   }
                 }
-              }
+              },
+              "argument2": "minecraft:overworld/caves/noodle"
             },
-            "argument2": "minecraft:overworld/caves/noodle"
+            "argument2": {
+              "type": "koppenclimatemod:volcanic_islands",
+              "continents": "minecraft:overworld_large_biomes/continents",
+              "temperature": {
+                "type": "minecraft:shifted_noise",
+                "noise": "minecraft:temperature_large",
+                "shift_x": "minecraft:shift_x",
+                "shift_y": 0.0,
+                "shift_z": "minecraft:shift_z",
+                "xz_scale": 0.25,
+                "y_scale": 0.0
+              },
+              "humidity": {
+                "type": "minecraft:shifted_noise",
+                "noise": "minecraft:vegetation_large",
+                "shift_x": "minecraft:shift_x",
+                "shift_y": 0.0,
+                "shift_z": "minecraft:shift_z",
+                "xz_scale": 0.25,
+                "y_scale": 0.0
+              }
+            }
           },
           "argument2": {
-            "type": "koppenclimatemod:volcanic_islands",
-            "continents": "minecraft:overworld_large_biomes/continents",
-            "temperature": {
-              "type": "minecraft:shifted_noise",
-              "noise": "minecraft:temperature_large",
-              "shift_x": "minecraft:shift_x",
-              "shift_y": 0.0,
-              "shift_z": "minecraft:shift_z",
-              "xz_scale": 0.25,
-              "y_scale": 0.0
+            "type": "minecraft:min",
+            "argument1": {
+              "type": "minecraft:min",
+              "argument1": {
+                "type": "minecraft:clamp",
+                "min": -1.0,
+                "max": 1.0,
+                "input": {
+                  "type": "minecraft:mul",
+                  "argument1": 0.25,
+                  "argument2": {
+                    "type": "minecraft:add",
+                    "argument1": "koppenclimatemod:savanna_ceiling_large_biomes",
+                    "argument2": {
+                      "type": "minecraft:y_clamped_gradient",
+                      "from_y": -64,
+                      "to_y": 320,
+                      "from_value": 64.0,
+                      "to_value": -320.0
+                    }
+                  }
+                }
+              },
+              "argument2": {
+                "type": "minecraft:clamp",
+                "min": -1.0,
+                "max": 1.0,
+                "input": {
+                  "type": "minecraft:mul",
+                  "argument1": 0.25,
+                  "argument2": {
+                    "type": "minecraft:add",
+                    "argument1": "koppenclimatemod:csa_ceiling_large_biomes",
+                    "argument2": {
+                      "type": "minecraft:y_clamped_gradient",
+                      "from_y": -64,
+                      "to_y": 320,
+                      "from_value": 64.0,
+                      "to_value": -320.0
+                    }
+                  }
+                }
+              }
             },
-            "humidity": {
-              "type": "minecraft:shifted_noise",
-              "noise": "minecraft:vegetation_large",
-              "shift_x": "minecraft:shift_x",
-              "shift_y": 0.0,
-              "shift_z": "minecraft:shift_z",
-              "xz_scale": 0.25,
-              "y_scale": 0.0
+            "argument2": {
+              "type": "minecraft:min",
+              "argument1": {
+                "type": "minecraft:clamp",
+                "min": -1.0,
+                "max": 1.0,
+                "input": {
+                  "type": "minecraft:mul",
+                  "argument1": 0.25,
+                  "argument2": {
+                    "type": "minecraft:add",
+                    "argument1": "koppenclimatemod:australian_ceiling_large_biomes",
+                    "argument2": {
+                      "type": "minecraft:y_clamped_gradient",
+                      "from_y": -64,
+                      "to_y": 320,
+                      "from_value": 64.0,
+                      "to_value": -320.0
+                    }
+                  }
+                }
+              },
+              "argument2": {
+                "type": "minecraft:clamp",
+                "min": -1.0,
+                "max": 1.0,
+                "input": {
+                  "type": "minecraft:mul",
+                  "argument1": 0.25,
+                  "argument2": {
+                    "type": "minecraft:add",
+                    "argument1": "koppenclimatemod:cfa_ceiling_large_biomes",
+                    "argument2": {
+                      "type": "minecraft:y_clamped_gradient",
+                      "from_y": -64,
+                      "to_y": 320,
+                      "from_value": 64.0,
+                      "to_value": -320.0
+                    }
+                  }
+                }
+              }
             }
           }
         },
@@ -199,14 +291,14 @@
           "type": "minecraft:min",
           "argument1": {
             "type": "minecraft:clamp",
-            "min": -1.0,
+            "min": -10.0,
             "max": 1.0,
             "input": {
               "type": "minecraft:mul",
               "argument1": 0.25,
               "argument2": {
                 "type": "minecraft:add",
-                "argument1": "koppenclimatemod:savanna_ceiling_large_biomes",
+                "argument1": "koppenclimatemod:csa_hills_large_biomes",
                 "argument2": {
                   "type": "minecraft:y_clamped_gradient",
                   "from_y": -64,
@@ -219,14 +311,40 @@
           },
           "argument2": {
             "type": "minecraft:clamp",
-            "min": -1.0,
+            "min": -10.0,
             "max": 1.0,
             "input": {
               "type": "minecraft:mul",
               "argument1": 0.25,
               "argument2": {
                 "type": "minecraft:add",
-                "argument1": "koppenclimatemod:csa_ceiling_large_biomes",
+                "argument1": -60.0,
+                "argument2": {
+                  "type": "minecraft:y_clamped_gradient",
+                  "from_y": -64,
+                  "to_y": 320,
+                  "from_value": -64.0,
+                  "to_value": 320.0
+                }
+              }
+            }
+          }
+        }
+      },
+      "argument2": {
+        "type": "minecraft:max",
+        "argument1": {
+          "type": "minecraft:min",
+          "argument1": {
+            "type": "minecraft:clamp",
+            "min": -10.0,
+            "max": 1.0,
+            "input": {
+              "type": "minecraft:mul",
+              "argument1": 0.25,
+              "argument2": {
+                "type": "minecraft:add",
+                "argument1": "koppenclimatemod:australian_floor_large_biomes",
                 "argument2": {
                   "type": "minecraft:y_clamped_gradient",
                   "from_y": -64,
@@ -236,47 +354,67 @@
                 }
               }
             }
-          }
-        }
-      },
-      "argument2": {
-        "type": "minecraft:min",
-        "argument1": {
-          "type": "minecraft:clamp",
-          "min": -10.0,
-          "max": 1.0,
-          "input": {
-            "type": "minecraft:mul",
-            "argument1": 0.25,
-            "argument2": {
-              "type": "minecraft:add",
-              "argument1": "koppenclimatemod:csa_hills_large_biomes",
+          },
+          "argument2": {
+            "type": "minecraft:clamp",
+            "min": -10.0,
+            "max": 1.0,
+            "input": {
+              "type": "minecraft:mul",
+              "argument1": 0.25,
               "argument2": {
-                "type": "minecraft:y_clamped_gradient",
-                "from_y": -64,
-                "to_y": 320,
-                "from_value": 64.0,
-                "to_value": -320.0
+                "type": "minecraft:add",
+                "argument1": -32.0,
+                "argument2": {
+                  "type": "minecraft:y_clamped_gradient",
+                  "from_y": -64,
+                  "to_y": 320,
+                  "from_value": -64.0,
+                  "to_value": 320.0
+                }
               }
             }
           }
         },
         "argument2": {
-          "type": "minecraft:clamp",
-          "min": -10.0,
-          "max": 1.0,
-          "input": {
-            "type": "minecraft:mul",
-            "argument1": 0.25,
-            "argument2": {
-              "type": "minecraft:add",
-              "argument1": -60.0,
+          "type": "minecraft:min",
+          "argument1": {
+            "type": "minecraft:clamp",
+            "min": -10.0,
+            "max": 1.0,
+            "input": {
+              "type": "minecraft:mul",
+              "argument1": 0.25,
               "argument2": {
-                "type": "minecraft:y_clamped_gradient",
-                "from_y": -64,
-                "to_y": 320,
-                "from_value": -64.0,
-                "to_value": 320.0
+                "type": "minecraft:add",
+                "argument1": "koppenclimatemod:cfa_floor_large_biomes",
+                "argument2": {
+                  "type": "minecraft:y_clamped_gradient",
+                  "from_y": -64,
+                  "to_y": 320,
+                  "from_value": 64.0,
+                  "to_value": -320.0
+                }
+              }
+            }
+          },
+          "argument2": {
+            "type": "minecraft:clamp",
+            "min": -10.0,
+            "max": 1.0,
+            "input": {
+              "type": "minecraft:mul",
+              "argument1": 0.25,
+              "argument2": {
+                "type": "minecraft:add",
+                "argument1": -60.0,
+                "argument2": {
+                  "type": "minecraft:y_clamped_gradient",
+                  "from_y": -64,
+                  "to_y": 320,
+                  "from_value": -64.0,
+                  "to_value": 320.0
+                }
               }
             }
           }
@@ -385,64 +523,133 @@
           }
         },
         "argument2": {
-          "type": "minecraft:clamp",
-          "min": -1.0,
-          "max": 1.0,
-          "input": {
-            "type": "minecraft:mul",
-            "argument1": 0.25,
-            "argument2": {
-              "type": "minecraft:add",
-              "argument1": "koppenclimatemod:savanna_ceiling_large_biomes",
+          "type": "minecraft:min",
+          "argument1": {
+            "type": "minecraft:clamp",
+            "min": -1.0,
+            "max": 1.0,
+            "input": {
+              "type": "minecraft:mul",
+              "argument1": 0.25,
               "argument2": {
-                "type": "minecraft:y_clamped_gradient",
-                "from_y": -64,
-                "to_y": 320,
-                "from_value": 64.0,
-                "to_value": -320.0
+                "type": "minecraft:add",
+                "argument1": "koppenclimatemod:savanna_ceiling_large_biomes",
+                "argument2": {
+                  "type": "minecraft:y_clamped_gradient",
+                  "from_y": -64,
+                  "to_y": 320,
+                  "from_value": 64.0,
+                  "to_value": -320.0
+                }
+              }
+            }
+          },
+          "argument2": {
+            "type": "minecraft:clamp",
+            "min": -1.0,
+            "max": 1.0,
+            "input": {
+              "type": "minecraft:mul",
+              "argument1": 0.25,
+              "argument2": {
+                "type": "minecraft:add",
+                "argument1": "koppenclimatemod:cfa_ceiling_large_biomes",
+                "argument2": {
+                  "type": "minecraft:y_clamped_gradient",
+                  "from_y": -64,
+                  "to_y": 320,
+                  "from_value": 64.0,
+                  "to_value": -320.0
+                }
               }
             }
           }
         }
       },
       "argument2": {
-        "type": "minecraft:min",
+        "type": "minecraft:max",
         "argument1": {
-          "type": "minecraft:clamp",
-          "min": -10.0,
-          "max": 1.0,
-          "input": {
-            "type": "minecraft:mul",
-            "argument1": 0.25,
-            "argument2": {
-              "type": "minecraft:add",
-              "argument1": "koppenclimatemod:csa_hills_large_biomes",
+          "type": "minecraft:min",
+          "argument1": {
+            "type": "minecraft:clamp",
+            "min": -10.0,
+            "max": 1.0,
+            "input": {
+              "type": "minecraft:mul",
+              "argument1": 0.25,
               "argument2": {
-                "type": "minecraft:y_clamped_gradient",
-                "from_y": -64,
-                "to_y": 320,
-                "from_value": 64.0,
-                "to_value": -320.0
+                "type": "minecraft:add",
+                "argument1": "koppenclimatemod:csa_hills_large_biomes",
+                "argument2": {
+                  "type": "minecraft:y_clamped_gradient",
+                  "from_y": -64,
+                  "to_y": 320,
+                  "from_value": 64.0,
+                  "to_value": -320.0
+                }
+              }
+            }
+          },
+          "argument2": {
+            "type": "minecraft:clamp",
+            "min": -10.0,
+            "max": 1.0,
+            "input": {
+              "type": "minecraft:mul",
+              "argument1": 0.25,
+              "argument2": {
+                "type": "minecraft:add",
+                "argument1": -60.0,
+                "argument2": {
+                  "type": "minecraft:y_clamped_gradient",
+                  "from_y": -64,
+                  "to_y": 320,
+                  "from_value": -64.0,
+                  "to_value": 320.0
+                }
               }
             }
           }
         },
         "argument2": {
-          "type": "minecraft:clamp",
-          "min": -10.0,
-          "max": 1.0,
-          "input": {
-            "type": "minecraft:mul",
-            "argument1": 0.25,
-            "argument2": {
-              "type": "minecraft:add",
-              "argument1": -60.0,
+          "type": "minecraft:min",
+          "argument1": {
+            "type": "minecraft:clamp",
+            "min": -10.0,
+            "max": 1.0,
+            "input": {
+              "type": "minecraft:mul",
+              "argument1": 0.25,
               "argument2": {
-                "type": "minecraft:y_clamped_gradient",
-                "from_y": -64,
-                "to_y": 320,
-                "from_value": -64.0,
-                "to_value": 320.0
+                "type": "minecraft:add",
+                "argument1": "koppenclimatemod:cfa_floor_large_biomes",
+                "argument2": {
+                  "type": "minecraft:y_clamped_gradient",
+                  "from_y": -64,
+                  "to_y": 320,
+                  "from_value": 64.0,
+                  "to_value": -320.0
+                }
+              }
+            }
+          },
+          "argument2": {
+            "type": "minecraft:clamp",
+            "min": -10.0,
+            "max": 1.0,
+            "input": {
+              "type": "minecraft:mul",
+              "argument1": 0.25,
+              "argument2": {
+                "type": "minecraft:add",
+                "argument1": -60.0,
+                "argument2": {
+                  "type": "minecraft:y_clamped_gradient",
+                  "from_y": -64,
+                  "to_y": 320,
+                  "from_value": -64.0,
+                  "to_value": 320.0
+                }
               }
             }
           }
@@ -740,7 +947,8 @@
                     "if_true": {
                       "type": "minecraft:biome",
                       "biome_is": [
-                        "minecraft:swamp"
+                        "minecraft:swamp",
+                        "koppenclimatemod:subtropical_swamp_cfa"
                       ]
                     },
                     "then_run": {

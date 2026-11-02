@@ -2,12 +2,20 @@
   "replace": false,
   "values": [
     "#koppenclimatemod:coconut_palm_logs",
-    "#koppenclimatemod:mahogany_logs",
     "#koppenclimatemod:baobab_logs",
     "#koppenclimatemod:olive_logs",
     "#koppenclimatemod:italian_pine_logs",
     "#koppenclimatemod:fig_logs",
     "#koppenclimatemod:joshua_logs",
-    "#koppenclimatemod:dead_oak_logs"
+    "#koppenclimatemod:eucalyptus_logs",
+    "#koppenclimatemod:redwood_logs",
+    "#koppenclimatemod:platanus_logs",
+    "#koppenclimatemod:cedar_logs",
+    "#koppenclimatemod:dead_oak_logs",
+    "#koppenclimatemod:apple_logs",
+    "#koppenclimatemod:apricot_logs",
+    "#koppenclimatemod:black_poplar_logs",
+    "#koppenclimatemod:cypress_logs",
+    "#koppenclimatemod:lemon_logs"
   ]
 }

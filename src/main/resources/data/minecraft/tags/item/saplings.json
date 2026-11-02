@@ -10,6 +10,13 @@
     "koppenclimatemod:cypress_sapling",
     "koppenclimatemod:fig_sapling",
     "koppenclimatemod:lemon_sapling",
-    "koppenclimatemod:joshua_sapling"
+    "koppenclimatemod:joshua_sapling",
+    "koppenclimatemod:eucalyptus_sapling",
+    "koppenclimatemod:redwood_sapling",
+    "koppenclimatemod:platanus_sapling",
+    "koppenclimatemod:cedar_sapling",
+    "koppenclimatemod:apple_sapling",
+    "koppenclimatemod:apricot_sapling",
+    "koppenclimatemod:black_poplar_sapling"
   ]
 }

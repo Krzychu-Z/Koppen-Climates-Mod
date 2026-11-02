@@ -8,6 +8,15 @@
     "koppenclimatemod:italian_pine_pressure_plate",
     "koppenclimatemod:fig_pressure_plate",
     "koppenclimatemod:joshua_pressure_plate",
-    "koppenclimatemod:dead_oak_pressure_plate"
+    "koppenclimatemod:eucalyptus_pressure_plate",
+    "koppenclimatemod:redwood_pressure_plate",
+    "koppenclimatemod:platanus_pressure_plate",
+    "koppenclimatemod:cedar_pressure_plate",
+    "koppenclimatemod:dead_oak_pressure_plate",
+    "koppenclimatemod:apple_pressure_plate",
+    "koppenclimatemod:apricot_pressure_plate",
+    "koppenclimatemod:black_poplar_pressure_plate",
+    "koppenclimatemod:cypress_pressure_plate",
+    "koppenclimatemod:lemon_pressure_plate"
   ]
 }

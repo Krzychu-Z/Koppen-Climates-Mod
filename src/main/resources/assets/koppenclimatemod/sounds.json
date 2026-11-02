@@ -265,5 +265,41 @@
         "volume": 1.0
       }
     ]
+  },
+  "ambient.australian_desert.day": {
+    "sounds": [
+      {
+        "name": "koppenclimatemod:ambience/australian_desert_day",
+        "volume": 0.5,
+        "stream": true
+      }
+    ]
+  },
+  "ambient.redwood_forest.day": {
+    "sounds": [
+      {
+        "name": "koppenclimatemod:ambience/redwood_forest_day",
+        "volume": 0.45,
+        "stream": true
+      }
+    ]
+  },
+  "ambient.cfa.day": {
+    "sounds": [
+      {
+        "name": "koppenclimatemod:ambience/cfa_day",
+        "volume": 0.6,
+        "stream": true
+      }
+    ]
+  },
+  "ambient.cfa.night": {
+    "sounds": [
+      {
+        "name": "koppenclimatemod:ambience/cfa_night",
+        "volume": 0.6,
+        "stream": true
+      }
+    ]
   }
 }

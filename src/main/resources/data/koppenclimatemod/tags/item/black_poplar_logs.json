@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "koppenclimatemod:black_poplar_log",
+    "koppenclimatemod:black_poplar_wood",
+    "koppenclimatemod:stripped_black_poplar_log",
+    "koppenclimatemod:stripped_black_poplar_wood"
+  ]
+}

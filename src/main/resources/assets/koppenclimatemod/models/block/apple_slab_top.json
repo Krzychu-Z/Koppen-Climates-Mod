@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/slab_top",
+  "textures": {
+    "bottom": "koppenclimatemod:block/apple_planks",
+    "side": "koppenclimatemod:block/apple_planks",
+    "top": "koppenclimatemod:block/apple_planks"
+  }
+}

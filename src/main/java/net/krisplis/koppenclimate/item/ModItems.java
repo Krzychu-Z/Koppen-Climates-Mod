@@ -159,6 +159,123 @@ public class ModItems {
     public static final RegistryObject<Item> FIG_CHEST_BOAT = ITEMS.register("fig_chest_boat",
             () -> new ModBoatItem(true, ModBoatWood.FIG, new Item.Properties().stacksTo(1)));
     // Joshua tree and dead oak (Lush desert, BSh)
+    // the rainbow eucalyptus (Australian desert, BSh)
+    public static final RegistryObject<Item> EUCALYPTUS_DOOR = ITEMS.register("eucalyptus_door",
+            () -> new DoubleHighBlockItem(ModBlocks.EUCALYPTUS_DOOR.get(), new Item.Properties()));
+    public static final RegistryObject<Item> EUCALYPTUS_SIGN = ITEMS.register("eucalyptus_sign",
+            () -> new SignItem(new Item.Properties().stacksTo(16), ModBlocks.EUCALYPTUS_SIGN.get(), ModBlocks.EUCALYPTUS_WALL_SIGN.get()));
+    public static final RegistryObject<Item> EUCALYPTUS_HANGING_SIGN = ITEMS.register("eucalyptus_hanging_sign",
+            () -> new HangingSignItem(ModBlocks.EUCALYPTUS_HANGING_SIGN.get(), ModBlocks.EUCALYPTUS_WALL_HANGING_SIGN.get(), new Item.Properties().stacksTo(16)));
+    public static final RegistryObject<Item> EUCALYPTUS_BOAT = ITEMS.register("eucalyptus_boat",
+            () -> new ModBoatItem(false, ModBoatWood.EUCALYPTUS, new Item.Properties().stacksTo(1)));
+    public static final RegistryObject<Item> EUCALYPTUS_CHEST_BOAT = ITEMS.register("eucalyptus_chest_boat",
+            () -> new ModBoatItem(true, ModBoatWood.EUCALYPTUS, new Item.Properties().stacksTo(1)));
+    // the redwood (Redwood forest, Csb)
+    public static final RegistryObject<Item> REDWOOD_DOOR = ITEMS.register("redwood_door",
+            () -> new DoubleHighBlockItem(ModBlocks.REDWOOD_DOOR.get(), new Item.Properties()));
+    public static final RegistryObject<Item> REDWOOD_SIGN = ITEMS.register("redwood_sign",
+            () -> new SignItem(new Item.Properties().stacksTo(16), ModBlocks.REDWOOD_SIGN.get(), ModBlocks.REDWOOD_WALL_SIGN.get()));
+    public static final RegistryObject<Item> REDWOOD_HANGING_SIGN = ITEMS.register("redwood_hanging_sign",
+            () -> new HangingSignItem(ModBlocks.REDWOOD_HANGING_SIGN.get(), ModBlocks.REDWOOD_WALL_HANGING_SIGN.get(), new Item.Properties().stacksTo(16)));
+    public static final RegistryObject<Item> REDWOOD_BOAT = ITEMS.register("redwood_boat",
+            () -> new ModBoatItem(false, ModBoatWood.REDWOOD, new Item.Properties().stacksTo(1)));
+    public static final RegistryObject<Item> REDWOOD_CHEST_BOAT = ITEMS.register("redwood_chest_boat",
+            () -> new ModBoatItem(true, ModBoatWood.REDWOOD, new Item.Properties().stacksTo(1)));
+    // the plane tree (Subtropical plains, Cfa)
+    public static final RegistryObject<Item> PLATANUS_DOOR = ITEMS.register("platanus_door",
+            () -> new DoubleHighBlockItem(ModBlocks.PLATANUS_DOOR.get(), new Item.Properties()));
+    public static final RegistryObject<Item> PLATANUS_SIGN = ITEMS.register("platanus_sign",
+            () -> new SignItem(new Item.Properties().stacksTo(16), ModBlocks.PLATANUS_SIGN.get(), ModBlocks.PLATANUS_WALL_SIGN.get()));
+    public static final RegistryObject<Item> PLATANUS_HANGING_SIGN = ITEMS.register("platanus_hanging_sign",
+            () -> new HangingSignItem(ModBlocks.PLATANUS_HANGING_SIGN.get(), ModBlocks.PLATANUS_WALL_HANGING_SIGN.get(), new Item.Properties().stacksTo(16)));
+    public static final RegistryObject<Item> PLATANUS_BOAT = ITEMS.register("platanus_boat",
+            () -> new ModBoatItem(false, ModBoatWood.PLATANUS, new Item.Properties().stacksTo(1)));
+    public static final RegistryObject<Item> PLATANUS_CHEST_BOAT = ITEMS.register("platanus_chest_boat",
+            () -> new ModBoatItem(true, ModBoatWood.PLATANUS, new Item.Properties().stacksTo(1)));
+    // the cedar of Lebanon (Subtropical plains, Cfa)
+    public static final RegistryObject<Item> CEDAR_DOOR = ITEMS.register("cedar_door",
+            () -> new DoubleHighBlockItem(ModBlocks.CEDAR_DOOR.get(), new Item.Properties()));
+    public static final RegistryObject<Item> CEDAR_SIGN = ITEMS.register("cedar_sign",
+            () -> new SignItem(new Item.Properties().stacksTo(16), ModBlocks.CEDAR_SIGN.get(), ModBlocks.CEDAR_WALL_SIGN.get()));
+    public static final RegistryObject<Item> CEDAR_HANGING_SIGN = ITEMS.register("cedar_hanging_sign",
+            () -> new HangingSignItem(ModBlocks.CEDAR_HANGING_SIGN.get(), ModBlocks.CEDAR_WALL_HANGING_SIGN.get(), new Item.Properties().stacksTo(16)));
+    public static final RegistryObject<Item> CEDAR_BOAT = ITEMS.register("cedar_boat",
+            () -> new ModBoatItem(false, ModBoatWood.CEDAR, new Item.Properties().stacksTo(1)));
+    public static final RegistryObject<Item> CEDAR_CHEST_BOAT = ITEMS.register("cedar_chest_boat",
+            () -> new ModBoatItem(true, ModBoatWood.CEDAR, new Item.Properties().stacksTo(1)));
+    // apple wood
+    public static final RegistryObject<Item> APPLE_DOOR = ITEMS.register("apple_door",
+            () -> new DoubleHighBlockItem(ModBlocks.APPLE_DOOR.get(), new Item.Properties()));
+    public static final RegistryObject<Item> APPLE_SIGN = ITEMS.register("apple_sign",
+            () -> new SignItem(new Item.Properties().stacksTo(16), ModBlocks.APPLE_SIGN.get(), ModBlocks.APPLE_WALL_SIGN.get()));
+    public static final RegistryObject<Item> APPLE_HANGING_SIGN = ITEMS.register("apple_hanging_sign",
+            () -> new HangingSignItem(ModBlocks.APPLE_HANGING_SIGN.get(), ModBlocks.APPLE_WALL_HANGING_SIGN.get(), new Item.Properties().stacksTo(16)));
+    public static final RegistryObject<Item> APPLE_BOAT = ITEMS.register("apple_boat",
+            () -> new ModBoatItem(false, ModBoatWood.APPLE, new Item.Properties().stacksTo(1)));
+    public static final RegistryObject<Item> APPLE_CHEST_BOAT = ITEMS.register("apple_chest_boat",
+            () -> new ModBoatItem(true, ModBoatWood.APPLE, new Item.Properties().stacksTo(1)));
+    // the cedar of Lebanon (Subtropical plains, Cfa)
+    // apricot wood
+    public static final RegistryObject<Item> APRICOT_DOOR = ITEMS.register("apricot_door",
+            () -> new DoubleHighBlockItem(ModBlocks.APRICOT_DOOR.get(), new Item.Properties()));
+    public static final RegistryObject<Item> APRICOT_SIGN = ITEMS.register("apricot_sign",
+            () -> new SignItem(new Item.Properties().stacksTo(16), ModBlocks.APRICOT_SIGN.get(), ModBlocks.APRICOT_WALL_SIGN.get()));
+    public static final RegistryObject<Item> APRICOT_HANGING_SIGN = ITEMS.register("apricot_hanging_sign",
+            () -> new HangingSignItem(ModBlocks.APRICOT_HANGING_SIGN.get(), ModBlocks.APRICOT_WALL_HANGING_SIGN.get(), new Item.Properties().stacksTo(16)));
+    public static final RegistryObject<Item> APRICOT_BOAT = ITEMS.register("apricot_boat",
+            () -> new ModBoatItem(false, ModBoatWood.APRICOT, new Item.Properties().stacksTo(1)));
+    public static final RegistryObject<Item> APRICOT_CHEST_BOAT = ITEMS.register("apricot_chest_boat",
+            () -> new ModBoatItem(true, ModBoatWood.APRICOT, new Item.Properties().stacksTo(1)));
+    // the cedar of Lebanon (Subtropical plains, Cfa)
+    // black poplar wood
+    public static final RegistryObject<Item> BLACK_POPLAR_DOOR = ITEMS.register("black_poplar_door",
+            () -> new DoubleHighBlockItem(ModBlocks.BLACK_POPLAR_DOOR.get(), new Item.Properties()));
+    public static final RegistryObject<Item> BLACK_POPLAR_SIGN = ITEMS.register("black_poplar_sign",
+            () -> new SignItem(new Item.Properties().stacksTo(16), ModBlocks.BLACK_POPLAR_SIGN.get(), ModBlocks.BLACK_POPLAR_WALL_SIGN.get()));
+    public static final RegistryObject<Item> BLACK_POPLAR_HANGING_SIGN = ITEMS.register("black_poplar_hanging_sign",
+            () -> new HangingSignItem(ModBlocks.BLACK_POPLAR_HANGING_SIGN.get(), ModBlocks.BLACK_POPLAR_WALL_HANGING_SIGN.get(), new Item.Properties().stacksTo(16)));
+    public static final RegistryObject<Item> BLACK_POPLAR_BOAT = ITEMS.register("black_poplar_boat",
+            () -> new ModBoatItem(false, ModBoatWood.BLACK_POPLAR, new Item.Properties().stacksTo(1)));
+    public static final RegistryObject<Item> BLACK_POPLAR_CHEST_BOAT = ITEMS.register("black_poplar_chest_boat",
+            () -> new ModBoatItem(true, ModBoatWood.BLACK_POPLAR, new Item.Properties().stacksTo(1)));
+    // the cedar of Lebanon (Subtropical plains, Cfa)
+    // cypress wood
+    public static final RegistryObject<Item> CYPRESS_DOOR = ITEMS.register("cypress_door",
+            () -> new DoubleHighBlockItem(ModBlocks.CYPRESS_DOOR.get(), new Item.Properties()));
+    public static final RegistryObject<Item> CYPRESS_SIGN = ITEMS.register("cypress_sign",
+            () -> new SignItem(new Item.Properties().stacksTo(16), ModBlocks.CYPRESS_SIGN.get(), ModBlocks.CYPRESS_WALL_SIGN.get()));
+    public static final RegistryObject<Item> CYPRESS_HANGING_SIGN = ITEMS.register("cypress_hanging_sign",
+            () -> new HangingSignItem(ModBlocks.CYPRESS_HANGING_SIGN.get(), ModBlocks.CYPRESS_WALL_HANGING_SIGN.get(), new Item.Properties().stacksTo(16)));
+    public static final RegistryObject<Item> CYPRESS_BOAT = ITEMS.register("cypress_boat",
+            () -> new ModBoatItem(false, ModBoatWood.CYPRESS, new Item.Properties().stacksTo(1)));
+    public static final RegistryObject<Item> CYPRESS_CHEST_BOAT = ITEMS.register("cypress_chest_boat",
+            () -> new ModBoatItem(true, ModBoatWood.CYPRESS, new Item.Properties().stacksTo(1)));
+    // the cedar of Lebanon (Subtropical plains, Cfa)
+    // lemon wood
+    public static final RegistryObject<Item> LEMON_DOOR = ITEMS.register("lemon_door",
+            () -> new DoubleHighBlockItem(ModBlocks.LEMON_DOOR.get(), new Item.Properties()));
+    public static final RegistryObject<Item> LEMON_SIGN = ITEMS.register("lemon_sign",
+            () -> new SignItem(new Item.Properties().stacksTo(16), ModBlocks.LEMON_SIGN.get(), ModBlocks.LEMON_WALL_SIGN.get()));
+    public static final RegistryObject<Item> LEMON_HANGING_SIGN = ITEMS.register("lemon_hanging_sign",
+            () -> new HangingSignItem(ModBlocks.LEMON_HANGING_SIGN.get(), ModBlocks.LEMON_WALL_HANGING_SIGN.get(), new Item.Properties().stacksTo(16)));
+    public static final RegistryObject<Item> LEMON_BOAT = ITEMS.register("lemon_boat",
+            () -> new ModBoatItem(false, ModBoatWood.LEMON, new Item.Properties().stacksTo(1)));
+    public static final RegistryObject<Item> LEMON_CHEST_BOAT = ITEMS.register("lemon_chest_boat",
+            () -> new ModBoatItem(true, ModBoatWood.LEMON, new Item.Properties().stacksTo(1)));
+    // the cedar of Lebanon (Subtropical plains, Cfa)
+    // ------------------------------------------------------------------ the Subtropical plains' (Cfa) harvest
+    // an apricot: a little more filling than an apple; and the jam it cooks down to (like agave mash)
+    public static final RegistryObject<Item> APRICOT = ITEMS.register("apricot",
+            () -> new Item(new Item.Properties().food(new FoodProperties.Builder().nutrition(5).saturationModifier(0.5F).build())));
+    public static final RegistryObject<Item> APRICOT_JAM = ITEMS.register("apricot_jam",
+            () -> new Item(new Item.Properties().food(new FoodProperties.Builder().nutrition(7).saturationModifier(0.6F).build())));
+    // cedar wood dried in a furnace, and the perfume made of it: it draws friendly animals in and keeps hostile mobs away
+    public static final RegistryObject<Item> DRIED_CEDAR = ITEMS.register("dried_cedar", () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> CEDAR_PERFUME = ITEMS.register("cedar_perfume",
+            () -> new net.krisplis.koppenclimate.item.custom.CedarPerfumeItem(new Item.Properties().stacksTo(16)));
+    // the Redwood forest's (Csb) grizzly bear
+    public static final RegistryObject<Item> GRIZZLY_BEAR_SPAWN_EGG = ITEMS.register("grizzly_bear_spawn_egg",
+            () -> new net.minecraftforge.common.ForgeSpawnEggItem(net.krisplis.koppenclimate.entity.ModEntities.GRIZZLY_BEAR, 0x6B4A2E, 0x3A2616, new Item.Properties()));
     public static final RegistryObject<Item> JOSHUA_DOOR = ITEMS.register("joshua_door",
             () -> new DoubleHighBlockItem(ModBlocks.JOSHUA_DOOR.get(), new Item.Properties()));
     public static final RegistryObject<Item> JOSHUA_SIGN = ITEMS.register("joshua_sign",
@@ -244,6 +361,13 @@ public class ModItems {
             () -> new net.minecraftforge.common.ForgeSpawnEggItem(net.krisplis.koppenclimate.entity.ModEntities.WARM_PIG, 0xB0644A, 0x5A3022, new Item.Properties()));
     public static final RegistryObject<Item> ZEBRA_SPAWN_EGG = ITEMS.register("zebra_spawn_egg",
             () -> new net.minecraftforge.common.ForgeSpawnEggItem(net.krisplis.koppenclimate.entity.ModEntities.ZEBRA, 0xEEEEEE, 0x202020, new Item.Properties()));
+    // the Australian desert's animals
+    public static final RegistryObject<Item> KOALA_SPAWN_EGG = ITEMS.register("koala_spawn_egg",
+            () -> new net.minecraftforge.common.ForgeSpawnEggItem(net.krisplis.koppenclimate.entity.ModEntities.KOALA, 0x8E9196, 0xEDEDED, new Item.Properties()));
+    public static final RegistryObject<Item> KANGAROO_SPAWN_EGG = ITEMS.register("kangaroo_spawn_egg",
+            () -> new net.minecraftforge.common.ForgeSpawnEggItem(net.krisplis.koppenclimate.entity.ModEntities.KANGAROO, 0xB5743E, 0xE3C79E, new Item.Properties()));
+    public static final RegistryObject<Item> HYENA_SPAWN_EGG = ITEMS.register("hyena_spawn_egg",
+            () -> new net.minecraftforge.common.ForgeSpawnEggItem(net.krisplis.koppenclimate.entity.ModEntities.HYENA, 0xB89F72, 0x3E2F22, new Item.Properties()));
     public static final RegistryObject<Item> JACKAL_SPAWN_EGG = ITEMS.register("jackal_spawn_egg",
             () -> new net.minecraftforge.common.ForgeSpawnEggItem(net.krisplis.koppenclimate.entity.ModEntities.JACKAL, 0xC0904E, 0x3A3430, new Item.Properties()));
     public static final RegistryObject<Item> TERMITE_SPAWN_EGG = ITEMS.register("termite_spawn_egg",

@@ -12,6 +12,13 @@
     "koppenclimatemod:potted_lemon_sapling",
     "koppenclimatemod:potted_lavender",
     "koppenclimatemod:potted_nerium",
-    "koppenclimatemod:potted_joshua_sapling"
+    "koppenclimatemod:potted_joshua_sapling",
+    "koppenclimatemod:potted_eucalyptus_sapling",
+    "koppenclimatemod:potted_redwood_sapling",
+    "koppenclimatemod:potted_platanus_sapling",
+    "koppenclimatemod:potted_cedar_sapling",
+    "koppenclimatemod:potted_apple_sapling",
+    "koppenclimatemod:potted_apricot_sapling",
+    "koppenclimatemod:potted_black_poplar_sapling"
   ]
 }

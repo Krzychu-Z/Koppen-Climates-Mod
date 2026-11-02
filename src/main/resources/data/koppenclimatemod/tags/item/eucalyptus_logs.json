@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "koppenclimatemod:eucalyptus_log",
+    "koppenclimatemod:eucalyptus_wood",
+    "koppenclimatemod:stripped_eucalyptus_log",
+    "koppenclimatemod:stripped_eucalyptus_wood"
+  ]
+}

@@ -1,0 +1,7 @@
+{
+  "type": "koppenclimatemod:mediterranean_tree",
+  "config": {
+    "kind": "platanus",
+    "vines": true
+  }
+}

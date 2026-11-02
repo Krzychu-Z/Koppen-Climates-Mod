@@ -1,0 +1,7 @@
+{
+  "type": "koppenclimatemod:biome_surface",
+  "config": {
+    "biome": "koppenclimatemod:subtropical_swamp_cfa",
+    "style": "subtropical_swamp"
+  }
+}

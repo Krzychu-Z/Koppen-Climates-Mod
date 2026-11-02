@@ -61,10 +61,13 @@ public class RiceBlock extends CropBlock implements LiquidBlockContainer {
         return biome.getBaseTemperature() >= MIN_TEMPERATURE && !biome.coldEnoughToSnow(pos);
     }
 
-    // rooted in any kind of dirt (grass, podzol, mud, oxisol...) or farmland
+    // rooted in any kind of dirt (grass, podzol, mud, oxisol, the humid subtropics' farmland soil...) or farmland
+    // (vanilla's, and the farmland soil tilled)
     @Override
     protected boolean mayPlaceOn(BlockState state, BlockGetter level, BlockPos pos) {
-        return state.is(BlockTags.DIRT) || state.is(Blocks.FARMLAND);
+        return state.is(BlockTags.DIRT) || state.getBlock() instanceof net.minecraft.world.level.block.FarmBlock
+                || state.is(net.krisplis.koppenclimate.block.ModBlocks.FARMLAND_SOIL.get())
+                || state.is(net.krisplis.koppenclimate.block.ModBlocks.FARMLAND_SOIL_GRASS_BLOCK.get());
     }
 
     // still water in its own block, dirt under it, and open air above: water exactly one block deep

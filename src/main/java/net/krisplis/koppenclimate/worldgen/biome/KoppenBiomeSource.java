@@ -30,6 +30,9 @@ import java.util.stream.Stream;
 //    only meets the Amazon and a warm, coral sea.
 //  - Every vanilla savanna (plain, plateau and windswept) becomes the African savanna (As), when one is given,
 //    and so does the temperate land on the warm, dry side of the jungles, making it as large as they are.
+//  - On the Mediterranean's cooler side the Redwood forest (Csb); on its wetter side, but only on the low, flat
+//    coastal land, the humid subtropics (Cfa): the Subtropical plains, and along the shore the Subtropical swamp,
+//    with a lukewarm sea off them.
 // Everything else is exactly as vanilla makes it. Used by data/minecraft/worldgen/world_preset/normal.json.
 public class KoppenBiomeSource extends BiomeSource {
     public static final MapCodec<KoppenBiomeSource> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
@@ -56,51 +59,63 @@ public class KoppenBiomeSource extends BiomeSource {
      * which patch of the Csa takes which is up to {@link CsaZones}; the river takes vanilla's rivers in the Csa.
      */
     public record CsaBiomes(Holder<Biome> forest, Holder<Biome> oliveGrove, Holder<Biome> river, Holder<Biome> farmland,
-                            Holder<Biome> lavenderField, Optional<Holder<Biome>> highland) {
+                            Holder<Biome> lavenderField, Optional<Holder<Biome>> highland, Optional<Holder<Biome>> redwood,
+                            Optional<Holder<Biome>> subtropicalPlains, Optional<Holder<Biome>> subtropicalSwamp) {
         public static final com.mojang.serialization.Codec<CsaBiomes> CODEC = RecordCodecBuilder.create(i -> i.group(
                 Biome.CODEC.fieldOf("forest").forGetter(CsaBiomes::forest),
                 Biome.CODEC.fieldOf("olive_grove").forGetter(CsaBiomes::oliveGrove),
                 Biome.CODEC.fieldOf("river").forGetter(CsaBiomes::river),
                 Biome.CODEC.fieldOf("farmland").forGetter(CsaBiomes::farmland),
                 Biome.CODEC.fieldOf("lavender_field").forGetter(CsaBiomes::lavenderField),
-                Biome.CODEC.optionalFieldOf("highland").forGetter(CsaBiomes::highland)
+                Biome.CODEC.optionalFieldOf("highland").forGetter(CsaBiomes::highland),
+                // the Mediterranean's cooler neighbour, the Redwood forest (Csb), and the humid subtropics beyond it:
+                // the humid subtropics (Cfa): the Subtropical plains, and their swamp along the lukewarm shore
+                Biome.CODEC.optionalFieldOf("redwood_forest").forGetter(CsaBiomes::redwood),
+                Biome.CODEC.optionalFieldOf("subtropical_plains").forGetter(CsaBiomes::subtropicalPlains),
+                Biome.CODEC.optionalFieldOf("subtropical_swamp").forGetter(CsaBiomes::subtropicalSwamp)
         ).apply(i, CsaBiomes::new));
 
         Stream<Holder<Biome>> all() {
-            return Stream.concat(Stream.of(this.forest, this.oliveGrove, this.river, this.farmland, this.lavenderField),
-                    this.highland.stream());
+            return Stream.of(Stream.of(this.forest, this.oliveGrove, this.river, this.farmland, this.lavenderField),
+                    this.highland.stream(), this.redwood.stream(), this.subtropicalPlains.stream(), this.subtropicalSwamp.stream())
+                    .flatMap(s -> s);
         }
     }
 
     /**
-     * The deserts, which take the whole hot band beyond the jungle's (and the hottest, driest edge of the savanna's):
-     * the hot desert (BWh) deep inland, the continental desert (BWk) nearer the coasts, and the desert mountains
-     * (BWk) wherever the land is mountainous; the Lush desert (BSh) where vanilla would have its badlands (with a
-     * ghost town here and there: GhostTownSites, GhostTownStructure); and the Dry steppe (BSk) on the wetter side of
-     * the continental desert.
+     * The deserts, which take the whole hot band beyond the jungle's (and the hottest, driest edge of the savanna's).
+     * Sized by area, largest first (measured by sampling the climate noises over many seeds, roughly 31/27/20/12/7/3%):
+     * the Australian desert (BSh) on the drier half of the inland hot band, the hot desert (BWh) on the rest of it,
+     * the continental desert (BWk) on the coasts and the cooler edge, the Dry steppe (BSk) on the wetter inland
+     * side, the Lush desert (BSh) on vanilla's wettest badlands (with a ghost town here and there: GhostTownSites,
+     * GhostTownStructure), and the desert mountains (BWk) on the most mountainous ground. The steppe and the
+     * Australian desert keep away from every water.
      */
     public record DesertBiomes(Holder<Biome> hot, Holder<Biome> continental, Holder<Biome> mountains,
-                               Optional<Holder<Biome>> lush, Optional<Holder<Biome>> steppe) {
+                               Optional<Holder<Biome>> lush, Optional<Holder<Biome>> steppe, Optional<Holder<Biome>> australian) {
         public static final com.mojang.serialization.Codec<DesertBiomes> CODEC = RecordCodecBuilder.create(i -> i.group(
                 Biome.CODEC.fieldOf("hot").forGetter(DesertBiomes::hot),
                 Biome.CODEC.fieldOf("continental").forGetter(DesertBiomes::continental),
                 Biome.CODEC.fieldOf("mountains").forGetter(DesertBiomes::mountains),
                 Biome.CODEC.optionalFieldOf("lush").forGetter(DesertBiomes::lush),
-                Biome.CODEC.optionalFieldOf("steppe").forGetter(DesertBiomes::steppe)
+                Biome.CODEC.optionalFieldOf("steppe").forGetter(DesertBiomes::steppe),
+                Biome.CODEC.optionalFieldOf("australian").forGetter(DesertBiomes::australian)
         ).apply(i, DesertBiomes::new));
 
         /**
-         * The deserts' low ground: the Dry steppe (BSk) wherever the climate is a little wetter, inland or by the
-         * coast; otherwise the hot desert (BWh) deep inland, and the continental desert (BWk) nearer the sea.
+         * The deserts' low ground: the Dry steppe (BSk) where it may be (see isSteppeClimate; the caller checks it is
+         * clear of the Lush desert's rivers); otherwise the hot desert (BWh) deep inland, and the continental desert
+         * (BWk) nearer the sea.
          */
-        Holder<Biome> lowland(Climate.TargetPoint climate) {
-            if (this.steppe.isPresent() && climate.humidity() >= STEPPE_MIN_HUMIDITY) return this.steppe.get();
-            return climate.continentalness() >= DESERT_INLAND_CONTINENTS ? this.hot : this.continental;
+        Holder<Biome> lowland(Climate.TargetPoint climate, boolean steppeAllowed) {
+            if (this.steppe.isPresent() && steppeAllowed) return this.steppe.get();
+            return climate.continentalness() >= DESERT_INLAND_CONTINENTS && climate.temperature() > HOT_MAX_TEMPERATURE
+                    ? this.hot : this.continental;
         }
 
         Stream<Holder<Biome>> all() {
             return Stream.concat(Stream.of(this.hot, this.continental, this.mountains),
-                    Stream.concat(this.lush.stream(), this.steppe.stream()));
+                    Stream.concat(this.lush.stream(), Stream.concat(this.steppe.stream(), this.australian.stream())));
         }
     }
 
@@ -126,14 +141,41 @@ public class KoppenBiomeSource extends BiomeSource {
     // Unquantized for SavannaCeiling, quantized for the biome choice.
     static final double DESERT_EDGE_TEMP = 0.40, DESERT_EDGE_HUMIDITY = -0.35;
     private static final long DESERT_EDGE_TEMPERATURE = 4000, DESERT_EDGE_HUMIDITY_Q = -3500;
-    // inland enough for the hot desert; the rivers run dry a little further out than that
-    private static final long DESERT_INLAND_CONTINENTS = 1500, DESERT_DRY_RIVER_CONTINENTS = 700;
-    // the desert mountains: vanilla's mountainous erosion, not in a valley
-    private static final long DESERT_MOUNTAIN_EROSION = -3750;
+    // inland enough for the hot desert (in the hot band itself; its cooler edge is the continental desert's)
+    private static final long DESERT_INLAND_CONTINENTS = -300;
+    // the desert mountains: only the most mountainous ground (vanilla's mountains start at erosion -0.375), not in a valley
+    private static final long DESERT_MOUNTAIN_EROSION = -4500;
     private static final float DESERT_MOUNTAIN_MIN_PV = -0.2F;
-    // the Dry steppe (BSk): the deserts' low ground (inland or by the coast) where the climate is a little wetter
-    // (vanilla's humidity 0.1 and up)
-    private static final long STEPPE_MIN_HUMIDITY = 1000;
+    // The Dry steppe (BSk) and the Australian desert (BSh) never meet any water, so they keep well away from it: far
+    // inland (no sea, no beach), deep in the hot band (the jungles, with their rivers, and the savanna, with its
+    // ponds, lie on its cooler side), and away from the mountains (their creeks) and the badlands (the Lush desert's
+    // rivers). Inside them, the rivers have run dry: HotDesertSurfaceFeature fills them, and the Australian desert's
+    // flattened ground (AustralianPlain) buries them.
+    // the steppe: the wetter side of the inland hot band (humidity 0.05 and up), off the rugged hills (vanilla's
+    // rugged hills are erosion -0.2225 and down)
+    private static final long STEPPE_MIN_HUMIDITY = 500, STEPPE_MIN_EROSION = -2225, STEPPE_MIN_CONTINENTS = 1500;
+    // both: the whole hot band (which starts at 0.55)
+    static final double DRY_MIN_TEMP = 0.55;
+    private static final long DRY_MIN_TEMPERATURE = 5500;
+    // the Australian desert: the largest of them all - the drier half of the inland hot band (humidity under 0.02),
+    // everywhere but its mountains (vanilla's mountains are erosion -0.375 and down; the plain flattens the rest),
+    // and inland of the coast (which ends at continentalness 0.03)
+    static final double AUSTRALIAN_MIN_EROSION = -0.375, AUSTRALIAN_MIN_CONTINENTS = 0.03, AUSTRALIAN_MAX_HUMIDITY = 0.02;
+    private static final long AUSTRALIAN_MIN_EROSION_Q = -3750, AUSTRALIAN_MIN_CONTINENTS_Q = 300, AUSTRALIAN_MAX_HUMIDITY_Q = 200;
+    // the Lush desert: only vanilla's wettest badlands (the rest of them are the other deserts)
+    private static final long LUSH_MIN_HUMIDITY = 2500;
+    // how far (in quarter-chunks) the steppe and the Australian desert keep from the Lush desert
+    private static final int BADLANDS_CLEARANCE = 10;
+
+    static boolean isSteppeClimate(Climate.TargetPoint c) {
+        return c.humidity() >= STEPPE_MIN_HUMIDITY && c.continentalness() >= STEPPE_MIN_CONTINENTS
+                && c.temperature() >= DRY_MIN_TEMPERATURE && c.erosion() >= STEPPE_MIN_EROSION;
+    }
+
+    static boolean isAustralianClimate(Climate.TargetPoint c) {
+        return c.humidity() < AUSTRALIAN_MAX_HUMIDITY_Q && c.continentalness() >= AUSTRALIAN_MIN_CONTINENTS_Q
+                && c.temperature() >= DRY_MIN_TEMPERATURE && c.erosion() >= AUSTRALIAN_MIN_EROSION_Q;
+    }
 
     static boolean isDesertClimate(Climate.TargetPoint c) {
         long t = c.temperature();
@@ -149,7 +191,7 @@ public class KoppenBiomeSource extends BiomeSource {
     private static final Set<ResourceKey<Biome>> DESERT_KEEPS = Set.of(Biomes.BEACH, Biomes.STONY_SHORE, Biomes.SNOWY_BEACH,
             Biomes.OCEAN, Biomes.DEEP_OCEAN, Biomes.LUKEWARM_OCEAN, Biomes.DEEP_LUKEWARM_OCEAN, Biomes.WARM_OCEAN,
             Biomes.COLD_OCEAN, Biomes.DEEP_COLD_OCEAN, Biomes.FROZEN_OCEAN, Biomes.DEEP_FROZEN_OCEAN, Biomes.MUSHROOM_FIELDS);
-    // vanilla's badlands: in the deserts' climate, the Lush desert (BSh) takes their place
+    // vanilla's badlands: in the deserts' climate, the Lush desert (BSh) takes their wettest part
     private static final Set<ResourceKey<Biome>> BADLANDS = Set.of(Biomes.BADLANDS, Biomes.ERODED_BADLANDS, Biomes.WOODED_BADLANDS);
     // only the most mountainous badlands are desert mountains
     private static final long LUSH_MOUNTAIN_EROSION = -7800;
@@ -177,6 +219,45 @@ public class KoppenBiomeSource extends BiomeSource {
     private static final Set<ResourceKey<Biome>> CSA_SHORES = Set.of(Biomes.BEACH, Biomes.STONY_SHORE, Biomes.SNOWY_BEACH);
     // Vanilla puts its cave biomes at depth 0.2 and below.
     private static final long UNDERGROUND_MIN_DEPTH = 2000;
+
+    // The Redwood forest (Csb): the cooler side of the Mediterranean's climate (vanilla's temperature band below it),
+    // where it's dry to middling. Its forests, plains and taiga become the redwoods.
+    private static final long REDWOOD_MIN_TEMPERATURE = -4000, REDWOOD_MAX_HUMIDITY = 1000;
+    private static final Set<ResourceKey<Biome>> REDWOOD_LAND = Set.of(Biomes.PLAINS, Biomes.SUNFLOWER_PLAINS, Biomes.FOREST,
+            Biomes.FLOWER_FOREST, Biomes.BIRCH_FOREST, Biomes.OLD_GROWTH_BIRCH_FOREST, Biomes.DARK_FOREST, Biomes.TAIGA,
+            Biomes.OLD_GROWTH_PINE_TAIGA, Biomes.OLD_GROWTH_SPRUCE_TAIGA, Biomes.MEADOW, Biomes.WINDSWEPT_FOREST);
+    // The humid subtropics (Cfa): as warm as the Mediterranean (its temperature band) but with ordinary rainfall
+    // (the wetter side of it, humidity CFA_MIN_HUMIDITY and up), and only on the low, flat land along the coast:
+    // from the shore to a little inland, never where vanilla's erosion makes hills or mountains. The sea off it is
+    // lukewarm. All of its land is the Subtropical plains, but for a strip along the shore, which is the
+    // Subtropical swamp. CfaPlain levels the very same ground dead flat, just above the sea.
+    // (Unquantized, for CfaPlain, and quantized for the biome choice.)
+    static final double CFA_MIN_HUMIDITY = 0.03, CFA_MAX_HUMIDITY = 0.35, CFA_MIN_CONTINENTALNESS = -0.19,
+            CFA_MAX_CONTINENTALNESS = 0.55, CFA_MIN_EROSION = 0.05, CFA_SWAMP_MAX_CONTINENTALNESS = -0.06;
+    private static final long CFA_MIN_HUMIDITY_Q = 300, CFA_MAX_HUMIDITY_Q = 3500, CFA_MIN_CONTINENTS = -1900,
+            CFA_MAX_CONTINENTS = 5500, CFA_MIN_EROSION_Q = 500, CFA_SWAMP_MAX_CONTINENTS = -600;
+    private static final Set<ResourceKey<Biome>> ALL_OCEANS = Set.of(Biomes.OCEAN, Biomes.DEEP_OCEAN, Biomes.LUKEWARM_OCEAN,
+            Biomes.DEEP_LUKEWARM_OCEAN, Biomes.WARM_OCEAN, Biomes.COLD_OCEAN, Biomes.DEEP_COLD_OCEAN, Biomes.FROZEN_OCEAN,
+            Biomes.DEEP_FROZEN_OCEAN);
+    // what keeps its own biome in the Cfa: the sea (made lukewarm), the rivers and mushroom islands
+    private static final Set<ResourceKey<Biome>> CFA_KEEPS = Set.of(Biomes.RIVER, Biomes.FROZEN_RIVER, Biomes.MUSHROOM_FIELDS);
+
+    static boolean isCfaClimate(Climate.TargetPoint c) {
+        long t = c.temperature(), h = c.humidity(), k = c.continentalness();
+        return t >= CSA_MIN_TEMPERATURE && t < CSA_MAX_TEMPERATURE && h >= CFA_MIN_HUMIDITY_Q && h < CFA_MAX_HUMIDITY_Q
+                && k >= CFA_MIN_CONTINENTS && k < CFA_MAX_CONTINENTS && c.erosion() >= CFA_MIN_EROSION_Q;
+    }
+
+    // the Cfa's temperature and rainfall widened by a margin, for the seas off its coasts
+    static boolean isNearCfaClimate(Climate.TargetPoint c) {
+        long t = c.temperature(), h = c.humidity();
+        return t >= CSA_MIN_TEMPERATURE - 1000 && t < CSA_MAX_TEMPERATURE + 1000 && h >= CFA_MIN_HUMIDITY_Q - 1000
+                && h < CFA_MAX_HUMIDITY_Q + 1000;
+    }
+
+    static boolean isRedwoodClimate(Climate.TargetPoint c) {
+        return c.temperature() >= REDWOOD_MIN_TEMPERATURE && c.temperature() < CSA_MIN_TEMPERATURE && c.humidity() < REDWOOD_MAX_HUMIDITY;
+    }
 
     private static final Set<ResourceKey<Biome>> TEMPERATE_LAND = Set.of(Biomes.PLAINS, Biomes.SUNFLOWER_PLAINS, Biomes.FOREST,
             Biomes.FLOWER_FOREST, Biomes.BIRCH_FOREST, Biomes.OLD_GROWTH_BIRCH_FOREST, Biomes.DARK_FOREST, Biomes.MEADOW, Biomes.CHERRY_GROVE);
@@ -383,6 +464,28 @@ public class KoppenBiomeSource extends BiomeSource {
             Holder<Biome> highland = this.csa.flatMap(CsaBiomes::highland).orElse(null);
             if (highland != null) return highland;
         }
+        // the Redwood forest (Csb): on the Mediterranean's cooler side
+        Holder<Biome> redwood = this.csa.flatMap(CsaBiomes::redwood).orElse(null);
+        if (redwood != null && climate.depth() < UNDERGROUND_MIN_DEPTH && isRedwoodClimate(climate)
+                && biome.unwrapKey().map(REDWOOD_LAND::contains).orElse(false)) {
+            return redwood;
+        }
+        // the humid subtropics (Cfa): all their land the Subtropical plains, the strip along the shore their swamp
+        // (which takes the beach as well, so it runs right down to the water)
+        Holder<Biome> subtropicalPlains = this.csa.flatMap(CsaBiomes::subtropicalPlains).orElse(null);
+        if (subtropicalPlains != null && climate.depth() < UNDERGROUND_MIN_DEPTH && isCfaClimate(climate)
+                && !biome.unwrapKey().map(k -> ALL_OCEANS.contains(k) || CFA_KEEPS.contains(k)).orElse(false)) {
+            Holder<Biome> swamp = this.csa.flatMap(CsaBiomes::subtropicalSwamp).orElse(null);
+            return swamp != null && climate.continentalness() < CFA_SWAMP_MAX_CONTINENTS ? swamp : subtropicalPlains;
+        }
+        // the sea off the humid subtropics is lukewarm
+        if (subtropicalPlains != null && climate.depth() < UNDERGROUND_MIN_DEPTH && isNearCfaClimate(climate)
+                && biome.unwrapKey().map(CSA_SEAS::contains).orElse(false)) {
+            ResourceKey<Biome> lukewarm = biome.is(Biomes.DEEP_OCEAN) || biome.is(Biomes.DEEP_COLD_OCEAN) || biome.is(Biomes.DEEP_FROZEN_OCEAN)
+                    ? Biomes.DEEP_LUKEWARM_OCEAN : Biomes.LUKEWARM_OCEAN;
+            Holder<Biome> sea = this.base.possibleBiomes().stream().filter(b -> b.is(lukewarm)).findFirst().orElse(null);
+            if (sea != null) return sea;
+        }
         // the sea off the Mediterranean is lukewarm, a little beyond its coast too, so its beaches only ever meet lukewarm water
         if (this.mediterranean.isPresent() && climate.depth() < UNDERGROUND_MIN_DEPTH && isNearMediterraneanClimate(climate)) {
             ResourceKey<Biome> lukewarm = biome.is(Biomes.DEEP_OCEAN) || biome.is(Biomes.DEEP_COLD_OCEAN) || biome.is(Biomes.DEEP_FROZEN_OCEAN)
@@ -399,24 +502,28 @@ public class KoppenBiomeSource extends BiomeSource {
             DesertBiomes d = this.deserts.get();
             boolean mountains = climate.erosion() < DESERT_MOUNTAIN_EROSION
                     && peaksAndValleys(climate.weirdness()) > DESERT_MOUNTAIN_MIN_PV;
-            long c = climate.continentalness();
-            // the Lush desert (BSh): vanilla's badlands, but for their most mountainous parts; its rivers keep some water
-            if (d.lush().isPresent()) {
+            // the Lush desert (BSh): vanilla's wettest badlands, but for their most mountainous parts; its rivers keep some water
+            if (d.lush().isPresent() && climate.humidity() >= LUSH_MIN_HUMIDITY) {
                 if (biome.unwrapKey().map(BADLANDS::contains).orElse(false)
                         && !(mountains && climate.erosion() < LUSH_MOUNTAIN_EROSION)) {
                     return d.lush().get();
                 }
                 if (biome.is(Biomes.RIVER) && !mountains && this.byBadlands(x, y, z, sampler)) return d.lush().get();
             }
+            // the Australian desert (BSh): flat, dry and far from any water - its rivers included, buried under its plain
+            if (d.australian().isPresent() && isAustralianClimate(climate) && !this.nearLush(x, y, z, sampler)) {
+                return d.australian().get();
+            }
+            boolean steppe = d.steppe().isPresent() && isSteppeClimate(climate) && !this.nearLush(x, y, z, sampler);
             if (biome.is(Biomes.RIVER)) {
-                // creeks run on through the mountains and near the coast; further inland the rivers have run dry
-                // (HotDesertSurfaceFeature fills their beds with sand), so the hot desert never meets water
-                if (mountains || c < DESERT_DRY_RIVER_CONTINENTS) return biome;
-                return d.lowland(climate);
+                // creeks run on through the mountains and the continental desert; in the hot desert and the steppe
+                // the rivers have run dry (HotDesertSurfaceFeature fills their beds with sand), so they never meet water
+                if (mountains || d.lowland(climate, false) != d.hot()) return biome;
+                return d.lowland(climate, steppe);
             }
             if (mountains) return d.mountains();
             // the hot desert lies deep inland, nearer the sea it's the continental desert; where wetter, the Dry steppe
-            return d.lowland(climate);
+            return d.lowland(climate, steppe);
         }
         // vanilla savannas outside that climate (the hottest, driest ones) are desert
         if (this.savanna.isPresent() && biome.unwrapKey().map(VANILLA_SAVANNAS::contains).orElse(false)) {
@@ -455,6 +562,21 @@ public class KoppenBiomeSource extends BiomeSource {
 
     /** Which of the Mediterranean's land biomes this spot falls in (see CsaZones). */
     // whether vanilla's badlands lie just beside this spot (12 blocks or so)
+    /** Whether vanilla would have badlands (the Lush desert, with its rivers) anywhere within reach of this spot. */
+    // the Lush desert's ground: vanilla's badlands, where wet enough
+    private boolean lushAt(int x, int y, int z, Climate.Sampler sampler) {
+        return this.base.getNoiseBiome(x, y, z, sampler).unwrapKey().map(BADLANDS::contains).orElse(false)
+                && sampler.sample(x, y, z).humidity() >= LUSH_MIN_HUMIDITY;
+    }
+
+    private boolean nearLush(int x, int y, int z, Climate.Sampler sampler) {
+        int r = BADLANDS_CLEARANCE, h = BADLANDS_CLEARANCE / 2;
+        for (int[] o : new int[][]{{r, 0}, {-r, 0}, {0, r}, {0, -r}, {h, h}, {h, -h}, {-h, h}, {-h, -h}}) {
+            if (this.lushAt(x + o[0], y, z + o[1], sampler)) return true;
+        }
+        return this.lushAt(x, y, z, sampler);
+    }
+
     private boolean byBadlands(int x, int y, int z, Climate.Sampler sampler) {
         for (int[] o : new int[][]{{3, 0}, {-3, 0}, {0, 3}, {0, -3}}) {
             if (this.base.getNoiseBiome(x + o[0], y, z + o[1], sampler).unwrapKey().map(BADLANDS::contains).orElse(false)) return true;

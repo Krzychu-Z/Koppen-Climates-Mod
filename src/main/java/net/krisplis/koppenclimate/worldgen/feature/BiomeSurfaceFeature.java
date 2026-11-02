@@ -31,7 +31,10 @@ import net.minecraft.world.level.levelgen.feature.configurations.FeatureConfigur
 //   mediterranean: grass -> cinnamon grass, dirt -> cinnamon dirt (terra rossa), and bare white rock wherever the
 //                  hillside is steep and in scattered outcrops, like the karst of the Dalmatian coast
 //   mediterranean_beach: a shore of white gravel only, above and below the water
-// and in all of them, stone in the top LIMESTONE_DEPTH blocks becomes limestone: yellow in the tropics, white in
+//   redwood: the forest floor mostly podzol, with patches of grass and the odd one of coarse dirt
+//   subtropical: grass -> farmland soil grass (the top layer only; dirt and stone stay as they are)
+//   subtropical_swamp: shallow pools of water at sea level, as in vanilla's swamp
+// and in all but the last three, stone in the top LIMESTONE_DEPTH blocks becomes limestone: yellow in the tropics, white in
 // the Mediterranean.
 public class BiomeSurfaceFeature extends Feature<BiomeSurfaceFeature.Config> {
     private static final int LIMESTONE_DEPTH = 15;
@@ -50,7 +53,13 @@ public class BiomeSurfaceFeature extends Feature<BiomeSurfaceFeature.Config> {
         JUNGLE("jungle"), RIVER("river"), BEACH("beach"), SAVANNA("savanna"),
         MEDITERRANEAN("mediterranean"), MEDITERRANEAN_BEACH("mediterranean_beach"),
         MEDITERRANEAN_FOREST("mediterranean_forest"), MEDITERRANEAN_RIVER("mediterranean_river"), WINE_TERRACES("wine_terraces"),
-        MEDITERRANEAN_HIGHLAND("mediterranean_highland");
+        MEDITERRANEAN_HIGHLAND("mediterranean_highland"), REDWOOD("redwood"), SUBTROPICAL("subtropical"),
+        SUBTROPICAL_SWAMP("subtropical_swamp");
+
+        // the Redwood forest and the Subtropical plains keep vanilla's ordinary stone under their soil
+        boolean limestone() {
+            return this != REDWOOD && this != SUBTROPICAL && this != SUBTROPICAL_SWAMP;
+        }
 
         boolean mediterranean() {
             return this == MEDITERRANEAN || this == MEDITERRANEAN_BEACH || this == MEDITERRANEAN_FOREST
@@ -95,6 +104,18 @@ public class BiomeSurfaceFeature extends Feature<BiomeSurfaceFeature.Config> {
                 if (!level.getBiome(pos).is(config.biome())) continue;
 
                 boolean underwater = level.getFluidState(pos.above()).is(FluidTags.WATER);
+                // the swamp's shallow pools: ground right at sea level turns to water here and there
+                if (config.style() == Style.SUBTROPICAL_SWAMP && !underwater && top == level.getSeaLevel() - 1 && patch(x, z, 2)
+                        && level.getBlockState(pos).is(BlockTags.DIRT) && enclosed(level, x, z, top)) {
+                    level.setBlock(pos, Blocks.WATER.defaultBlockState(), Block.UPDATE_CLIENTS);
+                    // the pool's bed is mud
+                    pos.set(x, top - 1, z);
+                    if (level.getBlockState(pos).is(BlockTags.DIRT)) {
+                        level.setBlock(pos, (patch(x + 7, z + 3, 2) ? Blocks.CLAY : Blocks.MUD).defaultBlockState(), Block.UPDATE_CLIENTS);
+                    }
+                    changed = true;
+                    continue;
+                }
                 if (config.style() == Style.SAVANNA && underwater) {
                     // the dry savanna keeps no ponds or inlets of its own: its shallow water is filled in level with
                     // the water's surface, so its shores run straight along the edge of the sea and the rivers
@@ -124,7 +145,7 @@ public class BiomeSurfaceFeature extends Feature<BiomeSurfaceFeature.Config> {
                     if (bareRock && depth <= 2 && (state.is(BlockTags.DIRT) || state.is(Blocks.STONE))) {
                         replacement = rock;
                     }
-                    if (replacement == null && state.is(Blocks.STONE)) {
+                    if (replacement == null && state.is(Blocks.STONE) && config.style().limestone()) {
                         replacement = rock;
                     }
                     if (replacement != null && replacement != state) {
@@ -214,6 +235,30 @@ public class BiomeSurfaceFeature extends Feature<BiomeSurfaceFeature.Config> {
                 if (state.is(BlockTags.DIRT)) yield ModBlocks.CINNAMON_DIRT.get().defaultBlockState();
                 yield null;
             }
+            case REDWOOD -> {
+                // deep needle litter: mostly podzol, grass in patches, a little coarse dirt
+                if (depth == 0 && state.is(Blocks.GRASS_BLOCK)) {
+                    yield patch(x, z, 3) ? Blocks.GRASS_BLOCK.defaultBlockState()
+                            : patch(x + 7, z + 3, 9) ? Blocks.COARSE_DIRT.defaultBlockState() : Blocks.PODZOL.defaultBlockState();
+                }
+                yield null;
+            }
+            case SUBTROPICAL -> {
+                if (depth == 0 && state.is(Blocks.GRASS_BLOCK)) yield ModBlocks.FARMLAND_SOIL_GRASS_BLOCK.get().defaultBlockState();
+                yield null;
+            }
+            case SUBTROPICAL_SWAMP -> {
+                // the floodplain: ordinary dirt and grass, with plenty of mud - in blotches across the ground, and
+                // all along the beds of its pools, creeks and shallows
+                boolean soft = state.is(BlockTags.DIRT) || state.is(BlockTags.SAND) || state.is(Blocks.GRAVEL) || state.is(Blocks.CLAY);
+                // under the water: mud and clay in blotches, two deep
+                if (underwater && depth <= 2 && soft) yield (patch(x + 7, z + 3, 2) ? Blocks.CLAY : Blocks.MUD).defaultBlockState();
+                // on the land: about half the ground is mud, with clay showing through here and there
+                if (!underwater && depth <= 1 && state.is(BlockTags.DIRT) && patch(x, z, 2)) yield Blocks.MUD.defaultBlockState();
+                if (!underwater && depth <= 1 && state.is(BlockTags.DIRT) && patch(x + 11, z + 5, 7)) yield Blocks.CLAY.defaultBlockState();
+                if (!underwater && depth == 0 && state.is(BlockTags.SAND)) yield Blocks.GRASS_BLOCK.defaultBlockState();
+                yield null;
+            }
             case BEACH -> {
                 // vanilla's surface rules only make sand for minecraft:beach itself, so this biome comes out
                 // grassy: turn every soil and sand block near the surface into white sand
@@ -225,6 +270,15 @@ public class BiomeSurfaceFeature extends Feature<BiomeSurfaceFeature.Config> {
                 yield null;
             }
         };
+    }
+
+    // every neighbouring column is at least as high, so a pool sunk here can't spill out
+    private static boolean enclosed(WorldGenLevel level, int x, int z, int top) {
+        for (int[] d : new int[][]{{1, 0}, {-1, 0}, {0, 1}, {0, -1}}) {
+            int h = level.getHeight(Heightmap.Types.OCEAN_FLOOR_WG, x + d[0], z + d[1]) - 1;
+            if (h < top && !level.getFluidState(new BlockPos(x + d[0], top, z + d[1])).is(FluidTags.WATER)) return false;
+        }
+        return true;
     }
 
     // the ground drops or climbs 3 or more blocks to a neighbouring column

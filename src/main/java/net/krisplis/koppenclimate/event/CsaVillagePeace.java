@@ -15,7 +15,8 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
 /**
- * The Mediterranean's towns (the Tuscan towns and the Dalmatian island towns) are never raided. Bad Omen does
+ * The Mediterranean's towns (the Tuscan towns and the Dalmatian island towns) are never raided, and neither are
+ * the towns of the Subtropical plains (Cfa). Bad Omen does
  * nothing anywhere in the Csa or in one of its towns (BadOmenMixin) - the player just keeps it - a Raid Omen picked
  * up for one of them anyway is lifted, and should a raid begin at one, it's called off at once.
  */
@@ -47,7 +48,8 @@ public final class CsaVillagePeace {
 
     /** A town in the Mediterranean (Csa), or one whose villagers are Venetian (the island towns stand in the sea). */
     public static boolean isCsaTown(ServerLevel level, BlockPos pos) {
-        if (ModBiomes.isMediterranean(level.getBiome(pos))) return true;
+        // the Subtropical plains (Cfa) and their swamp are just as peaceful
+        if (ModBiomes.isMediterranean(level.getBiome(pos)) || ModBiomes.isSubtropical(level.getBiome(pos))) return true;
         return !level.getEntitiesOfClass(Villager.class, new AABB(pos).inflate(TOWNSFOLK_RANGE),
                 v -> v.getVillagerData().getType() == VillageRegistry.VENETIAN.get()).isEmpty();
     }

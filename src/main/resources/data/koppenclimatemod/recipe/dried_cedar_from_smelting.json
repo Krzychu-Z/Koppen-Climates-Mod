@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:smelting",
+  "category": "misc",
+  "cookingtime": 200,
+  "experience": 0.15,
+  "ingredient": {
+    "tag": "koppenclimatemod:cedar_logs"
+  },
+  "result": {
+    "id": "koppenclimatemod:dried_cedar"
+  }
+}

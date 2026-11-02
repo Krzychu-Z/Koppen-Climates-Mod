@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "group": "planks",
+  "ingredients": [
+    {
+      "tag": "koppenclimatemod:black_poplar_logs"
+    }
+  ],
+  "result": {
+    "count": 4,
+    "id": "koppenclimatemod:black_poplar_planks"
+  }
+}

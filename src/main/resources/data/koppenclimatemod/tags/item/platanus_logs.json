@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "koppenclimatemod:platanus_log",
+    "koppenclimatemod:platanus_wood",
+    "koppenclimatemod:stripped_platanus_log",
+    "koppenclimatemod:stripped_platanus_wood"
+  ]
+}

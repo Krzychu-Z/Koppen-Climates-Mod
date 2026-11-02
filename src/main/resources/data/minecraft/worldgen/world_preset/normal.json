@@ -28,7 +28,8 @@
             "continental": "koppenclimatemod:continental_desert_bwk",
             "mountains": "koppenclimatemod:desert_mountains_bwk",
             "lush": "koppenclimatemod:lush_desert_bsh",
-            "steppe": "koppenclimatemod:dry_steppe_bsk"
+            "steppe": "koppenclimatemod:dry_steppe_bsk",
+            "australian": "koppenclimatemod:australian_desert_bsh"
           },
           "mediterranean_zones": {
             "forest": "koppenclimatemod:mediterranean_forest_csa",
@@ -36,7 +37,10 @@
             "river": "koppenclimatemod:mediterranean_river_csa",
             "farmland": "koppenclimatemod:mediterranean_farmland_csa",
             "lavender_field": "koppenclimatemod:lavender_field_csa",
-            "highland": "koppenclimatemod:mediterranean_highland_csb"
+            "highland": "koppenclimatemod:mediterranean_highland_csb",
+            "redwood_forest": "koppenclimatemod:redwood_forest_csb",
+            "subtropical_plains": "koppenclimatemod:subtropical_plains_cfa",
+            "subtropical_swamp": "koppenclimatemod:subtropical_swamp_cfa"
           }
         },
         "settings": "koppenclimatemod:overworld"

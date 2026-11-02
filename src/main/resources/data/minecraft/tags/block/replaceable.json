@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
-    "koppenclimatemod:silver_grass"
+    "koppenclimatemod:silver_grass",
+    "koppenclimatemod:wild_barley"
   ]
 }

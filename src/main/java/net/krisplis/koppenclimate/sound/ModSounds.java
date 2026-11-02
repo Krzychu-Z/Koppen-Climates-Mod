@@ -33,6 +33,13 @@ public class ModSounds {
     public static final RegistryObject<SoundEvent> OWL = register("ambient.mediterranean.owl");
     // the hot desert (BWh): its wind by day, and the cry of its eagles
     public static final RegistryObject<SoundEvent> HOT_DESERT_WIND = register("ambient.hot_desert.wind");
+    // the Australian desert (BSh) by day: a faint, quiet background (at night only its owls are heard)
+    public static final RegistryObject<SoundEvent> AUSTRALIAN_DESERT_DAY = register("ambient.australian_desert.day");
+    // the Redwood forest (Csb) by day; by night only its owls are heard
+    public static final RegistryObject<SoundEvent> REDWOOD_FOREST_DAY = register("ambient.redwood_forest.day");
+    // the humid subtropics (Cfa): the Subtropical plains and swamp
+    public static final RegistryObject<SoundEvent> CFA_DAY = register("ambient.cfa.day");
+    public static final RegistryObject<SoundEvent> CFA_NIGHT = register("ambient.cfa.night");
     public static final RegistryObject<SoundEvent> EAGLE = register("entity.eagle.cry");
     public static final RegistryObject<SoundEvent> RATTLESNAKE_RATTLE = register("entity.rattlesnake.rattle");
 

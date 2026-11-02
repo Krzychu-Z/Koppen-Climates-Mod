@@ -92,7 +92,7 @@ public final class AfAmbience {
         if (player != null && mc.level != null && !player.isRemoved()) {
             Holder<Biome> here = mc.level.getBiome(player.blockPosition());
             // no clouds over the hot desert, the Sahel or the Mediterranean
-            fadeClouds(here.is(ModBiomes.HOT_DESERT) || here.is(ModBiomes.CONTINENTAL_DESERT) || here.is(ModBiomes.DRY_STEPPE)
+            fadeClouds(here.is(ModBiomes.HOT_DESERT) || here.is(ModBiomes.CONTINENTAL_DESERT) || here.is(ModBiomes.DRY_STEPPE) || here.is(ModBiomes.AUSTRALIAN_DESERT)
                     || ModBiomes.isMediterranean(here));
             fadeHaunt(player.hasEffect(net.krisplis.koppenclimate.effect.ModEffects.HAUNTED.getHolder().get()));
             wanted = pick(here, mc.level.getDayTime());
@@ -125,7 +125,7 @@ public final class AfAmbience {
         if (player == null || mc.level == null || mc.isPaused() || player.tickCount % 40 != 0) return;
         Holder<Biome> biome = mc.level.getBiome(player.blockPosition());
         // every tropical rain forest (A climates): the Amazon and its river, the monsoon forest and the rice terraces
-        if (!ModBiomes.isRainforest(biome) && !biome.is(ModBiomes.RICE_TERRACES)) return;
+        if (!ModBiomes.isRainforest(biome) && !biome.is(ModBiomes.RICE_TERRACES) && !biome.is(ModBiomes.SUBTROPICAL_SWAMP)) return;
         var random = mc.level.random;
         // somewhere in the open air around the player, at about head height - never in water, never up in the canopy
         double cx = 0, cy = 0, cz = 0;
@@ -145,13 +145,14 @@ public final class AfAmbience {
         }
     }
 
-    // on Mediterranean nights, glowworms: just like the mosquitoes - every second, a little cloud of them hovering
+    // on Mediterranean and Australian desert nights, glowworms: just like the mosquitoes - every second, a little cloud of them hovering
     // somewhere in the open air around the player at about head height - but glowing, and only at night
     private static void glowworms(Minecraft mc, @Nullable LocalPlayer player) {
         if (player == null || mc.level == null || mc.isPaused() || player.tickCount % 20 != 0) return;
         long time = Math.floorMod(mc.level.getDayTime(), 24000L);
         if (time < NIGHT_START || time >= NIGHT_END) return;
-        if (!ModBiomes.isMediterranean(mc.level.getBiome(player.blockPosition()))) return;
+        Holder<Biome> here = mc.level.getBiome(player.blockPosition());
+        if (!ModBiomes.isMediterranean(here) && !here.is(ModBiomes.AUSTRALIAN_DESERT)) return;
         var random = mc.level.random;
         double cx = 0, cy = 0, cz = 0;
         boolean found = false;
@@ -181,7 +182,7 @@ public final class AfAmbience {
         Holder<Biome> biome = mc.level.getBiome(player.blockPosition());
         // outside the night or the biome, check again in a few seconds rather than waiting out a whole pause
         if (time < NIGHT_START || time >= NIGHT_END
-                || !(ModBiomes.isMediterranean(biome) || ModBiomes.isDesert(biome))) {
+                || !(ModBiomes.isMediterranean(biome) || ModBiomes.isDesert(biome) || biome.is(ModBiomes.REDWOOD_FOREST))) {
             owlCooldown = 100;
             return;
         }
@@ -205,6 +206,18 @@ public final class AfAmbience {
         }
         if (biome.is(ModBiomes.MEDITERRANEAN_BEACH)) {
             return (night ? ModSounds.MEDITERRANEAN_BEACH_NIGHT : ModSounds.MEDITERRANEAN_BEACH_DAY).get();
+        }
+        if (biome.is(ModBiomes.REDWOOD_FOREST)) {
+            // the forest by day; at night it falls quiet but for the owls
+            return night ? null : ModSounds.REDWOOD_FOREST_DAY.get();
+        }
+        if (ModBiomes.isSubtropical(biome)) {
+            // the humid subtropics (Cfa), plains and swamp alike
+            return (night ? ModSounds.CFA_NIGHT : ModSounds.CFA_DAY).get();
+        }
+        if (biome.is(ModBiomes.AUSTRALIAN_DESERT)) {
+            // a faint, quiet outback by day; at night only the owls
+            return night ? null : ModSounds.AUSTRALIAN_DESERT_DAY.get();
         }
         if (ModBiomes.isDesert(biome)) {
             // the wind over the sand by day; at night it drops, and only the owls are heard
@@ -235,7 +248,9 @@ public final class AfAmbience {
             this.relative = true;
             this.attenuation = SoundInstance.Attenuation.NONE;
             this.volume = 0.01F;
-            this.max = event == ModSounds.HOT_DESERT_WIND.get() ? 0.3F : 1.0F;
+            this.max = event == ModSounds.HOT_DESERT_WIND.get() ? 0.3F
+                    : event == ModSounds.AUSTRALIAN_DESERT_DAY.get() ? 0.5F
+                    : event == ModSounds.REDWOOD_FOREST_DAY.get() ? 0.8F : 1.0F;
         }
 
         void fadeOut() {

@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column",
+  "textures": {
+    "end": "koppenclimatemod:block/eucalyptus_log",
+    "side": "koppenclimatemod:block/eucalyptus_log"
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/stairs",
+  "textures": {
+    "bottom": "koppenclimatemod:block/platanus_planks",
+    "side": "koppenclimatemod:block/platanus_planks",
+    "top": "koppenclimatemod:block/platanus_planks"
+  }
+}

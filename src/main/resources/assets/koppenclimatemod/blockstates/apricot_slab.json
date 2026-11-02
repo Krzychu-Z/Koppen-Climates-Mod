@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "koppenclimatemod:block/apricot_slab"
+    },
+    "type=double": {
+      "model": "koppenclimatemod:block/apricot_planks"
+    },
+    "type=top": {
+      "model": "koppenclimatemod:block/apricot_slab_top"
+    }
+  }
+}

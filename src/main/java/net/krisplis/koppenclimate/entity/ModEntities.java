@@ -148,6 +148,25 @@ public class ModEntities {
             () -> EntityType.Builder.of(net.krisplis.koppenclimate.entity.custom.JackalEntity::new, MobCategory.CREATURE)
                     .sized(0.72F, 1.0F).eyeHeight(0.82F).clientTrackingRange(10).build("jackal"));
 
+    // ------------------------------------------------------------------ the Australian desert's animals
+    // the koala: small and round, asleep on its eucalyptus
+    public static final RegistryObject<EntityType<net.krisplis.koppenclimate.entity.custom.KoalaEntity>> KOALA = ENTITY_TYPES.register("koala",
+            () -> EntityType.Builder.of(net.krisplis.koppenclimate.entity.custom.KoalaEntity::new, MobCategory.CREATURE)
+                    .sized(0.55F, 0.8F).eyeHeight(0.65F).clientTrackingRange(10).build("koala"));
+    // the kangaroo: a big red, standing as tall as a man
+    public static final RegistryObject<EntityType<net.krisplis.koppenclimate.entity.custom.KangarooEntity>> KANGAROO = ENTITY_TYPES.register("kangaroo",
+            () -> EntityType.Builder.of(net.krisplis.koppenclimate.entity.custom.KangarooEntity::new, MobCategory.CREATURE)
+                    .sized(0.8F, 1.8F).eyeHeight(1.6F).clientTrackingRange(10).build("kangaroo"));
+    // the spotted hyena: a jackal's ways in a bigger body
+    public static final RegistryObject<EntityType<net.krisplis.koppenclimate.entity.custom.HyenaEntity>> HYENA = ENTITY_TYPES.register("hyena",
+            () -> EntityType.Builder.of(net.krisplis.koppenclimate.entity.custom.HyenaEntity::new, MobCategory.CREATURE)
+                    .sized(0.8F, 1.1F).eyeHeight(0.9F).clientTrackingRange(10).build("hyena"));
+
+    // ------------------------------------------------------------------ the Redwood forest's (Csb) grizzly bear
+    public static final RegistryObject<EntityType<net.krisplis.koppenclimate.entity.custom.GrizzlyBearEntity>> GRIZZLY_BEAR = ENTITY_TYPES.register("grizzly_bear",
+            () -> EntityType.Builder.of(net.krisplis.koppenclimate.entity.custom.GrizzlyBearEntity::new, MobCategory.CREATURE)
+                    .sized(1.4F, 1.4F).clientTrackingRange(10).build("grizzly_bear"));
+
     // the tropical forests' pig: reddish-brown with mud-dark spots
     public static final RegistryObject<EntityType<net.krisplis.koppenclimate.entity.custom.WarmPigEntity>> WARM_PIG = ENTITY_TYPES.register("warm_pig",
             () -> EntityType.Builder.of(net.krisplis.koppenclimate.entity.custom.WarmPigEntity::new, MobCategory.CREATURE)
@@ -216,6 +235,10 @@ public class ModEntities {
         event.put(ZEBRA.get(), net.krisplis.koppenclimate.entity.custom.ZebraEntity.createAttributes().build());
         event.put(WARM_PIG.get(), net.minecraft.world.entity.animal.Pig.createAttributes().build());
         event.put(JACKAL.get(), net.krisplis.koppenclimate.entity.custom.JackalEntity.createAttributes().build());
+        event.put(GRIZZLY_BEAR.get(), net.krisplis.koppenclimate.entity.custom.GrizzlyBearEntity.createGrizzlyAttributes().build());
+        event.put(KOALA.get(), net.krisplis.koppenclimate.entity.custom.KoalaEntity.createAttributes().build());
+        event.put(KANGAROO.get(), net.krisplis.koppenclimate.entity.custom.KangarooEntity.createAttributes().build());
+        event.put(HYENA.get(), net.krisplis.koppenclimate.entity.custom.HyenaEntity.createAttributes().build());
     }
 
     // Where they may appear: on solid ground. Which biomes is in forge/biome_modifier/*_spawns.json
@@ -268,9 +291,21 @@ public class ModEntities {
         event.register(EntityType.CAVE_SPIDER, AmazonSpawns::caveSpiderInDaylight, SpawnPlacementRegisterEvent.Operation.OR);
         // bats also fly out over the Mediterranean at night, not only in caves
         event.register(EntityType.BAT, ModEntities::batOverMediterranean, SpawnPlacementRegisterEvent.Operation.OR);
-        // the Dry steppe (BSk) is all sand under its grass: its sheep and wolves spawn on that sand
+        // the Dry steppe (BSk) is all sand under its grass: its sheep, wolves and horses spawn on that sand
         event.register(EntityType.SHEEP, ModEntities::onSteppeSand, SpawnPlacementRegisterEvent.Operation.OR);
         event.register(EntityType.WOLF, ModEntities::onSteppeSand, SpawnPlacementRegisterEvent.Operation.OR);
+        event.register(EntityType.HORSE, ModEntities::onSteppeSand, SpawnPlacementRegisterEvent.Operation.OR);
+        // the Australian desert's animals stand on its red sand (koalas only ever turn up on their trees: EucalyptusTreeFeature)
+        event.register(KOALA.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+                Mob::checkMobSpawnRules, SpawnPlacementRegisterEvent.Operation.REPLACE);
+        event.register(KANGAROO.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+                ModEntities::onDesertSand, SpawnPlacementRegisterEvent.Operation.REPLACE);
+        event.register(HYENA.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+                ModEntities::onDesertSand, SpawnPlacementRegisterEvent.Operation.REPLACE);
+        event.register(EntityType.ARMADILLO, ModEntities::onDesertSand, SpawnPlacementRegisterEvent.Operation.OR);
+        // the grizzly roams the Redwood forest's (Csb) floor: grass, podzol or bare dirt, in daylight
+        event.register(GRIZZLY_BEAR.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+                ModEntities::onForestFloor, SpawnPlacementRegisterEvent.Operation.REPLACE);
     }
 
     private static final net.minecraft.tags.TagKey<net.minecraft.world.level.biome.Biome> MEDITERRANEAN_BIOMES =
@@ -283,6 +318,20 @@ public class ModEntities {
         return level.getBlockState(pos.below()).is(net.minecraft.world.level.block.Blocks.SAND)
                 && level.getBiome(pos).is(net.krisplis.koppenclimate.worldgen.biome.ModBiomes.DRY_STEPPE)
                 && level.getRawBrightness(pos, 0) > 8;
+    }
+
+    /** Grass, podzol or dirt, in daylight. */
+    private static <T extends net.minecraft.world.entity.Entity> boolean onForestFloor(EntityType<T> type,
+                                                net.minecraft.world.level.ServerLevelAccessor level, MobSpawnType reason,
+                                                net.minecraft.core.BlockPos pos, net.minecraft.util.RandomSource random) {
+        return level.getBlockState(pos.below()).is(net.minecraft.tags.BlockTags.DIRT) && level.getRawBrightness(pos, 0) > 8;
+    }
+
+    /** Any sand (the Australian desert's red sand included), in daylight. */
+    private static <T extends net.minecraft.world.entity.Entity> boolean onDesertSand(EntityType<T> type,
+                                                net.minecraft.world.level.ServerLevelAccessor level, MobSpawnType reason,
+                                                net.minecraft.core.BlockPos pos, net.minecraft.util.RandomSource random) {
+        return level.getBlockState(pos.below()).is(net.minecraft.tags.BlockTags.SAND) && level.getRawBrightness(pos, 0) > 8;
     }
 
     private static boolean batOverMediterranean(EntityType<net.minecraft.world.entity.ambient.Bat> type,

@@ -19,7 +19,8 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
 /**
- * Cave spiders in the Amazon: they come out in broad daylight too, on the jungle floor as well as in caves.
+ * Cave spiders in the Amazon (and the Australian desert): they come out in broad daylight too, on the ground as well
+ * as in caves.
  * Monsters normally need darkness twice over, once in their spawn placement rule and once more in the mob's own
  * check; ModEntities widens the first and this lifts the second, both only inside the Amazon biomes.
  */
@@ -36,7 +37,7 @@ public final class AmazonSpawns {
     public static boolean caveSpiderInDaylight(EntityType<CaveSpider> type, ServerLevelAccessor level, MobSpawnType spawnType,
                                                BlockPos pos, RandomSource random) {
         return level.getDifficulty() != Difficulty.PEACEFUL
-                && (level.getBiome(pos).is(AMAZON) || ModBiomes.isMonsoon(level.getBiome(pos)))
+                && (level.getBiome(pos).is(AMAZON) || ModBiomes.isMonsoon(level.getBiome(pos)) || level.getBiome(pos).is(ModBiomes.AUSTRALIAN_DESERT))
                 && level.getBlockState(pos.below()).isValidSpawn(level, pos.below(), type);
     }
 
@@ -47,7 +48,7 @@ public final class AmazonSpawns {
         }
         ServerLevelAccessor level = event.getLevel();
         if (level.getDifficulty() != Difficulty.PEACEFUL && (level.getBiome(spider.blockPosition()).is(AMAZON)
-                || ModBiomes.isMonsoon(level.getBiome(spider.blockPosition())))
+                || ModBiomes.isMonsoon(level.getBiome(spider.blockPosition())) || level.getBiome(spider.blockPosition()).is(ModBiomes.AUSTRALIAN_DESERT))
                 && spider.checkSpawnObstruction(level)) {
             event.setResult(Event.Result.ALLOW);
         }

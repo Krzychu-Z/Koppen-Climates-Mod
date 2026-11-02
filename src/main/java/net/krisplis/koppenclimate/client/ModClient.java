@@ -32,7 +32,7 @@ public final class ModClient {
                         : GrassColor.get(0.5D, 1.0D);
             }
             return -1; // don't tint sides or bottom
-        }, ModBlocks.OXISOL_GRASS.get());
+        }, ModBlocks.OXISOL_GRASS.get(), ModBlocks.FARMLAND_SOIL_GRASS_BLOCK.get());
         // the Lush desert's dry bush: all of it in the grass's colour
         e.getBlockColors().register((state, level, pos, tint) -> level != null && pos != null
                 ? BiomeColors.getAverageGrassColor(level, pos) : GrassColor.get(0.8D, 0.2D), ModBlocks.DRY_BUSH.get());
@@ -52,6 +52,15 @@ public final class ModClient {
             Sheets.addWoodType(ModWoodTypes.FIG);
             Sheets.addWoodType(ModWoodTypes.JOSHUA);
             Sheets.addWoodType(ModWoodTypes.DEAD_OAK);
+            Sheets.addWoodType(ModWoodTypes.EUCALYPTUS);
+            Sheets.addWoodType(ModWoodTypes.REDWOOD);
+            Sheets.addWoodType(ModWoodTypes.PLATANUS);
+            Sheets.addWoodType(ModWoodTypes.CEDAR);
+            Sheets.addWoodType(ModWoodTypes.APPLE);
+            Sheets.addWoodType(ModWoodTypes.APRICOT);
+            Sheets.addWoodType(ModWoodTypes.BLACK_POPLAR);
+            Sheets.addWoodType(ModWoodTypes.CYPRESS);
+            Sheets.addWoodType(ModWoodTypes.LEMON);
         });
     }
 
@@ -78,6 +87,8 @@ public final class ModClient {
         e.registerLayerDefinition(ElephantModel.LAYER, ElephantModel::createBodyLayer);
         e.registerLayerDefinition(RhinoModel.LAYER, RhinoModel::createBodyLayer);
         e.registerLayerDefinition(GiraffeModel.LAYER, GiraffeModel::createBodyLayer);
+        e.registerLayerDefinition(KoalaModel.LAYER, KoalaModel::createBodyLayer);
+        e.registerLayerDefinition(KangarooModel.LAYER, KangarooModel::createBodyLayer);
     }
 
     @SubscribeEvent
@@ -102,6 +113,19 @@ public final class ModClient {
         e.registerEntityRenderer(ModEntities.GIRAFFE.get(), SavannaRenderers::giraffe);
         e.registerEntityRenderer(ModEntities.JACKAL.get(), SavannaRenderers::jackal);
         e.registerEntityRenderer(ModEntities.ZEBRA.get(), SavannaRenderers.Zebra::new);
+        e.registerEntityRenderer(ModEntities.KOALA.get(), AustralianRenderers::koala);
+        e.registerEntityRenderer(ModEntities.KANGAROO.get(), AustralianRenderers::kangaroo);
+        e.registerEntityRenderer(ModEntities.HYENA.get(), AustralianRenderers::hyena);
+        // the grizzly: a polar bear's build in brown fur
+        e.registerEntityRenderer(ModEntities.GRIZZLY_BEAR.get(), ctx -> new net.minecraft.client.renderer.entity.PolarBearRenderer(ctx) {
+            private static final net.minecraft.resources.ResourceLocation TEXTURE =
+                    net.minecraft.resources.ResourceLocation.fromNamespaceAndPath("koppenclimatemod", "textures/entity/grizzly_bear.png");
+
+            @Override
+            public net.minecraft.resources.ResourceLocation getTextureLocation(net.minecraft.world.entity.animal.PolarBear bear) {
+                return TEXTURE;
+            }
+        });
         e.registerEntityRenderer(ModEntities.WARM_PIG.get(), ctx -> new net.minecraft.client.renderer.entity.PigRenderer(ctx) {
             private static final net.minecraft.resources.ResourceLocation TEXTURE =
                     net.minecraft.resources.ResourceLocation.fromNamespaceAndPath("koppenclimatemod", "textures/entity/warm_pig.png");
@@ -119,11 +143,25 @@ public final class ModClient {
         e.registerBlockEntityRenderer(ModBlockEntities.HANGING_SIGN.get(), HangingSignRenderer::new);
     }
 
+    // koalas ride on players' shoulders (both skin shapes)
+    @SubscribeEvent
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    public static void onAddLayers(EntityRenderersEvent.AddLayers e) {
+        for (net.minecraft.client.resources.PlayerSkin.Model skin : e.getSkins()) {
+            net.minecraft.client.renderer.entity.EntityRenderer<? extends net.minecraft.world.entity.player.Player> renderer = e.getPlayerSkin(skin);
+            if (renderer instanceof net.minecraft.client.renderer.entity.player.PlayerRenderer player) {
+                player.addLayer(new AustralianRenderers.KoalaOnShoulderLayer(player, e.getEntityModels()));
+            }
+        }
+    }
+
     @SubscribeEvent
     public static void onRegisterItemColors(RegisterColorHandlersEvent.Item e) {
         e.getItemColors().register((stack, tint) -> tint == 0
                 ? GrassColor.get(0.5D, 1.0D) : -1, ModBlocks.OXISOL_GRASS.get());
         e.getItemColors().register((stack, tint) -> tint == 0 ? 0xA9A86A : -1, ModBlocks.DRY_BUSH.get());
+        // the Subtropical plains' (Cfa) lively green grass
+        e.getItemColors().register((stack, tint) -> tint == 0 ? 0x59C93C : -1, ModBlocks.FARMLAND_SOIL_GRASS_BLOCK.get());
 
     }
 }

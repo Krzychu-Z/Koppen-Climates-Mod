@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "koppenclimatemod:apricot_log",
+    "koppenclimatemod:apricot_wood",
+    "koppenclimatemod:stripped_apricot_log",
+    "koppenclimatemod:stripped_apricot_wood"
+  ]
+}

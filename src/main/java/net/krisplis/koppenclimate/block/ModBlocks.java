@@ -140,18 +140,19 @@ public class ModBlocks {
                     BlockBehaviour.Properties.ofFullCopy(Blocks.POTTED_JUNGLE_SAPLING))
     );
 
-    // Mahogany wood set
+    // Mahogany wood set. Mahogany is the one wood that won't burn: its blocks take the nether woods' properties
+    // (never set alight by fire or lava), with an ordinary wood sound.
     public static final RegistryObject<RotatedPillarBlock> MAHOGANY_LOG = registerBlock("mahogany_log",
-            () -> new RotatedPillarBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.JUNGLE_LOG).mapColor(MapColor.TERRACOTTA_BROWN))
+            () -> new RotatedPillarBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.CRIMSON_STEM).sound(net.minecraft.world.level.block.SoundType.WOOD).mapColor(MapColor.TERRACOTTA_BROWN))
     );
 
     // bark on all six sides
     public static final RegistryObject<RotatedPillarBlock> MAHOGANY_WOOD = registerBlock("mahogany_wood",
-            () -> new RotatedPillarBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.JUNGLE_WOOD).mapColor(MapColor.TERRACOTTA_BROWN))
+            () -> new RotatedPillarBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.CRIMSON_HYPHAE).sound(net.minecraft.world.level.block.SoundType.WOOD).mapColor(MapColor.TERRACOTTA_BROWN))
     );
 
     public static final RegistryObject<Block> MAHOGANY_PLANKS = registerBlock("mahogany_planks",
-            () -> new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.JUNGLE_PLANKS).mapColor(MapColor.TERRACOTTA_RED))
+            () -> new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.CRIMSON_PLANKS).sound(net.minecraft.world.level.block.SoundType.WOOD).mapColor(MapColor.TERRACOTTA_RED))
     );
 
     public static final RegistryObject<LeavesBlock> MAHOGANY_LEAVES = registerBlock("mahogany_leaves",
@@ -239,10 +240,10 @@ public class ModBlocks {
 
     // ------------------------------------------------------------------ mahogany family
     public static final RegistryObject<RotatedPillarBlock> STRIPPED_MAHOGANY_LOG = registerBlock("stripped_mahogany_log",
-            () -> new RotatedPillarBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.STRIPPED_JUNGLE_LOG).mapColor(MapColor.TERRACOTTA_RED))
+            () -> new RotatedPillarBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.STRIPPED_CRIMSON_STEM).sound(net.minecraft.world.level.block.SoundType.WOOD).mapColor(MapColor.TERRACOTTA_RED))
     );
     public static final RegistryObject<RotatedPillarBlock> STRIPPED_MAHOGANY_WOOD = registerBlock("stripped_mahogany_wood",
-            () -> new RotatedPillarBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.STRIPPED_JUNGLE_WOOD).mapColor(MapColor.TERRACOTTA_RED))
+            () -> new RotatedPillarBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.STRIPPED_CRIMSON_HYPHAE).sound(net.minecraft.world.level.block.SoundType.WOOD).mapColor(MapColor.TERRACOTTA_RED))
     );
     public static final RegistryObject<StairBlock> MAHOGANY_STAIRS = registerBlock("mahogany_stairs",
             () -> new StairBlock(MAHOGANY_PLANKS.get().defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(MAHOGANY_PLANKS.get()))
@@ -251,36 +252,36 @@ public class ModBlocks {
             () -> new SlabBlock(BlockBehaviour.Properties.ofFullCopy(MAHOGANY_PLANKS.get()))
     );
     public static final RegistryObject<FenceBlock> MAHOGANY_FENCE = registerBlock("mahogany_fence",
-            () -> new FenceBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.JUNGLE_FENCE).mapColor(MapColor.TERRACOTTA_RED))
+            () -> new FenceBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.CRIMSON_FENCE).sound(net.minecraft.world.level.block.SoundType.WOOD).mapColor(MapColor.TERRACOTTA_RED))
     );
     public static final RegistryObject<FenceGateBlock> MAHOGANY_FENCE_GATE = registerBlock("mahogany_fence_gate",
-            () -> new FenceGateBlock(ModWoodTypes.MAHOGANY, BlockBehaviour.Properties.ofFullCopy(Blocks.JUNGLE_FENCE_GATE).mapColor(MapColor.TERRACOTTA_RED))
+            () -> new FenceGateBlock(ModWoodTypes.MAHOGANY, BlockBehaviour.Properties.ofFullCopy(Blocks.CRIMSON_FENCE_GATE).sound(net.minecraft.world.level.block.SoundType.WOOD).mapColor(MapColor.TERRACOTTA_RED))
     );
     // item: ModItems.MAHOGANY_DOOR, a two-block-high item like vanilla doors
     public static final RegistryObject<DoorBlock> MAHOGANY_DOOR = BLOCKS.register("mahogany_door",
-            () -> new DoorBlock(ModWoodTypes.MAHOGANY.setType(), BlockBehaviour.Properties.ofFullCopy(Blocks.JUNGLE_DOOR).mapColor(MapColor.TERRACOTTA_RED))
+            () -> new DoorBlock(ModWoodTypes.MAHOGANY.setType(), BlockBehaviour.Properties.ofFullCopy(Blocks.CRIMSON_DOOR).mapColor(MapColor.TERRACOTTA_RED))
     );
     public static final RegistryObject<TrapDoorBlock> MAHOGANY_TRAPDOOR = registerBlock("mahogany_trapdoor",
-            () -> new TrapDoorBlock(ModWoodTypes.MAHOGANY.setType(), BlockBehaviour.Properties.ofFullCopy(Blocks.JUNGLE_TRAPDOOR).mapColor(MapColor.TERRACOTTA_RED))
+            () -> new TrapDoorBlock(ModWoodTypes.MAHOGANY.setType(), BlockBehaviour.Properties.ofFullCopy(Blocks.CRIMSON_TRAPDOOR).mapColor(MapColor.TERRACOTTA_RED))
     );
     public static final RegistryObject<PressurePlateBlock> MAHOGANY_PRESSURE_PLATE = registerBlock("mahogany_pressure_plate",
-            () -> new PressurePlateBlock(ModWoodTypes.MAHOGANY.setType(), BlockBehaviour.Properties.ofFullCopy(Blocks.JUNGLE_PRESSURE_PLATE).mapColor(MapColor.TERRACOTTA_RED))
+            () -> new PressurePlateBlock(ModWoodTypes.MAHOGANY.setType(), BlockBehaviour.Properties.ofFullCopy(Blocks.CRIMSON_PRESSURE_PLATE).mapColor(MapColor.TERRACOTTA_RED))
     );
     public static final RegistryObject<ButtonBlock> MAHOGANY_BUTTON = registerBlock("mahogany_button",
-            () -> new ButtonBlock(ModWoodTypes.MAHOGANY.setType(), 30, BlockBehaviour.Properties.ofFullCopy(Blocks.JUNGLE_BUTTON))
+            () -> new ButtonBlock(ModWoodTypes.MAHOGANY.setType(), 30, BlockBehaviour.Properties.ofFullCopy(Blocks.CRIMSON_BUTTON))
     );
     // signs have no block items of their own: the sign items (ModItems) place the standing or the wall version
     public static final RegistryObject<ModStandingSignBlock> MAHOGANY_SIGN = BLOCKS.register("mahogany_sign",
-            () -> new ModStandingSignBlock(ModWoodTypes.MAHOGANY, signProperties(MapColor.TERRACOTTA_BROWN))
+            () -> new ModStandingSignBlock(ModWoodTypes.MAHOGANY, fireproofSignProperties(MapColor.TERRACOTTA_BROWN))
     );
     public static final RegistryObject<ModWallSignBlock> MAHOGANY_WALL_SIGN = BLOCKS.register("mahogany_wall_sign",
-            () -> new ModWallSignBlock(ModWoodTypes.MAHOGANY, signProperties(MapColor.TERRACOTTA_BROWN).lootFrom(MAHOGANY_SIGN))
+            () -> new ModWallSignBlock(ModWoodTypes.MAHOGANY, fireproofSignProperties(MapColor.TERRACOTTA_BROWN).lootFrom(MAHOGANY_SIGN))
     );
     public static final RegistryObject<ModHangingSignBlock> MAHOGANY_HANGING_SIGN = BLOCKS.register("mahogany_hanging_sign",
-            () -> new ModHangingSignBlock(ModWoodTypes.MAHOGANY, signProperties(MapColor.TERRACOTTA_BROWN))
+            () -> new ModHangingSignBlock(ModWoodTypes.MAHOGANY, fireproofSignProperties(MapColor.TERRACOTTA_BROWN))
     );
     public static final RegistryObject<ModWallHangingSignBlock> MAHOGANY_WALL_HANGING_SIGN = BLOCKS.register("mahogany_wall_hanging_sign",
-            () -> new ModWallHangingSignBlock(ModWoodTypes.MAHOGANY, signProperties(MapColor.TERRACOTTA_BROWN).lootFrom(MAHOGANY_HANGING_SIGN))
+            () -> new ModWallHangingSignBlock(ModWoodTypes.MAHOGANY, fireproofSignProperties(MapColor.TERRACOTTA_BROWN).lootFrom(MAHOGANY_HANGING_SIGN))
     );
 
     // ------------------------------------------------------------------ coconut palm family
@@ -654,6 +655,585 @@ public class ModBlocks {
     );
     public static final RegistryObject<FlowerPotBlock> POTTED_JOSHUA_SAPLING = BLOCKS.register("potted_joshua_sapling",
             () -> new FlowerPotBlock(() -> (FlowerPotBlock) Blocks.FLOWER_POT, JOSHUA_SAPLING, BlockBehaviour.Properties.ofFullCopy(Blocks.POTTED_OAK_SAPLING))
+    );
+
+    // ------------------------------------------------------------------ eucalyptus wood family (Australian desert, BSh)
+    // the rainbow eucalyptus: bark peeling in streaks of green, orange, red, purple and blue; the wood just as gaudy
+    public static final RegistryObject<RotatedPillarBlock> EUCALYPTUS_LOG = registerBlock("eucalyptus_log",
+            () -> new RotatedPillarBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.ACACIA_LOG).mapColor(MapColor.COLOR_PURPLE))
+    );
+    public static final RegistryObject<RotatedPillarBlock> EUCALYPTUS_WOOD = registerBlock("eucalyptus_wood",
+            () -> new RotatedPillarBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.ACACIA_WOOD).mapColor(MapColor.COLOR_PURPLE))
+    );
+    public static final RegistryObject<RotatedPillarBlock> STRIPPED_EUCALYPTUS_LOG = registerBlock("stripped_eucalyptus_log",
+            () -> new RotatedPillarBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.STRIPPED_ACACIA_LOG).mapColor(MapColor.COLOR_LIGHT_GREEN))
+    );
+    public static final RegistryObject<RotatedPillarBlock> STRIPPED_EUCALYPTUS_WOOD = registerBlock("stripped_eucalyptus_wood",
+            () -> new RotatedPillarBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.STRIPPED_ACACIA_WOOD).mapColor(MapColor.COLOR_LIGHT_GREEN))
+    );
+    public static final RegistryObject<Block> EUCALYPTUS_PLANKS = registerBlock("eucalyptus_planks",
+            () -> new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.ACACIA_PLANKS).mapColor(MapColor.COLOR_MAGENTA))
+    );
+    public static final RegistryObject<StairBlock> EUCALYPTUS_STAIRS = registerBlock("eucalyptus_stairs",
+            () -> new StairBlock(EUCALYPTUS_PLANKS.get().defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(EUCALYPTUS_PLANKS.get()))
+    );
+    public static final RegistryObject<SlabBlock> EUCALYPTUS_SLAB = registerBlock("eucalyptus_slab",
+            () -> new SlabBlock(BlockBehaviour.Properties.ofFullCopy(EUCALYPTUS_PLANKS.get()))
+    );
+    public static final RegistryObject<FenceBlock> EUCALYPTUS_FENCE = registerBlock("eucalyptus_fence",
+            () -> new FenceBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.ACACIA_FENCE).mapColor(MapColor.COLOR_MAGENTA))
+    );
+    public static final RegistryObject<FenceGateBlock> EUCALYPTUS_FENCE_GATE = registerBlock("eucalyptus_fence_gate",
+            () -> new FenceGateBlock(ModWoodTypes.EUCALYPTUS, BlockBehaviour.Properties.ofFullCopy(Blocks.ACACIA_FENCE_GATE).mapColor(MapColor.COLOR_MAGENTA))
+    );
+    // item: ModItems.EUCALYPTUS_DOOR
+    public static final RegistryObject<DoorBlock> EUCALYPTUS_DOOR = BLOCKS.register("eucalyptus_door",
+            () -> new DoorBlock(ModWoodTypes.EUCALYPTUS.setType(), BlockBehaviour.Properties.ofFullCopy(Blocks.ACACIA_DOOR))
+    );
+    public static final RegistryObject<TrapDoorBlock> EUCALYPTUS_TRAPDOOR = registerBlock("eucalyptus_trapdoor",
+            () -> new TrapDoorBlock(ModWoodTypes.EUCALYPTUS.setType(), BlockBehaviour.Properties.ofFullCopy(Blocks.ACACIA_TRAPDOOR))
+    );
+    public static final RegistryObject<PressurePlateBlock> EUCALYPTUS_PRESSURE_PLATE = registerBlock("eucalyptus_pressure_plate",
+            () -> new PressurePlateBlock(ModWoodTypes.EUCALYPTUS.setType(), BlockBehaviour.Properties.ofFullCopy(Blocks.ACACIA_PRESSURE_PLATE))
+    );
+    public static final RegistryObject<ButtonBlock> EUCALYPTUS_BUTTON = registerBlock("eucalyptus_button",
+            () -> new ButtonBlock(ModWoodTypes.EUCALYPTUS.setType(), 30, BlockBehaviour.Properties.ofFullCopy(Blocks.ACACIA_BUTTON))
+    );
+    public static final RegistryObject<ModStandingSignBlock> EUCALYPTUS_SIGN = BLOCKS.register("eucalyptus_sign",
+            () -> new ModStandingSignBlock(ModWoodTypes.EUCALYPTUS, signProperties(MapColor.COLOR_MAGENTA))
+    );
+    public static final RegistryObject<ModWallSignBlock> EUCALYPTUS_WALL_SIGN = BLOCKS.register("eucalyptus_wall_sign",
+            () -> new ModWallSignBlock(ModWoodTypes.EUCALYPTUS, signProperties(MapColor.COLOR_MAGENTA).lootFrom(EUCALYPTUS_SIGN))
+    );
+    public static final RegistryObject<ModHangingSignBlock> EUCALYPTUS_HANGING_SIGN = BLOCKS.register("eucalyptus_hanging_sign",
+            () -> new ModHangingSignBlock(ModWoodTypes.EUCALYPTUS, signProperties(MapColor.COLOR_MAGENTA))
+    );
+    public static final RegistryObject<ModWallHangingSignBlock> EUCALYPTUS_WALL_HANGING_SIGN = BLOCKS.register("eucalyptus_wall_hanging_sign",
+            () -> new ModWallHangingSignBlock(ModWoodTypes.EUCALYPTUS, signProperties(MapColor.COLOR_MAGENTA).lootFrom(EUCALYPTUS_HANGING_SIGN))
+    );
+    // silvery blue-green leaves, the youngest ones red
+    public static final RegistryObject<LeavesBlock> EUCALYPTUS_LEAVES = registerBlock("eucalyptus_leaves",
+            () -> new LeavesBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.ACACIA_LEAVES).mapColor(MapColor.WARPED_STEM))
+    );
+    // takes root in sand as well as dirt
+    public static final RegistryObject<net.krisplis.koppenclimate.block.custom.PalmSaplingBlock> EUCALYPTUS_SAPLING = registerBlock("eucalyptus_sapling",
+            () -> new net.krisplis.koppenclimate.block.custom.PalmSaplingBlock(net.krisplis.koppenclimate.worldgen.tree.ModTreeGrowers.EUCALYPTUS,
+                    BlockBehaviour.Properties.ofFullCopy(Blocks.ACACIA_SAPLING))
+    );
+    public static final RegistryObject<FlowerPotBlock> POTTED_EUCALYPTUS_SAPLING = BLOCKS.register("potted_eucalyptus_sapling",
+            () -> new FlowerPotBlock(() -> (FlowerPotBlock) Blocks.FLOWER_POT, EUCALYPTUS_SAPLING, BlockBehaviour.Properties.ofFullCopy(Blocks.POTTED_ACACIA_SAPLING))
+    );
+
+    // ------------------------------------------------------------------ redwood wood family (Redwood forest, Csb)
+    // the coast redwood: thick, fibrous red-brown bark; deep reddish wood
+    public static final RegistryObject<RotatedPillarBlock> REDWOOD_LOG = registerBlock("redwood_log",
+            () -> new RotatedPillarBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.SPRUCE_LOG).mapColor(MapColor.TERRACOTTA_RED))
+    );
+    public static final RegistryObject<RotatedPillarBlock> REDWOOD_WOOD = registerBlock("redwood_wood",
+            () -> new RotatedPillarBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.SPRUCE_WOOD).mapColor(MapColor.TERRACOTTA_RED))
+    );
+    public static final RegistryObject<RotatedPillarBlock> STRIPPED_REDWOOD_LOG = registerBlock("stripped_redwood_log",
+            () -> new RotatedPillarBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.STRIPPED_SPRUCE_LOG).mapColor(MapColor.COLOR_ORANGE))
+    );
+    public static final RegistryObject<RotatedPillarBlock> STRIPPED_REDWOOD_WOOD = registerBlock("stripped_redwood_wood",
+            () -> new RotatedPillarBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.STRIPPED_SPRUCE_WOOD).mapColor(MapColor.COLOR_ORANGE))
+    );
+    public static final RegistryObject<Block> REDWOOD_PLANKS = registerBlock("redwood_planks",
+            () -> new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.SPRUCE_PLANKS).mapColor(MapColor.TERRACOTTA_ORANGE))
+    );
+    public static final RegistryObject<StairBlock> REDWOOD_STAIRS = registerBlock("redwood_stairs",
+            () -> new StairBlock(REDWOOD_PLANKS.get().defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(REDWOOD_PLANKS.get()))
+    );
+    public static final RegistryObject<SlabBlock> REDWOOD_SLAB = registerBlock("redwood_slab",
+            () -> new SlabBlock(BlockBehaviour.Properties.ofFullCopy(REDWOOD_PLANKS.get()))
+    );
+    public static final RegistryObject<FenceBlock> REDWOOD_FENCE = registerBlock("redwood_fence",
+            () -> new FenceBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.SPRUCE_FENCE).mapColor(MapColor.TERRACOTTA_ORANGE))
+    );
+    public static final RegistryObject<FenceGateBlock> REDWOOD_FENCE_GATE = registerBlock("redwood_fence_gate",
+            () -> new FenceGateBlock(ModWoodTypes.REDWOOD, BlockBehaviour.Properties.ofFullCopy(Blocks.SPRUCE_FENCE_GATE).mapColor(MapColor.TERRACOTTA_ORANGE))
+    );
+    // item: ModItems.REDWOOD_DOOR
+    public static final RegistryObject<DoorBlock> REDWOOD_DOOR = BLOCKS.register("redwood_door",
+            () -> new DoorBlock(ModWoodTypes.REDWOOD.setType(), BlockBehaviour.Properties.ofFullCopy(Blocks.SPRUCE_DOOR))
+    );
+    public static final RegistryObject<TrapDoorBlock> REDWOOD_TRAPDOOR = registerBlock("redwood_trapdoor",
+            () -> new TrapDoorBlock(ModWoodTypes.REDWOOD.setType(), BlockBehaviour.Properties.ofFullCopy(Blocks.SPRUCE_TRAPDOOR))
+    );
+    public static final RegistryObject<PressurePlateBlock> REDWOOD_PRESSURE_PLATE = registerBlock("redwood_pressure_plate",
+            () -> new PressurePlateBlock(ModWoodTypes.REDWOOD.setType(), BlockBehaviour.Properties.ofFullCopy(Blocks.SPRUCE_PRESSURE_PLATE))
+    );
+    public static final RegistryObject<ButtonBlock> REDWOOD_BUTTON = registerBlock("redwood_button",
+            () -> new ButtonBlock(ModWoodTypes.REDWOOD.setType(), 30, BlockBehaviour.Properties.ofFullCopy(Blocks.SPRUCE_BUTTON))
+    );
+    public static final RegistryObject<ModStandingSignBlock> REDWOOD_SIGN = BLOCKS.register("redwood_sign",
+            () -> new ModStandingSignBlock(ModWoodTypes.REDWOOD, signProperties(MapColor.TERRACOTTA_ORANGE))
+    );
+    public static final RegistryObject<ModWallSignBlock> REDWOOD_WALL_SIGN = BLOCKS.register("redwood_wall_sign",
+            () -> new ModWallSignBlock(ModWoodTypes.REDWOOD, signProperties(MapColor.TERRACOTTA_ORANGE).lootFrom(REDWOOD_SIGN))
+    );
+    public static final RegistryObject<ModHangingSignBlock> REDWOOD_HANGING_SIGN = BLOCKS.register("redwood_hanging_sign",
+            () -> new ModHangingSignBlock(ModWoodTypes.REDWOOD, signProperties(MapColor.TERRACOTTA_ORANGE))
+    );
+    public static final RegistryObject<ModWallHangingSignBlock> REDWOOD_WALL_HANGING_SIGN = BLOCKS.register("redwood_wall_hanging_sign",
+            () -> new ModWallHangingSignBlock(ModWoodTypes.REDWOOD, signProperties(MapColor.TERRACOTTA_ORANGE).lootFrom(REDWOOD_HANGING_SIGN))
+    );
+    public static final RegistryObject<LeavesBlock> REDWOOD_LEAVES = registerBlock("redwood_leaves",
+            () -> new LeavesBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.SPRUCE_LEAVES).mapColor(MapColor.COLOR_GREEN))
+    );
+    // a redwood only grows from nine saplings planted in a 3x3 square on podzol (RedwoodSaplingBlock)
+    public static final RegistryObject<net.krisplis.koppenclimate.block.custom.RedwoodSaplingBlock> REDWOOD_SAPLING = registerBlock("redwood_sapling",
+            () -> new net.krisplis.koppenclimate.block.custom.RedwoodSaplingBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.SPRUCE_SAPLING))
+    );
+    public static final RegistryObject<FlowerPotBlock> POTTED_REDWOOD_SAPLING = BLOCKS.register("potted_redwood_sapling",
+            () -> new FlowerPotBlock(() -> (FlowerPotBlock) Blocks.FLOWER_POT, REDWOOD_SAPLING, BlockBehaviour.Properties.ofFullCopy(Blocks.POTTED_SPRUCE_SAPLING))
+    );
+
+    // ------------------------------------------------------------------ platanus wood family (Subtropical plains, Cfa)
+    // the plane tree: bark flaking in patches of cream, olive and grey; pale, finely figured wood
+    public static final RegistryObject<RotatedPillarBlock> PLATANUS_LOG = registerBlock("platanus_log",
+            () -> new RotatedPillarBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_LOG).mapColor(MapColor.TERRACOTTA_WHITE))
+    );
+    public static final RegistryObject<RotatedPillarBlock> PLATANUS_WOOD = registerBlock("platanus_wood",
+            () -> new RotatedPillarBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_WOOD).mapColor(MapColor.TERRACOTTA_WHITE))
+    );
+    public static final RegistryObject<RotatedPillarBlock> STRIPPED_PLATANUS_LOG = registerBlock("stripped_platanus_log",
+            () -> new RotatedPillarBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.STRIPPED_OAK_LOG).mapColor(MapColor.SAND))
+    );
+    public static final RegistryObject<RotatedPillarBlock> STRIPPED_PLATANUS_WOOD = registerBlock("stripped_platanus_wood",
+            () -> new RotatedPillarBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.STRIPPED_OAK_WOOD).mapColor(MapColor.SAND))
+    );
+    public static final RegistryObject<Block> PLATANUS_PLANKS = registerBlock("platanus_planks",
+            () -> new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_PLANKS).mapColor(MapColor.COLOR_YELLOW))
+    );
+    public static final RegistryObject<StairBlock> PLATANUS_STAIRS = registerBlock("platanus_stairs",
+            () -> new StairBlock(PLATANUS_PLANKS.get().defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(PLATANUS_PLANKS.get()))
+    );
+    public static final RegistryObject<SlabBlock> PLATANUS_SLAB = registerBlock("platanus_slab",
+            () -> new SlabBlock(BlockBehaviour.Properties.ofFullCopy(PLATANUS_PLANKS.get()))
+    );
+    public static final RegistryObject<FenceBlock> PLATANUS_FENCE = registerBlock("platanus_fence",
+            () -> new FenceBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_FENCE).mapColor(MapColor.COLOR_YELLOW))
+    );
+    public static final RegistryObject<FenceGateBlock> PLATANUS_FENCE_GATE = registerBlock("platanus_fence_gate",
+            () -> new FenceGateBlock(ModWoodTypes.PLATANUS, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_FENCE_GATE).mapColor(MapColor.COLOR_YELLOW))
+    );
+    // item: ModItems.PLATANUS_DOOR
+    public static final RegistryObject<DoorBlock> PLATANUS_DOOR = BLOCKS.register("platanus_door",
+            () -> new DoorBlock(ModWoodTypes.PLATANUS.setType(), BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_DOOR))
+    );
+    public static final RegistryObject<TrapDoorBlock> PLATANUS_TRAPDOOR = registerBlock("platanus_trapdoor",
+            () -> new TrapDoorBlock(ModWoodTypes.PLATANUS.setType(), BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_TRAPDOOR))
+    );
+    public static final RegistryObject<PressurePlateBlock> PLATANUS_PRESSURE_PLATE = registerBlock("platanus_pressure_plate",
+            () -> new PressurePlateBlock(ModWoodTypes.PLATANUS.setType(), BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_PRESSURE_PLATE))
+    );
+    public static final RegistryObject<ButtonBlock> PLATANUS_BUTTON = registerBlock("platanus_button",
+            () -> new ButtonBlock(ModWoodTypes.PLATANUS.setType(), 30, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_BUTTON))
+    );
+    public static final RegistryObject<ModStandingSignBlock> PLATANUS_SIGN = BLOCKS.register("platanus_sign",
+            () -> new ModStandingSignBlock(ModWoodTypes.PLATANUS, signProperties(MapColor.COLOR_YELLOW))
+    );
+    public static final RegistryObject<ModWallSignBlock> PLATANUS_WALL_SIGN = BLOCKS.register("platanus_wall_sign",
+            () -> new ModWallSignBlock(ModWoodTypes.PLATANUS, signProperties(MapColor.COLOR_YELLOW).lootFrom(PLATANUS_SIGN))
+    );
+    public static final RegistryObject<ModHangingSignBlock> PLATANUS_HANGING_SIGN = BLOCKS.register("platanus_hanging_sign",
+            () -> new ModHangingSignBlock(ModWoodTypes.PLATANUS, signProperties(MapColor.COLOR_YELLOW))
+    );
+    public static final RegistryObject<ModWallHangingSignBlock> PLATANUS_WALL_HANGING_SIGN = BLOCKS.register("platanus_wall_hanging_sign",
+            () -> new ModWallHangingSignBlock(ModWoodTypes.PLATANUS, signProperties(MapColor.COLOR_YELLOW).lootFrom(PLATANUS_HANGING_SIGN))
+    );
+    public static final RegistryObject<LeavesBlock> PLATANUS_LEAVES = registerBlock("platanus_leaves",
+            () -> new LeavesBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_LEAVES).mapColor(MapColor.PLANT))
+    );
+    public static final RegistryObject<SaplingBlock> PLATANUS_SAPLING = registerBlock("platanus_sapling",
+            () -> new SaplingBlock(net.krisplis.koppenclimate.worldgen.tree.ModTreeGrowers.PLATANUS, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_SAPLING))
+    );
+    public static final RegistryObject<FlowerPotBlock> POTTED_PLATANUS_SAPLING = BLOCKS.register("potted_platanus_sapling",
+            () -> new FlowerPotBlock(() -> (FlowerPotBlock) Blocks.FLOWER_POT, PLATANUS_SAPLING, BlockBehaviour.Properties.ofFullCopy(Blocks.POTTED_OAK_SAPLING))
+    );
+
+    // ------------------------------------------------------------------ apple wood family
+    public static final RegistryObject<RotatedPillarBlock> APPLE_LOG = registerBlock("apple_log",
+            () -> new RotatedPillarBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_LOG).mapColor(MapColor.COLOR_GRAY))
+    );
+    public static final RegistryObject<RotatedPillarBlock> APPLE_WOOD = registerBlock("apple_wood",
+            () -> new RotatedPillarBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_WOOD).mapColor(MapColor.COLOR_GRAY))
+    );
+    public static final RegistryObject<RotatedPillarBlock> STRIPPED_APPLE_LOG = registerBlock("stripped_apple_log",
+            () -> new RotatedPillarBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.STRIPPED_OAK_LOG).mapColor(MapColor.TERRACOTTA_WHITE))
+    );
+    public static final RegistryObject<RotatedPillarBlock> STRIPPED_APPLE_WOOD = registerBlock("stripped_apple_wood",
+            () -> new RotatedPillarBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.STRIPPED_OAK_WOOD).mapColor(MapColor.TERRACOTTA_WHITE))
+    );
+    public static final RegistryObject<Block> APPLE_PLANKS = registerBlock("apple_planks",
+            () -> new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_PLANKS).mapColor(MapColor.TERRACOTTA_PINK))
+    );
+    public static final RegistryObject<StairBlock> APPLE_STAIRS = registerBlock("apple_stairs",
+            () -> new StairBlock(APPLE_PLANKS.get().defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(APPLE_PLANKS.get()))
+    );
+    public static final RegistryObject<SlabBlock> APPLE_SLAB = registerBlock("apple_slab",
+            () -> new SlabBlock(BlockBehaviour.Properties.ofFullCopy(APPLE_PLANKS.get()))
+    );
+    public static final RegistryObject<FenceBlock> APPLE_FENCE = registerBlock("apple_fence",
+            () -> new FenceBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_FENCE).mapColor(MapColor.TERRACOTTA_PINK))
+    );
+    public static final RegistryObject<FenceGateBlock> APPLE_FENCE_GATE = registerBlock("apple_fence_gate",
+            () -> new FenceGateBlock(ModWoodTypes.APPLE, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_FENCE_GATE).mapColor(MapColor.TERRACOTTA_PINK))
+    );
+    // item: ModItems.APPLE_DOOR
+    public static final RegistryObject<DoorBlock> APPLE_DOOR = BLOCKS.register("apple_door",
+            () -> new DoorBlock(ModWoodTypes.APPLE.setType(), BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_DOOR))
+    );
+    public static final RegistryObject<TrapDoorBlock> APPLE_TRAPDOOR = registerBlock("apple_trapdoor",
+            () -> new TrapDoorBlock(ModWoodTypes.APPLE.setType(), BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_TRAPDOOR))
+    );
+    public static final RegistryObject<PressurePlateBlock> APPLE_PRESSURE_PLATE = registerBlock("apple_pressure_plate",
+            () -> new PressurePlateBlock(ModWoodTypes.APPLE.setType(), BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_PRESSURE_PLATE))
+    );
+    public static final RegistryObject<ButtonBlock> APPLE_BUTTON = registerBlock("apple_button",
+            () -> new ButtonBlock(ModWoodTypes.APPLE.setType(), 30, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_BUTTON))
+    );
+    public static final RegistryObject<ModStandingSignBlock> APPLE_SIGN = BLOCKS.register("apple_sign",
+            () -> new ModStandingSignBlock(ModWoodTypes.APPLE, signProperties(MapColor.TERRACOTTA_PINK))
+    );
+    public static final RegistryObject<ModWallSignBlock> APPLE_WALL_SIGN = BLOCKS.register("apple_wall_sign",
+            () -> new ModWallSignBlock(ModWoodTypes.APPLE, signProperties(MapColor.TERRACOTTA_PINK).lootFrom(APPLE_SIGN))
+    );
+    public static final RegistryObject<ModHangingSignBlock> APPLE_HANGING_SIGN = BLOCKS.register("apple_hanging_sign",
+            () -> new ModHangingSignBlock(ModWoodTypes.APPLE, signProperties(MapColor.TERRACOTTA_PINK))
+    );
+    public static final RegistryObject<ModWallHangingSignBlock> APPLE_WALL_HANGING_SIGN = BLOCKS.register("apple_wall_hanging_sign",
+            () -> new ModWallHangingSignBlock(ModWoodTypes.APPLE, signProperties(MapColor.TERRACOTTA_PINK).lootFrom(APPLE_HANGING_SIGN))
+    );
+
+    // ------------------------------------------------------------------ apricot wood family
+    public static final RegistryObject<RotatedPillarBlock> APRICOT_LOG = registerBlock("apricot_log",
+            () -> new RotatedPillarBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_LOG).mapColor(MapColor.TERRACOTTA_BROWN))
+    );
+    public static final RegistryObject<RotatedPillarBlock> APRICOT_WOOD = registerBlock("apricot_wood",
+            () -> new RotatedPillarBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_WOOD).mapColor(MapColor.TERRACOTTA_BROWN))
+    );
+    public static final RegistryObject<RotatedPillarBlock> STRIPPED_APRICOT_LOG = registerBlock("stripped_apricot_log",
+            () -> new RotatedPillarBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.STRIPPED_OAK_LOG).mapColor(MapColor.TERRACOTTA_ORANGE))
+    );
+    public static final RegistryObject<RotatedPillarBlock> STRIPPED_APRICOT_WOOD = registerBlock("stripped_apricot_wood",
+            () -> new RotatedPillarBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.STRIPPED_OAK_WOOD).mapColor(MapColor.TERRACOTTA_ORANGE))
+    );
+    public static final RegistryObject<Block> APRICOT_PLANKS = registerBlock("apricot_planks",
+            () -> new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_PLANKS).mapColor(MapColor.TERRACOTTA_ORANGE))
+    );
+    public static final RegistryObject<StairBlock> APRICOT_STAIRS = registerBlock("apricot_stairs",
+            () -> new StairBlock(APRICOT_PLANKS.get().defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(APRICOT_PLANKS.get()))
+    );
+    public static final RegistryObject<SlabBlock> APRICOT_SLAB = registerBlock("apricot_slab",
+            () -> new SlabBlock(BlockBehaviour.Properties.ofFullCopy(APRICOT_PLANKS.get()))
+    );
+    public static final RegistryObject<FenceBlock> APRICOT_FENCE = registerBlock("apricot_fence",
+            () -> new FenceBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_FENCE).mapColor(MapColor.TERRACOTTA_ORANGE))
+    );
+    public static final RegistryObject<FenceGateBlock> APRICOT_FENCE_GATE = registerBlock("apricot_fence_gate",
+            () -> new FenceGateBlock(ModWoodTypes.APRICOT, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_FENCE_GATE).mapColor(MapColor.TERRACOTTA_ORANGE))
+    );
+    // item: ModItems.APRICOT_DOOR
+    public static final RegistryObject<DoorBlock> APRICOT_DOOR = BLOCKS.register("apricot_door",
+            () -> new DoorBlock(ModWoodTypes.APRICOT.setType(), BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_DOOR))
+    );
+    public static final RegistryObject<TrapDoorBlock> APRICOT_TRAPDOOR = registerBlock("apricot_trapdoor",
+            () -> new TrapDoorBlock(ModWoodTypes.APRICOT.setType(), BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_TRAPDOOR))
+    );
+    public static final RegistryObject<PressurePlateBlock> APRICOT_PRESSURE_PLATE = registerBlock("apricot_pressure_plate",
+            () -> new PressurePlateBlock(ModWoodTypes.APRICOT.setType(), BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_PRESSURE_PLATE))
+    );
+    public static final RegistryObject<ButtonBlock> APRICOT_BUTTON = registerBlock("apricot_button",
+            () -> new ButtonBlock(ModWoodTypes.APRICOT.setType(), 30, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_BUTTON))
+    );
+    public static final RegistryObject<ModStandingSignBlock> APRICOT_SIGN = BLOCKS.register("apricot_sign",
+            () -> new ModStandingSignBlock(ModWoodTypes.APRICOT, signProperties(MapColor.TERRACOTTA_ORANGE))
+    );
+    public static final RegistryObject<ModWallSignBlock> APRICOT_WALL_SIGN = BLOCKS.register("apricot_wall_sign",
+            () -> new ModWallSignBlock(ModWoodTypes.APRICOT, signProperties(MapColor.TERRACOTTA_ORANGE).lootFrom(APRICOT_SIGN))
+    );
+    public static final RegistryObject<ModHangingSignBlock> APRICOT_HANGING_SIGN = BLOCKS.register("apricot_hanging_sign",
+            () -> new ModHangingSignBlock(ModWoodTypes.APRICOT, signProperties(MapColor.TERRACOTTA_ORANGE))
+    );
+    public static final RegistryObject<ModWallHangingSignBlock> APRICOT_WALL_HANGING_SIGN = BLOCKS.register("apricot_wall_hanging_sign",
+            () -> new ModWallHangingSignBlock(ModWoodTypes.APRICOT, signProperties(MapColor.TERRACOTTA_ORANGE).lootFrom(APRICOT_HANGING_SIGN))
+    );
+
+    // ------------------------------------------------------------------ black poplar wood family
+    public static final RegistryObject<RotatedPillarBlock> BLACK_POPLAR_LOG = registerBlock("black_poplar_log",
+            () -> new RotatedPillarBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_LOG).mapColor(MapColor.COLOR_GRAY))
+    );
+    public static final RegistryObject<RotatedPillarBlock> BLACK_POPLAR_WOOD = registerBlock("black_poplar_wood",
+            () -> new RotatedPillarBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_WOOD).mapColor(MapColor.COLOR_GRAY))
+    );
+    public static final RegistryObject<RotatedPillarBlock> STRIPPED_BLACK_POPLAR_LOG = registerBlock("stripped_black_poplar_log",
+            () -> new RotatedPillarBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.STRIPPED_OAK_LOG).mapColor(MapColor.SAND))
+    );
+    public static final RegistryObject<RotatedPillarBlock> STRIPPED_BLACK_POPLAR_WOOD = registerBlock("stripped_black_poplar_wood",
+            () -> new RotatedPillarBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.STRIPPED_OAK_WOOD).mapColor(MapColor.SAND))
+    );
+    public static final RegistryObject<Block> BLACK_POPLAR_PLANKS = registerBlock("black_poplar_planks",
+            () -> new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_PLANKS).mapColor(MapColor.SAND))
+    );
+    public static final RegistryObject<StairBlock> BLACK_POPLAR_STAIRS = registerBlock("black_poplar_stairs",
+            () -> new StairBlock(BLACK_POPLAR_PLANKS.get().defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(BLACK_POPLAR_PLANKS.get()))
+    );
+    public static final RegistryObject<SlabBlock> BLACK_POPLAR_SLAB = registerBlock("black_poplar_slab",
+            () -> new SlabBlock(BlockBehaviour.Properties.ofFullCopy(BLACK_POPLAR_PLANKS.get()))
+    );
+    public static final RegistryObject<FenceBlock> BLACK_POPLAR_FENCE = registerBlock("black_poplar_fence",
+            () -> new FenceBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_FENCE).mapColor(MapColor.SAND))
+    );
+    public static final RegistryObject<FenceGateBlock> BLACK_POPLAR_FENCE_GATE = registerBlock("black_poplar_fence_gate",
+            () -> new FenceGateBlock(ModWoodTypes.BLACK_POPLAR, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_FENCE_GATE).mapColor(MapColor.SAND))
+    );
+    // item: ModItems.BLACK_POPLAR_DOOR
+    public static final RegistryObject<DoorBlock> BLACK_POPLAR_DOOR = BLOCKS.register("black_poplar_door",
+            () -> new DoorBlock(ModWoodTypes.BLACK_POPLAR.setType(), BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_DOOR))
+    );
+    public static final RegistryObject<TrapDoorBlock> BLACK_POPLAR_TRAPDOOR = registerBlock("black_poplar_trapdoor",
+            () -> new TrapDoorBlock(ModWoodTypes.BLACK_POPLAR.setType(), BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_TRAPDOOR))
+    );
+    public static final RegistryObject<PressurePlateBlock> BLACK_POPLAR_PRESSURE_PLATE = registerBlock("black_poplar_pressure_plate",
+            () -> new PressurePlateBlock(ModWoodTypes.BLACK_POPLAR.setType(), BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_PRESSURE_PLATE))
+    );
+    public static final RegistryObject<ButtonBlock> BLACK_POPLAR_BUTTON = registerBlock("black_poplar_button",
+            () -> new ButtonBlock(ModWoodTypes.BLACK_POPLAR.setType(), 30, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_BUTTON))
+    );
+    public static final RegistryObject<ModStandingSignBlock> BLACK_POPLAR_SIGN = BLOCKS.register("black_poplar_sign",
+            () -> new ModStandingSignBlock(ModWoodTypes.BLACK_POPLAR, signProperties(MapColor.SAND))
+    );
+    public static final RegistryObject<ModWallSignBlock> BLACK_POPLAR_WALL_SIGN = BLOCKS.register("black_poplar_wall_sign",
+            () -> new ModWallSignBlock(ModWoodTypes.BLACK_POPLAR, signProperties(MapColor.SAND).lootFrom(BLACK_POPLAR_SIGN))
+    );
+    public static final RegistryObject<ModHangingSignBlock> BLACK_POPLAR_HANGING_SIGN = BLOCKS.register("black_poplar_hanging_sign",
+            () -> new ModHangingSignBlock(ModWoodTypes.BLACK_POPLAR, signProperties(MapColor.SAND))
+    );
+    public static final RegistryObject<ModWallHangingSignBlock> BLACK_POPLAR_WALL_HANGING_SIGN = BLOCKS.register("black_poplar_wall_hanging_sign",
+            () -> new ModWallHangingSignBlock(ModWoodTypes.BLACK_POPLAR, signProperties(MapColor.SAND).lootFrom(BLACK_POPLAR_HANGING_SIGN))
+    );
+
+    // ------------------------------------------------------------------ cypress wood family
+    public static final RegistryObject<RotatedPillarBlock> CYPRESS_LOG = registerBlock("cypress_log",
+            () -> new RotatedPillarBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.SPRUCE_LOG).mapColor(MapColor.TERRACOTTA_BROWN))
+    );
+    public static final RegistryObject<RotatedPillarBlock> CYPRESS_WOOD = registerBlock("cypress_wood",
+            () -> new RotatedPillarBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.SPRUCE_WOOD).mapColor(MapColor.TERRACOTTA_BROWN))
+    );
+    public static final RegistryObject<RotatedPillarBlock> STRIPPED_CYPRESS_LOG = registerBlock("stripped_cypress_log",
+            () -> new RotatedPillarBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.STRIPPED_SPRUCE_LOG).mapColor(MapColor.TERRACOTTA_ORANGE))
+    );
+    public static final RegistryObject<RotatedPillarBlock> STRIPPED_CYPRESS_WOOD = registerBlock("stripped_cypress_wood",
+            () -> new RotatedPillarBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.STRIPPED_SPRUCE_WOOD).mapColor(MapColor.TERRACOTTA_ORANGE))
+    );
+    public static final RegistryObject<Block> CYPRESS_PLANKS = registerBlock("cypress_planks",
+            () -> new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.SPRUCE_PLANKS).mapColor(MapColor.TERRACOTTA_ORANGE))
+    );
+    public static final RegistryObject<StairBlock> CYPRESS_STAIRS = registerBlock("cypress_stairs",
+            () -> new StairBlock(CYPRESS_PLANKS.get().defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(CYPRESS_PLANKS.get()))
+    );
+    public static final RegistryObject<SlabBlock> CYPRESS_SLAB = registerBlock("cypress_slab",
+            () -> new SlabBlock(BlockBehaviour.Properties.ofFullCopy(CYPRESS_PLANKS.get()))
+    );
+    public static final RegistryObject<FenceBlock> CYPRESS_FENCE = registerBlock("cypress_fence",
+            () -> new FenceBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.SPRUCE_FENCE).mapColor(MapColor.TERRACOTTA_ORANGE))
+    );
+    public static final RegistryObject<FenceGateBlock> CYPRESS_FENCE_GATE = registerBlock("cypress_fence_gate",
+            () -> new FenceGateBlock(ModWoodTypes.CYPRESS, BlockBehaviour.Properties.ofFullCopy(Blocks.SPRUCE_FENCE_GATE).mapColor(MapColor.TERRACOTTA_ORANGE))
+    );
+    // item: ModItems.CYPRESS_DOOR
+    public static final RegistryObject<DoorBlock> CYPRESS_DOOR = BLOCKS.register("cypress_door",
+            () -> new DoorBlock(ModWoodTypes.CYPRESS.setType(), BlockBehaviour.Properties.ofFullCopy(Blocks.SPRUCE_DOOR))
+    );
+    public static final RegistryObject<TrapDoorBlock> CYPRESS_TRAPDOOR = registerBlock("cypress_trapdoor",
+            () -> new TrapDoorBlock(ModWoodTypes.CYPRESS.setType(), BlockBehaviour.Properties.ofFullCopy(Blocks.SPRUCE_TRAPDOOR))
+    );
+    public static final RegistryObject<PressurePlateBlock> CYPRESS_PRESSURE_PLATE = registerBlock("cypress_pressure_plate",
+            () -> new PressurePlateBlock(ModWoodTypes.CYPRESS.setType(), BlockBehaviour.Properties.ofFullCopy(Blocks.SPRUCE_PRESSURE_PLATE))
+    );
+    public static final RegistryObject<ButtonBlock> CYPRESS_BUTTON = registerBlock("cypress_button",
+            () -> new ButtonBlock(ModWoodTypes.CYPRESS.setType(), 30, BlockBehaviour.Properties.ofFullCopy(Blocks.SPRUCE_BUTTON))
+    );
+    public static final RegistryObject<ModStandingSignBlock> CYPRESS_SIGN = BLOCKS.register("cypress_sign",
+            () -> new ModStandingSignBlock(ModWoodTypes.CYPRESS, signProperties(MapColor.TERRACOTTA_ORANGE))
+    );
+    public static final RegistryObject<ModWallSignBlock> CYPRESS_WALL_SIGN = BLOCKS.register("cypress_wall_sign",
+            () -> new ModWallSignBlock(ModWoodTypes.CYPRESS, signProperties(MapColor.TERRACOTTA_ORANGE).lootFrom(CYPRESS_SIGN))
+    );
+    public static final RegistryObject<ModHangingSignBlock> CYPRESS_HANGING_SIGN = BLOCKS.register("cypress_hanging_sign",
+            () -> new ModHangingSignBlock(ModWoodTypes.CYPRESS, signProperties(MapColor.TERRACOTTA_ORANGE))
+    );
+    public static final RegistryObject<ModWallHangingSignBlock> CYPRESS_WALL_HANGING_SIGN = BLOCKS.register("cypress_wall_hanging_sign",
+            () -> new ModWallHangingSignBlock(ModWoodTypes.CYPRESS, signProperties(MapColor.TERRACOTTA_ORANGE).lootFrom(CYPRESS_HANGING_SIGN))
+    );
+
+    // ------------------------------------------------------------------ lemon wood family
+    public static final RegistryObject<RotatedPillarBlock> LEMON_LOG = registerBlock("lemon_log",
+            () -> new RotatedPillarBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_LOG).mapColor(MapColor.TERRACOTTA_LIGHT_GRAY))
+    );
+    public static final RegistryObject<RotatedPillarBlock> LEMON_WOOD = registerBlock("lemon_wood",
+            () -> new RotatedPillarBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_WOOD).mapColor(MapColor.TERRACOTTA_LIGHT_GRAY))
+    );
+    public static final RegistryObject<RotatedPillarBlock> STRIPPED_LEMON_LOG = registerBlock("stripped_lemon_log",
+            () -> new RotatedPillarBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.STRIPPED_OAK_LOG).mapColor(MapColor.SAND))
+    );
+    public static final RegistryObject<RotatedPillarBlock> STRIPPED_LEMON_WOOD = registerBlock("stripped_lemon_wood",
+            () -> new RotatedPillarBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.STRIPPED_OAK_WOOD).mapColor(MapColor.SAND))
+    );
+    public static final RegistryObject<Block> LEMON_PLANKS = registerBlock("lemon_planks",
+            () -> new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_PLANKS).mapColor(MapColor.COLOR_YELLOW))
+    );
+    public static final RegistryObject<StairBlock> LEMON_STAIRS = registerBlock("lemon_stairs",
+            () -> new StairBlock(LEMON_PLANKS.get().defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(LEMON_PLANKS.get()))
+    );
+    public static final RegistryObject<SlabBlock> LEMON_SLAB = registerBlock("lemon_slab",
+            () -> new SlabBlock(BlockBehaviour.Properties.ofFullCopy(LEMON_PLANKS.get()))
+    );
+    public static final RegistryObject<FenceBlock> LEMON_FENCE = registerBlock("lemon_fence",
+            () -> new FenceBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_FENCE).mapColor(MapColor.COLOR_YELLOW))
+    );
+    public static final RegistryObject<FenceGateBlock> LEMON_FENCE_GATE = registerBlock("lemon_fence_gate",
+            () -> new FenceGateBlock(ModWoodTypes.LEMON, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_FENCE_GATE).mapColor(MapColor.COLOR_YELLOW))
+    );
+    // item: ModItems.LEMON_DOOR
+    public static final RegistryObject<DoorBlock> LEMON_DOOR = BLOCKS.register("lemon_door",
+            () -> new DoorBlock(ModWoodTypes.LEMON.setType(), BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_DOOR))
+    );
+    public static final RegistryObject<TrapDoorBlock> LEMON_TRAPDOOR = registerBlock("lemon_trapdoor",
+            () -> new TrapDoorBlock(ModWoodTypes.LEMON.setType(), BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_TRAPDOOR))
+    );
+    public static final RegistryObject<PressurePlateBlock> LEMON_PRESSURE_PLATE = registerBlock("lemon_pressure_plate",
+            () -> new PressurePlateBlock(ModWoodTypes.LEMON.setType(), BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_PRESSURE_PLATE))
+    );
+    public static final RegistryObject<ButtonBlock> LEMON_BUTTON = registerBlock("lemon_button",
+            () -> new ButtonBlock(ModWoodTypes.LEMON.setType(), 30, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_BUTTON))
+    );
+    public static final RegistryObject<ModStandingSignBlock> LEMON_SIGN = BLOCKS.register("lemon_sign",
+            () -> new ModStandingSignBlock(ModWoodTypes.LEMON, signProperties(MapColor.COLOR_YELLOW))
+    );
+    public static final RegistryObject<ModWallSignBlock> LEMON_WALL_SIGN = BLOCKS.register("lemon_wall_sign",
+            () -> new ModWallSignBlock(ModWoodTypes.LEMON, signProperties(MapColor.COLOR_YELLOW).lootFrom(LEMON_SIGN))
+    );
+    public static final RegistryObject<ModHangingSignBlock> LEMON_HANGING_SIGN = BLOCKS.register("lemon_hanging_sign",
+            () -> new ModHangingSignBlock(ModWoodTypes.LEMON, signProperties(MapColor.COLOR_YELLOW))
+    );
+    public static final RegistryObject<ModWallHangingSignBlock> LEMON_WALL_HANGING_SIGN = BLOCKS.register("lemon_wall_hanging_sign",
+            () -> new ModWallHangingSignBlock(ModWoodTypes.LEMON, signProperties(MapColor.COLOR_YELLOW).lootFrom(LEMON_HANGING_SIGN))
+    );
+
+    // ------------------------------------------------------------------ cedar wood family (Subtropical plains, Cfa)
+    // the cedar of Lebanon: grey, furrowed bark; fragrant pinkish-brown wood (smelted, it dries: ModItems.DRIED_CEDAR)
+    public static final RegistryObject<RotatedPillarBlock> CEDAR_LOG = registerBlock("cedar_log",
+            () -> new RotatedPillarBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.SPRUCE_LOG).mapColor(MapColor.TERRACOTTA_GRAY))
+    );
+    public static final RegistryObject<RotatedPillarBlock> CEDAR_WOOD = registerBlock("cedar_wood",
+            () -> new RotatedPillarBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.SPRUCE_WOOD).mapColor(MapColor.TERRACOTTA_GRAY))
+    );
+    public static final RegistryObject<RotatedPillarBlock> STRIPPED_CEDAR_LOG = registerBlock("stripped_cedar_log",
+            () -> new RotatedPillarBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.STRIPPED_SPRUCE_LOG).mapColor(MapColor.TERRACOTTA_PINK))
+    );
+    public static final RegistryObject<RotatedPillarBlock> STRIPPED_CEDAR_WOOD = registerBlock("stripped_cedar_wood",
+            () -> new RotatedPillarBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.STRIPPED_SPRUCE_WOOD).mapColor(MapColor.TERRACOTTA_PINK))
+    );
+    public static final RegistryObject<Block> CEDAR_PLANKS = registerBlock("cedar_planks",
+            () -> new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.SPRUCE_PLANKS).mapColor(MapColor.TERRACOTTA_ORANGE))
+    );
+    public static final RegistryObject<StairBlock> CEDAR_STAIRS = registerBlock("cedar_stairs",
+            () -> new StairBlock(CEDAR_PLANKS.get().defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(CEDAR_PLANKS.get()))
+    );
+    public static final RegistryObject<SlabBlock> CEDAR_SLAB = registerBlock("cedar_slab",
+            () -> new SlabBlock(BlockBehaviour.Properties.ofFullCopy(CEDAR_PLANKS.get()))
+    );
+    public static final RegistryObject<FenceBlock> CEDAR_FENCE = registerBlock("cedar_fence",
+            () -> new FenceBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.SPRUCE_FENCE).mapColor(MapColor.TERRACOTTA_ORANGE))
+    );
+    public static final RegistryObject<FenceGateBlock> CEDAR_FENCE_GATE = registerBlock("cedar_fence_gate",
+            () -> new FenceGateBlock(ModWoodTypes.CEDAR, BlockBehaviour.Properties.ofFullCopy(Blocks.SPRUCE_FENCE_GATE).mapColor(MapColor.TERRACOTTA_ORANGE))
+    );
+    // item: ModItems.CEDAR_DOOR
+    public static final RegistryObject<DoorBlock> CEDAR_DOOR = BLOCKS.register("cedar_door",
+            () -> new DoorBlock(ModWoodTypes.CEDAR.setType(), BlockBehaviour.Properties.ofFullCopy(Blocks.SPRUCE_DOOR))
+    );
+    public static final RegistryObject<TrapDoorBlock> CEDAR_TRAPDOOR = registerBlock("cedar_trapdoor",
+            () -> new TrapDoorBlock(ModWoodTypes.CEDAR.setType(), BlockBehaviour.Properties.ofFullCopy(Blocks.SPRUCE_TRAPDOOR))
+    );
+    public static final RegistryObject<PressurePlateBlock> CEDAR_PRESSURE_PLATE = registerBlock("cedar_pressure_plate",
+            () -> new PressurePlateBlock(ModWoodTypes.CEDAR.setType(), BlockBehaviour.Properties.ofFullCopy(Blocks.SPRUCE_PRESSURE_PLATE))
+    );
+    public static final RegistryObject<ButtonBlock> CEDAR_BUTTON = registerBlock("cedar_button",
+            () -> new ButtonBlock(ModWoodTypes.CEDAR.setType(), 30, BlockBehaviour.Properties.ofFullCopy(Blocks.SPRUCE_BUTTON))
+    );
+    public static final RegistryObject<ModStandingSignBlock> CEDAR_SIGN = BLOCKS.register("cedar_sign",
+            () -> new ModStandingSignBlock(ModWoodTypes.CEDAR, signProperties(MapColor.TERRACOTTA_ORANGE))
+    );
+    public static final RegistryObject<ModWallSignBlock> CEDAR_WALL_SIGN = BLOCKS.register("cedar_wall_sign",
+            () -> new ModWallSignBlock(ModWoodTypes.CEDAR, signProperties(MapColor.TERRACOTTA_ORANGE).lootFrom(CEDAR_SIGN))
+    );
+    public static final RegistryObject<ModHangingSignBlock> CEDAR_HANGING_SIGN = BLOCKS.register("cedar_hanging_sign",
+            () -> new ModHangingSignBlock(ModWoodTypes.CEDAR, signProperties(MapColor.TERRACOTTA_ORANGE))
+    );
+    public static final RegistryObject<ModWallHangingSignBlock> CEDAR_WALL_HANGING_SIGN = BLOCKS.register("cedar_wall_hanging_sign",
+            () -> new ModWallHangingSignBlock(ModWoodTypes.CEDAR, signProperties(MapColor.TERRACOTTA_ORANGE).lootFrom(CEDAR_HANGING_SIGN))
+    );
+    public static final RegistryObject<LeavesBlock> CEDAR_LEAVES = registerBlock("cedar_leaves",
+            () -> new LeavesBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.SPRUCE_LEAVES).mapColor(MapColor.WARPED_STEM))
+    );
+    public static final RegistryObject<SaplingBlock> CEDAR_SAPLING = registerBlock("cedar_sapling",
+            () -> new SaplingBlock(net.krisplis.koppenclimate.worldgen.tree.ModTreeGrowers.CEDAR, BlockBehaviour.Properties.ofFullCopy(Blocks.SPRUCE_SAPLING))
+    );
+    public static final RegistryObject<FlowerPotBlock> POTTED_CEDAR_SAPLING = BLOCKS.register("potted_cedar_sapling",
+            () -> new FlowerPotBlock(() -> (FlowerPotBlock) Blocks.FLOWER_POT, CEDAR_SAPLING, BlockBehaviour.Properties.ofFullCopy(Blocks.POTTED_SPRUCE_SAPLING))
+    );
+
+    // ------------------------------------------------------------------ the Subtropical plains' (Cfa) orchard trees
+    // the apple tree: a small oak with apples in its leaves, picked like lemons
+    public static final RegistryObject<LeavesBlock> APPLE_LEAVES = registerBlock("apple_leaves",
+            () -> new net.krisplis.koppenclimate.block.custom.FruitLeavesBlock(() -> net.minecraft.world.item.Items.APPLE, 25, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_LEAVES).mapColor(MapColor.PLANT))
+    );
+    public static final RegistryObject<SaplingBlock> APPLE_SAPLING = registerBlock("apple_sapling",
+            () -> new SaplingBlock(net.krisplis.koppenclimate.worldgen.tree.ModTreeGrowers.APPLE, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_SAPLING))
+    );
+    public static final RegistryObject<FlowerPotBlock> POTTED_APPLE_SAPLING = BLOCKS.register("potted_apple_sapling",
+            () -> new FlowerPotBlock(() -> (FlowerPotBlock) Blocks.FLOWER_POT, APPLE_SAPLING, BlockBehaviour.Properties.ofFullCopy(Blocks.POTTED_OAK_SAPLING))
+    );
+    // the apricot tree: small and round, its apricots picked like lemons (ModItems.APRICOT)
+    public static final RegistryObject<LeavesBlock> APRICOT_LEAVES = registerBlock("apricot_leaves",
+            () -> new net.krisplis.koppenclimate.block.custom.FruitLeavesBlock(() -> net.krisplis.koppenclimate.item.ModItems.APRICOT.get(), 25, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_LEAVES).mapColor(MapColor.PLANT))
+    );
+    public static final RegistryObject<SaplingBlock> APRICOT_SAPLING = registerBlock("apricot_sapling",
+            () -> new SaplingBlock(net.krisplis.koppenclimate.worldgen.tree.ModTreeGrowers.APRICOT, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_SAPLING))
+    );
+    public static final RegistryObject<FlowerPotBlock> POTTED_APRICOT_SAPLING = BLOCKS.register("potted_apricot_sapling",
+            () -> new FlowerPotBlock(() -> (FlowerPotBlock) Blocks.FLOWER_POT, APRICOT_SAPLING, BlockBehaviour.Properties.ofFullCopy(Blocks.POTTED_OAK_SAPLING))
+    );
+    // the black poplar: a tall dark trunk under a vast, billowing crown of leaves
+    public static final RegistryObject<LeavesBlock> BLACK_POPLAR_LEAVES = registerBlock("black_poplar_leaves",
+            () -> new LeavesBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_LEAVES).mapColor(MapColor.PLANT))
+    );
+    public static final RegistryObject<SaplingBlock> BLACK_POPLAR_SAPLING = registerBlock("black_poplar_sapling",
+            () -> new SaplingBlock(net.krisplis.koppenclimate.worldgen.tree.ModTreeGrowers.BLACK_POPLAR, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_SAPLING))
+    );
+    public static final RegistryObject<FlowerPotBlock> POTTED_BLACK_POPLAR_SAPLING = BLOCKS.register("potted_black_poplar_sapling",
+            () -> new FlowerPotBlock(() -> (FlowerPotBlock) Blocks.FLOWER_POT, BLACK_POPLAR_SAPLING, BlockBehaviour.Properties.ofFullCopy(Blocks.POTTED_OAK_SAPLING))
+    );
+    // ------------------------------------------------------------------ the Subtropical plains' (Cfa) soil
+    // farmland soil: a deep, near-black brown earth; under its lively green grass on the plains
+    public static final RegistryObject<Block> FARMLAND_SOIL = registerBlock("farmland_soil",
+            () -> new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.DIRT).mapColor(MapColor.COLOR_BROWN))
+    );
+    public static final RegistryObject<Block> FARMLAND_SOIL_GRASS_BLOCK = registerBlock("farmland_soil_grass_block",
+            () -> new OxisolGrassBlock(BlockBehaviour.Properties.of().mapColor(MapColor.GRASS)
+                    .strength(0.6F).sound(SoundType.GRASS).randomTicks(), FARMLAND_SOIL)
+    );
+    // tilled with a hoe it becomes farmland on which everything grows twice as fast (SubtropicalFarming)
+    public static final RegistryObject<Block> TILLED_FARMLAND_SOIL = registerBlock("tilled_farmland_soil",
+            () -> new net.krisplis.koppenclimate.block.custom.TilledSoilBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.FARMLAND).mapColor(MapColor.COLOR_BROWN))
+    );
+    // wild barley, now and then among the plains' grass: it always drops barley seeds
+    public static final RegistryObject<Block> WILD_BARLEY = registerBlock("wild_barley",
+            () -> new net.krisplis.koppenclimate.block.custom.WildBarleyBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.SHORT_GRASS).mapColor(MapColor.COLOR_YELLOW))
     );
 
     // ------------------------------------------------------------------ dead oak wood family (Lush desert, BSh)
@@ -1052,6 +1632,12 @@ public class ModBlocks {
     private static BlockBehaviour.Properties signProperties(MapColor color) {
         return BlockBehaviour.Properties.of().mapColor(color).forceSolidOn().instrument(NoteBlockInstrument.BASS)
                 .noCollission().strength(1.0F).ignitedByLava();
+    }
+
+    // mahogany's signs: the same, but they never catch fire
+    private static BlockBehaviour.Properties fireproofSignProperties(MapColor color) {
+        return BlockBehaviour.Properties.of().mapColor(color).forceSolidOn().instrument(NoteBlockInstrument.BASS)
+                .noCollission().strength(1.0F);
     }
 
     private static <T extends Block> RegistryObject<T> registerBlock(String name, Supplier<T> block) {

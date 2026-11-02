@@ -35,6 +35,12 @@ import java.util.Map;
  *   <li>{@code fig}: a low, sprawling fig tree - a short trunk splitting into several limbs reaching out sideways
  *       under one broad, rounded, dark green crown;</li>
  *   <li>{@code lemon}: a small lemon tree - a short trunk and a dense round crown;</li>
+ *   <li>{@code apple}: the Subtropical plains' (Cfa) apple tree - vanilla's smallest oak exactly, but with apples in
+ *       its leaves;</li>
+ *   <li>{@code apricot}: a small, round-crowned apricot on a dark cherry-like trunk;</li>
+ *   <li>{@code black_poplar}: a tall dark trunk under a vast, billowing crown;</li>
+ *   <li>{@code platanus}: the plane tree - a stout trunk forking into thick limbs under a broad dome;</li>
+ *   <li>{@code cedar}: the cedar of Lebanon - long level branches in flat, layered tiers;</li>
  *   <li>{@code olive}: a small, gnarled olive tree - a short twisting trunk (sometimes two) splitting into
  *       crooked branches under lumpy clumps of two-tone leaves, some already carrying olives.</li>
  * </ul>
@@ -43,7 +49,8 @@ import java.util.Map;
 public class MediterraneanTreeFeature extends Feature<MediterraneanTreeFeature.Config> {
     public enum Kind implements StringRepresentable {
         ITALIAN_PINE_UMBRELLA("italian_pine_umbrella"), ITALIAN_PINE_WIDE("italian_pine_wide"), CYPRESS("cypress"), OLIVE("olive"),
-        FIG("fig"), LEMON("lemon");
+        FIG("fig"), LEMON("lemon"), APPLE("apple"), APRICOT("apricot"), BLACK_POPLAR("black_poplar"), PLATANUS("platanus"),
+        CEDAR("cedar");
 
         public static final Codec<Kind> CODEC = StringRepresentable.fromEnum(Kind::values);
         private final String name;
@@ -58,8 +65,12 @@ public class MediterraneanTreeFeature extends Feature<MediterraneanTreeFeature.C
         }
     }
 
-    public record Config(Kind kind) implements FeatureConfiguration {
-        public static final Codec<Config> CODEC = Kind.CODEC.fieldOf("kind").xmap(Config::new, Config::kind).codec();
+    /** Which tree, and whether it's hung with vines (as in the Subtropical swamp, Cfa). */
+    public record Config(Kind kind, boolean vines) implements FeatureConfiguration {
+        public static final Codec<Config> CODEC = com.mojang.serialization.codecs.RecordCodecBuilder.create(instance -> instance.group(
+                Kind.CODEC.fieldOf("kind").forGetter(Config::kind),
+                Codec.BOOL.optionalFieldOf("vines", false).forGetter(Config::vines)
+        ).apply(instance, Config::new));
     }
 
     public MediterraneanTreeFeature(Codec<Config> codec) {
@@ -148,6 +159,11 @@ public class MediterraneanTreeFeature extends Feature<MediterraneanTreeFeature.C
             case OLIVE -> olive(origin, random);
             case FIG -> fig(origin, random);
             case LEMON -> lemon(origin, random);
+            case APPLE -> apple(origin, random);
+            case APRICOT -> apricot(origin, random);
+            case BLACK_POPLAR -> blackPoplar(origin, random);
+            case PLATANUS -> platanus(origin, random);
+            case CEDAR -> cedar(origin, random);
         };
 
         // room to grow: the wood may only go where there's air, plants or leaves
@@ -193,6 +209,11 @@ public class MediterraneanTreeFeature extends Feature<MediterraneanTreeFeature.C
             case OLIVE -> ModBlocks.OLIVE_LEAVES.get().defaultBlockState();
             case FIG -> ModBlocks.FIG_LEAVES.get().defaultBlockState();
             case LEMON -> ModBlocks.LEMON_LEAVES.get().defaultBlockState();
+            case APPLE -> ModBlocks.APPLE_LEAVES.get().defaultBlockState();
+            case APRICOT -> ModBlocks.APRICOT_LEAVES.get().defaultBlockState();
+            case BLACK_POPLAR -> ModBlocks.BLACK_POPLAR_LEAVES.get().defaultBlockState();
+            case PLATANUS -> ModBlocks.PLATANUS_LEAVES.get().defaultBlockState();
+            case CEDAR -> ModBlocks.CEDAR_LEAVES.get().defaultBlockState();
         };
         for (Map.Entry<BlockPos, Integer> e : distance.entrySet()) {
             BlockPos pos = e.getKey();
@@ -207,11 +228,35 @@ public class MediterraneanTreeFeature extends Feature<MediterraneanTreeFeature.C
             }
             level.setBlock(pos, state, 19);
         }
+        if (context.config().vines()) vines(level, plan, random);
         // now and then wild bees have made their nest on a fig's trunk
         if (context.config().kind() == Kind.FIG && random.nextInt(5) == 0) {
             beeNest(level, origin, random);
         }
         return true;
+    }
+
+    // vines all over it, as on vanilla's swamp oaks: hanging in curtains from the crown's sides and climbing the wood
+    private static void vines(WorldGenLevel level, Plan plan, RandomSource random) {
+        for (BlockPos leaf : plan.leaves.keySet()) {
+            if (!(level.getBlockState(leaf).getBlock() instanceof LeavesBlock)) continue;
+            for (Direction d : Direction.Plane.HORIZONTAL) {
+                if (random.nextInt(4) != 0) continue;
+                BlockPos pos = leaf.relative(d);
+                int length = 1 + random.nextInt(4);
+                for (int i = 0; i < length && level.getBlockState(pos).isAir(); i++, pos = pos.below()) {
+                    level.setBlock(pos, Blocks.VINE.defaultBlockState().setValue(net.minecraft.world.level.block.VineBlock.getPropertyForFace(d.getOpposite()), true), 2);
+                }
+            }
+        }
+        for (BlockPos log : plan.logs.keySet()) {
+            for (Direction d : Direction.Plane.HORIZONTAL) {
+                BlockPos pos = log.relative(d);
+                if (random.nextInt(3) == 0 && level.getBlockState(pos).isAir()) {
+                    level.setBlock(pos, Blocks.VINE.defaultBlockState().setValue(net.minecraft.world.level.block.VineBlock.getPropertyForFace(d.getOpposite()), true), 2);
+                }
+            }
+        }
     }
 
     private static void beeNest(WorldGenLevel level, BlockPos origin, RandomSource random) {
@@ -307,7 +352,7 @@ public class MediterraneanTreeFeature extends Feature<MediterraneanTreeFeature.C
 
     // ---------------------------------------------------------------- the cypress column
     private static Plan cypress(BlockPos origin, RandomSource random) {
-        Plan plan = new Plan(Blocks.SPRUCE_LOG.defaultBlockState());
+        Plan plan = new Plan(ModBlocks.CYPRESS_LOG.get().defaultBlockState());
         int height = 9 + random.nextInt(7);
         for (int y = 0; y < height; y++) plan.log(origin.above(y), Direction.Axis.Y);
         float widest = height > 12 ? 2.2F : 1.6F;
@@ -388,10 +433,129 @@ public class MediterraneanTreeFeature extends Feature<MediterraneanTreeFeature.C
 
     // ---------------------------------------------------------------- the lemon tree
     private static Plan lemon(BlockPos origin, RandomSource random) {
-        Plan plan = new Plan(Blocks.OAK_LOG.defaultBlockState());
+        Plan plan = new Plan(ModBlocks.LEMON_LOG.get().defaultBlockState());
         int trunk = 2 + random.nextInt(2);
         for (int y = 0; y < trunk + 1; y++) plan.log(origin.above(y), Direction.Axis.Y);
         plan.blob(origin.above(trunk + 1), 2.2F + random.nextFloat() * 0.5F, 0.9F, random);
+        return plan;
+    }
+
+    // ---------------------------------------------------------------- the apple tree: vanilla's small oak, leaf for leaf
+    private static Plan apple(BlockPos origin, RandomSource random) {
+        Plan plan = new Plan(ModBlocks.APPLE_LOG.get().defaultBlockState());
+        int height = 4 + random.nextInt(3);
+        for (int y = 0; y < height; y++) plan.log(origin.above(y), Direction.Axis.Y);
+        // as vanilla's blob foliage: two wide layers (5x5, corners now and then) under two narrow ones (3x3, the top
+        // one a plus), the crown's top one block above the trunk
+        for (int layer = 0; layer < 4; layer++) {
+            int y = height - 3 + layer;
+            int r = layer < 2 ? 2 : 1;
+            for (int dx = -r; dx <= r; dx++) {
+                for (int dz = -r; dz <= r; dz++) {
+                    boolean corner = Math.abs(dx) == r && Math.abs(dz) == r;
+                    if (corner && (layer == 3 || random.nextInt(2) == 0)) continue;
+                    plan.leaf(origin.offset(dx, y, dz));
+                }
+            }
+        }
+        return plan;
+    }
+
+    // ---------------------------------------------------------------- the apricot tree
+    private static Plan apricot(BlockPos origin, RandomSource random) {
+        Plan plan = new Plan(ModBlocks.APRICOT_LOG.get().defaultBlockState());
+        int trunk = 2 + random.nextInt(2);
+        for (int y = 0; y < trunk; y++) plan.log(origin.above(y), Direction.Axis.Y);
+        BlockPos fork = origin.above(trunk - 1);
+        int limbs = 2 + random.nextInt(2);
+        float start = random.nextFloat() * Mth.TWO_PI;
+        for (int i = 0; i < limbs; i++) {
+            float a = start + i * Mth.TWO_PI / limbs;
+            BlockPos tip = fork.offset(Math.round(1.6F * Mth.cos(a)), 2, Math.round(1.6F * Mth.sin(a)));
+            plan.limb(fork, tip);
+        }
+        plan.blob(fork.above(3), 2.8F + random.nextFloat() * 0.4F, 0.75F, random);
+        return plan;
+    }
+
+    // ---------------------------------------------------------------- the black poplar: the Lombardy poplar of the
+    // Po valley - a tall, slim column of leaves, like a much larger cypress but broad-leaved and loose: short limbs
+    // climb steeply up the trunk inside it, the crown fullest a little below the middle, tapering to a narrow top
+    private static Plan blackPoplar(BlockPos origin, RandomSource random) {
+        Plan plan = new Plan(ModBlocks.BLACK_POPLAR_LOG.get().defaultBlockState());
+        int height = 15 + random.nextInt(8);
+        for (int y = 0; y < height; y++) plan.log(origin.above(y), Direction.Axis.Y);
+        // limbs sweeping steeply upwards, all the way up the crown
+        for (int y = 4; y < height - 3; y += 2 + random.nextInt(2)) {
+            float a = random.nextFloat() * Mth.TWO_PI;
+            BlockPos tip = origin.offset(Math.round(1.4F * Mth.cos(a)), y + 3, Math.round(1.4F * Mth.sin(a)));
+            plan.limb(origin.above(y), tip);
+        }
+        int crownBase = 2 + random.nextInt(2);
+        float widest = 2.4F + random.nextFloat() * 0.7F;
+        int top = height + 2;
+        for (int y = crownBase; y <= top; y++) {
+            float t = (y - crownBase) / (float) (top - crownBase);
+            float r = t < 0.35F ? Mth.lerp(t / 0.35F, 1.3F, widest) : Mth.lerp((t - 0.35F) / 0.65F, widest, 0.8F);
+            r += (random.nextFloat() - 0.5F) * 0.5F;
+            int ri = Mth.ceil(r);
+            for (int dx = -ri; dx <= ri; dx++) {
+                for (int dz = -ri; dz <= ri; dz++) {
+                    float d2 = dx * dx + dz * dz;
+                    if (d2 > r * r + 0.4F) continue;
+                    // the outermost leaves thin out, so the column looks leafy rather than solid
+                    if (d2 > (r - 1.0F) * (r - 1.0F) && random.nextInt(4) == 0) continue;
+                    plan.leaf(origin.offset(dx, y, dz));
+                }
+            }
+        }
+        plan.leaf(origin.above(top + 1));
+        return plan;
+    }
+
+    // ---------------------------------------------------------------- the plane tree
+    private static Plan platanus(BlockPos origin, RandomSource random) {
+        Plan plan = new Plan(ModBlocks.PLATANUS_LOG.get().defaultBlockState());
+        int trunk = 5 + random.nextInt(3);
+        for (int y = 0; y < trunk; y++) plan.log(origin.above(y), Direction.Axis.Y);
+        BlockPos fork = origin.above(trunk - 1);
+        int limbs = 3 + random.nextInt(2);
+        float start = random.nextFloat() * Mth.TWO_PI;
+        for (int i = 0; i < limbs; i++) {
+            float a = start + i * Mth.TWO_PI / limbs + (random.nextFloat() - 0.5F) * 0.4F;
+            int out = 4 + random.nextInt(2), up = 3 + random.nextInt(3);
+            BlockPos tip = fork.offset(Math.round(out * Mth.cos(a)), up, Math.round(out * Mth.sin(a)));
+            plan.limb(fork, tip);
+            plan.blob(tip.above(), 3.2F + random.nextFloat() * 0.6F, 0.7F, random);
+        }
+        plan.blob(fork.above(5), 3.4F, 0.7F, random);
+        return plan;
+    }
+
+    // ---------------------------------------------------------------- the cedar of Lebanon
+    private static Plan cedar(BlockPos origin, RandomSource random) {
+        Plan plan = new Plan(ModBlocks.CEDAR_LOG.get().defaultBlockState());
+        int height = 11 + random.nextInt(5);
+        for (int y = 0; y < height; y++) plan.log(origin.above(y), Direction.Axis.Y);
+        // the tiers: long level branches, shorter towards the top, each holding a flat pad of needles one or two deep
+        for (int y = 4 + random.nextInt(2); y < height; y += 3 + random.nextInt(2)) {
+            float f = y / (float) height;
+            int branches = 3 + random.nextInt(2);
+            float start = random.nextFloat() * Mth.TWO_PI;
+            for (int i = 0; i < branches; i++) {
+                float a = start + i * Mth.TWO_PI / branches + (random.nextFloat() - 0.5F) * 0.5F;
+                int len = Math.max(2, Math.round((1.0F - f) * 7.0F + 1.0F + random.nextFloat() * 1.5F));
+                BlockPos tip = origin.offset(Math.round(len * Mth.cos(a)), y, Math.round(len * Mth.sin(a)));
+                plan.limb(origin.above(y), tip);
+                float pad = 2.2F + (1.0F - f) * 1.2F;
+                plan.disc(tip.above(), pad, random, 0.4F);
+                if (random.nextBoolean()) plan.disc(tip.above(2), pad - 1.0F, random, 0.5F);
+            }
+            plan.disc(origin.above(y + 1), 1.6F, random, 0.3F);
+        }
+        // the flat top
+        plan.disc(origin.above(height), 2.6F, random, 0.4F);
+        plan.disc(origin.above(height + 1), 1.6F, random, 0.5F);
         return plan;
     }
 }

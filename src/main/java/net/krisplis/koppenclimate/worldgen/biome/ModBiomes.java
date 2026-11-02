@@ -37,10 +37,18 @@ public class ModBiomes {
     public static final ResourceKey<Biome> DESERT_MOUNTAINS = key("desert_mountains_bwk");
     // the Dry steppe (BSk): the continental desert's wetter side, its ground all grass
     public static final ResourceKey<Biome> DRY_STEPPE = key("dry_steppe_bsk");
+    // the Australian desert (BSh): a dead-flat plain of red sand, with its red rocks, eucalyptus, koalas and kangaroos
+    public static final ResourceKey<Biome> AUSTRALIAN_DESERT = key("australian_desert_bsh");
     // the Lush desert (BSh), in place of vanilla's badlands
     public static final ResourceKey<Biome> LUSH_DESERT = key("lush_desert_bsh");
     // the Mediterranean highland (Csb), on the mountains in and around the Csa
     public static final ResourceKey<Biome> MEDITERRANEAN_HIGHLAND = key("mediterranean_highland_csb");
+    // the Redwood forest (Csb): the cooler side of the Mediterranean climate, nothing but giant redwoods
+    public static final ResourceKey<Biome> REDWOOD_FOREST = key("redwood_forest_csb");
+    // the humid subtropics (Cfa): the Subtropical plains on the flat coastal land, and the Subtropical swamp (a
+    // floodplain) along their lukewarm shore
+    public static final ResourceKey<Biome> SUBTROPICAL_PLAINS = key("subtropical_plains_cfa");
+    public static final ResourceKey<Biome> SUBTROPICAL_SWAMP = key("subtropical_swamp_cfa");
 
     // all three Af biomes (tags/worldgen/biome/af.json)
     public static final TagKey<Biome> AF = TagKey.create(Registries.BIOME, ResourceLocation.fromNamespaceAndPath(KoppenClimateMod.MOD_ID, "af"));
@@ -62,10 +70,15 @@ public class ModBiomes {
                 || biome.is(MEDITERRANEAN_HIGHLAND);
     }
 
-    /** The deserts: hot (BWh), the Sahel (BWk), the desert mountains (BWk), the Lush desert (BSh), and the Dry steppe (BSk). */
+    /** The deserts: hot (BWh), the Sahel (BWk), the desert mountains (BWk), the Lush desert (BSh), the Dry steppe (BSk) and the Australian desert (BSh). */
     public static boolean isDesert(net.minecraft.core.Holder<Biome> biome) {
         return biome.is(HOT_DESERT) || biome.is(CONTINENTAL_DESERT) || biome.is(DESERT_MOUNTAINS) || isLushDesert(biome)
-                || biome.is(DRY_STEPPE);
+                || biome.is(DRY_STEPPE) || biome.is(AUSTRALIAN_DESERT);
+    }
+
+    /** The Subtropical plains and swamp (Cfa). */
+    public static boolean isSubtropical(net.minecraft.core.Holder<Biome> biome) {
+        return biome.is(SUBTROPICAL_PLAINS) || biome.is(SUBTROPICAL_SWAMP);
     }
 
     /** The Lush desert (BSh). */

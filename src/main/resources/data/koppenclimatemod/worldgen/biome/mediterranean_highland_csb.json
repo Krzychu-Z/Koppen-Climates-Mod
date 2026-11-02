@@ -62,7 +62,8 @@
       "minecraft:glow_lichen",
       "koppenclimatemod:highland_dry_grass",
       "koppenclimatemod:highland_dandelions",
-      "koppenclimatemod:highland_spruce"
+      "koppenclimatemod:highland_spruce",
+      "koppenclimatemod:highland_cedars"
     ],
     [
       "minecraft:freeze_top_layer"

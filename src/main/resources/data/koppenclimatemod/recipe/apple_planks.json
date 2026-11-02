@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "group": "planks",
+  "ingredients": [
+    {
+      "tag": "koppenclimatemod:apple_logs"
+    }
+  ],
+  "result": {
+    "count": 4,
+    "id": "koppenclimatemod:apple_planks"
+  }
+}

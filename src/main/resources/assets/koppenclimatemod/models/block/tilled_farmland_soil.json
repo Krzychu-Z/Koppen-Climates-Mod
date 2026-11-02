@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/template_farmland",
+  "textures": {
+    "dirt": "koppenclimatemod:block/farmland_soil",
+    "top": "koppenclimatemod:block/tilled_farmland_soil"
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "powered=false": {
+      "model": "koppenclimatemod:block/black_poplar_pressure_plate"
+    },
+    "powered=true": {
+      "model": "koppenclimatemod:block/black_poplar_pressure_plate_down"
+    }
+  }
+}

@@ -25,7 +25,8 @@ import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConf
  * desert (BSh) and its ghost towns: the continental desert's sand and sandstone, patched with coarse dirt; its rivers
  * keep a little water, but only down low (at sea level), and only a block deep - any higher up, they're dry too.
  * The Dry steppe (BSk): the continental desert's ground and dry rivers, but of ordinary (yellow) sand over the
- * sandstone, with a tuft of grass growing straight out of the sand on every single block (BushBlockSandMixin).
+ * sandstone, with a tuft of grass growing straight out of the sand on every single block (BushBlockSandMixin). The
+ * Australian desert (BSh): the continental desert's ground in vanilla's red sand and red sandstone.
  */
 public class HotDesertSurfaceFeature extends Feature<NoneFeatureConfiguration> {
     private static final int SAND_DEPTH = 4;
@@ -47,8 +48,8 @@ public class HotDesertSurfaceFeature extends Feature<NoneFeatureConfiguration> {
     public boolean place(FeaturePlaceContext<NoneFeatureConfiguration> context) {
         WorldGenLevel level = context.level();
         int startX = context.origin().getX() & ~15, startZ = context.origin().getZ() & ~15;
-        BlockState sand = ModBlocks.ORANGE_SAND.get().defaultBlockState();
-        BlockState sandstone = ModBlocks.ORANGE_SANDSTONE.get().defaultBlockState();
+        BlockState orangeSand = ModBlocks.ORANGE_SAND.get().defaultBlockState();
+        BlockState orangeSandstone = ModBlocks.ORANGE_SANDSTONE.get().defaultBlockState();
         BlockPos.MutableBlockPos pos = new BlockPos.MutableBlockPos();
         boolean changed = false;
         for (int x = startX; x < startX + 16; x++) {
@@ -58,7 +59,11 @@ public class HotDesertSurfaceFeature extends Feature<NoneFeatureConfiguration> {
                 var biome = level.getBiome(pos.set(x, top, z));
                 boolean hot = biome.is(ModBiomes.HOT_DESERT), mountains = biome.is(ModBiomes.DESERT_MOUNTAINS);
                 boolean lush = ModBiomes.isLushDesert(biome), steppe = biome.is(ModBiomes.DRY_STEPPE);
-                if (!hot && !mountains && !lush && !steppe && !biome.is(ModBiomes.CONTINENTAL_DESERT)) continue;
+                boolean australian = biome.is(ModBiomes.AUSTRALIAN_DESERT);
+                if (!hot && !mountains && !lush && !steppe && !australian && !biome.is(ModBiomes.CONTINENTAL_DESERT)) continue;
+                // the Australian desert: vanilla's red sand over red sandstone
+                BlockState sand = australian ? Blocks.RED_SAND.defaultBlockState() : orangeSand;
+                BlockState sandstone = australian ? Blocks.RED_SANDSTONE.defaultBlockState() : orangeSandstone;
                 // dry up the water (and lava) over it
                 int surface = level.getHeight(Heightmap.Types.WORLD_SURFACE_WG, x, z) - 1;
                 boolean shallowRiver = lush && surface <= LUSH_WATER_MAX_Y

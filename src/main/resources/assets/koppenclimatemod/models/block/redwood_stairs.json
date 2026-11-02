@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/stairs",
+  "textures": {
+    "bottom": "koppenclimatemod:block/redwood_planks",
+    "side": "koppenclimatemod:block/redwood_planks",
+    "top": "koppenclimatemod:block/redwood_planks"
+  }
+}

@@ -4,6 +4,8 @@
     "koppenclimatemod:oxisol_grass",
     "koppenclimatemod:savanna_oxisol_grass",
     "koppenclimatemod:cinnamon_grass_block",
-    "koppenclimatemod:cinnamon_dirt"
+    "koppenclimatemod:cinnamon_dirt",
+    "koppenclimatemod:farmland_soil",
+    "koppenclimatemod:farmland_soil_grass_block"
   ]
 }

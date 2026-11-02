@@ -1,0 +1,9 @@
+{
+  "type": "forge:add_features",
+  "biomes": "#koppenclimatemod:forests_wet",
+  "features": [
+    "koppenclimatemod:forest_brown_mushrooms_wet",
+    "koppenclimatemod:forest_red_mushrooms_wet"
+  ],
+  "step": "vegetal_decoration"
+}

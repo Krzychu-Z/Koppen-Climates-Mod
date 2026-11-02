@@ -59,6 +59,19 @@ public class ModWorldgen {
             FEATURES.register("lush_desert_tree", () -> new net.krisplis.koppenclimate.worldgen.feature.LushDesertTreeFeature(
                     net.krisplis.koppenclimate.worldgen.feature.LushDesertTreeFeature.Config.CODEC));
 
+    // the Australian desert (BSh): its rainbow eucalyptus (with koalas) and its lone red rocks
+    public static final RegistryObject<Feature<net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration>> EUCALYPTUS_TREE =
+            FEATURES.register("eucalyptus_tree", () -> new net.krisplis.koppenclimate.worldgen.feature.EucalyptusTreeFeature(
+                    net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration.CODEC));
+    public static final RegistryObject<Feature<net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration>> RED_ROCK =
+            FEATURES.register("red_rock", () -> new net.krisplis.koppenclimate.worldgen.feature.RedRockFeature(
+                    net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration.CODEC));
+
+    // the Redwood forest's (Csb) giant redwoods
+    public static final RegistryObject<Feature<net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration>> REDWOOD_TREE =
+            FEATURES.register("redwood_tree", () -> new net.krisplis.koppenclimate.worldgen.feature.RedwoodTreeFeature(
+                    net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration.CODEC));
+
     public static final RegistryObject<MapCodec<KoppenBiomeSource>> KOPPEN_BIOME_SOURCE =
             BIOME_SOURCES.register("koppen", () -> KoppenBiomeSource.CODEC);
 
@@ -81,6 +94,12 @@ public class ModWorldgen {
             DENSITY_FUNCTION_TYPES.register("savanna_ceiling", () -> net.krisplis.koppenclimate.worldgen.biome.SavannaCeiling.MAP_CODEC);
     public static final RegistryObject<MapCodec<net.krisplis.koppenclimate.worldgen.biome.CsaHills>> CSA_HILLS =
             DENSITY_FUNCTION_TYPES.register("csa_hills", () -> net.krisplis.koppenclimate.worldgen.biome.CsaHills.MAP_CODEC);
+    // the Australian desert's dead-flat plain (its ceiling and its floor)
+    public static final RegistryObject<MapCodec<net.krisplis.koppenclimate.worldgen.biome.AustralianPlain>> AUSTRALIAN_PLAIN =
+            DENSITY_FUNCTION_TYPES.register("australian_plain", () -> net.krisplis.koppenclimate.worldgen.biome.AustralianPlain.MAP_CODEC);
+    // the humid subtropics' (Cfa) dead-flat coastal plain (its ceiling and its floor)
+    public static final RegistryObject<MapCodec<net.krisplis.koppenclimate.worldgen.biome.CfaPlain>> CFA_PLAIN =
+            DENSITY_FUNCTION_TYPES.register("cfa_plain", () -> net.krisplis.koppenclimate.worldgen.biome.CfaPlain.MAP_CODEC);
     public static final RegistryObject<StructureType<VolcanoStructure>> VOLCANO =
             STRUCTURE_TYPES.register("volcanic_island", () -> () -> VolcanoStructure.CODEC);
     public static final RegistryObject<StructurePieceType> VOLCANO_PIECE =

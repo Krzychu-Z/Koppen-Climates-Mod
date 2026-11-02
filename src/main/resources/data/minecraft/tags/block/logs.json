@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
-    "koppenclimatemod:banana_stem"
+    "koppenclimatemod:banana_stem",
+    "#koppenclimatemod:mahogany_logs"
   ]
 }

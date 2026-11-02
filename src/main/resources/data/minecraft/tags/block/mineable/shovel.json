@@ -10,6 +10,9 @@
     "koppenclimatemod:cinnamon_grass_block",
     "koppenclimatemod:white_gravel",
     "koppenclimatemod:orange_sand",
-    "koppenclimatemod:orange_sand_dune"
+    "koppenclimatemod:orange_sand_dune",
+    "koppenclimatemod:farmland_soil",
+    "koppenclimatemod:farmland_soil_grass_block",
+    "koppenclimatemod:tilled_farmland_soil"
   ]
 }

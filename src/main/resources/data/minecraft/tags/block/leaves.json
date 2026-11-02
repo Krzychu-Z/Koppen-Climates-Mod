@@ -11,6 +11,13 @@
     "koppenclimatemod:fig_leaves",
     "koppenclimatemod:lemon_leaves",
     "koppenclimatemod:joshua_leaves",
-    "koppenclimatemod:dead_oak_leaves"
+    "koppenclimatemod:eucalyptus_leaves",
+    "koppenclimatemod:redwood_leaves",
+    "koppenclimatemod:platanus_leaves",
+    "koppenclimatemod:cedar_leaves",
+    "koppenclimatemod:dead_oak_leaves",
+    "koppenclimatemod:apple_leaves",
+    "koppenclimatemod:apricot_leaves",
+    "koppenclimatemod:black_poplar_leaves"
   ]
 }

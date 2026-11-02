@@ -8,6 +8,15 @@
     "koppenclimatemod:italian_pine_slab",
     "koppenclimatemod:fig_slab",
     "koppenclimatemod:joshua_slab",
-    "koppenclimatemod:dead_oak_slab"
+    "koppenclimatemod:eucalyptus_slab",
+    "koppenclimatemod:redwood_slab",
+    "koppenclimatemod:platanus_slab",
+    "koppenclimatemod:cedar_slab",
+    "koppenclimatemod:dead_oak_slab",
+    "koppenclimatemod:apple_slab",
+    "koppenclimatemod:apricot_slab",
+    "koppenclimatemod:black_poplar_slab",
+    "koppenclimatemod:cypress_slab",
+    "koppenclimatemod:lemon_slab"
   ]
 }

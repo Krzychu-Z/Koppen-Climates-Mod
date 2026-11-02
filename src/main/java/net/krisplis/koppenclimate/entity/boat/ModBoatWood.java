@@ -18,7 +18,16 @@ public enum ModBoatWood {
     ITALIAN_PINE("italian_pine", ModBlocks.ITALIAN_PINE_PLANKS::get, () -> ModItems.ITALIAN_PINE_BOAT.get(), () -> ModItems.ITALIAN_PINE_CHEST_BOAT.get()),
     FIG("fig", ModBlocks.FIG_PLANKS::get, () -> ModItems.FIG_BOAT.get(), () -> ModItems.FIG_CHEST_BOAT.get()),
     JOSHUA("joshua", ModBlocks.JOSHUA_PLANKS::get, () -> ModItems.JOSHUA_BOAT.get(), () -> ModItems.JOSHUA_CHEST_BOAT.get()),
-    DEAD_OAK("dead_oak", ModBlocks.DEAD_OAK_PLANKS::get, () -> ModItems.DEAD_OAK_BOAT.get(), () -> ModItems.DEAD_OAK_CHEST_BOAT.get());
+    DEAD_OAK("dead_oak", ModBlocks.DEAD_OAK_PLANKS::get, () -> ModItems.DEAD_OAK_BOAT.get(), () -> ModItems.DEAD_OAK_CHEST_BOAT.get()),
+    EUCALYPTUS("eucalyptus", ModBlocks.EUCALYPTUS_PLANKS::get, () -> ModItems.EUCALYPTUS_BOAT.get(), () -> ModItems.EUCALYPTUS_CHEST_BOAT.get()),
+    REDWOOD("redwood", ModBlocks.REDWOOD_PLANKS::get, () -> ModItems.REDWOOD_BOAT.get(), () -> ModItems.REDWOOD_CHEST_BOAT.get()),
+    PLATANUS("platanus", ModBlocks.PLATANUS_PLANKS::get, () -> ModItems.PLATANUS_BOAT.get(), () -> ModItems.PLATANUS_CHEST_BOAT.get()),
+    CEDAR("cedar", ModBlocks.CEDAR_PLANKS::get, () -> ModItems.CEDAR_BOAT.get(), () -> ModItems.CEDAR_CHEST_BOAT.get()),
+    APPLE("apple", ModBlocks.APPLE_PLANKS::get, () -> ModItems.APPLE_BOAT.get(), () -> ModItems.APPLE_CHEST_BOAT.get()),
+    APRICOT("apricot", ModBlocks.APRICOT_PLANKS::get, () -> ModItems.APRICOT_BOAT.get(), () -> ModItems.APRICOT_CHEST_BOAT.get()),
+    BLACK_POPLAR("black_poplar", ModBlocks.BLACK_POPLAR_PLANKS::get, () -> ModItems.BLACK_POPLAR_BOAT.get(), () -> ModItems.BLACK_POPLAR_CHEST_BOAT.get()),
+    CYPRESS("cypress", ModBlocks.CYPRESS_PLANKS::get, () -> ModItems.CYPRESS_BOAT.get(), () -> ModItems.CYPRESS_CHEST_BOAT.get()),
+    LEMON("lemon", ModBlocks.LEMON_PLANKS::get, () -> ModItems.LEMON_BOAT.get(), () -> ModItems.LEMON_CHEST_BOAT.get());
 
     private final String name;
     private final Supplier<Block> planks;

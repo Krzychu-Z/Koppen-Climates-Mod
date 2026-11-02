@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "koppenclimatemod:cedar_log",
+    "koppenclimatemod:cedar_wood",
+    "koppenclimatemod:stripped_cedar_log",
+    "koppenclimatemod:stripped_cedar_wood"
+  ]
+}

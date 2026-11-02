@@ -37,6 +37,12 @@ public class RosemaryBlock extends BushBlock {
         return SHAPE;
     }
 
+    // it grows wild on dry, sandy ground as well as on soil (the Australian desert's red sand among it)
+    @Override
+    protected boolean mayPlaceOn(BlockState state, BlockGetter level, BlockPos pos) {
+        return super.mayPlaceOn(state, level, pos) || state.is(net.minecraft.tags.BlockTags.SAND);
+    }
+
     @Override
     protected void entityInside(BlockState state, Level level, BlockPos pos, Entity entity) {
         entity.makeStuckInBlock(state, SLOWDOWN);

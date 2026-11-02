@@ -8,6 +8,7 @@
     "koppenclimatemod:cinnamon_dirt",
     "koppenclimatemod:white_gravel",
     "minecraft:sand",
-    "minecraft:mud"
+    "minecraft:mud",
+    "koppenclimatemod:farmland_soil_grass_block"
   ]
 }

@@ -58,6 +58,25 @@ public class ModTreeGrowers {
     public static final TreeGrower JOSHUA = new TreeGrower(KoppenClimateMod.MOD_ID + ":joshua",
             Optional.empty(), Optional.of(key("joshua_tree")), Optional.empty());
 
+    // the rainbow eucalyptus of the Australian desert (BSh), with its koalas (worldgen/feature/EucalyptusTreeFeature)
+    public static final TreeGrower EUCALYPTUS = new TreeGrower(KoppenClimateMod.MOD_ID + ":eucalyptus",
+            Optional.empty(), Optional.of(key("eucalyptus_tree")), Optional.empty());
+
+    // the Subtropical plains' (Cfa) trees (MediterraneanTreeFeature)
+    public static final TreeGrower APPLE = new TreeGrower(KoppenClimateMod.MOD_ID + ":apple",
+            Optional.empty(), Optional.of(key("apple")), Optional.empty());
+    public static final TreeGrower APRICOT = new TreeGrower(KoppenClimateMod.MOD_ID + ":apricot",
+            Optional.empty(), Optional.of(key("apricot")), Optional.empty());
+    public static final TreeGrower BLACK_POPLAR = new TreeGrower(KoppenClimateMod.MOD_ID + ":black_poplar",
+            Optional.empty(), Optional.of(key("black_poplar")), Optional.empty());
+    public static final TreeGrower PLATANUS = new TreeGrower(KoppenClimateMod.MOD_ID + ":platanus",
+            Optional.empty(), Optional.of(key("platanus")), Optional.empty());
+    public static final TreeGrower CEDAR = new TreeGrower(KoppenClimateMod.MOD_ID + ":cedar",
+            Optional.empty(), Optional.of(key("cedar")), Optional.empty());
+    // the redwood: never grown through this (RedwoodSaplingBlock grows it from a 3x3 square), but a sapling needs one
+    public static final TreeGrower REDWOOD = new TreeGrower(KoppenClimateMod.MOD_ID + ":redwood",
+            Optional.empty(), Optional.of(key("redwood_tree")), Optional.empty());
+
     private static ResourceKey<ConfiguredFeature<?, ?>> key(String name) {
         return ResourceKey.create(Registries.CONFIGURED_FEATURE, ResourceLocation.fromNamespaceAndPath(KoppenClimateMod.MOD_ID, name));
     }

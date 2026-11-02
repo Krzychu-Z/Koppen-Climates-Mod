@@ -22,7 +22,8 @@ import java.util.function.BiConsumer;
 /**
  * The baobab: an enormous bottle-shaped trunk, round in section, swelling out a third of the way up and
  * narrowing toward the top, crowned by a ring of short, thick, crooked limbs that reach out sideways like roots
- * in the air. Each limb ends in a small round clump of leaves.
+ * in the air. Each limb ends in a small round clump of leaves. Like an old baobab, the trunk is hollow: a wall of
+ * wood one block thick around an empty room, closed over at the top under the crown, with a doorway at its foot.
  */
 public class BaobabTrunkPlacer extends TrunkPlacer {
     public static final MapCodec<BaobabTrunkPlacer> CODEC = RecordCodecBuilder.mapCodec(instance ->
@@ -54,6 +55,23 @@ public class BaobabTrunkPlacer extends TrunkPlacer {
         return Mth.lerp((t - 0.35F) / 0.65F, BULGE, TOP);
     }
 
+    private static boolean inDisc(int dx, int dz, float r) {
+        return dx * dx + dz * dz <= r * r + 0.5F;
+    }
+
+    /** Whether a hollow block here would be shut in: wood (or more hollow) on all four sides, and roofed over above. */
+    private static boolean walledIn(int dx, int dz, float r, float above) {
+        return inDisc(dx + 1, dz, r) && inDisc(dx - 1, dz, r) && inDisc(dx, dz + 1, r) && inDisc(dx, dz - 1, r)
+                && inDisc(dx, dz, above);
+    }
+
+    /** Whether this column of the wall is in the doorway: straight out from the middle on the door's side. */
+    private static boolean isDoorway(int dx, int dz, Direction door) {
+        int along = dx * door.getStepX() + dz * door.getStepZ();
+        int across = dx * door.getStepZ() - dz * door.getStepX();
+        return along > 0 && across == 0;
+    }
+
     @Override
     public List<FoliagePlacer.FoliageAttachment> placeTrunk(LevelSimulatedReader level, BiConsumer<BlockPos, BlockState> blockSetter,
                                                             RandomSource random, int height, BlockPos origin, TreeConfiguration config) {
@@ -63,11 +81,20 @@ public class BaobabTrunkPlacer extends TrunkPlacer {
                 if (dx * dx + dz * dz <= FOOT * FOOT + 0.5F) setDirtAt(level, blockSetter, random, origin.offset(dx, -1, dz), config);
             }
         }
+        // the doorway: two blocks high, out through the wall on one side
+        Direction door = Direction.Plane.HORIZONTAL.getRandomDirection(random);
         for (int y = 0; y < height; y++) {
             float r = radius(y, height);
+            // the inside: everything more than a block in from the bark, all the way up but for the top layer (the roof)
+            float inner = y < height - 1 ? r - 1.0F : -1.0F;
+            float above = radius(y + 1, height);
             for (int dx = -reach; dx <= reach; dx++) {
                 for (int dz = -reach; dz <= reach; dz++) {
-                    if (dx * dx + dz * dz <= r * r + 0.5F) placeLog(level, blockSetter, random, origin.offset(dx, y, dz), config);
+                    int d2 = dx * dx + dz * dz;
+                    if (d2 > r * r + 0.5F) continue;
+                    if (inner > 0.0F && d2 <= inner * inner + 0.5F && walledIn(dx, dz, r, above)) continue;   // hollow
+                    if (y < 2 && isDoorway(dx, dz, door)) continue;
+                    placeLog(level, blockSetter, random, origin.offset(dx, y, dz), config);
                 }
             }
         }

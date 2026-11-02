@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "koppenclimatemod:block/lemon_slab"
+    },
+    "type=double": {
+      "model": "koppenclimatemod:block/lemon_planks"
+    },
+    "type=top": {
+      "model": "koppenclimatemod:block/lemon_slab_top"
+    }
+  }
+}

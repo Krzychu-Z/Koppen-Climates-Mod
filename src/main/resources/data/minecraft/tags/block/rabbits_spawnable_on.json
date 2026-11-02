@@ -6,6 +6,7 @@
     "koppenclimatemod:orange_sand",
     "koppenclimatemod:orange_sand_dune",
     "koppenclimatemod:cinnamon_dirt",
-    "minecraft:terracotta"
+    "minecraft:terracotta",
+    "koppenclimatemod:farmland_soil_grass_block"
   ]
 }
