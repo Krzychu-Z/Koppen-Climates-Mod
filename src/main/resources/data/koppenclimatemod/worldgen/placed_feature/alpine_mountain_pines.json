@@ -1,0 +1,24 @@
+{
+  "feature": "koppenclimatemod:alpine_mountain_pines",
+  "placement": [
+    {
+      "type": "minecraft:rarity_filter",
+      "chance": 2
+    },
+    {
+      "type": "minecraft:in_square"
+    },
+    {
+      "type": "minecraft:heightmap",
+      "heightmap": "MOTION_BLOCKING"
+    },
+    {
+      "type": "koppenclimatemod:height_band",
+      "min_y": 150,
+      "max_y": 166
+    },
+    {
+      "type": "minecraft:biome"
+    }
+  ]
+}

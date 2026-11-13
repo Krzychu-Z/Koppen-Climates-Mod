@@ -185,8 +185,22 @@ public class AmazonVillagerEntity extends AbstractVillager {
             this.mat = null;
         }
 
+        // the mat found last time: tried first, before searching the whole village again (some 21,000 blocks)
+        @Nullable
+        private BlockPos lastFound;
+
         @Nullable
         private BlockPos findMat() {
+            if (this.lastFound != null && this.villager.level().isLoaded(this.lastFound)
+                    && isFreeMat(this.villager.level().getBlockState(this.lastFound), false)) {
+                return this.lastFound;
+            }
+            this.lastFound = this.searchMat();
+            return this.lastFound;
+        }
+
+        @Nullable
+        private BlockPos searchMat() {
             BlockPos centre = this.villager.hasRestriction() ? this.villager.getRestrictCenter() : this.villager.blockPosition();
             BlockPos best = null;
             double bestDistance = Double.MAX_VALUE;

@@ -1,0 +1,391 @@
+{
+  "parent": "minecraft:block/block",
+  "ambientocclusion": false,
+  "textures": {
+    "particle": "koppenclimatemod:block/chinese_lantern",
+    "lantern": "koppenclimatemod:block/chinese_lantern"
+  },
+  "elements": [
+    {
+      "from": [
+        4,
+        1,
+        4
+      ],
+      "to": [
+        12,
+        3,
+        12
+      ],
+      "faces": {
+        "north": {
+          "texture": "#lantern",
+          "uv": [
+            0,
+            5,
+            8,
+            7
+          ]
+        },
+        "south": {
+          "texture": "#lantern",
+          "uv": [
+            0,
+            5,
+            8,
+            7
+          ]
+        },
+        "east": {
+          "texture": "#lantern",
+          "uv": [
+            0,
+            5,
+            8,
+            7
+          ]
+        },
+        "west": {
+          "texture": "#lantern",
+          "uv": [
+            0,
+            5,
+            8,
+            7
+          ]
+        },
+        "down": {
+          "texture": "#lantern",
+          "uv": [
+            0,
+            7,
+            8,
+            15
+          ]
+        }
+      }
+    },
+    {
+      "from": [
+        3,
+        3,
+        3
+      ],
+      "to": [
+        13,
+        8,
+        13
+      ],
+      "faces": {
+        "north": {
+          "texture": "#lantern",
+          "uv": [
+            0,
+            0,
+            10,
+            5
+          ]
+        },
+        "south": {
+          "texture": "#lantern",
+          "uv": [
+            0,
+            0,
+            10,
+            5
+          ]
+        },
+        "east": {
+          "texture": "#lantern",
+          "uv": [
+            0,
+            0,
+            10,
+            5
+          ]
+        },
+        "west": {
+          "texture": "#lantern",
+          "uv": [
+            0,
+            0,
+            10,
+            5
+          ]
+        },
+        "up": {
+          "texture": "#lantern",
+          "uv": [
+            0,
+            7,
+            8,
+            15
+          ]
+        },
+        "down": {
+          "texture": "#lantern",
+          "uv": [
+            0,
+            7,
+            8,
+            15
+          ]
+        }
+      }
+    },
+    {
+      "from": [
+        4,
+        8,
+        4
+      ],
+      "to": [
+        12,
+        10,
+        12
+      ],
+      "faces": {
+        "north": {
+          "texture": "#lantern",
+          "uv": [
+            0,
+            5,
+            8,
+            7
+          ]
+        },
+        "south": {
+          "texture": "#lantern",
+          "uv": [
+            0,
+            5,
+            8,
+            7
+          ]
+        },
+        "east": {
+          "texture": "#lantern",
+          "uv": [
+            0,
+            5,
+            8,
+            7
+          ]
+        },
+        "west": {
+          "texture": "#lantern",
+          "uv": [
+            0,
+            5,
+            8,
+            7
+          ]
+        },
+        "up": {
+          "texture": "#lantern",
+          "uv": [
+            0,
+            7,
+            8,
+            15
+          ]
+        }
+      }
+    },
+    {
+      "from": [
+        5,
+        10,
+        5
+      ],
+      "to": [
+        11,
+        11,
+        11
+      ],
+      "faces": {
+        "north": {
+          "texture": "#lantern",
+          "uv": [
+            10,
+            0,
+            16,
+            1
+          ]
+        },
+        "south": {
+          "texture": "#lantern",
+          "uv": [
+            10,
+            0,
+            16,
+            1
+          ]
+        },
+        "east": {
+          "texture": "#lantern",
+          "uv": [
+            10,
+            0,
+            16,
+            1
+          ]
+        },
+        "west": {
+          "texture": "#lantern",
+          "uv": [
+            10,
+            0,
+            16,
+            1
+          ]
+        },
+        "up": {
+          "texture": "#lantern",
+          "uv": [
+            10,
+            0,
+            16,
+            6
+          ]
+        },
+        "down": {
+          "texture": "#lantern",
+          "uv": [
+            10,
+            0,
+            16,
+            6
+          ]
+        }
+      }
+    },
+    {
+      "from": [
+        5,
+        0,
+        5
+      ],
+      "to": [
+        11,
+        1,
+        11
+      ],
+      "faces": {
+        "north": {
+          "texture": "#lantern",
+          "uv": [
+            10,
+            0,
+            16,
+            1
+          ]
+        },
+        "south": {
+          "texture": "#lantern",
+          "uv": [
+            10,
+            0,
+            16,
+            1
+          ]
+        },
+        "east": {
+          "texture": "#lantern",
+          "uv": [
+            10,
+            0,
+            16,
+            1
+          ]
+        },
+        "west": {
+          "texture": "#lantern",
+          "uv": [
+            10,
+            0,
+            16,
+            1
+          ]
+        },
+        "up": {
+          "texture": "#lantern",
+          "uv": [
+            10,
+            0,
+            16,
+            6
+          ]
+        },
+        "down": {
+          "texture": "#lantern",
+          "uv": [
+            10,
+            0,
+            16,
+            6
+          ]
+        }
+      }
+    },
+    {
+      "from": [
+        7.5,
+        11,
+        7.5
+      ],
+      "to": [
+        8.5,
+        13,
+        8.5
+      ],
+      "faces": {
+        "north": {
+          "texture": "#lantern",
+          "uv": [
+            13,
+            7,
+            14,
+            9
+          ]
+        },
+        "south": {
+          "texture": "#lantern",
+          "uv": [
+            13,
+            7,
+            14,
+            9
+          ]
+        },
+        "east": {
+          "texture": "#lantern",
+          "uv": [
+            13,
+            7,
+            14,
+            9
+          ]
+        },
+        "west": {
+          "texture": "#lantern",
+          "uv": [
+            13,
+            7,
+            14,
+            9
+          ]
+        },
+        "up": {
+          "texture": "#lantern",
+          "uv": [
+            13,
+            7,
+            14,
+            8
+          ]
+        }
+      }
+    }
+  ]
+}

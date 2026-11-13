@@ -1,0 +1,28 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "rolls": 1.0,
+      "bonus_rolls": 0.0,
+      "conditions": [
+        {
+          "condition": "minecraft:block_state_property",
+          "block": "koppenclimatemod:cattail",
+          "properties": {
+            "half": "lower"
+          }
+        },
+        {
+          "condition": "minecraft:survives_explosion"
+        }
+      ],
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "koppenclimatemod:cattail"
+        }
+      ]
+    }
+  ],
+  "random_sequence": "koppenclimatemod:blocks/cattail"
+}

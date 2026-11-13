@@ -87,7 +87,7 @@ public class HotDesertSurfaceFeature extends Feature<NoneFeatureConfiguration> {
                         BlockState s = level.getBlockState(pos.set(x, y, z));
                         if ((!s.getFluidState().isEmpty() && y > top - SAND_DEPTH) || isGround(s)) {
                             if (s != rock) {
-                                level.setBlock(pos, rock, Block.UPDATE_CLIENTS);
+                                put(level, pos, s, rock);
                                 changed = true;
                             }
                         }
@@ -108,7 +108,7 @@ public class HotDesertSurfaceFeature extends Feature<NoneFeatureConfiguration> {
                         // the Lush desert's ground is patched with coarse dirt (never under water)
                         if (lush && depth <= 1 && !wet && top >= LUSH_WATER_MAX_Y && coarse(x, z)) r = Blocks.COARSE_DIRT.defaultBlockState();
                         if (s != r) {
-                            level.setBlock(pos, r, Block.UPDATE_CLIENTS);
+                            put(level, pos, s, r);
                             changed = true;
                         }
                     }
@@ -125,6 +125,25 @@ public class HotDesertSurfaceFeature extends Feature<NoneFeatureConfiguration> {
         return changed;
     }
 
+    /**
+     * Puts a block. Where one solid block simply takes another's place (stone becoming sandstone or terracotta, by
+     * far the most of what this feature does), it is written straight into the chunk's section: nothing about the
+     * light, the heightmaps or the neighbours changes, so the general path's bookkeeping can be skipped. That makes
+     * these tens of thousands of swaps per chunk several times cheaper. Anything else goes the ordinary way.
+     */
+    static void put(WorldGenLevel level, BlockPos pos, BlockState old, BlockState state) {
+        if (old.canOcclude() && old.getFluidState().isEmpty() && !old.hasBlockEntity() && state.canOcclude()
+                && old.getLightEmission() == 0 && state.getLightEmission() == 0) {
+            net.minecraft.world.level.chunk.ChunkAccess chunk = level.getChunk(pos);
+            int index = chunk.getSectionIndex(pos.getY());
+            if (index >= 0 && index < chunk.getSections().length) {
+                chunk.getSection(index).setBlockState(pos.getX() & 15, pos.getY() & 15, pos.getZ() & 15, state, false);
+                return;
+            }
+        }
+        level.setBlock(pos, state, Block.UPDATE_CLIENTS);
+    }
+
     /** The Dry steppe's ground: sand, then sandstone, and a tuft of grass on top of it. */
     private boolean steppeGround(WorldGenLevel level, BlockPos.MutableBlockPos pos, int x, int z, int top, BlockState sandstone) {
         boolean changed = false;
@@ -135,7 +154,7 @@ public class HotDesertSurfaceFeature extends Feature<NoneFeatureConfiguration> {
             if (wet || isGround(s)) {
                 BlockState r = depth <= STEPPE_SAND_DEPTH ? Blocks.SAND.defaultBlockState() : sandstone;
                 if (s != r) {
-                    level.setBlock(pos, r, Block.UPDATE_CLIENTS);
+                    put(level, pos, s, r);
                     changed = true;
                 }
             }

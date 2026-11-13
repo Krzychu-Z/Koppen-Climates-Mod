@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "pattern": [
+    "##",
+    "##",
+    "##"
+  ],
+  "key": {
+    "#": {
+      "item": "koppenclimatemod:shoji_screen"
+    }
+  },
+  "result": {
+    "id": "koppenclimatemod:shoji_door",
+    "count": 3
+  }
+}

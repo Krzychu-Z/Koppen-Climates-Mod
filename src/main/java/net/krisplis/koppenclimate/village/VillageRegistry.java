@@ -66,6 +66,25 @@ public final class VillageRegistry {
     public static final RegistryObject<StructurePieceType> AFRICAN_VILLAGE_PIECE =
             STRUCTURE_PIECES.register("african_village", () -> (StructurePieceType.ContextlessType) AfricanVillagePiece::new);
 
+    // ---------------------------------------------------------------- Lakota camps of the Prairie (Dfa)
+
+    public static final RegistryObject<EntityType<LakotaVillagerEntity>> LAKOTA_VILLAGER = ENTITY_TYPES.register("lakota_villager",
+            () -> EntityType.Builder.of(LakotaVillagerEntity::new, MobCategory.MISC)
+                    .sized(0.6F, 1.95F)
+                    .eyeHeight(1.62F)
+                    .clientTrackingRange(10)
+                    .build("lakota_villager"));
+
+    // buckskin tan with the blue of the beadwork
+    public static final RegistryObject<Item> LAKOTA_VILLAGER_SPAWN_EGG = ITEMS.register("lakota_villager_spawn_egg",
+            () -> new ForgeSpawnEggItem(LAKOTA_VILLAGER, 0xC8A878, 0x2A6AB0, new Item.Properties()));
+
+    public static final RegistryObject<StructureType<LakotaCampStructure>> LAKOTA_CAMP =
+            STRUCTURE_TYPES.register("lakota_camp", () -> () -> LakotaCampStructure.CODEC);
+
+    public static final RegistryObject<StructurePieceType> LAKOTA_CAMP_PIECE =
+            STRUCTURE_PIECES.register("lakota_camp", () -> (StructurePieceType.ContextlessType) LakotaCampPiece::new);
+
     // ---------------------------------------------------------------- Thai floating villages
 
     public static final DeferredRegister<VillagerType> VILLAGER_TYPES =
@@ -99,6 +118,46 @@ public final class VillageRegistry {
     public static final RegistryObject<StructurePieceType> GHOST_TOWN_PIECE =
             STRUCTURE_PIECES.register("ghost_town", () -> (StructurePieceType.ContextlessType) GhostTownPiece::new);
 
+    // the red farms of the American farmland (Cfa)
+    public static final RegistryObject<StructureType<RedFarmStructure>> RED_FARM =
+            STRUCTURE_TYPES.register("red_farm", () -> () -> RedFarmStructure.CODEC);
+    public static final RegistryObject<StructurePieceType> RED_FARM_PIECE =
+            STRUCTURE_PIECES.register("red_farm", () -> (StructurePieceType.ContextlessType) RedFarmPiece::new);
+
+    // ---------------------------------------------------------------- Chinese villages of the monsoon subtropics (Cwa)
+
+    // villagers in the hemp and silk of old China (textures/entity/villager/type/chinese.png, chinese_profession/)
+    public static final RegistryObject<VillagerType> CHINESE = VILLAGER_TYPES.register("chinese", () -> new VillagerType("chinese"));
+
+    public static final RegistryObject<StructureType<ChineseVillageStructure>> CHINESE_VILLAGE =
+            STRUCTURE_TYPES.register("chinese_village", () -> () -> ChineseVillageStructure.CODEC);
+
+    public static final RegistryObject<StructurePieceType> CHINESE_VILLAGE_PIECE =
+            STRUCTURE_PIECES.register("chinese_village", () -> (StructurePieceType.ContextlessType) ChineseVillagePiece::new);
+
+    // ---------------------------------------------------------------- Japanese villages of the Cherry orchards (Cwa)
+
+    // villagers in kimono and hakama (textures/entity/villager/type/japanese.png, japanese_profession/)
+    public static final RegistryObject<VillagerType> JAPANESE = VILLAGER_TYPES.register("japanese", () -> new VillagerType("japanese"));
+
+    public static final RegistryObject<StructureType<JapaneseVillageStructure>> JAPANESE_VILLAGE =
+            STRUCTURE_TYPES.register("japanese_village", () -> () -> JapaneseVillageStructure.CODEC);
+
+    public static final RegistryObject<StructurePieceType> JAPANESE_VILLAGE_PIECE =
+            STRUCTURE_PIECES.register("japanese_village", () -> (StructurePieceType.ContextlessType) JapaneseVillagePiece::new);
+
+    // ---------------------------------------------------------------- German towns of the Continental forest (Dfb)
+
+    // villagers in the Jäger's loden and the working dress of western Germany (textures/entity/villager/type/german.png,
+    // german_profession/)
+    public static final RegistryObject<VillagerType> GERMAN = VILLAGER_TYPES.register("german", () -> new VillagerType("german"));
+
+    public static final RegistryObject<StructureType<GermanVillageStructure>> GERMAN_VILLAGE =
+            STRUCTURE_TYPES.register("german_village", () -> () -> GermanVillageStructure.CODEC);
+
+    public static final RegistryObject<StructurePieceType> GERMAN_VILLAGE_PIECE =
+            STRUCTURE_PIECES.register("german_village", () -> (StructurePieceType.ContextlessType) GermanVillagePiece::new);
+
     public static final RegistryObject<StructureType<ThaiVillageStructure>> THAI_VILLAGE =
             STRUCTURE_TYPES.register("thai_village", () -> () -> ThaiVillageStructure.CODEC);
 
@@ -126,5 +185,6 @@ public final class VillageRegistry {
     private static void registerAttributes(EntityAttributeCreationEvent event) {
         event.put(AMAZON_VILLAGER.get(), AmazonVillagerEntity.createAttributes().build());
         event.put(AFRICAN_VILLAGER.get(), AmazonVillagerEntity.createAttributes().build());
+        event.put(LAKOTA_VILLAGER.get(), AmazonVillagerEntity.createAttributes().build());
     }
 }

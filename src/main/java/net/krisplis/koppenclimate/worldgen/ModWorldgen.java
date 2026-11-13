@@ -26,6 +26,23 @@ public class ModWorldgen {
     public static final RegistryObject<Feature<net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration>> HOT_DESERT_SURFACE =
             FEATURES.register("hot_desert_surface", () -> new net.krisplis.koppenclimate.worldgen.feature.HotDesertSurfaceFeature(
                     net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration.CODEC));
+    // the American farmland's (Cfa) patchwork of fields, meadows, woods and hedgerows
+    public static final RegistryObject<Feature<net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration>> AMERICAN_FARMLAND =
+            FEATURES.register("american_farmland", () -> new net.krisplis.koppenclimate.worldgen.feature.AmericanFarmlandFeature(
+                    net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration.CODEC));
+    // the Prairie's (Dfa) sward: short grass on every grass block, ferns and the odd dandelion
+    public static final RegistryObject<Feature<net.krisplis.koppenclimate.worldgen.feature.PrairieGrassFeature.Config>> PRAIRIE_GRASS =
+            FEATURES.register("prairie_grass", () -> new net.krisplis.koppenclimate.worldgen.feature.PrairieGrassFeature(
+                    net.krisplis.koppenclimate.worldgen.feature.PrairieGrassFeature.Config.CODEC));
+    // the Alpine valley's stream and ponds: water over the white gravel bed, a few cod in it
+    public static final RegistryObject<Feature<net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration>> ALPINE_STREAM =
+            FEATURES.register("alpine_stream", () -> new net.krisplis.koppenclimate.worldgen.feature.AlpineStreamFeature(
+                    net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration.CODEC));
+    // placement only between two heights (the Alps' spruce foothills, the dwarf pines at the bottom of the mid-altitude)
+    public static final DeferredRegister<net.minecraft.world.level.levelgen.placement.PlacementModifierType<?>> PLACEMENT_MODIFIERS =
+            DeferredRegister.create(Registries.PLACEMENT_MODIFIER_TYPE, KoppenClimateMod.MOD_ID);
+    public static final RegistryObject<net.minecraft.world.level.levelgen.placement.PlacementModifierType<net.krisplis.koppenclimate.worldgen.feature.HeightBandFilter>> HEIGHT_BAND =
+            PLACEMENT_MODIFIERS.register("height_band", () -> () -> net.krisplis.koppenclimate.worldgen.feature.HeightBandFilter.CODEC);
     public static final RegistryObject<Feature<BiomeSurfaceFeature.Config>> BIOME_SURFACE =
             FEATURES.register("biome_surface", () -> new BiomeSurfaceFeature(BiomeSurfaceFeature.Config.CODEC));
 
@@ -63,6 +80,20 @@ public class ModWorldgen {
     public static final RegistryObject<Feature<net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration>> EUCALYPTUS_TREE =
             FEATURES.register("eucalyptus_tree", () -> new net.krisplis.koppenclimate.worldgen.feature.EucalyptusTreeFeature(
                     net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration.CODEC));
+    // the monsoon subtropics' (Cwa) karst towers of white limestone
+    public static final RegistryObject<Feature<net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration>> KARST_TOWER =
+            FEATURES.register("karst_tower", () -> new net.krisplis.koppenclimate.worldgen.feature.KarstTowerFeature(
+                    net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration.CODEC));
+    // the temperate oceanic band (Cfb): the forest's mud ponds, the countryside's hedgerows and its limestone tors
+    public static final RegistryObject<Feature<net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration>> MUD_POND =
+            FEATURES.register("mud_pond", () -> new net.krisplis.koppenclimate.worldgen.feature.MudPondFeature(
+                    net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration.CODEC));
+    public static final RegistryObject<Feature<net.krisplis.koppenclimate.worldgen.feature.HedgerowFeature.Config>> HEDGEROWS =
+            FEATURES.register("hedgerows", () -> new net.krisplis.koppenclimate.worldgen.feature.HedgerowFeature(
+                    net.krisplis.koppenclimate.worldgen.feature.HedgerowFeature.Config.CODEC));
+    public static final RegistryObject<Feature<net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration>> LIMESTONE_TOR =
+            FEATURES.register("limestone_tor", () -> new net.krisplis.koppenclimate.worldgen.feature.LimestoneTorFeature(
+                    net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration.CODEC));
     public static final RegistryObject<Feature<net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration>> RED_ROCK =
             FEATURES.register("red_rock", () -> new net.krisplis.koppenclimate.worldgen.feature.RedRockFeature(
                     net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration.CODEC));
@@ -98,6 +129,24 @@ public class ModWorldgen {
     public static final RegistryObject<MapCodec<net.krisplis.koppenclimate.worldgen.biome.AustralianPlain>> AUSTRALIAN_PLAIN =
             DENSITY_FUNCTION_TYPES.register("australian_plain", () -> net.krisplis.koppenclimate.worldgen.biome.AustralianPlain.MAP_CODEC);
     // the humid subtropics' (Cfa) dead-flat coastal plain (its ceiling and its floor)
+    // smooths the terrain functions below between the corners of vanilla's 4 x 4 climate cells
+    public static final RegistryObject<MapCodec<net.krisplis.koppenclimate.worldgen.biome.Smooth2D>> SMOOTH_2D =
+            DENSITY_FUNCTION_TYPES.register("smooth_2d", () -> net.krisplis.koppenclimate.worldgen.biome.Smooth2D.MAP_CODEC);
+    // the monsoon subtropics' (Cwa) karst plain and rolling hills
+    public static final RegistryObject<MapCodec<net.krisplis.koppenclimate.worldgen.biome.CwaTerrain>> CWA_TERRAIN =
+            DENSITY_FUNCTION_TYPES.register("cwa_terrain", () -> net.krisplis.koppenclimate.worldgen.biome.CwaTerrain.MAP_CODEC);
+    // the Prairie's (Dfa) broad, gently rolling plain, which fills in its rivers (a floor only)
+    public static final RegistryObject<MapCodec<net.krisplis.koppenclimate.worldgen.biome.PrairiePlain>> PRAIRIE_PLAIN =
+            DENSITY_FUNCTION_TYPES.register("prairie_plain", () -> net.krisplis.koppenclimate.worldgen.biome.PrairiePlain.MAP_CODEC);
+    // the temperate oceanic band (Cfb): the countryside's upland, the white cliffs and the flooded rivers (ceiling and floor)
+    // the Cfb's Flooded rivers: vanilla's lowland rivers, broadened (a ceiling)
+    public static final RegistryObject<MapCodec<net.krisplis.koppenclimate.worldgen.biome.CfbRiver>> CFB_RIVER =
+            DENSITY_FUNCTION_TYPES.register("cfb_river", () -> net.krisplis.koppenclimate.worldgen.biome.CfbRiver.MAP_CODEC);
+    // the Alps: long flat valleys high up between huge, sharp mountains (ceiling and floor)
+    public static final RegistryObject<MapCodec<net.krisplis.koppenclimate.worldgen.biome.AlpineTerrain>> ALPINE_TERRAIN =
+            DENSITY_FUNCTION_TYPES.register("alpine", () -> net.krisplis.koppenclimate.worldgen.biome.AlpineTerrain.MAP_CODEC);
+    public static final RegistryObject<MapCodec<net.krisplis.koppenclimate.worldgen.biome.CfbTerrain>> CFB_TERRAIN =
+            DENSITY_FUNCTION_TYPES.register("cfb_terrain", () -> net.krisplis.koppenclimate.worldgen.biome.CfbTerrain.MAP_CODEC);
     public static final RegistryObject<MapCodec<net.krisplis.koppenclimate.worldgen.biome.CfaPlain>> CFA_PLAIN =
             DENSITY_FUNCTION_TYPES.register("cfa_plain", () -> net.krisplis.koppenclimate.worldgen.biome.CfaPlain.MAP_CODEC);
     public static final RegistryObject<StructureType<VolcanoStructure>> VOLCANO =
@@ -110,6 +159,7 @@ public class ModWorldgen {
         STRUCTURE_PIECES.register(eventBus);
         STRUCTURE_TYPES.register(eventBus);
         FEATURES.register(eventBus);
+        PLACEMENT_MODIFIERS.register(eventBus);
         BIOME_SOURCES.register(eventBus);
     }
 }

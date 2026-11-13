@@ -143,6 +143,8 @@ public class EagleEntity extends PathfinderMob {
     private void newAnchor() {
         BlockPos at = this.anchor == null ? this.blockPosition()
                 : this.anchor.offset(this.random.nextInt(49) - 24, 0, this.random.nextInt(49) - 24);
+        // never somewhere not loaded (asking its height would load, or even generate, that chunk on the spot)
+        if (!this.level().hasChunkAt(at)) at = this.blockPosition();
         int ground = this.level().getHeight(Heightmap.Types.MOTION_BLOCKING, at.getX(), at.getZ());
         this.anchor = new BlockPos(at.getX(), ground + ALTITUDE_MIN + this.random.nextInt(ALTITUDE_EXTRA), at.getZ());
         this.radius = 10.0 + this.random.nextDouble() * 10.0;

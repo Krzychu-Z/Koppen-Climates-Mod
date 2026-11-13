@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "koppenclimatemod:block/maple_slab"
+    },
+    "type=double": {
+      "model": "koppenclimatemod:block/maple_planks"
+    },
+    "type=top": {
+      "model": "koppenclimatemod:block/maple_slab_top"
+    }
+  }
+}

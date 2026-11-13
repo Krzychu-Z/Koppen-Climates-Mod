@@ -27,7 +27,10 @@ public enum ModBoatWood {
     APRICOT("apricot", ModBlocks.APRICOT_PLANKS::get, () -> ModItems.APRICOT_BOAT.get(), () -> ModItems.APRICOT_CHEST_BOAT.get()),
     BLACK_POPLAR("black_poplar", ModBlocks.BLACK_POPLAR_PLANKS::get, () -> ModItems.BLACK_POPLAR_BOAT.get(), () -> ModItems.BLACK_POPLAR_CHEST_BOAT.get()),
     CYPRESS("cypress", ModBlocks.CYPRESS_PLANKS::get, () -> ModItems.CYPRESS_BOAT.get(), () -> ModItems.CYPRESS_CHEST_BOAT.get()),
-    LEMON("lemon", ModBlocks.LEMON_PLANKS::get, () -> ModItems.LEMON_BOAT.get(), () -> ModItems.LEMON_CHEST_BOAT.get());
+    LEMON("lemon", ModBlocks.LEMON_PLANKS::get, () -> ModItems.LEMON_BOAT.get(), () -> ModItems.LEMON_CHEST_BOAT.get()),
+    MAGNOLIA("magnolia", ModBlocks.MAGNOLIA_PLANKS::get, () -> ModItems.MAGNOLIA_BOAT.get(), () -> ModItems.MAGNOLIA_CHEST_BOAT.get()),
+    MAPLE("maple", ModBlocks.MAPLE_PLANKS::get, () -> ModItems.MAPLE_BOAT.get(), () -> ModItems.MAPLE_CHEST_BOAT.get()),
+    SCOTS_PINE("scots_pine", ModBlocks.SCOTS_PINE_PLANKS::get, () -> ModItems.SCOTS_PINE_BOAT.get(), () -> ModItems.SCOTS_PINE_CHEST_BOAT.get());
 
     private final String name;
     private final Supplier<Block> planks;

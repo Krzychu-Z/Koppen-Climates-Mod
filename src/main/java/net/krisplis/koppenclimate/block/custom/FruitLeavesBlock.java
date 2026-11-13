@@ -28,14 +28,19 @@ import java.util.function.Supplier;
  * Leaves of a fruit tree (fig, lemon). FRUIT 0: bare leaves, 1: unripe (green) fruit, 2: ripe fruit. Ripe fruit is
  * picked like olives: by hand one, with shears 3-5; then the leaves are bare again until new fruit sets and ripens.
  */
-public class FruitLeavesBlock extends LeavesBlock {
+public class FruitLeavesBlock extends ReachLeavesBlock {
     public static final IntegerProperty FRUIT = IntegerProperty.create("fruit", 0, 2);
     private final Supplier<? extends Item> fruit;
     // 1 in this many random ticks the fruit moves on a stage
     private final int growChance;
 
     public FruitLeavesBlock(Supplier<? extends Item> fruit, int growChance, Properties properties) {
-        super(properties);
+        this(fruit, growChance, LeavesBlock.DECAY_DISTANCE - 1, properties);
+    }
+
+    /** With a longer reach from the wood than vanilla's six (see ReachLeavesBlock), for a broad crown. */
+    public FruitLeavesBlock(Supplier<? extends Item> fruit, int growChance, int reach, Properties properties) {
+        super(reach, properties);
         this.fruit = fruit;
         this.growChance = growChance;
         this.registerDefaultState(this.defaultBlockState().setValue(FRUIT, 0));

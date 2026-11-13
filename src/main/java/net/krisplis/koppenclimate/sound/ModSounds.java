@@ -33,6 +33,19 @@ public class ModSounds {
     public static final RegistryObject<SoundEvent> OWL = register("ambient.mediterranean.owl");
     // the hot desert (BWh): its wind by day, and the cry of its eagles
     public static final RegistryObject<SoundEvent> HOT_DESERT_WIND = register("ambient.hot_desert.wind");
+    // the same wind, softer, over the Prairie (Dfa) day and night
+    public static final RegistryObject<SoundEvent> PRAIRIE_WIND = register("ambient.prairie.wind");
+    // the temperate oceanic band (Cfb): the quiet of its forest and sunflower fields, and the faint wind over its countryside
+    public static final RegistryObject<SoundEvent> CFB_FOREST = register("ambient.cfb.forest");
+    public static final RegistryObject<SoundEvent> CFB_WIND = register("ambient.cfb.wind");
+    // the humid continental forests (Dfb): a crow now and then in the Continental forest, a woodpecker in the Pine
+    // forest (played quietly, from the biomes' additions sound)
+    public static final RegistryObject<SoundEvent> DFB_CROW = register("ambient.dfb.crow");
+    public static final RegistryObject<SoundEvent> DFB_WOODPECKER = register("ambient.dfb.woodpecker");
+    // the sea breaking under the White and Scottish cliffs
+    public static final RegistryObject<SoundEvent> CLIFF_WAVES = register("ambient.cliffs.waves");
+    // the wind over the Alps (mid and high altitude)
+    public static final RegistryObject<SoundEvent> ALPINE_WIND = register("ambient.alpine.wind");
     // the Australian desert (BSh) by day: a faint, quiet background (at night only its owls are heard)
     public static final RegistryObject<SoundEvent> AUSTRALIAN_DESERT_DAY = register("ambient.australian_desert.day");
     // the Redwood forest (Csb) by day; by night only its owls are heard
@@ -41,6 +54,8 @@ public class ModSounds {
     public static final RegistryObject<SoundEvent> CFA_DAY = register("ambient.cfa.day");
     public static final RegistryObject<SoundEvent> CFA_NIGHT = register("ambient.cfa.night");
     public static final RegistryObject<SoundEvent> EAGLE = register("entity.eagle.cry");
+    // the red farm's shotgun going off
+    public static final RegistryObject<SoundEvent> SHOTGUN = register("item.shotgun.shoot");
     public static final RegistryObject<SoundEvent> RATTLESNAKE_RATTLE = register("entity.rattlesnake.rattle");
 
     // the savanna's elephants (trumpeting) and lions (roaring)

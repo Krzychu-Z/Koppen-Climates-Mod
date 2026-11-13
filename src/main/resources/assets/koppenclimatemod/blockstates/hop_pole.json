@@ -1,0 +1,28 @@
+{
+  "variants": {
+    "age=0,hops=false": {
+      "model": "koppenclimatemod:block/hop_pole"
+    },
+    "age=0,hops=true": {
+      "model": "koppenclimatemod:block/hop_pole_young"
+    },
+    "age=1,hops=false": {
+      "model": "koppenclimatemod:block/hop_pole"
+    },
+    "age=1,hops=true": {
+      "model": "koppenclimatemod:block/hop_pole_leafy"
+    },
+    "age=2,hops=false": {
+      "model": "koppenclimatemod:block/hop_pole"
+    },
+    "age=2,hops=true": {
+      "model": "koppenclimatemod:block/hop_pole_flowering"
+    },
+    "age=3,hops=false": {
+      "model": "koppenclimatemod:block/hop_pole"
+    },
+    "age=3,hops=true": {
+      "model": "koppenclimatemod:block/hop_pole_ripe"
+    }
+  }
+}

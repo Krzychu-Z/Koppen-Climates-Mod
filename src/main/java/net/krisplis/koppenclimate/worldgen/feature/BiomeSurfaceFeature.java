@@ -54,7 +54,12 @@ public class BiomeSurfaceFeature extends Feature<BiomeSurfaceFeature.Config> {
         MEDITERRANEAN("mediterranean"), MEDITERRANEAN_BEACH("mediterranean_beach"),
         MEDITERRANEAN_FOREST("mediterranean_forest"), MEDITERRANEAN_RIVER("mediterranean_river"), WINE_TERRACES("wine_terraces"),
         MEDITERRANEAN_HIGHLAND("mediterranean_highland"), REDWOOD("redwood"), SUBTROPICAL("subtropical"),
-        SUBTROPICAL_SWAMP("subtropical_swamp");
+        SUBTROPICAL_SWAMP("subtropical_swamp"),
+        // the Subtropical karst peaks (Cwa): plain earth and grass on white limestone, bare on every steep slope
+        MONSOON_SUBTROPICAL("monsoon_subtropical"),
+        // the Monsoon subtropical hills (Cwa): the same earth on white limestone, but green all over, the steep
+        // valley sides too
+        MONSOON_HILLS("monsoon_hills");
 
         // the Redwood forest and the Subtropical plains keep vanilla's ordinary stone under their soil
         boolean limestone() {
@@ -136,9 +141,13 @@ public class BiomeSurfaceFeature extends Feature<BiomeSurfaceFeature.Config> {
                 // on a steep Mediterranean hillside (or in a scattered outcrop) the white rock shows through
                 boolean bareRock = !underwater && ((config.style() == Style.MEDITERRANEAN && (steep(level, x, z, top) || patch(x, z, 9)))
                         || (config.style() == Style.MEDITERRANEAN_HIGHLAND && steep(level, x, z, top))
-                        || (config.style() == Style.MEDITERRANEAN_FOREST && steep(level, x, z, top)));
-                BlockState rock = (config.style().mediterranean() ? ModBlocks.WHITE_LIMESTONE : ModBlocks.YELLOW_LIMESTONE).get().defaultBlockState();
-                for (int depth = 0; depth <= LIMESTONE_DEPTH; depth++) {
+                        || (config.style() == Style.MEDITERRANEAN_FOREST && steep(level, x, z, top))
+                        || (config.style() == Style.MONSOON_SUBTROPICAL && steep(level, x, z, top)));
+                BlockState rock = (config.style().mediterranean() || config.style() == Style.MONSOON_SUBTROPICAL
+                        || config.style() == Style.MONSOON_HILLS ? ModBlocks.WHITE_LIMESTONE : ModBlocks.YELLOW_LIMESTONE).get().defaultBlockState();
+                // (below the soil only the limestone styles change anything, so the others stop there)
+                int deepest = config.style().limestone() ? LIMESTONE_DEPTH : bareRock ? Math.max(SOIL_DEPTH, 2) : SOIL_DEPTH;
+                for (int depth = 0; depth <= deepest; depth++) {
                     pos.set(x, top - depth, z);
                     BlockState state = level.getBlockState(pos);
                     BlockState replacement = depth <= SOIL_DEPTH ? soil(config.style(), state, depth, underwater, x, z) : null;
@@ -149,7 +158,7 @@ public class BiomeSurfaceFeature extends Feature<BiomeSurfaceFeature.Config> {
                         replacement = rock;
                     }
                     if (replacement != null && replacement != state) {
-                        level.setBlock(pos, replacement, Block.UPDATE_CLIENTS);
+                        HotDesertSurfaceFeature.put(level, pos, state, replacement);
                         changed = true;
                     }
                 }
@@ -247,6 +256,14 @@ public class BiomeSurfaceFeature extends Feature<BiomeSurfaceFeature.Config> {
                 if (depth == 0 && state.is(Blocks.GRASS_BLOCK)) yield ModBlocks.FARMLAND_SOIL_GRASS_BLOCK.get().defaultBlockState();
                 yield null;
             }
+            case MONSOON_SUBTROPICAL, MONSOON_HILLS -> {
+                // ordinary dirt under the grass, with coarse earth and podzol in patches under the trees
+                if (depth == 0 && !underwater && state.is(Blocks.GRASS_BLOCK) && patch(x + 3, z + 9, 11)) {
+                    yield Blocks.PODZOL.defaultBlockState();
+                }
+                if (state.is(Blocks.SANDSTONE) || (depth > 0 && state.is(BlockTags.SAND))) yield Blocks.DIRT.defaultBlockState();
+                yield null;
+            }
             case SUBTROPICAL_SWAMP -> {
                 // the floodplain: ordinary dirt and grass, with plenty of mud - in blotches across the ground, and
                 // all along the beds of its pools, creeks and shallows
@@ -256,6 +273,8 @@ public class BiomeSurfaceFeature extends Feature<BiomeSurfaceFeature.Config> {
                 // on the land: about half the ground is mud, with clay showing through here and there
                 if (!underwater && depth <= 1 && state.is(BlockTags.DIRT) && patch(x, z, 2)) yield Blocks.MUD.defaultBlockState();
                 if (!underwater && depth <= 1 && state.is(BlockTags.DIRT) && patch(x + 11, z + 5, 7)) yield Blocks.CLAY.defaultBlockState();
+                // and under the grass, no dirt at all: it's mud all the way down
+                if (!underwater && depth >= 1 && state.is(Blocks.DIRT)) yield Blocks.MUD.defaultBlockState();
                 if (!underwater && depth == 0 && state.is(BlockTags.SAND)) yield Blocks.GRASS_BLOCK.defaultBlockState();
                 yield null;
             }
@@ -273,8 +292,10 @@ public class BiomeSurfaceFeature extends Feature<BiomeSurfaceFeature.Config> {
     }
 
     // every neighbouring column is at least as high, so a pool sunk here can't spill out
+    private static final int[][] SIDES = {{1, 0}, {-1, 0}, {0, 1}, {0, -1}};
+
     private static boolean enclosed(WorldGenLevel level, int x, int z, int top) {
-        for (int[] d : new int[][]{{1, 0}, {-1, 0}, {0, 1}, {0, -1}}) {
+        for (int[] d : SIDES) {
             int h = level.getHeight(Heightmap.Types.OCEAN_FLOOR_WG, x + d[0], z + d[1]) - 1;
             if (h < top && !level.getFluidState(new BlockPos(x + d[0], top, z + d[1])).is(FluidTags.WATER)) return false;
         }
@@ -283,7 +304,7 @@ public class BiomeSurfaceFeature extends Feature<BiomeSurfaceFeature.Config> {
 
     // the ground drops or climbs 3 or more blocks to a neighbouring column
     private static boolean steep(WorldGenLevel level, int x, int z, int top) {
-        for (int[] d : new int[][]{{1, 0}, {-1, 0}, {0, 1}, {0, -1}}) {
+        for (int[] d : SIDES) {
             int h = level.getHeight(Heightmap.Types.OCEAN_FLOOR_WG, x + d[0], z + d[1]) - 1;
             if (Math.abs(h - top) >= 3) return true;
         }

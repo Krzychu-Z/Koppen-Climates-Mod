@@ -17,6 +17,10 @@
     "koppenclimatemod:apricot_door",
     "koppenclimatemod:black_poplar_door",
     "koppenclimatemod:cypress_door",
-    "koppenclimatemod:lemon_door"
+    "koppenclimatemod:lemon_door",
+    "koppenclimatemod:magnolia_door",
+    "koppenclimatemod:shoji_door",
+    "koppenclimatemod:maple_door",
+    "koppenclimatemod:scots_pine_door"
   ]
 }

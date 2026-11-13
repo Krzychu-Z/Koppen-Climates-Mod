@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "group": "painted_planks",
+  "ingredients": [
+    {
+      "tag": "minecraft:planks"
+    },
+    {
+      "item": "minecraft:brown_dye"
+    }
+  ],
+  "result": {
+    "id": "koppenclimatemod:brown_painted_planks",
+    "count": 1
+  }
+}

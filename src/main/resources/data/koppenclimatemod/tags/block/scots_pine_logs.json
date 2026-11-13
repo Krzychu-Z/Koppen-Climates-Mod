@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "koppenclimatemod:scots_pine_log",
+    "koppenclimatemod:scots_pine_wood",
+    "koppenclimatemod:stripped_scots_pine_log",
+    "koppenclimatemod:stripped_scots_pine_wood"
+  ]
+}

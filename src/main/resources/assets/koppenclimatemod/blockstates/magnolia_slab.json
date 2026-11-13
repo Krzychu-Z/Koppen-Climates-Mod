@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "koppenclimatemod:block/magnolia_slab"
+    },
+    "type=double": {
+      "model": "koppenclimatemod:block/magnolia_planks"
+    },
+    "type=top": {
+      "model": "koppenclimatemod:block/magnolia_slab_top"
+    }
+  }
+}

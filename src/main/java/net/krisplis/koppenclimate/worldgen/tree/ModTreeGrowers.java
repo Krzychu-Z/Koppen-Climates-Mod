@@ -71,6 +71,14 @@ public class ModTreeGrowers {
             Optional.empty(), Optional.of(key("black_poplar")), Optional.empty());
     public static final TreeGrower PLATANUS = new TreeGrower(KoppenClimateMod.MOD_ID + ":platanus",
             Optional.empty(), Optional.of(key("platanus")), Optional.empty());
+    // the Monsoon subtropical's (Cwa) southern magnolia
+    public static final TreeGrower MAGNOLIA = new TreeGrower(KoppenClimateMod.MOD_ID + ":magnolia",
+            Optional.empty(), Optional.of(key("magnolia")), Optional.empty());
+    // the Temperate forest's (Cfb) maple and Scots pine
+    public static final TreeGrower MAPLE = new TreeGrower(KoppenClimateMod.MOD_ID + ":maple",
+            Optional.empty(), Optional.of(key("maple")), Optional.empty());
+    public static final TreeGrower SCOTS_PINE = new TreeGrower(KoppenClimateMod.MOD_ID + ":scots_pine",
+            Optional.empty(), Optional.of(key("scots_pine")), Optional.empty());
     public static final TreeGrower CEDAR = new TreeGrower(KoppenClimateMod.MOD_ID + ":cedar",
             Optional.empty(), Optional.of(key("cedar")), Optional.empty());
     // the redwood: never grown through this (RedwoodSaplingBlock grows it from a 3x3 square), but a sapling needs one

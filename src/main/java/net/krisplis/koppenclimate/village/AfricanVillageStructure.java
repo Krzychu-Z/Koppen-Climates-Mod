@@ -38,6 +38,12 @@ public class AfricanVillageStructure extends Structure {
         LevelHeightAccessor heights = context.heightAccessor();
         RandomState randomState = context.randomState();
 
+        // a cheap first test, before any of the costly ground heights: the middle must be in the right biome
+        if (!context.validBiome().test(context.biomeSource().getNoiseBiome(net.minecraft.core.QuartPos.fromBlock(cx),
+                net.minecraft.core.QuartPos.fromBlock(context.chunkGenerator().getSeaLevel() + 4),
+                net.minecraft.core.QuartPos.fromBlock(cz), context.randomState().sampler()))) {
+            return Optional.empty();
+        }
         int min = Integer.MAX_VALUE, max = Integer.MIN_VALUE, sum = 0, count = 0;
         for (int dx = -CHECK_RADIUS; dx <= CHECK_RADIUS; dx += CHECK_RADIUS) {
             for (int dz = -CHECK_RADIUS; dz <= CHECK_RADIUS; dz += CHECK_RADIUS) {

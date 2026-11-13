@@ -61,6 +61,9 @@ public final class ModClient {
             Sheets.addWoodType(ModWoodTypes.BLACK_POPLAR);
             Sheets.addWoodType(ModWoodTypes.CYPRESS);
             Sheets.addWoodType(ModWoodTypes.LEMON);
+            Sheets.addWoodType(ModWoodTypes.MAGNOLIA);
+            Sheets.addWoodType(ModWoodTypes.MAPLE);
+            Sheets.addWoodType(ModWoodTypes.SCOTS_PINE);
         });
     }
 
@@ -95,6 +98,7 @@ public final class ModClient {
     public static void onRegisterRenderers(EntityRenderersEvent.RegisterRenderers e) {
         e.registerEntityRenderer(ModEntities.ANACONDA.get(), AnacondaRenderer::new);
         e.registerEntityRenderer(ModEntities.CROCODILE.get(), CrocodileRenderer::new);
+        e.registerEntityRenderer(ModEntities.ALLIGATOR.get(), AlligatorRenderer::new);
         e.registerEntityRenderer(ModEntities.BLACK_PANTHER.get(), BlackPantherRenderer::new);
         e.registerEntityRenderer(ModEntities.PIRANHA.get(), PiranhaRenderer::new);
         e.registerEntityRenderer(ModEntities.COBRA.get(), CobraRenderer::new);
@@ -117,6 +121,27 @@ public final class ModClient {
         e.registerEntityRenderer(ModEntities.KANGAROO.get(), AustralianRenderers::kangaroo);
         e.registerEntityRenderer(ModEntities.HYENA.get(), AustralianRenderers::hyena);
         // the grizzly: a polar bear's build in brown fur
+        e.registerEntityRenderer(ModEntities.TIGER.get(), TigerRenderer::new);
+        // the brown bear: the grizzly's build in a darker, warmer brown
+        e.registerEntityRenderer(ModEntities.BROWN_BEAR.get(), ctx -> new net.minecraft.client.renderer.entity.PolarBearRenderer(ctx) {
+            private static final net.minecraft.resources.ResourceLocation TEXTURE =
+                    net.minecraft.resources.ResourceLocation.fromNamespaceAndPath("koppenclimatemod", "textures/entity/brown_bear.png");
+
+            @Override
+            public net.minecraft.resources.ResourceLocation getTextureLocation(net.minecraft.world.entity.animal.PolarBear bear) {
+                return TEXTURE;
+            }
+        });
+        // the black bear: the grizzly's build in black fur
+        e.registerEntityRenderer(ModEntities.BLACK_BEAR.get(), ctx -> new net.minecraft.client.renderer.entity.PolarBearRenderer(ctx) {
+            private static final net.minecraft.resources.ResourceLocation TEXTURE =
+                    net.minecraft.resources.ResourceLocation.fromNamespaceAndPath("koppenclimatemod", "textures/entity/black_bear.png");
+
+            @Override
+            public net.minecraft.resources.ResourceLocation getTextureLocation(net.minecraft.world.entity.animal.PolarBear bear) {
+                return TEXTURE;
+            }
+        });
         e.registerEntityRenderer(ModEntities.GRIZZLY_BEAR.get(), ctx -> new net.minecraft.client.renderer.entity.PolarBearRenderer(ctx) {
             private static final net.minecraft.resources.ResourceLocation TEXTURE =
                     net.minecraft.resources.ResourceLocation.fromNamespaceAndPath("koppenclimatemod", "textures/entity/grizzly_bear.png");
@@ -137,6 +162,7 @@ public final class ModClient {
         });
         e.registerEntityRenderer(VillageRegistry.AMAZON_VILLAGER.get(), AmazonVillagerRenderer::new);
         e.registerEntityRenderer(VillageRegistry.AFRICAN_VILLAGER.get(), net.krisplis.koppenclimate.village.AfricanVillagerRenderer::new);
+        e.registerEntityRenderer(VillageRegistry.LAKOTA_VILLAGER.get(), net.krisplis.koppenclimate.village.LakotaVillagerRenderer::new);
         e.registerEntityRenderer(ModEntities.BOAT.get(), context -> new ModBoatRenderer(context, false));
         e.registerEntityRenderer(ModEntities.CHEST_BOAT.get(), context -> new ModBoatRenderer(context, true));
         e.registerBlockEntityRenderer(ModBlockEntities.SIGN.get(), SignRenderer::new);

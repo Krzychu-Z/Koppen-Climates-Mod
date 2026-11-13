@@ -16,6 +16,9 @@
     "#koppenclimatemod:apricot_logs",
     "#koppenclimatemod:black_poplar_logs",
     "#koppenclimatemod:cypress_logs",
-    "#koppenclimatemod:lemon_logs"
+    "#koppenclimatemod:lemon_logs",
+    "#koppenclimatemod:magnolia_logs",
+    "#koppenclimatemod:maple_logs",
+    "#koppenclimatemod:scots_pine_logs"
   ]
 }

@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "decorations",
+  "pattern": [
+    " N ",
+    "PDP",
+    "PTP"
+  ],
+  "key": {
+    "N": {
+      "item": "minecraft:iron_nugget"
+    },
+    "P": {
+      "item": "minecraft:paper"
+    },
+    "D": {
+      "item": "minecraft:red_dye"
+    },
+    "T": {
+      "item": "minecraft:torch"
+    }
+  },
+  "result": {
+    "id": "koppenclimatemod:chinese_lantern",
+    "count": 2
+  }
+}

@@ -24,6 +24,10 @@ public class ModEffects {
     public static final RegistryObject<MobEffect> CEDAR_SCENT = MOB_EFFECTS.register("cedar_scent",
             () -> new PsychedeliaEffect(MobEffectCategory.BENEFICIAL, 0xB0703C));
 
+    // Oleander poisoning: from falling into a nerium bush; poison that doesn't stop at half a heart, and kills slowly
+    public static final RegistryObject<MobEffect> OLEANDER_POISONING = MOB_EFFECTS.register("oleander_poisoning",
+            () -> new OleanderPoisoningEffect(MobEffectCategory.HARMFUL, 0x6E8F2A));
+
     public static void register(IEventBus eventBus) {
         MOB_EFFECTS.register(eventBus);
     }

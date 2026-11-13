@@ -17,6 +17,25 @@
     "koppenclimatemod:apricot_planks",
     "koppenclimatemod:black_poplar_planks",
     "koppenclimatemod:cypress_planks",
-    "koppenclimatemod:lemon_planks"
+    "koppenclimatemod:lemon_planks",
+    "koppenclimatemod:white_painted_planks",
+    "koppenclimatemod:orange_painted_planks",
+    "koppenclimatemod:magenta_painted_planks",
+    "koppenclimatemod:light_blue_painted_planks",
+    "koppenclimatemod:yellow_painted_planks",
+    "koppenclimatemod:lime_painted_planks",
+    "koppenclimatemod:pink_painted_planks",
+    "koppenclimatemod:gray_painted_planks",
+    "koppenclimatemod:light_gray_painted_planks",
+    "koppenclimatemod:cyan_painted_planks",
+    "koppenclimatemod:purple_painted_planks",
+    "koppenclimatemod:blue_painted_planks",
+    "koppenclimatemod:brown_painted_planks",
+    "koppenclimatemod:green_painted_planks",
+    "koppenclimatemod:red_painted_planks",
+    "koppenclimatemod:black_painted_planks",
+    "koppenclimatemod:magnolia_planks",
+    "koppenclimatemod:maple_planks",
+    "koppenclimatemod:scots_pine_planks"
   ]
 }

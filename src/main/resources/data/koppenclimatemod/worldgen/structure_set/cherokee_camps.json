@@ -1,0 +1,14 @@
+{
+  "structures": [
+    {
+      "structure": "koppenclimatemod:cherokee_camp",
+      "weight": 1
+    }
+  ],
+  "placement": {
+    "type": "minecraft:random_spread",
+    "spacing": 200,
+    "separation": 50,
+    "salt": 91357201
+  }
+}

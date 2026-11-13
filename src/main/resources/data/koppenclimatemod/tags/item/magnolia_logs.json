@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "koppenclimatemod:magnolia_log",
+    "koppenclimatemod:magnolia_wood",
+    "koppenclimatemod:stripped_magnolia_log",
+    "koppenclimatemod:stripped_magnolia_wood"
+  ]
+}

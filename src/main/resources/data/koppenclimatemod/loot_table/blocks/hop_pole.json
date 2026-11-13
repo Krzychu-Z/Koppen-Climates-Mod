@@ -1,0 +1,48 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "koppenclimatemod:hop_pole"
+        }
+      ],
+      "conditions": [
+        {
+          "condition": "minecraft:survives_explosion"
+        }
+      ]
+    },
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "koppenclimatemod:hops",
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": {
+                "type": "minecraft:uniform",
+                "min": 2,
+                "max": 3
+              }
+            }
+          ]
+        }
+      ],
+      "conditions": [
+        {
+          "condition": "minecraft:block_state_property",
+          "block": "koppenclimatemod:hop_pole",
+          "properties": {
+            "hops": "true",
+            "age": "3"
+          }
+        }
+      ]
+    }
+  ]
+}

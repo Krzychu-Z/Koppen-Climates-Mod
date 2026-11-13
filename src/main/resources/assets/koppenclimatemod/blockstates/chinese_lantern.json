@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "hanging=false": {
+      "model": "koppenclimatemod:block/chinese_lantern"
+    },
+    "hanging=true": {
+      "model": "koppenclimatemod:block/chinese_lantern_hanging"
+    }
+  }
+}

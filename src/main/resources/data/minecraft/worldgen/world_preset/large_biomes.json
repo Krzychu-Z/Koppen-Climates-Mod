@@ -40,7 +40,27 @@
             "highland": "koppenclimatemod:mediterranean_highland_csb",
             "redwood_forest": "koppenclimatemod:redwood_forest_csb",
             "subtropical_plains": "koppenclimatemod:subtropical_plains_cfa",
-            "subtropical_swamp": "koppenclimatemod:subtropical_swamp_cfa"
+            "subtropical_swamp": "koppenclimatemod:subtropical_swamp_cfa",
+            "american_farmland": "koppenclimatemod:american_farmland_cfa",
+            "monsoon_subtropical": "koppenclimatemod:monsoon_subtropical_cwa",
+            "subtropical_rice_terraces": "koppenclimatemod:subtropical_rice_terraces_cwa",
+            "subtropical_karst_peaks": "koppenclimatemod:subtropical_karst_peaks_cwa",
+            "cherry_orchard": "koppenclimatemod:cherry_orchard_cwa",
+            "prairie": "koppenclimatemod:prairie_dfa",
+            "temperate_zones": {
+              "forest": "koppenclimatemod:temperate_forest_cfb",
+              "sunflower_field": "koppenclimatemod:sunflower_field_cfb",
+              "countryside": "koppenclimatemod:english_countryside_cfb",
+              "white_cliffs": "koppenclimatemod:white_cliffs_cfb",
+              "flooded_river": "koppenclimatemod:flooded_river_cfb",
+              "scottish_highland": "koppenclimatemod:scottish_highland_cfc",
+              "scottish_cliffs": "koppenclimatemod:scottish_cliffs_cfc",
+              "continental_forest": "koppenclimatemod:continental_forest_dfb",
+              "pine_forest": "koppenclimatemod:pine_forest_dfb",
+              "alpine_valley": "koppenclimatemod:alpine_valley_dfb",
+              "alpine_mid_altitude": "koppenclimatemod:alpine_mid_altitude_dfc",
+              "alpine_high_altitude": "koppenclimatemod:alpine_high_altitude_et"
+            }
           }
         },
         "settings": "koppenclimatemod:large_biomes"

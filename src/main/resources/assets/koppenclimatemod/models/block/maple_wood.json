@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column",
+  "textures": {
+    "end": "koppenclimatemod:block/maple_log",
+    "side": "koppenclimatemod:block/maple_log"
+  }
+}

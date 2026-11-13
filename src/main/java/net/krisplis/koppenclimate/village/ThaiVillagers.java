@@ -65,6 +65,12 @@ public final class ThaiVillagers {
             Map<ResourceKey<Biome>, VillagerType> map = (Map<ResourceKey<Biome>, VillagerType>) field.get(null);
             map.put(ModBiomes.TROPICAL_MONSOON, VillageRegistry.THAI.get());
             map.put(ModBiomes.RICE_TERRACES, VillageRegistry.THAI.get());
+            // villagers born in the monsoon subtropics (Cwa) are Chinese (see ChineseVillagePiece)
+            map.put(ModBiomes.MONSOON_SUBTROPICAL, VillageRegistry.CHINESE.get());
+            map.put(ModBiomes.SUBTROPICAL_KARST_PEAKS, VillageRegistry.CHINESE.get());
+            // and in the Cherry orchards they are Japanese (see JapaneseVillagePiece)
+            map.put(ModBiomes.CHERRY_ORCHARD, VillageRegistry.JAPANESE.get());
+            map.put(ModBiomes.SUBTROPICAL_RICE_TERRACES, VillageRegistry.CHINESE.get());
             // and villagers born in the Mediterranean (Csa) are Venetian (see TuscanVillagePiece)
             for (var csa : java.util.List.of(ModBiomes.MEDITERRANEAN, ModBiomes.MEDITERRANEAN_FOREST, ModBiomes.OLIVE_GROVE,
                     ModBiomes.MEDITERRANEAN_RIVER, ModBiomes.MEDITERRANEAN_FARMLAND, ModBiomes.LAVENDER_FIELD, ModBiomes.MEDITERRANEAN_BEACH)) {

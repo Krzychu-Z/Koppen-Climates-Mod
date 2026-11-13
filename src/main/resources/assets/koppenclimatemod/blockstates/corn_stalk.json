@@ -1,0 +1,52 @@
+{
+  "variants": {
+    "age=0,part=middle": {
+      "model": "koppenclimatemod:block/corn_middle_stage3"
+    },
+    "age=1,part=middle": {
+      "model": "koppenclimatemod:block/corn_middle_stage3"
+    },
+    "age=2,part=middle": {
+      "model": "koppenclimatemod:block/corn_middle_stage3"
+    },
+    "age=3,part=middle": {
+      "model": "koppenclimatemod:block/corn_middle_stage3"
+    },
+    "age=4,part=middle": {
+      "model": "koppenclimatemod:block/corn_middle_stage4"
+    },
+    "age=5,part=middle": {
+      "model": "koppenclimatemod:block/corn_middle_stage5"
+    },
+    "age=6,part=middle": {
+      "model": "koppenclimatemod:block/corn_middle_stage6"
+    },
+    "age=7,part=middle": {
+      "model": "koppenclimatemod:block/corn_middle_stage7"
+    },
+    "age=0,part=top": {
+      "model": "koppenclimatemod:block/corn_top_stage5"
+    },
+    "age=1,part=top": {
+      "model": "koppenclimatemod:block/corn_top_stage5"
+    },
+    "age=2,part=top": {
+      "model": "koppenclimatemod:block/corn_top_stage5"
+    },
+    "age=3,part=top": {
+      "model": "koppenclimatemod:block/corn_top_stage5"
+    },
+    "age=4,part=top": {
+      "model": "koppenclimatemod:block/corn_top_stage5"
+    },
+    "age=5,part=top": {
+      "model": "koppenclimatemod:block/corn_top_stage5"
+    },
+    "age=6,part=top": {
+      "model": "koppenclimatemod:block/corn_top_stage6"
+    },
+    "age=7,part=top": {
+      "model": "koppenclimatemod:block/corn_top_stage7"
+    }
+  }
+}

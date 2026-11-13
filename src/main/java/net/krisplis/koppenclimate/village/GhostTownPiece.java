@@ -191,8 +191,10 @@ public class GhostTownPiece extends StructurePiece {
         tag.putIntArray("Floors", this.floors);
     }
 
+    // one chunk at a time: the building keeps the chunk it is working on in fields, and chunks of the same
+    // structure are generated on several threads at once
     @Override
-    public void postProcess(WorldGenLevel level, StructureManager structureManager, ChunkGenerator generator,
+    public synchronized void postProcess(WorldGenLevel level, StructureManager structureManager, ChunkGenerator generator,
                             RandomSource random, BoundingBox box, ChunkPos chunkPos, BlockPos pivot) {
         int[] fl = this.floors;
         this.joins = new ArrayList<>();

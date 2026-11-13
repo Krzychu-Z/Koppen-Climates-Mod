@@ -23,7 +23,9 @@ public final class ModBlockEntities {
                     ModBlocks.FIG_SIGN.get(), ModBlocks.FIG_WALL_SIGN.get(), ModBlocks.JOSHUA_SIGN.get(), ModBlocks.JOSHUA_WALL_SIGN.get(), ModBlocks.DEAD_OAK_SIGN.get(), ModBlocks.DEAD_OAK_WALL_SIGN.get(),
                     ModBlocks.EUCALYPTUS_SIGN.get(), ModBlocks.EUCALYPTUS_WALL_SIGN.get(),
                     ModBlocks.REDWOOD_SIGN.get(), ModBlocks.REDWOOD_WALL_SIGN.get(), ModBlocks.PLATANUS_SIGN.get(), ModBlocks.PLATANUS_WALL_SIGN.get(), ModBlocks.CEDAR_SIGN.get(), ModBlocks.CEDAR_WALL_SIGN.get(),
-                    ModBlocks.APPLE_SIGN.get(), ModBlocks.APPLE_WALL_SIGN.get(), ModBlocks.APRICOT_SIGN.get(), ModBlocks.APRICOT_WALL_SIGN.get(), ModBlocks.BLACK_POPLAR_SIGN.get(), ModBlocks.BLACK_POPLAR_WALL_SIGN.get(), ModBlocks.CYPRESS_SIGN.get(), ModBlocks.CYPRESS_WALL_SIGN.get(), ModBlocks.LEMON_SIGN.get(), ModBlocks.LEMON_WALL_SIGN.get()).build(null));
+                    ModBlocks.APPLE_SIGN.get(), ModBlocks.APPLE_WALL_SIGN.get(), ModBlocks.APRICOT_SIGN.get(), ModBlocks.APRICOT_WALL_SIGN.get(), ModBlocks.BLACK_POPLAR_SIGN.get(), ModBlocks.BLACK_POPLAR_WALL_SIGN.get(), ModBlocks.CYPRESS_SIGN.get(), ModBlocks.CYPRESS_WALL_SIGN.get(), ModBlocks.LEMON_SIGN.get(), ModBlocks.LEMON_WALL_SIGN.get(),
+                    ModBlocks.MAGNOLIA_SIGN.get(), ModBlocks.MAGNOLIA_WALL_SIGN.get(),
+                    ModBlocks.MAPLE_SIGN.get(), ModBlocks.MAPLE_WALL_SIGN.get(), ModBlocks.SCOTS_PINE_SIGN.get(), ModBlocks.SCOTS_PINE_WALL_SIGN.get()).build(null));
 
     @SuppressWarnings("DataFlowIssue")
     public static final RegistryObject<BlockEntityType<ModHangingSignBlockEntity>> HANGING_SIGN = BLOCK_ENTITIES.register("hanging_sign",
@@ -36,7 +38,10 @@ public final class ModBlockEntities {
                     ModBlocks.FIG_HANGING_SIGN.get(), ModBlocks.FIG_WALL_HANGING_SIGN.get(), ModBlocks.JOSHUA_HANGING_SIGN.get(), ModBlocks.JOSHUA_WALL_HANGING_SIGN.get(), ModBlocks.DEAD_OAK_HANGING_SIGN.get(), ModBlocks.DEAD_OAK_WALL_HANGING_SIGN.get(),
                     ModBlocks.EUCALYPTUS_HANGING_SIGN.get(), ModBlocks.EUCALYPTUS_WALL_HANGING_SIGN.get(),
                     ModBlocks.REDWOOD_HANGING_SIGN.get(), ModBlocks.REDWOOD_WALL_HANGING_SIGN.get(), ModBlocks.PLATANUS_HANGING_SIGN.get(), ModBlocks.PLATANUS_WALL_HANGING_SIGN.get(), ModBlocks.CEDAR_HANGING_SIGN.get(), ModBlocks.CEDAR_WALL_HANGING_SIGN.get(),
-                    ModBlocks.APPLE_HANGING_SIGN.get(), ModBlocks.APPLE_WALL_HANGING_SIGN.get(), ModBlocks.APRICOT_HANGING_SIGN.get(), ModBlocks.APRICOT_WALL_HANGING_SIGN.get(), ModBlocks.BLACK_POPLAR_HANGING_SIGN.get(), ModBlocks.BLACK_POPLAR_WALL_HANGING_SIGN.get(), ModBlocks.CYPRESS_HANGING_SIGN.get(), ModBlocks.CYPRESS_WALL_HANGING_SIGN.get(), ModBlocks.LEMON_HANGING_SIGN.get(), ModBlocks.LEMON_WALL_HANGING_SIGN.get()).build(null));
+                    ModBlocks.APPLE_HANGING_SIGN.get(), ModBlocks.APPLE_WALL_HANGING_SIGN.get(), ModBlocks.APRICOT_HANGING_SIGN.get(), ModBlocks.APRICOT_WALL_HANGING_SIGN.get(), ModBlocks.BLACK_POPLAR_HANGING_SIGN.get(), ModBlocks.BLACK_POPLAR_WALL_HANGING_SIGN.get(), ModBlocks.CYPRESS_HANGING_SIGN.get(), ModBlocks.CYPRESS_WALL_HANGING_SIGN.get(), ModBlocks.LEMON_HANGING_SIGN.get(), ModBlocks.LEMON_WALL_HANGING_SIGN.get(),
+                    ModBlocks.MAGNOLIA_HANGING_SIGN.get(), ModBlocks.MAGNOLIA_WALL_HANGING_SIGN.get(),
+                    ModBlocks.MAPLE_HANGING_SIGN.get(), ModBlocks.MAPLE_WALL_HANGING_SIGN.get(), ModBlocks.SCOTS_PINE_HANGING_SIGN.get(),
+                    ModBlocks.SCOTS_PINE_WALL_HANGING_SIGN.get()).build(null));
 
     private ModBlockEntities() {
     }

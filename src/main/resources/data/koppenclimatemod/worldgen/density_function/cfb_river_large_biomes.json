@@ -1,0 +1,51 @@
+{
+  "type": "koppenclimatemod:cfb_river",
+  "continents": {
+    "type": "koppenclimatemod:smooth_2d",
+    "argument": "minecraft:overworld_large_biomes/continents"
+  },
+  "erosion": {
+    "type": "koppenclimatemod:smooth_2d",
+    "argument": "minecraft:overworld_large_biomes/erosion"
+  },
+  "ridges": {
+    "type": "koppenclimatemod:smooth_2d",
+    "argument": "minecraft:overworld/ridges"
+  },
+  "temperature": {
+    "type": "koppenclimatemod:smooth_2d",
+    "argument": {
+      "type": "minecraft:flat_cache",
+      "argument": {
+        "type": "minecraft:shifted_noise",
+        "noise": "minecraft:temperature_large",
+        "shift_x": "minecraft:shift_x",
+        "shift_y": 0.0,
+        "shift_z": "minecraft:shift_z",
+        "xz_scale": 0.25,
+        "y_scale": 0.0
+      }
+    }
+  },
+  "humidity": {
+    "type": "koppenclimatemod:smooth_2d",
+    "argument": {
+      "type": "minecraft:flat_cache",
+      "argument": {
+        "type": "minecraft:shifted_noise",
+        "noise": "minecraft:vegetation_large",
+        "shift_x": "minecraft:shift_x",
+        "shift_y": 0.0,
+        "shift_z": "minecraft:shift_z",
+        "xz_scale": 0.25,
+        "y_scale": 0.0
+      }
+    }
+  },
+  "width": {
+    "type": "minecraft:noise",
+    "noise": "minecraft:surface",
+    "xz_scale": 0.015,
+    "y_scale": 0.0
+  }
+}

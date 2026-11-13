@@ -1,0 +1,7 @@
+{
+  "type": "koppenclimatemod:red_farm",
+  "biomes": "#koppenclimatemod:red_farm_biomes",
+  "step": "surface_structures",
+  "terrain_adaptation": "none",
+  "spawn_overrides": {}
+}

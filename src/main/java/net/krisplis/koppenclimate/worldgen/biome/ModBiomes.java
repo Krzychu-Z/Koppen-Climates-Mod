@@ -49,6 +49,34 @@ public class ModBiomes {
     // floodplain) along their lukewarm shore
     public static final ResourceKey<Biome> SUBTROPICAL_PLAINS = key("subtropical_plains_cfa");
     public static final ResourceKey<Biome> SUBTROPICAL_SWAMP = key("subtropical_swamp_cfa");
+    // the American farmland (Cfa): the humid subtropics further inland, one great patchwork of fields
+    public static final ResourceKey<Biome> AMERICAN_FARMLAND = key("american_farmland_cfa");
+    // the monsoon subtropics (Cwa), southern China: long rolling green hills and deep valleys (the Monsoon subtropical
+    // hills), and on the gentler ground a plain of white limestone karst towers (the Subtropical karst peaks)
+    public static final ResourceKey<Biome> MONSOON_SUBTROPICAL = key("monsoon_subtropical_cwa");
+    public static final ResourceKey<Biome> SUBTROPICAL_KARST_PEAKS = key("subtropical_karst_peaks_cwa");
+    // the wettest of the hills: a sparse orchard of cherries, apples, magnolias and little oaks, where only peaceful
+    // animals ever spawn (the Japanese villages stand in it)
+    public static final ResourceKey<Biome> CHERRY_ORCHARD = key("cherry_orchard_cwa");
+    // the hot-summer continental climate (Dfa): the Prairie
+    public static final ResourceKey<Biome> PRAIRIE = key("prairie_dfa");
+    // the temperate oceanic band (Cfb): its forest and sunflower fields, the English countryside behind the White
+    // cliffs, and its broad, brown Flooded rivers
+    public static final ResourceKey<Biome> TEMPERATE_FOREST = key("temperate_forest_cfb");
+    public static final ResourceKey<Biome> SUNFLOWER_FIELD = key("sunflower_field_cfb");
+    public static final ResourceKey<Biome> ENGLISH_COUNTRYSIDE = key("english_countryside_cfb");
+    public static final ResourceKey<Biome> WHITE_CLIFFS = key("white_cliffs_cfb");
+    public static final ResourceKey<Biome> FLOODED_RIVER = key("flooded_river_cfb");
+    // the subpolar oceanic band (Cfc) and the humid continental (Dfb)
+    public static final ResourceKey<Biome> SCOTTISH_HIGHLAND = key("scottish_highland_cfc");
+    public static final ResourceKey<Biome> SCOTTISH_CLIFFS = key("scottish_cliffs_cfc");
+    public static final ResourceKey<Biome> CONTINENTAL_FOREST = key("continental_forest_dfb");
+    public static final ResourceKey<Biome> PINE_FOREST = key("pine_forest_dfb");
+    public static final ResourceKey<Biome> ALPINE_VALLEY = key("alpine_valley_dfb");
+    public static final ResourceKey<Biome> ALPINE_MID = key("alpine_mid_altitude_dfc");
+    public static final ResourceKey<Biome> ALPINE_HIGH = key("alpine_high_altitude_et");
+    // inside them, great sweeps of rice terraces
+    public static final ResourceKey<Biome> SUBTROPICAL_RICE_TERRACES = key("subtropical_rice_terraces_cwa");
 
     // all three Af biomes (tags/worldgen/biome/af.json)
     public static final TagKey<Biome> AF = TagKey.create(Registries.BIOME, ResourceLocation.fromNamespaceAndPath(KoppenClimateMod.MOD_ID, "af"));
@@ -78,7 +106,13 @@ public class ModBiomes {
 
     /** The Subtropical plains and swamp (Cfa). */
     public static boolean isSubtropical(net.minecraft.core.Holder<Biome> biome) {
-        return biome.is(SUBTROPICAL_PLAINS) || biome.is(SUBTROPICAL_SWAMP);
+        return biome.is(SUBTROPICAL_PLAINS) || biome.is(SUBTROPICAL_SWAMP) || biome.is(AMERICAN_FARMLAND) || isCwa(biome);
+    }
+
+    /** The monsoon subtropics (Cwa) and their rice terraces. */
+    public static boolean isCwa(net.minecraft.core.Holder<Biome> biome) {
+        return biome.is(MONSOON_SUBTROPICAL) || biome.is(SUBTROPICAL_KARST_PEAKS) || biome.is(SUBTROPICAL_RICE_TERRACES)
+                || biome.is(CHERRY_ORCHARD);
     }
 
     /** The Lush desert (BSh). */

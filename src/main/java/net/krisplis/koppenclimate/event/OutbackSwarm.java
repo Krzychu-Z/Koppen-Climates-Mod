@@ -67,6 +67,8 @@ public final class OutbackSwarm {
         float angle = random.nextFloat() * Mth.TWO_PI;
         int distance = MIN_DISTANCE + random.nextInt(MAX_DISTANCE - MIN_DISTANCE + 1);
         int x = Mth.floor(player.getX() + Mth.cos(angle) * distance), z = Mth.floor(player.getZ() + Mth.sin(angle) * distance);
+        // only in loaded ground (asking an unloaded chunk's height would load or generate it on the spot)
+        if (!level.hasChunkAt(new BlockPos(x, 0, z))) return false;
         BlockPos pos = new BlockPos(x, level.getHeight(Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, x, z), z);
         if (!level.getBiome(pos).is(ModBiomes.AUSTRALIAN_DESERT) || !level.getBlockState(pos.below()).is(BlockTags.SAND)) return false;
         if (!level.getBlockState(pos).isAir()) return false;
@@ -94,6 +96,7 @@ public final class OutbackSwarm {
             float angle = random.nextFloat() * Mth.TWO_PI;
             int distance = BAT_MIN_DISTANCE + random.nextInt(BAT_MAX_DISTANCE - BAT_MIN_DISTANCE + 1);
             int x = Mth.floor(player.getX() + Mth.cos(angle) * distance), z = Mth.floor(player.getZ() + Mth.sin(angle) * distance);
+            if (!level.hasChunkAt(new BlockPos(x, 0, z))) continue;
             BlockPos pos = new BlockPos(x, level.getHeight(Heightmap.Types.MOTION_BLOCKING, x, z) + 2 + random.nextInt(6), z);
             if (!level.getBiome(pos).is(ModBiomes.AUSTRALIAN_DESERT) || !level.getBlockState(pos).isAir()) continue;
             net.minecraft.world.entity.ambient.Bat bat = EntityType.BAT.create(level);

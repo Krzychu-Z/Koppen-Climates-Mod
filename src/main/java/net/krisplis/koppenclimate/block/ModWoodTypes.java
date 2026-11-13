@@ -22,6 +22,9 @@ public final class ModWoodTypes {
     public static final WoodType REDWOOD = WoodType.register(new WoodType(KoppenClimateMod.MOD_ID + ":redwood", BlockSetType.SPRUCE));
     public static final WoodType PLATANUS = WoodType.register(new WoodType(KoppenClimateMod.MOD_ID + ":platanus", BlockSetType.OAK));
     public static final WoodType CEDAR = WoodType.register(new WoodType(KoppenClimateMod.MOD_ID + ":cedar", BlockSetType.SPRUCE));
+    public static final WoodType MAGNOLIA = WoodType.register(new WoodType(KoppenClimateMod.MOD_ID + ":magnolia", BlockSetType.OAK));
+    public static final WoodType MAPLE = WoodType.register(new WoodType(KoppenClimateMod.MOD_ID + ":maple", BlockSetType.OAK));
+    public static final WoodType SCOTS_PINE = WoodType.register(new WoodType(KoppenClimateMod.MOD_ID + ":scots_pine", BlockSetType.SPRUCE));
     public static final WoodType APPLE = WoodType.register(new WoodType(KoppenClimateMod.MOD_ID + ":apple", BlockSetType.OAK));
     public static final WoodType APRICOT = WoodType.register(new WoodType(KoppenClimateMod.MOD_ID + ":apricot", BlockSetType.OAK));
     public static final WoodType BLACK_POPLAR = WoodType.register(new WoodType(KoppenClimateMod.MOD_ID + ":black_poplar", BlockSetType.OAK));

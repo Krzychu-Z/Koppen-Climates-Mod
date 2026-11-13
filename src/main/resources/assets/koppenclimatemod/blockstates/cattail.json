@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "half=lower": {
+      "model": "koppenclimatemod:block/cattail_bottom"
+    },
+    "half=upper": {
+      "model": "koppenclimatemod:block/cattail_top"
+    }
+  }
+}

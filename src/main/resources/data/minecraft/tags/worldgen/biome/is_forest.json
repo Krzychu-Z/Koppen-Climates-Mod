@@ -1,6 +1,9 @@
 {
   "replace": false,
   "values": [
-    "koppenclimatemod:redwood_forest_csb"
+    "koppenclimatemod:redwood_forest_csb",
+    "koppenclimatemod:temperate_forest_cfb",
+    "koppenclimatemod:continental_forest_dfb",
+    "koppenclimatemod:pine_forest_dfb"
   ]
 }

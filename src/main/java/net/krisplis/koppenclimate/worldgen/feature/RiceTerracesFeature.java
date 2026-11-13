@@ -45,7 +45,12 @@ public class RiceTerracesFeature extends Feature<NoneFeatureConfiguration> {
 
     /** Cod may spawn in any shallow paddy water of the rice terraces, however high up the hill. */
     public static boolean codInPaddy(EntityType<Cod> type, ServerLevelAccessor level, MobSpawnType reason, BlockPos pos, RandomSource random) {
-        return level.getFluidState(pos).is(FluidTags.WATER) && level.getBiome(pos).is(ModBiomes.RICE_TERRACES);
+        return level.getFluidState(pos).is(FluidTags.WATER) && isTerraces(level.getBiome(pos));
+    }
+
+    // the tropical rice terraces (Aw) and the subtropical ones (Cwa)
+    private static boolean isTerraces(net.minecraft.core.Holder<net.minecraft.world.level.biome.Biome> biome) {
+        return biome.is(ModBiomes.RICE_TERRACES) || biome.is(ModBiomes.SUBTROPICAL_RICE_TERRACES);
     }
 
     @Override
@@ -63,7 +68,7 @@ public class RiceTerracesFeature extends Feature<NoneFeatureConfiguration> {
                 int g = level.getHeight(Heightmap.Types.OCEAN_FLOOR_WG, x, z) - 1;
                 ground[i][j] = g;
                 pos.set(x, g, z);
-                usable[i][j] = level.getBiome(pos).is(ModBiomes.RICE_TERRACES)
+                usable[i][j] = isTerraces(level.getBiome(pos))
                         && level.getBlockState(pos).is(BlockTags.DIRT)
                         && level.getFluidState(pos.above()).isEmpty()
                         && !this.waterBeside(level, x, z, g);
@@ -114,8 +119,10 @@ public class RiceTerracesFeature extends Feature<NoneFeatureConfiguration> {
         if (cells == 0) return false;
 
         BlockState mud = Blocks.MUD.defaultBlockState();
-        BlockState bank = ModBlocks.OXISOL.get().defaultBlockState();
-        BlockState bankTop = ModBlocks.OXISOL_GRASS.get().defaultBlockState();
+        // the tropics' banks are red oxisol; the subtropics' are ordinary earth and grass
+        boolean subtropical = level.getBiome(new BlockPos(x0 + 8, ground[8][8], z0 + 8)).is(ModBiomes.SUBTROPICAL_RICE_TERRACES);
+        BlockState bank = subtropical ? Blocks.DIRT.defaultBlockState() : ModBlocks.OXISOL.get().defaultBlockState();
+        BlockState bankTop = subtropical ? Blocks.GRASS_BLOCK.defaultBlockState() : ModBlocks.OXISOL_GRASS.get().defaultBlockState();
         RiceBlock rice = ModBlocks.RICE.get();
         java.util.List<BlockPos> waterCells = new java.util.ArrayList<>();
         for (int i = 0; i < 16; i++) {
@@ -154,8 +161,9 @@ public class RiceTerracesFeature extends Feature<NoneFeatureConfiguration> {
             }
         }
 
-        // a few cod in the water, there to stay
-        int cod = Math.max(1, waterCells.size() / CELLS_PER_COD);
+        // a cod or two in the water, there to stay (no more: they never despawn, and the great Cwa terraces cover
+        // hundreds of chunks, so more would pile up into thousands of fish to load and tick)
+        int cod = Math.min(MAX_COD_PER_CHUNK, Math.max(1, waterCells.size() / CELLS_PER_COD));
         for (int n = 0; n < cod; n++) {
             BlockPos at = waterCells.get(random.nextInt(waterCells.size()));
             Cod fish = EntityType.COD.create(level.getLevel());
@@ -166,6 +174,8 @@ public class RiceTerracesFeature extends Feature<NoneFeatureConfiguration> {
         }
         return true;
     }
+
+    private static final int MAX_COD_PER_CHUNK = 2;
 
     private int cell(int[][] ground, boolean alongX, int along, int across) {
         return alongX ? ground[along][across] : ground[across][along];

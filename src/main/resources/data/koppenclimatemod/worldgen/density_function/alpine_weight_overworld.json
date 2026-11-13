@@ -1,0 +1,61 @@
+{
+  "type": "minecraft:cache_2d",
+  "argument": {
+    "type": "koppenclimatemod:alpine",
+    "continents": {
+      "type": "koppenclimatemod:smooth_2d",
+      "argument": "minecraft:overworld/continents"
+    },
+    "erosion": {
+      "type": "koppenclimatemod:smooth_2d",
+      "argument": "minecraft:overworld/erosion"
+    },
+    "ridges": {
+      "type": "koppenclimatemod:smooth_2d",
+      "argument": "minecraft:overworld/ridges"
+    },
+    "temperature": {
+      "type": "koppenclimatemod:smooth_2d",
+      "argument": {
+        "type": "minecraft:flat_cache",
+        "argument": {
+          "type": "minecraft:shifted_noise",
+          "noise": "minecraft:temperature",
+          "shift_x": "minecraft:shift_x",
+          "shift_y": 0.0,
+          "shift_z": "minecraft:shift_z",
+          "xz_scale": 0.25,
+          "y_scale": 0.0
+        }
+      }
+    },
+    "humidity": {
+      "type": "koppenclimatemod:smooth_2d",
+      "argument": {
+        "type": "minecraft:flat_cache",
+        "argument": {
+          "type": "minecraft:shifted_noise",
+          "noise": "minecraft:vegetation",
+          "shift_x": "minecraft:shift_x",
+          "shift_y": 0.0,
+          "shift_z": "minecraft:shift_z",
+          "xz_scale": 0.25,
+          "y_scale": 0.0
+        }
+      }
+    },
+    "peaks": {
+      "type": "minecraft:noise",
+      "noise": "koppenclimatemod:alpine_peaks",
+      "xz_scale": 0.55,
+      "y_scale": 0.0
+    },
+    "detail": {
+      "type": "minecraft:noise",
+      "noise": "koppenclimatemod:alpine_detail",
+      "xz_scale": 1.0,
+      "y_scale": 0.0
+    },
+    "mode": "weight"
+  }
+}

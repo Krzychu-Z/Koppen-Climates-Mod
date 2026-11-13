@@ -1,0 +1,46 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "rolls": 1.0,
+      "bonus_rolls": 0.0,
+      "entries": [
+        {
+          "type": "minecraft:alternatives",
+          "children": [
+            {
+              "type": "minecraft:item",
+              "name": "koppenclimatemod:corn",
+              "conditions": [
+                {
+                  "condition": "minecraft:block_state_property",
+                  "block": "koppenclimatemod:corn",
+                  "properties": {
+                    "age": "7"
+                  }
+                }
+              ],
+              "functions": [
+                {
+                  "function": "minecraft:set_count",
+                  "count": 4.0,
+                  "add": false
+                }
+              ]
+            },
+            {
+              "type": "minecraft:item",
+              "name": "koppenclimatemod:corn"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "functions": [
+    {
+      "function": "minecraft:explosion_decay"
+    }
+  ],
+  "random_sequence": "koppenclimatemod:blocks/corn"
+}

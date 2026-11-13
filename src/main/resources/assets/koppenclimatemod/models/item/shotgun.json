@@ -1,0 +1,17 @@
+{
+  "loader": "forge:separate_transforms",
+  "base": {
+    "parent": "koppenclimatemod:item/shotgun_3d"
+  },
+  "perspectives": {
+    "gui": {
+      "parent": "koppenclimatemod:item/shotgun_icon"
+    },
+    "ground": {
+      "parent": "koppenclimatemod:item/shotgun_icon"
+    },
+    "fixed": {
+      "parent": "koppenclimatemod:item/shotgun_icon"
+    }
+  }
+}

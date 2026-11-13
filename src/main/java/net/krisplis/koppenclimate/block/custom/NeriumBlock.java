@@ -28,14 +28,14 @@ import java.util.Set;
 /**
  * Nerium (oleander): a dense, poisonous flowering bush built of these blocks. Planted it stands one block wide and
  * two tall; it grows on its own (or with bone meal) up to two by two blocks across and three tall. Falling into it
- * from a height poisons you a little. Broken, it gives nerium twigs, or the bush itself with shears or Silk Touch.
+ * poisons you to death, slowly, unless you drink milk. Broken, it gives nerium twigs, or the bush itself with shears or Silk Touch.
  * It doesn't grow wild: it'll come from Italian villages.
  */
 public class NeriumBlock extends Block implements BonemealableBlock {
     // the most blocks one bush grows to: 2 x 2 across, 3 tall
     private static final int MAX_SPAN = 2, MAX_HEIGHT = 3, MAX_BLOCKS = MAX_SPAN * MAX_SPAN * MAX_HEIGHT;
     // falls from further than this poison
-    private static final float POISON_FALL = 3.0F;
+    private static final float POISON_FALL = 1.5F;
 
     public NeriumBlock(Properties properties) {
         super(properties);
@@ -65,7 +65,9 @@ public class NeriumBlock extends Block implements BonemealableBlock {
     @Override
     public void fallOn(Level level, BlockState state, BlockPos pos, Entity entity, float fallDistance) {
         if (!level.isClientSide && fallDistance > POISON_FALL && entity instanceof LivingEntity living) {
-            living.addEffect(new MobEffectInstance(MobEffects.POISON, 100, 0));
+            // the whole bush is poison: a fall into it is deadly, slowly, unless you drink milk
+            living.addEffect(new MobEffectInstance(net.krisplis.koppenclimate.effect.ModEffects.OLEANDER_POISONING.getHolder().orElseThrow(),
+                    net.krisplis.koppenclimate.effect.OleanderPoisoningEffect.DURATION, 0));
         }
         super.fallOn(level, state, pos, entity, fallDistance);
     }

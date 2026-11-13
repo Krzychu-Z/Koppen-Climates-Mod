@@ -1,0 +1,14 @@
+{
+  "structures": [
+    {
+      "structure": "koppenclimatemod:chinese_village",
+      "weight": 1
+    }
+  ],
+  "placement": {
+    "type": "minecraft:random_spread",
+    "spacing": 20,
+    "separation": 7,
+    "salt": 51732819
+  }
+}

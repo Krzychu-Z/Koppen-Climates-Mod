@@ -38,6 +38,12 @@ public class AmazonVillageStructure extends Structure {
         LevelHeightAccessor heights = context.heightAccessor();
         RandomState randomState = context.randomState();
 
+        // a cheap first test, before any of the costly ground heights: the middle must be in the right biome
+        if (!context.validBiome().test(context.biomeSource().getNoiseBiome(net.minecraft.core.QuartPos.fromBlock(cx),
+                net.minecraft.core.QuartPos.fromBlock(context.chunkGenerator().getSeaLevel() + 4),
+                net.minecraft.core.QuartPos.fromBlock(cz), context.randomState().sampler()))) {
+            return Optional.empty();
+        }
         int min = Integer.MAX_VALUE, max = Integer.MIN_VALUE, sum = 0, count = 0;
         for (int dx = -CHECK_RADIUS; dx <= CHECK_RADIUS; dx += CHECK_RADIUS) {
             for (int dz = -CHECK_RADIUS; dz <= CHECK_RADIUS; dz += CHECK_RADIUS) {
@@ -46,6 +52,11 @@ public class AmazonVillageStructure extends Structure {
                 int floor = generator.getFirstOccupiedHeight(x, z, Heightmap.Types.OCEAN_FLOOR_WG, heights, randomState);
                 // water on top: a lake, river or the sea
                 if (surface != floor || surface < generator.getSeaLevel() - 1) {
+                    return Optional.empty();
+                }
+                // the whole village on the jungle's own ground, never spilling into a neighbouring biome
+                if (!context.validBiome().test(context.biomeSource().getNoiseBiome(net.minecraft.core.QuartPos.fromBlock(x),
+                        net.minecraft.core.QuartPos.fromBlock(surface), net.minecraft.core.QuartPos.fromBlock(z), randomState.sampler()))) {
                     return Optional.empty();
                 }
                 min = Math.min(min, surface);

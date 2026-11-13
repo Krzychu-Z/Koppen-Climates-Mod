@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "boat",
+  "key": {
+    "#": {
+      "item": "koppenclimatemod:scots_pine_planks"
+    }
+  },
+  "pattern": [
+    "# #",
+    "###"
+  ],
+  "result": {
+    "count": 1,
+    "id": "koppenclimatemod:scots_pine_boat"
+  }
+}

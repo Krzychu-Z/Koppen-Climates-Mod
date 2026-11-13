@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "pattern": [
+    "###",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "koppenclimatemod:shoji_screen"
+    }
+  },
+  "result": {
+    "id": "koppenclimatemod:shoji_pane",
+    "count": 16
+  }
+}

@@ -52,6 +52,8 @@ public class ModItems {
     // dark olive with pale scales
     public static final RegistryObject<Item> CROCODILE_SPAWN_EGG = ITEMS.register("crocodile_spawn_egg",
             () -> new ForgeSpawnEggItem(ModEntities.CROCODILE, 0x3C4628, 0xC4BC8C, new Item.Properties()));
+    public static final RegistryObject<Item> ALLIGATOR_SPAWN_EGG = ITEMS.register("alligator_spawn_egg",
+            () -> new ForgeSpawnEggItem(ModEntities.ALLIGATOR, 0x23261C, 0x8E8A6A, new Item.Properties()));
 
     // silver with a red belly
     public static final RegistryObject<Item> PIRANHA_SPAWN_EGG = ITEMS.register("piranha_spawn_egg",
@@ -72,6 +74,23 @@ public class ModItems {
     public static final RegistryObject<Item> BARLEY_SEEDS = ITEMS.register("barley_seeds",
             () -> new ItemNameBlockItem(ModBlocks.BARLEY.get(), new Item.Properties()));
     public static final RegistryObject<Item> BARLEY = ITEMS.register("barley", () -> new Item(new Item.Properties()));
+    // ------------------------------------------------------------------ the American farmland's (Cfa) crops
+    public static final RegistryObject<Item> COTTON_SEEDS = ITEMS.register("cotton_seeds",
+            () -> new ItemNameBlockItem(ModBlocks.COTTON.get(), new Item.Properties()));
+    // a ripe cotton plant gives four of these
+    public static final RegistryObject<Item> COTTON_BOLL = ITEMS.register("cotton_boll", () -> new Item(new Item.Properties()));
+    // a cob of corn: eaten as it is, or planted (like a carrot)
+    public static final RegistryObject<Item> CORN = ITEMS.register("corn",
+            () -> new ItemNameBlockItem(ModBlocks.CORN.get(), new Item.Properties()
+                    .food(new FoodProperties.Builder().nutrition(2).saturationModifier(0.3F).build())));
+    // corn roasted (in a furnace, smoker or on a campfire): 3 hunger points, and it heals 2 hearts at once
+    public static final RegistryObject<Item> COOKED_CORN = ITEMS.register("cooked_corn",
+            () -> new Item(new Item.Properties().food(new FoodProperties.Builder().nutrition(3).saturationModifier(0.8F)
+                    .effect(new net.minecraft.world.effect.MobEffectInstance(net.minecraft.world.effect.MobEffects.HEAL, 1, 0), 1.0F)
+                    .build())));
+    // the shotgun, found hidden in the red farms' barns: fires copper bullets (BULLET)
+    public static final RegistryObject<Item> SHOTGUN = ITEMS.register("shotgun",
+            () -> new net.krisplis.koppenclimate.item.custom.ShotgunItem(new Item.Properties().stacksTo(1).durability(250)));
     public static final RegistryObject<Item> RICE = ITEMS.register("rice",
             () -> new Item(new Item.Properties()));
     // three rice and a bowl: fills a third of the hunger bar (7 of its 20 points) and gives the bowl back
@@ -203,6 +222,40 @@ public class ModItems {
             () -> new ModBoatItem(false, ModBoatWood.CEDAR, new Item.Properties().stacksTo(1)));
     public static final RegistryObject<Item> CEDAR_CHEST_BOAT = ITEMS.register("cedar_chest_boat",
             () -> new ModBoatItem(true, ModBoatWood.CEDAR, new Item.Properties().stacksTo(1)));
+    // magnolia wood
+    public static final RegistryObject<Item> MAGNOLIA_DOOR = ITEMS.register("magnolia_door",
+            () -> new DoubleHighBlockItem(ModBlocks.MAGNOLIA_DOOR.get(), new Item.Properties()));
+    public static final RegistryObject<Item> MAGNOLIA_SIGN = ITEMS.register("magnolia_sign",
+            () -> new SignItem(new Item.Properties().stacksTo(16), ModBlocks.MAGNOLIA_SIGN.get(), ModBlocks.MAGNOLIA_WALL_SIGN.get()));
+    public static final RegistryObject<Item> MAGNOLIA_HANGING_SIGN = ITEMS.register("magnolia_hanging_sign",
+            () -> new HangingSignItem(ModBlocks.MAGNOLIA_HANGING_SIGN.get(), ModBlocks.MAGNOLIA_WALL_HANGING_SIGN.get(), new Item.Properties().stacksTo(16)));
+    public static final RegistryObject<Item> MAGNOLIA_BOAT = ITEMS.register("magnolia_boat",
+            () -> new ModBoatItem(false, ModBoatWood.MAGNOLIA, new Item.Properties().stacksTo(1)));
+    public static final RegistryObject<Item> MAGNOLIA_CHEST_BOAT = ITEMS.register("magnolia_chest_boat",
+            () -> new ModBoatItem(true, ModBoatWood.MAGNOLIA, new Item.Properties().stacksTo(1)));
+    // maple wood
+    public static final RegistryObject<Item> MAPLE_DOOR = ITEMS.register("maple_door",
+            () -> new DoubleHighBlockItem(ModBlocks.MAPLE_DOOR.get(), new Item.Properties()));
+    public static final RegistryObject<Item> MAPLE_SIGN = ITEMS.register("maple_sign",
+            () -> new SignItem(new Item.Properties().stacksTo(16), ModBlocks.MAPLE_SIGN.get(), ModBlocks.MAPLE_WALL_SIGN.get()));
+    public static final RegistryObject<Item> MAPLE_HANGING_SIGN = ITEMS.register("maple_hanging_sign",
+            () -> new HangingSignItem(ModBlocks.MAPLE_HANGING_SIGN.get(), ModBlocks.MAPLE_WALL_HANGING_SIGN.get(), new Item.Properties().stacksTo(16)));
+    public static final RegistryObject<Item> MAPLE_BOAT = ITEMS.register("maple_boat",
+            () -> new ModBoatItem(false, ModBoatWood.MAPLE, new Item.Properties().stacksTo(1)));
+    public static final RegistryObject<Item> MAPLE_CHEST_BOAT = ITEMS.register("maple_chest_boat",
+            () -> new ModBoatItem(true, ModBoatWood.MAPLE, new Item.Properties().stacksTo(1)));
+    // scots_pine wood
+    public static final RegistryObject<Item> SCOTS_PINE_DOOR = ITEMS.register("scots_pine_door",
+            () -> new DoubleHighBlockItem(ModBlocks.SCOTS_PINE_DOOR.get(), new Item.Properties()));
+    public static final RegistryObject<Item> SCOTS_PINE_SIGN = ITEMS.register("scots_pine_sign",
+            () -> new SignItem(new Item.Properties().stacksTo(16), ModBlocks.SCOTS_PINE_SIGN.get(), ModBlocks.SCOTS_PINE_WALL_SIGN.get()));
+    public static final RegistryObject<Item> SCOTS_PINE_HANGING_SIGN = ITEMS.register("scots_pine_hanging_sign",
+            () -> new HangingSignItem(ModBlocks.SCOTS_PINE_HANGING_SIGN.get(), ModBlocks.SCOTS_PINE_WALL_HANGING_SIGN.get(), new Item.Properties().stacksTo(16)));
+    public static final RegistryObject<Item> SCOTS_PINE_BOAT = ITEMS.register("scots_pine_boat",
+            () -> new ModBoatItem(false, ModBoatWood.SCOTS_PINE, new Item.Properties().stacksTo(1)));
+    public static final RegistryObject<Item> SCOTS_PINE_CHEST_BOAT = ITEMS.register("scots_pine_chest_boat",
+            () -> new ModBoatItem(true, ModBoatWood.SCOTS_PINE, new Item.Properties().stacksTo(1)));
+    // the cedar of Lebanon (Subtropical plains, Cfa)
     // apple wood
     public static final RegistryObject<Item> APPLE_DOOR = ITEMS.register("apple_door",
             () -> new DoubleHighBlockItem(ModBlocks.APPLE_DOOR.get(), new Item.Properties()));
@@ -267,6 +320,12 @@ public class ModItems {
     // an apricot: a little more filling than an apple; and the jam it cooks down to (like agave mash)
     public static final RegistryObject<Item> APRICOT = ITEMS.register("apricot",
             () -> new Item(new Item.Properties().food(new FoodProperties.Builder().nutrition(5).saturationModifier(0.5F).build())));
+    // cherries, picked from the summer cherry trees of the Cherry orchards (Cwa)
+    public static final RegistryObject<Item> CHERRIES = ITEMS.register("cherries",
+            () -> new Item(new Item.Properties().food(new FoodProperties.Builder().nutrition(3).saturationModifier(0.4F).build())));
+    // the sliding paper door (its block: ModBlocks.SHOJI_DOOR)
+    public static final RegistryObject<Item> SHOJI_DOOR = ITEMS.register("shoji_door",
+            () -> new DoubleHighBlockItem(ModBlocks.SHOJI_DOOR.get(), new Item.Properties()));
     public static final RegistryObject<Item> APRICOT_JAM = ITEMS.register("apricot_jam",
             () -> new Item(new Item.Properties().food(new FoodProperties.Builder().nutrition(7).saturationModifier(0.6F).build())));
     // cedar wood dried in a furnace, and the perfume made of it: it draws friendly animals in and keeps hostile mobs away
@@ -276,6 +335,14 @@ public class ModItems {
     // the Redwood forest's (Csb) grizzly bear
     public static final RegistryObject<Item> GRIZZLY_BEAR_SPAWN_EGG = ITEMS.register("grizzly_bear_spawn_egg",
             () -> new net.minecraftforge.common.ForgeSpawnEggItem(net.krisplis.koppenclimate.entity.ModEntities.GRIZZLY_BEAR, 0x6B4A2E, 0x3A2616, new Item.Properties()));
+    public static final RegistryObject<Item> TIGER_SPAWN_EGG = ITEMS.register("tiger_spawn_egg",
+            () -> new net.minecraftforge.common.ForgeSpawnEggItem(net.krisplis.koppenclimate.entity.ModEntities.TIGER, 0xE07A1F, 0x1A1410, new Item.Properties()));
+    // hops: the hop bine's cones, from the German towns' hop gardens (Dfb); planted on a hop pole
+    public static final RegistryObject<Item> HOPS = ITEMS.register("hops", () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> BROWN_BEAR_SPAWN_EGG = ITEMS.register("brown_bear_spawn_egg",
+            () -> new net.minecraftforge.common.ForgeSpawnEggItem(net.krisplis.koppenclimate.entity.ModEntities.BROWN_BEAR, 0x5B3A22, 0x3A2416, new Item.Properties()));
+    public static final RegistryObject<Item> BLACK_BEAR_SPAWN_EGG = ITEMS.register("black_bear_spawn_egg",
+            () -> new net.minecraftforge.common.ForgeSpawnEggItem(net.krisplis.koppenclimate.entity.ModEntities.BLACK_BEAR, 0x1C1A1A, 0xD8D2C0, new Item.Properties()));
     public static final RegistryObject<Item> JOSHUA_DOOR = ITEMS.register("joshua_door",
             () -> new DoubleHighBlockItem(ModBlocks.JOSHUA_DOOR.get(), new Item.Properties()));
     public static final RegistryObject<Item> JOSHUA_SIGN = ITEMS.register("joshua_sign",
@@ -313,7 +380,7 @@ public class ModItems {
     public static final RegistryObject<Item> AGAVE_LEAVES = ITEMS.register("agave_leaves", () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> AGAVE_MASH = ITEMS.register("agave_mash", () -> new Item(new Item.Properties()));
     // twigs of the poisonous nerium (for poisons, later)
-    public static final RegistryObject<Item> NERIUM_TWIGS = ITEMS.register("nerium_twigs", () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> NERIUM_TWIGS = ITEMS.register("nerium_twigs", () -> new net.krisplis.koppenclimate.item.custom.NeriumTwigsItem(new Item.Properties()));
     // wine grapes: a heart each, and planted on a wine pole they grow a vine
     public static final RegistryObject<Item> RED_WINE_GRAPES = ITEMS.register("red_wine_grapes",
             () -> new Item(new Item.Properties().food(new FoodProperties.Builder().nutrition(2).saturationModifier(0.3F).build())));

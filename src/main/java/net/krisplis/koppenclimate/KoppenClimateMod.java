@@ -78,6 +78,7 @@ public class KoppenClimateMod {
         }
         if (event.getTabKey() == CreativeModeTabs.NATURAL_BLOCKS) {
             event.accept(ModBlocks.SAVANNA_OXISOL_GRASS);
+            event.accept(ModBlocks.HIGHLAND_GRASS);
             event.accept(ModBlocks.TERMITE_MOUND);
             event.accept(ModBlocks.BAOBAB_LOG);
             event.accept(ModBlocks.BAOBAB_LEAVES);
@@ -155,12 +156,13 @@ public class KoppenClimateMod {
                     ModBlocks.JOSHUA_LEAVES, ModBlocks.JOSHUA_SAPLING, ModBlocks.DEAD_OAK_LOG, ModBlocks.DEAD_OAK_LEAVES,
                     ModBlocks.EUCALYPTUS_LOG, ModBlocks.EUCALYPTUS_LEAVES, ModBlocks.EUCALYPTUS_SAPLING)) event.accept(b);
             for (var b : java.util.List.of(ModBlocks.WHITE_LIMESTONE, ModBlocks.CINNAMON_GRASS_BLOCK, ModBlocks.CINNAMON_DIRT,
-                    ModBlocks.WHITE_GRAVEL, ModBlocks.ROSEMARY, ModBlocks.TALL_ROSEMARY, ModBlocks.OLIVE_LOG, ModBlocks.OLIVE_LEAVES,
+                    ModBlocks.WHITE_GRAVEL, ModBlocks.ROSEMARY, ModBlocks.TALL_ROSEMARY, ModBlocks.MOUNTAIN_PINE, ModBlocks.OLIVE_LOG, ModBlocks.OLIVE_LEAVES,
                     ModBlocks.OLIVE_SAPLING, ModBlocks.ITALIAN_PINE_LOG, ModBlocks.ITALIAN_PINE_LEAVES, ModBlocks.ITALIAN_PINE_SAPLING,
                     ModBlocks.CYPRESS_LEAVES, ModBlocks.CYPRESS_SAPLING, ModBlocks.FIG_LOG, ModBlocks.FIG_LEAVES, ModBlocks.FIG_SAPLING,
                     ModBlocks.LEMON_LEAVES, ModBlocks.LEMON_SAPLING, ModBlocks.LAVENDER, ModBlocks.AGAVE, ModBlocks.NERIUM,
                     ModBlocks.MARBLE)) event.accept(b);
             event.accept(ModBlocks.WINE_POLE);
+            event.accept(ModBlocks.HOP_POLE);
             event.accept(ModItems.BARLEY_SEEDS);
         }
         if (tab == CreativeModeTabs.FUNCTIONAL_BLOCKS) {
@@ -181,6 +183,7 @@ public class KoppenClimateMod {
             event.accept(ModItems.FIG);
             event.accept(ModItems.LEMON);
             event.accept(ModItems.RED_WINE_GRAPES);
+            event.accept(ModItems.HOPS);
             event.accept(ModItems.GREEN_WINE_GRAPES);
             event.accept(ModItems.TOMATO);
         }
@@ -323,6 +326,7 @@ public class KoppenClimateMod {
             }
             fire.setFlammable(ModBlocks.ROSEMARY.get(), 100, 100);
             fire.setFlammable(ModBlocks.TALL_ROSEMARY.get(), 100, 100);
+            fire.setFlammable(ModBlocks.MOUNTAIN_PINE.get(), 60, 100);
             fire.setFlammable(ModBlocks.LAVENDER.get(), 60, 100);
             pot.addPlant(ModBlocks.FIG_SAPLING.getId(), ModBlocks.POTTED_FIG_SAPLING);
             pot.addPlant(ModBlocks.LEMON_SAPLING.getId(), ModBlocks.POTTED_LEMON_SAPLING);
@@ -344,6 +348,7 @@ public class KoppenClimateMod {
             fire.setFlammable(ModBlocks.NERIUM.get(), 30, 60);
             fire.setFlammable(ModBlocks.AGAVE_STALK.get(), 5, 20);
             fire.setFlammable(ModBlocks.WINE_POLE.get(), 5, 20);
+            fire.setFlammable(ModBlocks.HOP_POLE.get(), 5, 20);
             // the Redwood forest (Csb) and the Subtropical plains (Cfa)
             CfaCsbContent.commonSetup();
         });
@@ -478,9 +483,11 @@ public class KoppenClimateMod {
         if(event.getTabKey() == CreativeModeTabs.SPAWN_EGGS) {
             event.accept(ModItems.ANACONDA_SPAWN_EGG);
             event.accept(ModItems.CROCODILE_SPAWN_EGG);
+            event.accept(ModItems.ALLIGATOR_SPAWN_EGG);
             event.accept(ModItems.BLACK_PANTHER_SPAWN_EGG);
             event.accept(VillageRegistry.AMAZON_VILLAGER_SPAWN_EGG);
             event.accept(VillageRegistry.AFRICAN_VILLAGER_SPAWN_EGG);
+            event.accept(VillageRegistry.LAKOTA_VILLAGER_SPAWN_EGG);
             event.accept(ModItems.PIRANHA_SPAWN_EGG);
             event.accept(ModItems.COBRA_SPAWN_EGG);
             event.accept(ModItems.VIPER_SPAWN_EGG);

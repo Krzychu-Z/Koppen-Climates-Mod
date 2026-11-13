@@ -41,6 +41,13 @@ public class ModEntities {
                     .clientTrackingRange(10)
                     .build("crocodile"));
 
+    // the American alligator of the Subtropical swamp (Cfa): a crocodile's ways in a smaller, darker beast, no faster
+    public static final RegistryObject<EntityType<CrocodileEntity>> ALLIGATOR = ENTITY_TYPES.register("alligator",
+            () -> EntityType.Builder.of(CrocodileEntity::new, MobCategory.CREATURE)
+                    .sized(1.0F, 0.5F)
+                    .clientTrackingRange(10)
+                    .build("alligator"));
+
     // an ocelot's hitbox, scaled up with the model
     public static final RegistryObject<EntityType<BlackPantherEntity>> BLACK_PANTHER = ENTITY_TYPES.register("black_panther",
             () -> EntityType.Builder.of(BlackPantherEntity::new, MobCategory.CREATURE)
@@ -167,6 +174,18 @@ public class ModEntities {
             () -> EntityType.Builder.of(net.krisplis.koppenclimate.entity.custom.GrizzlyBearEntity::new, MobCategory.CREATURE)
                     .sized(1.4F, 1.4F).clientTrackingRange(10).build("grizzly_bear"));
 
+    // ------------------------------------------------------------------ the monsoon subtropics' (Cwa) tiger and black bear
+    public static final RegistryObject<EntityType<net.krisplis.koppenclimate.entity.custom.TigerEntity>> TIGER = ENTITY_TYPES.register("tiger",
+            () -> EntityType.Builder.of(net.krisplis.koppenclimate.entity.custom.TigerEntity::new, MobCategory.CREATURE)
+                    .sized(1.1F, 1.25F).clientTrackingRange(10).build("tiger"));
+    public static final RegistryObject<EntityType<net.krisplis.koppenclimate.entity.custom.BlackBearEntity>> BLACK_BEAR = ENTITY_TYPES.register("black_bear",
+            () -> EntityType.Builder.of(net.krisplis.koppenclimate.entity.custom.BlackBearEntity::new, MobCategory.CREATURE)
+                    .sized(1.3F, 1.3F).clientTrackingRange(10).build("black_bear"));
+    // the brown bear of the temperate and continental forests (Cfb, Dfb): placid unless hit
+    public static final RegistryObject<EntityType<net.krisplis.koppenclimate.entity.custom.BrownBearEntity>> BROWN_BEAR = ENTITY_TYPES.register("brown_bear",
+            () -> EntityType.Builder.of(net.krisplis.koppenclimate.entity.custom.BrownBearEntity::new, MobCategory.CREATURE)
+                    .sized(1.4F, 1.4F).clientTrackingRange(10).build("brown_bear"));
+
     // the tropical forests' pig: reddish-brown with mud-dark spots
     public static final RegistryObject<EntityType<net.krisplis.koppenclimate.entity.custom.WarmPigEntity>> WARM_PIG = ENTITY_TYPES.register("warm_pig",
             () -> EntityType.Builder.of(net.krisplis.koppenclimate.entity.custom.WarmPigEntity::new, MobCategory.CREATURE)
@@ -216,6 +235,11 @@ public class ModEntities {
     private static void registerAttributes(EntityAttributeCreationEvent event) {
         event.put(ANACONDA.get(), AnacondaEntity.createAttributes().build());
         event.put(CROCODILE.get(), CrocodileEntity.createAttributes().build());
+        // the alligator: weaker than the crocodile, but just as quick
+        event.put(ALLIGATOR.get(), CrocodileEntity.createAttributes()
+                .add(net.minecraft.world.entity.ai.attributes.Attributes.MAX_HEALTH, 26.0)
+                .add(net.minecraft.world.entity.ai.attributes.Attributes.ATTACK_DAMAGE, 5.0)
+                .add(net.minecraft.world.entity.ai.attributes.Attributes.ARMOR, 3.0).build());
         event.put(BLACK_PANTHER.get(), BlackPantherEntity.createAttributes().build());
         event.put(PIRANHA.get(), PiranhaEntity.createAttributes().build());
         event.put(COBRA.get(), CobraEntity.createAttributes().build());
@@ -236,6 +260,9 @@ public class ModEntities {
         event.put(WARM_PIG.get(), net.minecraft.world.entity.animal.Pig.createAttributes().build());
         event.put(JACKAL.get(), net.krisplis.koppenclimate.entity.custom.JackalEntity.createAttributes().build());
         event.put(GRIZZLY_BEAR.get(), net.krisplis.koppenclimate.entity.custom.GrizzlyBearEntity.createGrizzlyAttributes().build());
+        event.put(TIGER.get(), net.krisplis.koppenclimate.entity.custom.TigerEntity.createTigerAttributes().build());
+        event.put(BLACK_BEAR.get(), net.krisplis.koppenclimate.entity.custom.BlackBearEntity.createBlackBearAttributes().build());
+        event.put(BROWN_BEAR.get(), net.krisplis.koppenclimate.entity.custom.BrownBearEntity.createBrownBearAttributes().build());
         event.put(KOALA.get(), net.krisplis.koppenclimate.entity.custom.KoalaEntity.createAttributes().build());
         event.put(KANGAROO.get(), net.krisplis.koppenclimate.entity.custom.KangarooEntity.createAttributes().build());
         event.put(HYENA.get(), net.krisplis.koppenclimate.entity.custom.HyenaEntity.createAttributes().build());
@@ -247,6 +274,9 @@ public class ModEntities {
                 Mob::checkMobSpawnRules, SpawnPlacementRegisterEvent.Operation.REPLACE);
         // crocodiles only ever appear near water
         event.register(CROCODILE.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+                (type, level, reason, pos, random) -> Mob.checkMobSpawnRules(type, level, reason, pos, random) && nearWater(level, pos, 6),
+                SpawnPlacementRegisterEvent.Operation.REPLACE);
+        event.register(ALLIGATOR.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
                 (type, level, reason, pos, random) -> Mob.checkMobSpawnRules(type, level, reason, pos, random) && nearWater(level, pos, 6),
                 SpawnPlacementRegisterEvent.Operation.REPLACE);
         // the savanna's animals stand on its grass; rhinos only by its ponds
@@ -305,6 +335,12 @@ public class ModEntities {
         event.register(EntityType.ARMADILLO, ModEntities::onDesertSand, SpawnPlacementRegisterEvent.Operation.OR);
         // the grizzly roams the Redwood forest's (Csb) floor: grass, podzol or bare dirt, in daylight
         event.register(GRIZZLY_BEAR.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+                ModEntities::onForestFloor, SpawnPlacementRegisterEvent.Operation.REPLACE);
+        event.register(TIGER.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+                ModEntities::onForestFloor, SpawnPlacementRegisterEvent.Operation.REPLACE);
+        event.register(BLACK_BEAR.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+                ModEntities::onForestFloor, SpawnPlacementRegisterEvent.Operation.REPLACE);
+        event.register(BROWN_BEAR.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
                 ModEntities::onForestFloor, SpawnPlacementRegisterEvent.Operation.REPLACE);
     }
 

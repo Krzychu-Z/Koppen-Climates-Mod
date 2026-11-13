@@ -22,7 +22,8 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 /**
  * The agave: a rosette of thick, spiny blue-grey leaves that grows through four stages (AGE 0-3). Fully grown, it
  * now and then sends up its famous woody flower stalk (AgaveStalkBlock), several blocks tall. Broken, it gives the
- * agave back and agave leaves, more the bigger it was (loot_table/blocks/agave.json).
+ * agave back and agave leaves, more the bigger it was (loot_table/blocks/agave.json). Its leaves end in hard spines:
+ * pushing through one (once it's past a seedling) slows you and pricks you, like a berry bush.
  */
 public class AgaveBlock extends BushBlock implements BonemealableBlock {
     public static final MapCodec<AgaveBlock> CODEC = simpleCodec(AgaveBlock::new);
@@ -101,6 +102,19 @@ public class AgaveBlock extends BushBlock implements BonemealableBlock {
             level.setBlock(pos, state.setValue(AGE, state.getValue(AGE) + 1), 2);
         } else if (random.nextInt(4) == 0) {
             sproutStalk(level, pos, random);
+        }
+    }
+
+    // the spines: walking through a grown agave slows you and pricks you whenever you move in it (not the small
+    // seedling, nor anything sitting still in it)
+    @Override
+    protected void entityInside(BlockState state, Level level, BlockPos pos, net.minecraft.world.entity.Entity entity) {
+        if (state.getValue(AGE) == 0 || !(entity instanceof net.minecraft.world.entity.LivingEntity)) return;
+        entity.makeStuckInBlock(state, new net.minecraft.world.phys.Vec3(0.8, 0.75, 0.8));
+        if (level.isClientSide) return;
+        if (entity.xOld != entity.getX() || entity.zOld != entity.getZ()) {
+            double dx = Math.abs(entity.getX() - entity.xOld), dz = Math.abs(entity.getZ() - entity.zOld);
+            if (dx >= 0.003 || dz >= 0.003) entity.hurt(level.damageSources().cactus(), 1.0F + state.getValue(AGE) * 0.5F);
         }
     }
 }

@@ -52,6 +52,7 @@ public class EucalyptusTreeFeature extends Feature<NoneFeatureConfiguration> {
         // the trunk: straight up, then leaning one block over partway, now and then once more
         Direction lean = SIDES[random.nextInt(4)];
         int leanAt = height / 2 + random.nextInt(2);
+        List<BlockPos> crowns = new ArrayList<>();
         List<BlockPos> trunk = new ArrayList<>();
         BlockPos p = origin;
         for (int i = 0; i < height; i++) {
@@ -86,9 +87,10 @@ public class EucalyptusTreeFeature extends Feature<NoneFeatureConfiguration> {
                 end = new BlockPos(Mth.floor(fx), y, Mth.floor(fz));
                 this.put(level, end, log(axis));
             }
-            this.crown(level, end, random);
+            this.crown(level, end, random, crowns);
         }
-        this.crown(level, top.above(), random);
+        this.crown(level, top.above(), random, crowns);
+        net.krisplis.koppenclimate.worldgen.tree.LeafDistances.settle(level, crowns);
 
         // koalas, asleep on the trunk (only out in the wild: a tree grown from a sapling is still bare of them)
         if (level instanceof WorldGenRegion) {
@@ -112,7 +114,7 @@ public class EucalyptusTreeFeature extends Feature<NoneFeatureConfiguration> {
     }
 
     /** A thin, ragged clump of leaves around a limb's end: a rough ball with gaps in it. */
-    private void crown(WorldGenLevel level, BlockPos centre, RandomSource random) {
+    private void crown(WorldGenLevel level, BlockPos centre, RandomSource random, List<BlockPos> placed) {
         for (int dx = -2; dx <= 2; dx++) {
             for (int dy = -1; dy <= 1; dy++) {
                 for (int dz = -2; dz <= 2; dz++) {
@@ -123,6 +125,7 @@ public class EucalyptusTreeFeature extends Feature<NoneFeatureConfiguration> {
                     if (!level.getBlockState(q).isAir()) continue;
                     level.setBlock(q, ModBlocks.EUCALYPTUS_LEAVES.get().defaultBlockState().setValue(LeavesBlock.DISTANCE, Math.min(6, d)),
                             Block.UPDATE_CLIENTS);
+                    placed.add(q.immutable());
                 }
             }
         }

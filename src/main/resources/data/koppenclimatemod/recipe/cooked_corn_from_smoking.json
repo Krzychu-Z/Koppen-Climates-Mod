@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:smoking",
+  "category": "food",
+  "ingredient": {
+    "item": "koppenclimatemod:corn"
+  },
+  "result": {
+    "id": "koppenclimatemod:cooked_corn"
+  },
+  "experience": 0.35,
+  "cookingtime": 100
+}

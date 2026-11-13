@@ -16,6 +16,20 @@
     "koppenclimatemod:australian_desert_bsh",
     "koppenclimatemod:redwood_forest_csb",
     "koppenclimatemod:subtropical_plains_cfa",
-    "koppenclimatemod:subtropical_swamp_cfa"
+    "koppenclimatemod:subtropical_swamp_cfa",
+    "koppenclimatemod:american_farmland_cfa",
+    "koppenclimatemod:monsoon_subtropical_cwa",
+    "koppenclimatemod:subtropical_rice_terraces_cwa",
+    "koppenclimatemod:subtropical_karst_peaks_cwa",
+    "koppenclimatemod:cherry_orchard_cwa",
+    "koppenclimatemod:prairie_dfa",
+    "koppenclimatemod:temperate_forest_cfb",
+    "koppenclimatemod:sunflower_field_cfb",
+    "koppenclimatemod:english_countryside_cfb",
+    "koppenclimatemod:white_cliffs_cfb",
+    "koppenclimatemod:scottish_highland_cfc",
+    "koppenclimatemod:scottish_cliffs_cfc",
+    "koppenclimatemod:continental_forest_dfb",
+    "koppenclimatemod:pine_forest_dfb"
   ]
 }

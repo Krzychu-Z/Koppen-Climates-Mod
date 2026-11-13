@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "group": "painted_planks",
+  "ingredients": [
+    {
+      "tag": "minecraft:planks"
+    },
+    {
+      "item": "minecraft:light_gray_dye"
+    }
+  ],
+  "result": {
+    "id": "koppenclimatemod:light_gray_painted_planks",
+    "count": 1
+  }
+}

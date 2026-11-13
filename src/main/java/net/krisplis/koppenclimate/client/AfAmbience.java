@@ -88,6 +88,7 @@ public final class AfAmbience {
         mosquitoes(mc, player);
         glowworms(mc, player);
         owls(mc, player);
+        woodBirds(mc, player);
         SoundEvent wanted = null;
         if (player != null && mc.level != null && !player.isRemoved()) {
             Holder<Biome> here = mc.level.getBiome(player.blockPosition());
@@ -106,6 +107,7 @@ public final class AfAmbience {
         } else {
             cloudFade = cloudFadeO = 0.0F;
         }
+        seaUnderCliffs(mc, player != null && mc.level != null && !player.isRemoved() ? mc.level.getBiome(player.blockPosition()) : null);
         if (current != null && (current.isStopped() || !mc.getSoundManager().isActive(current))) {
             current = null;
         }
@@ -182,7 +184,8 @@ public final class AfAmbience {
         Holder<Biome> biome = mc.level.getBiome(player.blockPosition());
         // outside the night or the biome, check again in a few seconds rather than waiting out a whole pause
         if (time < NIGHT_START || time >= NIGHT_END
-                || !(ModBiomes.isMediterranean(biome) || ModBiomes.isDesert(biome) || biome.is(ModBiomes.REDWOOD_FOREST))) {
+                || !(ModBiomes.isMediterranean(biome) || ModBiomes.isDesert(biome) || biome.is(ModBiomes.REDWOOD_FOREST)
+                || isTemperateWood(biome))) {
             owlCooldown = 100;
             return;
         }
@@ -192,6 +195,59 @@ public final class AfAmbience {
         mc.getSoundManager().play(new net.minecraft.client.resources.sounds.SimpleSoundInstance(ModSounds.OWL.get(), SoundSource.AMBIENT,
                 0.9F + random.nextFloat() * 0.1F, 0.9F + random.nextFloat() * 0.2F, SoundInstance.createUnseededRandom(),
                 player.getX() + Math.cos(angle) * distance, player.getY() + 2 + random.nextDouble() * 4, player.getZ() + Math.sin(angle) * distance));
+    }
+
+    static boolean isTemperateWood(Holder<Biome> biome) {
+        return biome.is(ModBiomes.TEMPERATE_FOREST) || biome.is(ModBiomes.SUNFLOWER_FIELD)
+                || biome.is(ModBiomes.CONTINENTAL_FOREST) || biome.is(ModBiomes.PINE_FOREST) || biome.is(ModBiomes.ALPINE_VALLEY);
+    }
+
+    // by day, now and then, a crow somewhere in the Continental forest (Dfb) - and less often in the Temperate forest
+    // (Cfb) - and a woodpecker drumming in the Pine forest; never at night
+    private static int birdCooldown = 200;
+
+    private static void woodBirds(Minecraft mc, @Nullable LocalPlayer player) {
+        if (player == null || mc.level == null || mc.isPaused()) return;
+        if (--birdCooldown > 0) return;
+        var random = mc.level.random;
+        long time = Math.floorMod(mc.level.getDayTime(), 24000L);
+        Holder<Biome> biome = mc.level.getBiome(player.blockPosition());
+        SoundEvent call = null;
+        if (time < NIGHT_START || time >= NIGHT_END) {
+            if (biome.is(ModBiomes.PINE_FOREST) || biome.is(ModBiomes.ALPINE_VALLEY)) {
+                call = ModSounds.DFB_WOODPECKER.get();
+                birdCooldown = 200 + random.nextInt(300);       // every 10-25 seconds
+            } else if (biome.is(ModBiomes.CONTINENTAL_FOREST)) {
+                call = ModSounds.DFB_CROW.get();
+                birdCooldown = 240 + random.nextInt(300);       // every 12-27 seconds
+            }
+        }
+        if (call == null) {
+            birdCooldown = 100;
+            return;
+        }
+        // close by, in the trees round the player (a sound at volume 1 fades out over 16 blocks)
+        double angle = random.nextDouble() * Math.PI * 2, distance = 3 + random.nextDouble() * 5;
+        mc.getSoundManager().play(new net.minecraft.client.resources.sounds.SimpleSoundInstance(call, SoundSource.AMBIENT,
+                1.0F, 0.95F + random.nextFloat() * 0.1F, SoundInstance.createUnseededRandom(),
+                player.getX() + Math.cos(angle) * distance, player.getY() + 2 + random.nextDouble() * 3, player.getZ() + Math.sin(angle) * distance));
+    }
+
+    // the sea under the cliffs (White cliffs, Scottish cliffs): a second loop, under the wind
+    private static Loop sea;
+
+    private static void seaUnderCliffs(Minecraft mc, @Nullable Holder<Biome> here) {
+        SoundEvent wanted = here != null && (here.is(ModBiomes.WHITE_CLIFFS) || here.is(ModBiomes.SCOTTISH_CLIFFS))
+                ? ModSounds.CLIFF_WAVES.get() : null;
+        if (sea != null && (sea.isStopped() || !mc.getSoundManager().isActive(sea))) sea = null;
+        if (sea != null && sea.event != wanted) {
+            sea.fadeOut();
+            sea = null;
+        }
+        if (sea == null && wanted != null) {
+            sea = new Loop(wanted);
+            mc.getSoundManager().play(sea);
+        }
     }
 
     @Nullable
@@ -218,6 +274,23 @@ public final class AfAmbience {
         if (biome.is(ModBiomes.AUSTRALIAN_DESERT)) {
             // a faint, quiet outback by day; at night only the owls
             return night ? null : ModSounds.AUSTRALIAN_DESERT_DAY.get();
+        }
+        if (biome.is(ModBiomes.PRAIRIE)) {
+            // nothing but a soft wind through the grass, day and night
+            return ModSounds.PRAIRIE_WIND.get();
+        }
+        if (isTemperateWood(biome)) {
+            // the temperate and continental forests (Cfb, Dfb) by day; at night they fall silent but for the owls
+            return night ? null : ModSounds.CFB_FOREST.get();
+        }
+        if (biome.is(ModBiomes.ALPINE_MID) || biome.is(ModBiomes.ALPINE_HIGH)) {
+            // only the wind up on the mountains, day and night
+            return ModSounds.ALPINE_WIND.get();
+        }
+        if (biome.is(ModBiomes.ENGLISH_COUNTRYSIDE) || biome.is(ModBiomes.WHITE_CLIFFS)
+                || biome.is(ModBiomes.SCOTTISH_HIGHLAND) || biome.is(ModBiomes.SCOTTISH_CLIFFS)) {
+            // a faint wind over the fields
+            return ModSounds.CFB_WIND.get();
         }
         if (ModBiomes.isDesert(biome)) {
             // the wind over the sand by day; at night it drops, and only the owls are heard
@@ -249,6 +322,11 @@ public final class AfAmbience {
             this.attenuation = SoundInstance.Attenuation.NONE;
             this.volume = 0.01F;
             this.max = event == ModSounds.HOT_DESERT_WIND.get() ? 0.3F
+                    : event == ModSounds.PRAIRIE_WIND.get() ? 0.22F
+                    : event == ModSounds.CFB_WIND.get() ? 0.15F
+                    : event == ModSounds.ALPINE_WIND.get() ? 0.18F
+                    : event == ModSounds.CFB_FOREST.get() ? 0.8F
+                    : event == ModSounds.CLIFF_WAVES.get() ? 1.0F
                     : event == ModSounds.AUSTRALIAN_DESERT_DAY.get() ? 0.5F
                     : event == ModSounds.REDWOOD_FOREST_DAY.get() ? 0.8F : 1.0F;
         }

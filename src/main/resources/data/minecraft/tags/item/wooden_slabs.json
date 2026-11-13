@@ -17,6 +17,9 @@
     "koppenclimatemod:apricot_slab",
     "koppenclimatemod:black_poplar_slab",
     "koppenclimatemod:cypress_slab",
-    "koppenclimatemod:lemon_slab"
+    "koppenclimatemod:lemon_slab",
+    "koppenclimatemod:magnolia_slab",
+    "koppenclimatemod:maple_slab",
+    "koppenclimatemod:scots_pine_slab"
   ]
 }

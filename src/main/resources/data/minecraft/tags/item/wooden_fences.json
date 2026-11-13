@@ -17,6 +17,9 @@
     "koppenclimatemod:apricot_fence",
     "koppenclimatemod:black_poplar_fence",
     "koppenclimatemod:cypress_fence",
-    "koppenclimatemod:lemon_fence"
+    "koppenclimatemod:lemon_fence",
+    "koppenclimatemod:magnolia_fence",
+    "koppenclimatemod:maple_fence",
+    "koppenclimatemod:scots_pine_fence"
   ]
 }

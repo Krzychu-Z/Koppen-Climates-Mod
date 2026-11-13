@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:random_patch",
+  "config": {
+    "tries": 72,
+    "xz_spread": 5,
+    "y_spread": 2,
+    "feature": {
+      "feature": "minecraft:bamboo_no_podzol",
+      "placement": [
+        {
+          "type": "minecraft:block_predicate_filter",
+          "predicate": {
+            "type": "minecraft:matching_blocks",
+            "blocks": "minecraft:air"
+          }
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "type": "koppenclimatemod:prairie_grass",
+  "config": {
+    "biome": "koppenclimatemod:prairie_dfa",
+    "fern_chance": 0.02,
+    "flower_chance": 0.003
+  }
+}

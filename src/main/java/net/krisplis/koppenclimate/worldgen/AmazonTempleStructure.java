@@ -30,6 +30,12 @@ public class AmazonTempleStructure extends Structure {
     public Optional<GenerationStub> findGenerationPoint(GenerationContext context) {
         ChunkPos chunk = context.chunkPos();
         ChunkGenerator generator = context.chunkGenerator();
+        // a cheap first test, before any of the costly ground heights: the middle must be in the right biome
+        if (!context.validBiome().test(context.biomeSource().getNoiseBiome(net.minecraft.core.QuartPos.fromBlock(chunk.getMiddleBlockX()),
+                net.minecraft.core.QuartPos.fromBlock(context.chunkGenerator().getSeaLevel() + 4),
+                net.minecraft.core.QuartPos.fromBlock(chunk.getMiddleBlockZ()), context.randomState().sampler()))) {
+            return Optional.empty();
+        }
         int[][] corners = {{0, 0}, {WIDTH, 0}, {0, DEPTH}, {WIDTH, DEPTH}};
         for (int[] corner : corners) {
             int x = chunk.getMinBlockX() + corner[0], z = chunk.getMinBlockZ() + corner[1];

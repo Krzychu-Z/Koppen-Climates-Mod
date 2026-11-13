@@ -17,6 +17,9 @@
     "koppenclimatemod:apricot_button",
     "koppenclimatemod:black_poplar_button",
     "koppenclimatemod:cypress_button",
-    "koppenclimatemod:lemon_button"
+    "koppenclimatemod:lemon_button",
+    "koppenclimatemod:magnolia_button",
+    "koppenclimatemod:maple_button",
+    "koppenclimatemod:scots_pine_button"
   ]
 }

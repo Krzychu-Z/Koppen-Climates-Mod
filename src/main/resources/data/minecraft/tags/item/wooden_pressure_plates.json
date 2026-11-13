@@ -17,6 +17,9 @@
     "koppenclimatemod:apricot_pressure_plate",
     "koppenclimatemod:black_poplar_pressure_plate",
     "koppenclimatemod:cypress_pressure_plate",
-    "koppenclimatemod:lemon_pressure_plate"
+    "koppenclimatemod:lemon_pressure_plate",
+    "koppenclimatemod:magnolia_pressure_plate",
+    "koppenclimatemod:maple_pressure_plate",
+    "koppenclimatemod:scots_pine_pressure_plate"
   ]
 }

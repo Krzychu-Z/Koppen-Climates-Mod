@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "hanging_sign",
+  "key": {
+    "#": {
+      "item": "koppenclimatemod:stripped_magnolia_log"
+    },
+    "X": {
+      "item": "minecraft:chain"
+    }
+  },
+  "pattern": [
+    "X X",
+    "###",
+    "###"
+  ],
+  "result": {
+    "count": 6,
+    "id": "koppenclimatemod:magnolia_hanging_sign"
+  }
+}

@@ -60,7 +60,11 @@ public class KoppenBiomeSource extends BiomeSource {
      */
     public record CsaBiomes(Holder<Biome> forest, Holder<Biome> oliveGrove, Holder<Biome> river, Holder<Biome> farmland,
                             Holder<Biome> lavenderField, Optional<Holder<Biome>> highland, Optional<Holder<Biome>> redwood,
-                            Optional<Holder<Biome>> subtropicalPlains, Optional<Holder<Biome>> subtropicalSwamp) {
+                            Optional<Holder<Biome>> subtropicalPlains, Optional<Holder<Biome>> subtropicalSwamp,
+                            Optional<Holder<Biome>> americanFarmland, Optional<Holder<Biome>> monsoonSubtropical,
+                            Optional<Holder<Biome>> subtropicalRiceTerraces, Optional<Holder<Biome>> subtropicalKarstPeaks,
+                            Optional<Holder<Biome>> cherryOrchard, Optional<Holder<Biome>> prairie,
+                            Optional<CfbBiomes> temperate) {
         public static final com.mojang.serialization.Codec<CsaBiomes> CODEC = RecordCodecBuilder.create(i -> i.group(
                 Biome.CODEC.fieldOf("forest").forGetter(CsaBiomes::forest),
                 Biome.CODEC.fieldOf("olive_grove").forGetter(CsaBiomes::oliveGrove),
@@ -72,12 +76,25 @@ public class KoppenBiomeSource extends BiomeSource {
                 // the humid subtropics (Cfa): the Subtropical plains, and their swamp along the lukewarm shore
                 Biome.CODEC.optionalFieldOf("redwood_forest").forGetter(CsaBiomes::redwood),
                 Biome.CODEC.optionalFieldOf("subtropical_plains").forGetter(CsaBiomes::subtropicalPlains),
-                Biome.CODEC.optionalFieldOf("subtropical_swamp").forGetter(CsaBiomes::subtropicalSwamp)
+                Biome.CODEC.optionalFieldOf("subtropical_swamp").forGetter(CsaBiomes::subtropicalSwamp),
+                Biome.CODEC.optionalFieldOf("american_farmland").forGetter(CsaBiomes::americanFarmland),
+                // the monsoon subtropics (Cwa), southern China's climate, and their great rice terraces
+                Biome.CODEC.optionalFieldOf("monsoon_subtropical").forGetter(CsaBiomes::monsoonSubtropical),
+                Biome.CODEC.optionalFieldOf("subtropical_rice_terraces").forGetter(CsaBiomes::subtropicalRiceTerraces),
+                Biome.CODEC.optionalFieldOf("subtropical_karst_peaks").forGetter(CsaBiomes::subtropicalKarstPeaks),
+                Biome.CODEC.optionalFieldOf("cherry_orchard").forGetter(CsaBiomes::cherryOrchard),
+                // the hot-summer continental climate (Dfa): the Prairie
+                Biome.CODEC.optionalFieldOf("prairie").forGetter(CsaBiomes::prairie),
+                // the temperate oceanic band (Cfb): kept here, as the biome source's own fields are full (16 at most)
+                CfbBiomes.CODEC.optionalFieldOf("temperate_zones").forGetter(CsaBiomes::temperate)
         ).apply(i, CsaBiomes::new));
 
         Stream<Holder<Biome>> all() {
             return Stream.of(Stream.of(this.forest, this.oliveGrove, this.river, this.farmland, this.lavenderField),
-                    this.highland.stream(), this.redwood.stream(), this.subtropicalPlains.stream(), this.subtropicalSwamp.stream())
+                    this.highland.stream(), this.redwood.stream(), this.subtropicalPlains.stream(), this.subtropicalSwamp.stream(),
+                    this.americanFarmland.stream(), this.monsoonSubtropical.stream(), this.subtropicalRiceTerraces.stream(),
+                    this.subtropicalKarstPeaks.stream(), this.cherryOrchard.stream(), this.prairie.stream(),
+                    this.temperate.stream().flatMap(CfbBiomes::all))
                     .flatMap(s -> s);
         }
     }
@@ -116,6 +133,42 @@ public class KoppenBiomeSource extends BiomeSource {
         Stream<Holder<Biome>> all() {
             return Stream.concat(Stream.of(this.hot, this.continental, this.mountains),
                     Stream.concat(this.lush.stream(), Stream.concat(this.steppe.stream(), this.australian.stream())));
+        }
+    }
+
+    /**
+     * The temperate oceanic band (Cfb): the cool, wet side of the temperate band, between the Prairie (drier) and the
+     * humid subtropics (warmer). Its coast is the White cliffs, the land behind them the English countryside (both on
+     * CfbTerrain's flat upland), further inland the Temperate forest, with Sunflower fields on its flattest ground, and
+     * its rivers are the broad, brown Flooded rivers. The sea off it is plain ocean.
+     */
+    public record CfbBiomes(Holder<Biome> forest, Holder<Biome> sunflowerField, Holder<Biome> countryside,
+                            Holder<Biome> whiteCliffs, Holder<Biome> floodedRiver,
+                            // the subpolar oceanic band (Cfc) beyond it, and the humid continental (Dfb) inland
+                            Optional<Holder<Biome>> highland, Optional<Holder<Biome>> scottishCliffs,
+                            Optional<Holder<Biome>> continentalForest, Optional<Holder<Biome>> pineForest,
+                            // the Alps (AlpineTerrain): the valleys, and the mountains' two altitude bands
+                            Optional<Holder<Biome>> alpineValley, Optional<Holder<Biome>> alpineMid, Optional<Holder<Biome>> alpineHigh) {
+        public static final com.mojang.serialization.Codec<CfbBiomes> CODEC = RecordCodecBuilder.create(i -> i.group(
+                Biome.CODEC.fieldOf("forest").forGetter(CfbBiomes::forest),
+                Biome.CODEC.fieldOf("sunflower_field").forGetter(CfbBiomes::sunflowerField),
+                Biome.CODEC.fieldOf("countryside").forGetter(CfbBiomes::countryside),
+                Biome.CODEC.fieldOf("white_cliffs").forGetter(CfbBiomes::whiteCliffs),
+                Biome.CODEC.fieldOf("flooded_river").forGetter(CfbBiomes::floodedRiver),
+                Biome.CODEC.optionalFieldOf("scottish_highland").forGetter(CfbBiomes::highland),
+                Biome.CODEC.optionalFieldOf("scottish_cliffs").forGetter(CfbBiomes::scottishCliffs),
+                Biome.CODEC.optionalFieldOf("continental_forest").forGetter(CfbBiomes::continentalForest),
+                Biome.CODEC.optionalFieldOf("pine_forest").forGetter(CfbBiomes::pineForest),
+                Biome.CODEC.optionalFieldOf("alpine_valley").forGetter(CfbBiomes::alpineValley),
+                Biome.CODEC.optionalFieldOf("alpine_mid_altitude").forGetter(CfbBiomes::alpineMid),
+                Biome.CODEC.optionalFieldOf("alpine_high_altitude").forGetter(CfbBiomes::alpineHigh)
+        ).apply(i, CfbBiomes::new));
+
+        Stream<Holder<Biome>> all() {
+            return Stream.of(Stream.of(this.forest, this.sunflowerField, this.countryside, this.whiteCliffs, this.floodedRiver),
+                    this.highland.stream(), this.scottishCliffs.stream(), this.continentalForest.stream(),
+                    this.pineForest.stream(), this.alpineValley.stream(), this.alpineMid.stream(),
+                    this.alpineHigh.stream()).flatMap(x -> x);
         }
     }
 
@@ -216,13 +269,18 @@ public class KoppenBiomeSource extends BiomeSource {
             Biomes.SNOWY_SLOPES, Biomes.GROVE, Biomes.MEADOW, Biomes.WINDSWEPT_HILLS, Biomes.WINDSWEPT_GRAVELLY_HILLS,
             Biomes.WINDSWEPT_FOREST, Biomes.SNOWY_PLAINS, Biomes.SNOWY_TAIGA, Biomes.ICE_SPIKES);
     public static final int HIGHLAND_MIN_Y = 130;
+    // ... and only on the ground itself: never in the open air high over lower land (depth below -0.12 is more than
+    // about 15 blocks above vanilla's ground), where the sky, fog and sounds would otherwise turn to the highland's
+    private static final long HIGHLAND_MIN_DEPTH = -1200;
     private static final Set<ResourceKey<Biome>> CSA_SHORES = Set.of(Biomes.BEACH, Biomes.STONY_SHORE, Biomes.SNOWY_BEACH);
     // Vanilla puts its cave biomes at depth 0.2 and below.
     private static final long UNDERGROUND_MIN_DEPTH = 2000;
 
     // The Redwood forest (Csb): the cooler side of the Mediterranean's climate (vanilla's temperature band below it),
     // where it's dry to middling. Its forests, plains and taiga become the redwoods.
-    private static final long REDWOOD_MIN_TEMPERATURE = -4000, REDWOOD_MAX_HUMIDITY = 1000;
+    // Extremely rare: only a narrow, dry band on the Mediterranean's cool side (in all about one part in two
+    // hundred of the world, in stands a few hundred blocks across, before REDWOOD_LAND narrows it further)
+    private static final long REDWOOD_MIN_TEMPERATURE = -2200, REDWOOD_MAX_TEMPERATURE = -1600, REDWOOD_MAX_HUMIDITY = -2500;
     private static final Set<ResourceKey<Biome>> REDWOOD_LAND = Set.of(Biomes.PLAINS, Biomes.SUNFLOWER_PLAINS, Biomes.FOREST,
             Biomes.FLOWER_FOREST, Biomes.BIRCH_FOREST, Biomes.OLD_GROWTH_BIRCH_FOREST, Biomes.DARK_FOREST, Biomes.TAIGA,
             Biomes.OLD_GROWTH_PINE_TAIGA, Biomes.OLD_GROWTH_SPRUCE_TAIGA, Biomes.MEADOW, Biomes.WINDSWEPT_FOREST);
@@ -236,6 +294,21 @@ public class KoppenBiomeSource extends BiomeSource {
             CFA_MAX_CONTINENTALNESS = 0.55, CFA_MIN_EROSION = 0.05, CFA_SWAMP_MAX_CONTINENTALNESS = -0.06;
     private static final long CFA_MIN_HUMIDITY_Q = 300, CFA_MAX_HUMIDITY_Q = 3500, CFA_MIN_CONTINENTS = -1900,
             CFA_MAX_CONTINENTS = 5500, CFA_MIN_EROSION_Q = 500, CFA_SWAMP_MAX_CONTINENTS = -600;
+    // The American farmland: one of the vastest biomes of all, and an inland one. It takes the inland part of the Cfa
+    // (continentalness 0.2 and up, well back from the sea; the Subtropical grove lies between it and the swamp along
+    // the shore), and reaches on beyond it,
+    // inland without limit, onto the gentler hills (erosion FARMLAND_MIN_EROSION and up, still far from vanilla's
+    // mountains at -0.375) and into the wetter and cooler land next to it (vanilla's forests: humidity
+    // FARMLAND_MIN_HUMIDITY and up). It never comes near the taiga: it keeps to the warm side of FARMLAND_MIN_TEMP,
+    // a little above the Cfa's own coolest edge (-0.15, below which vanilla's taiga lies), so a band of the
+    // Subtropical grove or of vanilla's broad-leaved forests always lies between. CfaPlain levels all of it, and fills in
+    // the river valleys across it too (CfaPlain.farmlandFill), so no river cuts it up: the farmland takes their beds.
+    // (Unquantized, for CfaPlain, and quantized for the biome choice.)
+    static final double FARMLAND_MIN_CONTINENTALNESS = 0.2, FARMLAND_MIN_EROSION = -0.15, FARMLAND_MIN_HUMIDITY = 0.1,
+            FARMLAND_MIN_TEMP = -0.1, FARMLAND_MAX_TEMP = 0.05;
+    private static final long CFA_FARMLAND_MIN_CONTINENTS = 2000, FARMLAND_MIN_EROSION_Q = -1500,
+            FARMLAND_MIN_HUMIDITY_Q = 1000, FARMLAND_MIN_TEMPERATURE = -1000,
+            FARMLAND_MAX_TEMPERATURE = 500;
     private static final Set<ResourceKey<Biome>> ALL_OCEANS = Set.of(Biomes.OCEAN, Biomes.DEEP_OCEAN, Biomes.LUKEWARM_OCEAN,
             Biomes.DEEP_LUKEWARM_OCEAN, Biomes.WARM_OCEAN, Biomes.COLD_OCEAN, Biomes.DEEP_COLD_OCEAN, Biomes.FROZEN_OCEAN,
             Biomes.DEEP_FROZEN_OCEAN);
@@ -248,6 +321,42 @@ public class KoppenBiomeSource extends BiomeSource {
                 && k >= CFA_MIN_CONTINENTS && k < CFA_MAX_CONTINENTS && c.erosion() >= CFA_MIN_EROSION_Q;
     }
 
+    /** The American farmland's climate: the Cfa's inland part, and the land beyond it (see FARMLAND_MIN_*). */
+    static boolean isFarmlandClimate(Climate.TargetPoint c) {
+        if (c.continentalness() < CFA_FARMLAND_MIN_CONTINENTS) return false;
+        long t = c.temperature();
+        // nor near the tropics: it keeps well short of the warm fringe (0.1), where the monsoon forests and jungles begin
+        if (t < FARMLAND_MIN_TEMPERATURE || t >= FARMLAND_MAX_TEMPERATURE) return false;
+        if (isCfaClimate(c)) return true;
+        return t < CSA_MAX_TEMPERATURE && c.humidity() >= FARMLAND_MIN_HUMIDITY_Q
+                && c.erosion() >= FARMLAND_MIN_EROSION_Q;
+    }
+
+    // The monsoon subtropics (Cwa): southern China's climate. The warm, wet strip between the Cfa's American farmland
+    // (which ends at 0.05) and the tropics' fringe, reaching a little into the fringe too (to 0.15), wherever it's
+    // humid (0.1 and up), on land. About one part in thirty of the land. It takes all of vanilla's ordinary land
+    // there, its mountains included (CwaTerrain lays all of it out anew); the sea, the rivers and the beaches keep
+    // their own biomes. Where the erosion is high (CWA_KARST_MIN_EROSION and up: about half of it) it is the
+    // Subtropical karst peaks, on a broad plain; elsewhere the Monsoon subtropical hills, but where those are wettest
+    // (humidity CWA_ORCHARD_MIN_HUMIDITY and up: about a quarter of the monsoon subtropics) the Cherry orchards, on
+    // gentler ground.
+    // (Unquantized, for CwaTerrain and CfaPlain, and quantized for the biome choice.)
+    static final double CWA_MIN_TEMP = 0.05, CWA_MAX_TEMP = 0.15, CWA_MIN_HUMIDITY = 0.1, CWA_MIN_CONTINENTALNESS = -0.11,
+            CWA_KARST_MIN_EROSION = 0.0, CWA_ORCHARD_MIN_HUMIDITY = 0.25;
+    private static final long CWA_MIN_TEMPERATURE = 500, CWA_MAX_TEMPERATURE = 1500, CWA_MIN_HUMIDITY_Q = 1000,
+            CWA_MIN_CONTINENTALNESS_Q = -1100, CWA_KARST_MIN_EROSION_Q = 0, CWA_ORCHARD_MIN_HUMIDITY_Q = 2500;
+    private static final Set<ResourceKey<Biome>> CWA_LAND = Set.of(Biomes.PLAINS, Biomes.SUNFLOWER_PLAINS, Biomes.FOREST,
+            Biomes.FLOWER_FOREST, Biomes.BIRCH_FOREST, Biomes.OLD_GROWTH_BIRCH_FOREST, Biomes.DARK_FOREST, Biomes.MEADOW,
+            Biomes.CHERRY_GROVE, Biomes.SWAMP, Biomes.WINDSWEPT_HILLS, Biomes.WINDSWEPT_FOREST, Biomes.WINDSWEPT_GRAVELLY_HILLS,
+            Biomes.JUNGLE, Biomes.SPARSE_JUNGLE, Biomes.BAMBOO_JUNGLE, Biomes.SAVANNA, Biomes.TAIGA, Biomes.GROVE,
+            Biomes.SNOWY_SLOPES, Biomes.JAGGED_PEAKS, Biomes.FROZEN_PEAKS, Biomes.STONY_PEAKS);
+
+    static boolean isCwaClimate(Climate.TargetPoint c) {
+        long t = c.temperature();
+        return t >= CWA_MIN_TEMPERATURE && t < CWA_MAX_TEMPERATURE && c.humidity() >= CWA_MIN_HUMIDITY_Q
+                && c.continentalness() >= CWA_MIN_CONTINENTALNESS_Q;
+    }
+
     // the Cfa's temperature and rainfall widened by a margin, for the seas off its coasts
     static boolean isNearCfaClimate(Climate.TargetPoint c) {
         long t = c.temperature(), h = c.humidity();
@@ -256,7 +365,72 @@ public class KoppenBiomeSource extends BiomeSource {
     }
 
     static boolean isRedwoodClimate(Climate.TargetPoint c) {
-        return c.temperature() >= REDWOOD_MIN_TEMPERATURE && c.temperature() < CSA_MIN_TEMPERATURE && c.humidity() < REDWOOD_MAX_HUMIDITY;
+        return c.temperature() >= REDWOOD_MIN_TEMPERATURE && c.temperature() < REDWOOD_MAX_TEMPERATURE && c.humidity() < REDWOOD_MAX_HUMIDITY;
+    }
+
+    // The Prairie (Dfa): the hot-summer continental climate of the North American plains. It takes the cool temperate
+    // band on its drier side, from where vanilla's plains begin down to the edge of the snowy lands (temperature -0.6
+    // to -0.25, humidity under -0.1), well inland only (continentalness 0.15 and up: never near the sea). Sampled over whole
+    // worlds that is about 2-3% of the world (a third of what it was), in stretches 2-3 km across. Its warm edge stays 0.1 short of the Mediterranean's
+    // (-0.15), so the two never meet: there's always a hundred blocks and more of other land between them. Every biome
+    // there but the mountains' (and, should any reach in, the sea's and its shores') is the Prairie, its rivers, ponds
+    // and swamps included - PrairiePlain fills every one of them in, so no water is left on it.
+    // (Unquantized, for PrairiePlain, and quantized for the biome choice.) Erosion doesn't limit it: on rugged ground
+    // vanilla's hills stand up out of the grass, and its peaks keep their own biomes.
+    // (Made rarer, not smaller: only the driest part of that humidity range, and only well inland.)
+    static final double PRAIRIE_MIN_TEMP = -0.6, PRAIRIE_MAX_TEMP = -0.25, PRAIRIE_MAX_HUMIDITY = -0.1,
+            PRAIRIE_MIN_CONTINENTALNESS = 0.15, PRAIRIE_MIN_EROSION = -2.0;
+    private static final long PRAIRIE_MIN_TEMPERATURE = -6000, PRAIRIE_MAX_TEMPERATURE = -2500, PRAIRIE_MAX_HUMIDITY_Q = -1000,
+            PRAIRIE_MIN_CONTINENTS = 1500, PRAIRIE_MIN_EROSION_Q = -20000;
+    // what keeps its own biome in the Prairie's climate: the mountains, and the sea and its shores
+    private static final Set<ResourceKey<Biome>> PRAIRIE_KEEPS = Set.of(Biomes.OCEAN, Biomes.DEEP_OCEAN, Biomes.LUKEWARM_OCEAN,
+            Biomes.DEEP_LUKEWARM_OCEAN, Biomes.WARM_OCEAN, Biomes.COLD_OCEAN, Biomes.DEEP_COLD_OCEAN, Biomes.FROZEN_OCEAN,
+            Biomes.DEEP_FROZEN_OCEAN, Biomes.BEACH, Biomes.SNOWY_BEACH, Biomes.STONY_SHORE, Biomes.MUSHROOM_FIELDS,
+            Biomes.JAGGED_PEAKS, Biomes.FROZEN_PEAKS, Biomes.STONY_PEAKS, Biomes.SNOWY_SLOPES, Biomes.GROVE);
+
+    static boolean isPrairieClimate(Climate.TargetPoint c) {
+        long t = c.temperature();
+        return t >= PRAIRIE_MIN_TEMPERATURE && t < PRAIRIE_MAX_TEMPERATURE && c.humidity() < PRAIRIE_MAX_HUMIDITY_Q
+                && c.continentalness() >= PRAIRIE_MIN_CONTINENTS && c.erosion() >= PRAIRIE_MIN_EROSION_Q;
+    }
+
+    // The temperate oceanic band (Cfb): the cool, wet side of the temperate band - temperature -0.6 to -0.15,
+    // humidity 0.1 and up (where the drier Prairie doesn't take it first) - except, colder than -0.25, far inland
+    // (continentalness 0.25 and up), which is the humid continental (Dfb). Its ground is vanilla's own (save that its
+    // lowland rivers are broadened, CfbRiver). Behind the coast (continentalness under 0.15) lies the English
+    // countryside, further inland the Temperate forest; small Sunflower fields lie here and there on the flattest
+    // inland ground; vanilla's rocky shores are the White cliffs, its rivers the Flooded rivers.
+    // The subpolar oceanic (Cfc) lies beyond it towards the cold: temperature -0.9 to -0.6, humidity -0.1 and up,
+    // not far inland: the Scottish highland, with its rocky shores the Scottish cliffs.
+    // The humid continental (Dfb) is the cool interior: temperature -0.9 to -0.25, humidity 0.1 and up,
+    // continentalness 0.25 and up: the Continental forest, with small Pine forest stands on the flat here and there. (Quantized.)
+    private static final long CFB_MIN_TEMPERATURE = -6000, CFB_MAX_TEMPERATURE = -1500, CFB_MIN_HUMIDITY_Q = 1000,
+            CFB_COUNTRYSIDE_MAX_CONTINENTS = 1500, CFB_SUNFLOWER_MIN_EROSION = 6500, CFB_SUNFLOWER_MIN_CONTINENTS = 500,
+            CFB_SUNFLOWER_MAX_WEIRDNESS = 3000;
+    private static final long CFC_MIN_TEMPERATURE = -9000, CFC_MIN_HUMIDITY = -1000;
+    private static final long DFB_MIN_TEMPERATURE = -9000, DFB_MAX_TEMPERATURE = -2500, DFB_MIN_CONTINENTS = 2500,
+            DFB_MIN_HUMIDITY = 1000;
+    // what keeps its own biome in the Cfb: the mountains and the mushroom islands (the seas and shores are seen to apart)
+    private static final Set<ResourceKey<Biome>> CFB_KEEPS = Set.of(Biomes.MUSHROOM_FIELDS, Biomes.JAGGED_PEAKS,
+            Biomes.FROZEN_PEAKS, Biomes.STONY_PEAKS, Biomes.SNOWY_SLOPES, Biomes.GROVE);
+    private static final Set<ResourceKey<Biome>> DEEP_OCEANS = Set.of(Biomes.DEEP_OCEAN, Biomes.DEEP_COLD_OCEAN,
+            Biomes.DEEP_FROZEN_OCEAN, Biomes.DEEP_LUKEWARM_OCEAN);
+
+    static boolean isDfbClimate(Climate.TargetPoint c) {
+        long t = c.temperature();
+        return t >= DFB_MIN_TEMPERATURE && t < DFB_MAX_TEMPERATURE && c.humidity() >= DFB_MIN_HUMIDITY
+                && c.continentalness() >= DFB_MIN_CONTINENTS;
+    }
+
+    static boolean isCfcClimate(Climate.TargetPoint c) {
+        long t = c.temperature();
+        return t >= CFC_MIN_TEMPERATURE && t < CFB_MIN_TEMPERATURE && c.humidity() >= CFC_MIN_HUMIDITY
+                && c.continentalness() < DFB_MIN_CONTINENTS;
+    }
+
+    static boolean isCfbClimate(Climate.TargetPoint c) {
+        long t = c.temperature();
+        return t >= CFB_MIN_TEMPERATURE && t < CFB_MAX_TEMPERATURE && c.humidity() >= CFB_MIN_HUMIDITY_Q && !isDfbClimate(c);
     }
 
     private static final Set<ResourceKey<Biome>> TEMPERATE_LAND = Set.of(Biomes.PLAINS, Biomes.SUNFLOWER_PLAINS, Biomes.FOREST,
@@ -279,6 +453,8 @@ public class KoppenBiomeSource extends BiomeSource {
     // the Mediterranean (Csa) and its white gravel shore
     private final Optional<Holder<Biome>> mediterranean, mediterraneanBeach;
     private final Optional<CsaBiomes> csa;
+    // the temperate oceanic band (Cfb)
+    private final Optional<CfbBiomes> cfb;
     private record CsaSalt(Climate.Sampler sampler, long salt) {
     }
     private volatile CsaSalt csaSalt;
@@ -314,6 +490,7 @@ public class KoppenBiomeSource extends BiomeSource {
         this.mediterraneanBeach = mediterraneanBeach;
         this.csa = csa;
         this.deserts = deserts;
+        this.cfb = csa.flatMap(CsaBiomes::temperate);
     }
 
     @Override
@@ -349,13 +526,29 @@ public class KoppenBiomeSource extends BiomeSource {
             if (biome.unwrapKey().map(BADLANDS::contains).orElse(false)) biome = lush;
         }
         if (this.riceTerraces.isPresent() && this.monsoon.isPresent() && biome == this.monsoon.get()
-                && this.terraceSites(sampler).inTerraces(QuartPos.toBlock(x) + 2, QuartPos.toBlock(z) + 2, this.surfaceBiomes(sampler))) {
+                && this.columnFlag(IN_TERRACES_AW, x, z, sampler, () -> this.terraceSites(sampler)
+                        .inTerraces(QuartPos.toBlock(x) + 2, QuartPos.toBlock(z) + 2, this.surfaceBiomes(sampler)))) {
             return this.riceTerraces.get();
+        }
+        // the Subtropical rice terraces (Cwa): great patches deep inside the monsoon subtropics
+        Holder<Biome> cwa = this.csa.flatMap(CsaBiomes::monsoonSubtropical).orElse(null);
+        Holder<Biome> cwaTerraces = this.csa.flatMap(CsaBiomes::subtropicalRiceTerraces).orElse(null);
+        if (cwa != null && cwaTerraces != null && this.isCwaBiome(biome)
+                && this.columnFlag(IN_TERRACES_CWA, x, z, sampler, () -> this.cwaTerraceSites(sampler)
+                        .inTerraces(QuartPos.toBlock(x) + 2, QuartPos.toBlock(z) + 2, this.cwaSurface(sampler)))) {
+            return cwaTerraces;
         }
         return biome;
     }
 
     // ---------------------------------------------------------------- rice terraces and Thai villages
+
+    // The sites already found, kept per world (by layout seed) for good. Each chunk's biomes are worked out with a
+    // climate sampler of its own, so keeping them per sampler (as before) meant searching for every site afresh,
+    // hundreds of climate samples at a time, chunk after chunk.
+    private static final java.util.Map<Long, RiceTerraceSites> RICE_SITES = new java.util.concurrent.ConcurrentHashMap<>();
+    private static final java.util.Map<Long, CwaTerraceSites> CWA_SITES = new java.util.concurrent.ConcurrentHashMap<>();
+    private static final java.util.Map<Long, GhostTownSites> GHOST_SITES = new java.util.concurrent.ConcurrentHashMap<>();
 
     private record TerraceCache(Climate.Sampler sampler, RiceTerraceSites sites) {
     }
@@ -367,7 +560,7 @@ public class KoppenBiomeSource extends BiomeSource {
         TerraceCache cache = this.terraceCache;
         if (cache == null || cache.sampler() != sampler) {
             double t = sampler.temperature().compute(new DensityFunction.SinglePointContext(IslandMap.SEED_PROBE_X, 0, IslandMap.SEED_PROBE_Z));
-            cache = new TerraceCache(sampler, new RiceTerraceSites(IslandMap.layoutSeed(t) * 31L + 7L));
+            cache = new TerraceCache(sampler, RICE_SITES.computeIfAbsent(IslandMap.layoutSeed(t) * 31L + 7L, RiceTerraceSites::new));
             this.terraceCache = cache;
         }
         return cache.sites();
@@ -392,6 +585,36 @@ public class KoppenBiomeSource extends BiomeSource {
         return this.mappedBiome(QuartPos.fromBlock(x), QuartPos.fromBlock(SURFACE_Y), QuartPos.fromBlock(z), sampler);
     }
 
+    // ---------------------------------------------------------------- the Subtropical rice terraces (Cwa)
+
+    private record CwaCache(Climate.Sampler sampler, CwaTerraceSites sites) {
+    }
+    private volatile CwaCache cwaCache;
+
+    private CwaTerraceSites cwaTerraceSites(Climate.Sampler sampler) {
+        CwaCache cache = this.cwaCache;
+        if (cache == null || cache.sampler() != sampler) {
+            double t = sampler.temperature().compute(new DensityFunction.SinglePointContext(IslandMap.SEED_PROBE_X, 0, IslandMap.SEED_PROBE_Z));
+            cache = new CwaCache(sampler, CWA_SITES.computeIfAbsent(IslandMap.layoutSeed(t) * 71L + 13L, CwaTerraceSites::new));
+            this.cwaCache = cache;
+        }
+        return cache.sites();
+    }
+
+    private CwaTerraceSites.CwaSurface cwaSurface(Climate.Sampler sampler) {
+        return (x, z) -> {
+            Holder<Biome> cwa = this.csa.flatMap(CsaBiomes::monsoonSubtropical).orElse(null);
+            return cwa != null && this.isCwaBiome(this.surfaceBiome(x, z, sampler));
+        };
+    }
+
+    /** The Monsoon subtropical hills or the Subtropical karst peaks. */
+    private boolean isCwaBiome(Holder<Biome> biome) {
+        return this.csa.flatMap(CsaBiomes::monsoonSubtropical).map(b -> b == biome).orElse(false)
+                || this.csa.flatMap(CsaBiomes::subtropicalKarstPeaks).map(b -> b == biome).orElse(false)
+                || this.csa.flatMap(CsaBiomes::cherryOrchard).map(b -> b == biome).orElse(false);
+    }
+
     // ---------------------------------------------------------------- ghost towns
 
     private record GhostCache(Climate.Sampler sampler, GhostTownSites sites) {
@@ -402,7 +625,7 @@ public class KoppenBiomeSource extends BiomeSource {
         GhostCache cache = this.ghostCache;
         if (cache == null || cache.sampler() != sampler) {
             double t = sampler.temperature().compute(new DensityFunction.SinglePointContext(IslandMap.SEED_PROBE_X, 0, IslandMap.SEED_PROBE_Z));
-            cache = new GhostCache(sampler, new GhostTownSites(IslandMap.layoutSeed(t) * 53L + 11L));
+            cache = new GhostCache(sampler, GHOST_SITES.computeIfAbsent(IslandMap.layoutSeed(t) * 53L + 11L, GhostTownSites::new));
             this.ghostCache = cache;
         }
         return cache.sites();
@@ -437,8 +660,13 @@ public class KoppenBiomeSource extends BiomeSource {
             Holder<Biome> island = this.islandBiome(x, y, z, sampler);
             if (island != null) return island;
         }
-        Holder<Biome> biome = this.base.getNoiseBiome(x, y, z, sampler);
+        // the climate is sampled once and vanilla's biome looked up from it (vanilla's own lookup would sample it again)
         Climate.TargetPoint climate = sampler.sample(x, y, z);
+        // the Alps: above 230 and 280 the mountains' altitude bands, wherever the ground reaches so high; below them,
+        // all through the Alps' own country, the Alpine valley
+        Holder<Biome> alpine = this.alpineBiome(y, climate);
+        if (alpine != null) return alpine;
+        Holder<Biome> biome = this.baseBiome(x, y, z, climate, sampler);
         // the savanna takes the whole dry side of the warm belt the jungles fill on the wet side, and the less
         // parched edges of the deserts beyond it; SavannaCeiling flattens the very same ground
         if (this.savanna.isPresent() && climate.depth() < UNDERGROUND_MIN_DEPTH && isSavannaClimate(climate)
@@ -451,7 +679,8 @@ public class KoppenBiomeSource extends BiomeSource {
             boolean mountain = biome.unwrapKey().map(CSA_MOUNTAINS::contains).orElse(false);
             // high up, the Mediterranean highland (Csb)
             Holder<Biome> highland = this.csa.flatMap(CsaBiomes::highland).orElse(null);
-            if (highland != null && (land || mountain) && QuartPos.toBlock(y) >= HIGHLAND_MIN_Y) return highland;
+            if (highland != null && (land || mountain) && QuartPos.toBlock(y) >= HIGHLAND_MIN_Y
+                    && climate.depth() > HIGHLAND_MIN_DEPTH) return highland;
             if (land || mountain) return this.csaLand(x, y, z, sampler, mountain, climate);
             if (this.csa.isPresent() && biome.is(Biomes.RIVER)) return this.csa.get().river();
             if (this.mediterraneanBeach.isPresent() && biome.unwrapKey().map(CSA_SHORES::contains).orElse(false)) {
@@ -460,7 +689,8 @@ public class KoppenBiomeSource extends BiomeSource {
         }
         // the mountains just around it are highland too
         if (this.mediterranean.isPresent() && climate.depth() < UNDERGROUND_MIN_DEPTH && isNearMediterraneanClimate(climate)
-                && biome.unwrapKey().map(CSA_MOUNTAINS::contains).orElse(false) && QuartPos.toBlock(y) >= HIGHLAND_MIN_Y) {
+                && biome.unwrapKey().map(CSA_MOUNTAINS::contains).orElse(false) && QuartPos.toBlock(y) >= HIGHLAND_MIN_Y
+                && climate.depth() > HIGHLAND_MIN_DEPTH) {
             Holder<Biome> highland = this.csa.flatMap(CsaBiomes::highland).orElse(null);
             if (highland != null) return highland;
         }
@@ -470,20 +700,55 @@ public class KoppenBiomeSource extends BiomeSource {
                 && biome.unwrapKey().map(REDWOOD_LAND::contains).orElse(false)) {
             return redwood;
         }
+        // the Prairie (Dfa): the vast, dry, treeless grassland of the cool temperate band's inland
+        Holder<Biome> prairie = this.csa.flatMap(CsaBiomes::prairie).orElse(null);
+        if (prairie != null && climate.depth() < UNDERGROUND_MIN_DEPTH && isPrairieClimate(climate)
+                && !biome.unwrapKey().map(PRAIRIE_KEEPS::contains).orElse(false)) {
+            return prairie;
+        }
+        // the temperate oceanic band (Cfb)
+        if (this.cfb.isPresent() && climate.depth() < UNDERGROUND_MIN_DEPTH) {
+            Holder<Biome> cfbBiome = isCfbClimate(climate) ? this.cfbBiome(x, y, z, sampler, climate, biome)
+                    : isDfbClimate(climate) ? this.dfbBiome(x, z, climate, biome)
+                    : isCfcClimate(climate) ? this.cfcBiome(climate, biome) : null;
+            if (cfbBiome != null) return cfbBiome;
+        }
+        // the monsoon subtropics (Cwa): the karst peaks on the gentle ground, the hills elsewhere
+        Holder<Biome> cwa = this.csa.flatMap(CsaBiomes::monsoonSubtropical).orElse(null);
+        if (cwa != null && climate.depth() < UNDERGROUND_MIN_DEPTH && isCwaClimate(climate)
+                && biome.unwrapKey().map(CWA_LAND::contains).orElse(false)) {
+            Holder<Biome> karst = this.csa.flatMap(CsaBiomes::subtropicalKarstPeaks).orElse(null);
+            if (karst != null && climate.erosion() >= CWA_KARST_MIN_EROSION_Q) return karst;
+            // the Cherry orchards: the wettest of the hills
+            Holder<Biome> orchard = this.csa.flatMap(CsaBiomes::cherryOrchard).orElse(null);
+            return orchard != null && climate.humidity() >= CWA_ORCHARD_MIN_HUMIDITY_Q ? orchard : cwa;
+        }
         // the humid subtropics (Cfa): all their land the Subtropical plains, the strip along the shore their swamp
         // (which takes the beach as well, so it runs right down to the water)
         Holder<Biome> subtropicalPlains = this.csa.flatMap(CsaBiomes::subtropicalPlains).orElse(null);
+        // further inland, and far beyond the Cfa, the American farmland
+        Holder<Biome> farmland = this.csa.flatMap(CsaBiomes::americanFarmland).orElse(null);
+        if (subtropicalPlains != null && farmland != null && climate.depth() < UNDERGROUND_MIN_DEPTH && isFarmlandClimate(climate)
+                && !biome.unwrapKey().map(ALL_OCEANS::contains).orElse(false)) {
+            // a river runs on only near the farmland's edge; further in, its bed is filled and farmed
+            boolean river = biome.unwrapKey().map(CFA_KEEPS::contains).orElse(false);
+            if (!river || CfaPlain.farmlandFill(climate.continentalness() / 10000.0, climate.erosion() / 10000.0,
+                    climate.temperature() / 10000.0, climate.humidity() / 10000.0) >= 0.999) {
+                return farmland;
+            }
+        }
         if (subtropicalPlains != null && climate.depth() < UNDERGROUND_MIN_DEPTH && isCfaClimate(climate)
                 && !biome.unwrapKey().map(k -> ALL_OCEANS.contains(k) || CFA_KEEPS.contains(k)).orElse(false)) {
             Holder<Biome> swamp = this.csa.flatMap(CsaBiomes::subtropicalSwamp).orElse(null);
-            return swamp != null && climate.continentalness() < CFA_SWAMP_MAX_CONTINENTS ? swamp : subtropicalPlains;
+            if (swamp != null && climate.continentalness() < CFA_SWAMP_MAX_CONTINENTS) return swamp;
+            return subtropicalPlains;
         }
         // the sea off the humid subtropics is lukewarm
         if (subtropicalPlains != null && climate.depth() < UNDERGROUND_MIN_DEPTH && isNearCfaClimate(climate)
                 && biome.unwrapKey().map(CSA_SEAS::contains).orElse(false)) {
             ResourceKey<Biome> lukewarm = biome.is(Biomes.DEEP_OCEAN) || biome.is(Biomes.DEEP_COLD_OCEAN) || biome.is(Biomes.DEEP_FROZEN_OCEAN)
                     ? Biomes.DEEP_LUKEWARM_OCEAN : Biomes.LUKEWARM_OCEAN;
-            Holder<Biome> sea = this.base.possibleBiomes().stream().filter(b -> b.is(lukewarm)).findFirst().orElse(null);
+            Holder<Biome> sea = this.vanilla(lukewarm);
             if (sea != null) return sea;
         }
         // the sea off the Mediterranean is lukewarm, a little beyond its coast too, so its beaches only ever meet lukewarm water
@@ -491,7 +756,7 @@ public class KoppenBiomeSource extends BiomeSource {
             ResourceKey<Biome> lukewarm = biome.is(Biomes.DEEP_OCEAN) || biome.is(Biomes.DEEP_COLD_OCEAN) || biome.is(Biomes.DEEP_FROZEN_OCEAN)
                     ? Biomes.DEEP_LUKEWARM_OCEAN : Biomes.LUKEWARM_OCEAN;
             if (biome.unwrapKey().map(CSA_SEAS::contains).orElse(false)) {
-                Holder<Biome> sea = this.base.possibleBiomes().stream().filter(b -> b.is(lukewarm)).findFirst().orElse(null);
+                Holder<Biome> sea = this.vanilla(lukewarm);
                 if (sea != null) return sea;
             }
         }
@@ -527,8 +792,9 @@ public class KoppenBiomeSource extends BiomeSource {
         }
         // vanilla savannas outside that climate (the hottest, driest ones) are desert
         if (this.savanna.isPresent() && biome.unwrapKey().map(VANILLA_SAVANNAS::contains).orElse(false)) {
-            return climate.depth() >= UNDERGROUND_MIN_DEPTH ? biome : this.base.possibleBiomes().stream()
-                    .filter(b -> b.is(Biomes.DESERT)).findFirst().orElse(this.savanna.get());
+            if (climate.depth() >= UNDERGROUND_MIN_DEPTH) return biome;
+            Holder<Biome> desert = this.vanilla(Biomes.DESERT);
+            return desert != null ? desert : this.savanna.get();
         }
 
         if (biome.is(Biomes.JUNGLE) || biome.is(Biomes.BAMBOO_JUNGLE)) {
@@ -551,6 +817,127 @@ public class KoppenBiomeSource extends BiomeSource {
         return biome;
     }
 
+    /** The Cfb's biome for vanilla's {@code biome} here, or null to keep vanilla's. The ground is never altered. */
+    @javax.annotation.Nullable
+    private Holder<Biome> cfbBiome(int x, int y, int z, Climate.Sampler sampler, Climate.TargetPoint climate, Holder<Biome> biome) {
+        CfbBiomes cfb = this.cfb.get();
+        ResourceKey<Biome> key = biome.unwrapKey().orElse(null);
+        if (key == null || CFB_KEEPS.contains(key)) return null;
+        // the sea off it is plain ocean: never cold or frozen, nor lukewarm
+        if (ALL_OCEANS.contains(key)) return this.vanilla(DEEP_OCEANS.contains(key) ? Biomes.DEEP_OCEAN : Biomes.OCEAN);
+        // its rivers are vanilla's own (broadened in the lowlands, CfbRiver); where vanilla carries one out over the
+        // shallows off the coast, that's sea
+        if (key == Biomes.RIVER || key == Biomes.FROZEN_RIVER) {
+            return climate.continentalness() < CFB_RIVER_MIN_CONTINENTS ? this.vanilla(Biomes.OCEAN) : cfb.floodedRiver();
+        }
+        // vanilla's rocky shore - the steep coast that rises straight out of the sea - is the White cliffs
+        if (key == Biomes.STONY_SHORE) return cfb.whiteCliffs();
+        // its sandy shores stay beaches (never snowy)
+        if (key == Biomes.BEACH || key == Biomes.SNOWY_BEACH) return this.vanilla(Biomes.BEACH);
+        long c = climate.continentalness();
+        // the sunflower fields: small patches in the forest and the countryside, on the flattest ground and only
+        // along the middle of a band of weirdness (which doesn't grow with Large Biomes, so they stay small)
+        if (climate.erosion() >= CFB_SUNFLOWER_MIN_EROSION && c >= CFB_SUNFLOWER_MIN_CONTINENTS
+                && Math.abs(climate.weirdness()) < CFB_SUNFLOWER_MAX_WEIRDNESS) {
+            return cfb.sunflowerField();
+        }
+        return c < CFB_COUNTRYSIDE_MAX_CONTINENTS ? cfb.countryside() : cfb.forest();
+    }
+
+    private static final long CFB_RIVER_MIN_CONTINENTS = -1100;
+    // what keeps its own biome in the Cfc and the Dfb: the high peaks, and the mushroom islands
+    private static final Set<ResourceKey<Biome>> COLD_KEEPS = Set.of(Biomes.MUSHROOM_FIELDS, Biomes.JAGGED_PEAKS,
+            Biomes.FROZEN_PEAKS, Biomes.STONY_PEAKS);
+
+    @javax.annotation.Nullable
+    private Holder<Biome> alpineBiome(int qy, Climate.TargetPoint climate) {
+        if (this.cfb.isEmpty()) return null;
+        CfbBiomes cfb = this.cfb.get();
+        if (cfb.alpineValley().isEmpty() || cfb.alpineMid().isEmpty() || cfb.alpineHigh().isEmpty()) return null;
+        int by = QuartPos.toBlock(qy);
+        double m = AlpineTerrain.mask(climate.temperature() / 10000.0, climate.humidity() / 10000.0,
+                climate.continentalness() / 10000.0, climate.erosion() / 10000.0);
+        // the altitude bands: all through the Alps, and on any high ground in the cool and cold climates
+        if (m > 0.0 || climate.temperature() <= ALPINE_BANDS_MAX_TEMPERATURE) {
+            if (by >= AlpineTerrain.HIGH_Y) return cfb.alpineHigh().get();
+            if (by >= AlpineTerrain.MID_Y) return cfb.alpineMid().get();
+        }
+        // the whole of the Alps below them, right down to the bottom of the world, is the valley's (so no caves or
+        // ravines are carved anywhere under them: the carvers go by the biome deep down)
+        if (m >= 0.5) return cfb.alpineValley().get();
+        return null;
+    }
+
+    // the altitude bands reach high ground only where it is cool or cold (temperature -0.05 and below)
+    private static final long ALPINE_BANDS_MAX_TEMPERATURE = -500;
+
+    /** The Cfc's biome: the Scottish highland on its hills and mountains, temperate forest on its flat land; its rocky shores the cliffs. */
+    @javax.annotation.Nullable
+    private Holder<Biome> cfcBiome(Climate.TargetPoint climate, Holder<Biome> biome) {
+        CfbBiomes cfb = this.cfb.get();
+        if (cfb.highland().isEmpty()) return null;
+        ResourceKey<Biome> key = biome.unwrapKey().orElse(null);
+        if (key == null || COLD_KEEPS.contains(key) || ALL_OCEANS.contains(key)) return null;
+        if (key == Biomes.FROZEN_RIVER) return this.vanilla(Biomes.RIVER);
+        if (key == Biomes.RIVER || key == Biomes.BEACH) return null;
+        if (key == Biomes.SNOWY_BEACH) return this.vanilla(Biomes.BEACH);
+        if (key == Biomes.STONY_SHORE) return cfb.scottishCliffs().orElse(null);
+        // the highland only on hilly ground (vanilla's hills and mountains); the flat land is temperate forest
+        if (climate.erosion() < CFC_HILL_MAX_EROSION || HILL_KEYS.contains(key)) return cfb.highland().get();
+        return cfb.forest();
+    }
+
+    // hilly ground: erosion below -0.2 (vanilla's hills and mountains), and vanilla's own upland biomes
+    private static final long CFC_HILL_MAX_EROSION = -2000;
+    private static final Set<ResourceKey<Biome>> HILL_KEYS = Set.of(Biomes.WINDSWEPT_HILLS, Biomes.WINDSWEPT_GRAVELLY_HILLS,
+            Biomes.WINDSWEPT_FOREST, Biomes.MEADOW, Biomes.GROVE, Biomes.SNOWY_SLOPES, Biomes.CHERRY_GROVE);
+
+    /** The Dfb's biome: the Continental forest, with small Pine forest stands on the flat here and there. */
+    @javax.annotation.Nullable
+    private Holder<Biome> dfbBiome(int x, int z, Climate.TargetPoint climate, Holder<Biome> biome) {
+        CfbBiomes cfb = this.cfb.get();
+        if (cfb.continentalForest().isEmpty() || cfb.pineForest().isEmpty()) return null;
+        ResourceKey<Biome> key = biome.unwrapKey().orElse(null);
+        if (key == null || COLD_KEEPS.contains(key) || ALL_OCEANS.contains(key) || key == Biomes.STONY_SHORE) return null;
+        if (key == Biomes.FROZEN_RIVER) return this.vanilla(Biomes.RIVER);
+        if (key == Biomes.RIVER || key == Biomes.BEACH) return null;
+        if (key == Biomes.SNOWY_BEACH) return this.vanilla(Biomes.BEACH);
+        // the pine woods: big stands here and there on the flat, never on hills
+        if (climate.erosion() >= PINE_MIN_EROSION && pineStand(x, z)) return cfb.pineForest().get();
+        return cfb.continentalForest().get();
+    }
+
+    // the pine woods: big, roundish forests of 9-14 chunks across - at most one to every PINE_CELL x PINE_CELL
+    // quarts, in PINE_CHANCE of them, a disc of 18-28 quarts' radius (72-112 blocks) with a slightly wavy edge,
+    // somewhere inside it - and only on flat ground
+    private static final int PINE_CELL = 80;
+    private static final double PINE_CHANCE = 0.5;
+    private static final long PINE_MIN_EROSION = -1000;
+
+    static boolean pineStand(int qx, int qz) {
+        int ci = Math.floorDiv(qx, PINE_CELL), cj = Math.floorDiv(qz, PINE_CELL);
+        for (int i = ci - 1; i <= ci + 1; i++) {
+            for (int j = cj - 1; j <= cj + 1; j++) {
+                if (cellValue(i, j) >= PINE_CHANCE) continue;
+                double r = 18.0 + 10.0 * cellValue(i + 7919, j);
+                double cx = i * PINE_CELL + r + (PINE_CELL - 2 * r) * cellValue(i, j + 7919);
+                double cz = j * PINE_CELL + r + (PINE_CELL - 2 * r) * cellValue(i + 104729, j + 7919);
+                double dx = qx - cx, dz = qz - cz;
+                double wobble = 1.0 + 0.18 * Math.sin(Math.atan2(dz, dx) * 3.0 + cellValue(i, j - 7919) * 6.28);
+                if (dx * dx + dz * dz <= r * r * wobble * wobble) return true;
+            }
+        }
+        return false;
+    }
+
+    private static double cellValue(int i, int j) {
+        long h = i * 0x9E3779B97F4A7C15L ^ j * 0xC2B2AE3D27D4EB4FL ^ 0x5851F42D4C957F2DL;
+        h ^= h >>> 31;
+        h *= 0xBF58476D1CE4E5B9L;
+        h ^= h >>> 29;
+        return (h >>> 11) * 0x1.0p-53;
+    }
+
     private static final Set<ResourceKey<Biome>> CSA_SEAS = Set.of(Biomes.OCEAN, Biomes.DEEP_OCEAN, Biomes.COLD_OCEAN,
             Biomes.DEEP_COLD_OCEAN, Biomes.FROZEN_OCEAN, Biomes.DEEP_FROZEN_OCEAN, Biomes.WARM_OCEAN);
 
@@ -565,23 +952,78 @@ public class KoppenBiomeSource extends BiomeSource {
     /** Whether vanilla would have badlands (the Lush desert, with its rivers) anywhere within reach of this spot. */
     // the Lush desert's ground: vanilla's badlands, where wet enough
     private boolean lushAt(int x, int y, int z, Climate.Sampler sampler) {
-        return this.base.getNoiseBiome(x, y, z, sampler).unwrapKey().map(BADLANDS::contains).orElse(false)
-                && sampler.sample(x, y, z).humidity() >= LUSH_MIN_HUMIDITY;
+        Climate.TargetPoint c = sampler.sample(x, y, z);
+        return this.baseBiome(x, y, z, c, sampler).unwrapKey().map(BADLANDS::contains).orElse(false)
+                && c.humidity() >= LUSH_MIN_HUMIDITY;
     }
 
+    // These two look around a column at the surface (they only matter for the surface biomes). Each takes several
+    // climate samples, so the answer is kept per column: a chunk's biomes ask about each column 96 times over.
     private boolean nearLush(int x, int y, int z, Climate.Sampler sampler) {
-        int r = BADLANDS_CLEARANCE, h = BADLANDS_CLEARANCE / 2;
-        for (int[] o : new int[][]{{r, 0}, {-r, 0}, {0, r}, {0, -r}, {h, h}, {h, -h}, {-h, h}, {-h, -h}}) {
-            if (this.lushAt(x + o[0], y, z + o[1], sampler)) return true;
-        }
-        return this.lushAt(x, y, z, sampler);
+        return this.columnFlag(NEAR_LUSH, x, z, sampler, () -> {
+            int sy = QuartPos.fromBlock(SURFACE_Y);
+            int r = BADLANDS_CLEARANCE, h = BADLANDS_CLEARANCE / 2;
+            for (int[] o : new int[][]{{r, 0}, {-r, 0}, {0, r}, {0, -r}, {h, h}, {h, -h}, {-h, h}, {-h, -h}}) {
+                if (this.lushAt(x + o[0], sy, z + o[1], sampler)) return true;
+            }
+            return this.lushAt(x, sy, z, sampler);
+        });
     }
 
     private boolean byBadlands(int x, int y, int z, Climate.Sampler sampler) {
-        for (int[] o : new int[][]{{3, 0}, {-3, 0}, {0, 3}, {0, -3}}) {
-            if (this.base.getNoiseBiome(x + o[0], y, z + o[1], sampler).unwrapKey().map(BADLANDS::contains).orElse(false)) return true;
+        return this.columnFlag(BY_BADLANDS, x, z, sampler, () -> {
+            int sy = QuartPos.fromBlock(SURFACE_Y);
+            for (int[] o : new int[][]{{3, 0}, {-3, 0}, {0, 3}, {0, -3}}) {
+                if (this.base.getNoiseBiome(x + o[0], sy, z + o[1], sampler).unwrapKey().map(BADLANDS::contains).orElse(false)) return true;
+            }
+            return false;
+        });
+    }
+
+    // ---------------------------------------------------------------- caches
+
+    /** Vanilla's biome for a climate already sampled. */
+    private Holder<Biome> baseBiome(int x, int y, int z, Climate.TargetPoint climate, Climate.Sampler sampler) {
+        if (this.base instanceof net.minecraft.world.level.biome.MultiNoiseBiomeSource multiNoise) {
+            return multiNoise.getNoiseBiome(climate);
         }
-        return false;
+        return this.base.getNoiseBiome(x, y, z, sampler);
+    }
+
+    // vanilla's biomes by key, looked up once (they used to be searched for on every call)
+    private final java.util.Map<ResourceKey<Biome>, Optional<Holder<Biome>>> vanillaBiomes = new java.util.concurrent.ConcurrentHashMap<>();
+
+    private Holder<Biome> vanilla(ResourceKey<Biome> key) {
+        return this.vanillaBiomes.computeIfAbsent(key,
+                k -> this.base.possibleBiomes().stream().filter(b -> b.is(k)).findFirst()).orElse(null);
+    }
+
+    // (whether a column lies in rice terraces is also kept: it means looking up several cells' sites)
+    private static final int NEAR_LUSH = 0, BY_BADLANDS = 1, IN_TERRACES_AW = 2, IN_TERRACES_CWA = 3, COLUMN_FLAGS = 4;
+    private static final int COLUMN_CACHE = 1024;
+
+    // per thread, per column (direct-mapped by quart column): 0 not yet known, 1 false, 2 true
+    private static final class ColumnFlags {
+        Climate.Sampler sampler;
+        final long[][] keys = new long[COLUMN_FLAGS][COLUMN_CACHE];
+        final byte[][] values = new byte[COLUMN_FLAGS][COLUMN_CACHE];
+    }
+
+    private final ThreadLocal<ColumnFlags> columnFlags = ThreadLocal.withInitial(ColumnFlags::new);
+
+    private boolean columnFlag(int which, int qx, int qz, Climate.Sampler sampler, java.util.function.BooleanSupplier work) {
+        ColumnFlags flags = this.columnFlags.get();
+        if (flags.sampler != sampler) {
+            flags.sampler = sampler;
+            for (byte[] v : flags.values) java.util.Arrays.fill(v, (byte) 0);
+        }
+        long key = ((long) qx << 32) ^ (qz & 0xFFFFFFFFL);
+        int slot = ((qx & 31) << 5) | (qz & 31);
+        if (flags.values[which][slot] != 0 && flags.keys[which][slot] == key) return flags.values[which][slot] == 2;
+        boolean result = work.getAsBoolean();
+        flags.keys[which][slot] = key;
+        flags.values[which][slot] = (byte) (result ? 2 : 1);
+        return result;
     }
 
     private Holder<Biome> csaLand(int x, int y, int z, Climate.Sampler sampler, boolean mountain, Climate.TargetPoint climate) {

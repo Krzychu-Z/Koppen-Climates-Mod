@@ -102,8 +102,20 @@ public final class IslandMap {
 
     private final long seed;
     private final Map<Long, List<Island>> cells = new ConcurrentHashMap<>();
-    // the last column asked about, per thread: noise asks for the same column many times over
-    private final ThreadLocal<double[]> lastColumn = ThreadLocal.withInitial(() -> new double[]{Double.NaN, Double.NaN, Double.NaN});
+    // The heights of the columns each thread worked out last, 1024 of them, by column (direct-mapped): terrain is
+    // generated cell by cell, visiting the same 16 columns over and over on its way down (and the biomes the same),
+    // so nearly every lookup is answered here instead of searching the islands again.
+    private static final int COLUMN_CACHE = 1024;
+    private final ThreadLocal<ColumnCache> columns = ThreadLocal.withInitial(ColumnCache::new);
+
+    private static final class ColumnCache {
+        final long[] keys = new long[COLUMN_CACHE];
+        final double[] heights = new double[COLUMN_CACHE];
+
+        ColumnCache() {
+            java.util.Arrays.fill(this.keys, Long.MIN_VALUE);
+        }
+    }
 
     private IslandMap(long seed) {
         this.seed = seed;
@@ -127,9 +139,11 @@ public final class IslandMap {
 
     /** Height of the island ground above the sea at a point, or NaN if no island is there. */
     public double height(int x, int z, ClimateProbe probe) {
-        double[] last = this.lastColumn.get();
-        if (last[0] == x && last[1] == z) {
-            return last[2];
+        ColumnCache cache = this.columns.get();
+        long key = ((long) x << 32) ^ (z & 0xFFFFFFFFL);
+        int slot = ((x & 31) << 5) | (z & 31);
+        if (cache.keys[slot] == key) {
+            return cache.heights[slot];
         }
         double best = Double.NaN;
         int cx = Math.floorDiv(x, CELL), cz = Math.floorDiv(z, CELL);
@@ -149,9 +163,8 @@ public final class IslandMap {
                 }
             }
         }
-        last[0] = x;
-        last[1] = z;
-        last[2] = best;
+        cache.keys[slot] = key;
+        cache.heights[slot] = best;
         return best;
     }
 

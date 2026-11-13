@@ -301,5 +301,79 @@
         "stream": true
       }
     ]
+  },
+  "item.shotgun.shoot": {
+    "subtitle": "subtitles.koppenclimatemod.item.shotgun.shoot",
+    "sounds": [
+      {
+        "name": "koppenclimatemod:item/shotgun",
+        "volume": 1.0,
+        "attenuation_distance": 96
+      }
+    ]
+  },
+  "ambient.prairie.wind": {
+    "sounds": [
+      {
+        "name": "koppenclimatemod:ambience/hot_desert_wind",
+        "volume": 0.3,
+        "stream": true
+      }
+    ]
+  },
+  "ambient.cfb.forest": {
+    "sounds": [
+      {
+        "name": "koppenclimatemod:ambience/cfb_forest",
+        "volume": 1.0,
+        "stream": true
+      }
+    ]
+  },
+  "ambient.cfb.wind": {
+    "sounds": [
+      {
+        "name": "koppenclimatemod:ambience/hot_desert_wind",
+        "volume": 0.25,
+        "stream": true
+      }
+    ]
+  },
+  "ambient.dfb.crow": {
+    "sounds": [
+      {
+        "name": "koppenclimatemod:ambience/dfb_crow",
+        "volume": 1.0,
+        "stream": false
+      }
+    ]
+  },
+  "ambient.dfb.woodpecker": {
+    "sounds": [
+      {
+        "name": "koppenclimatemod:ambience/dfb_woodpecker",
+        "volume": 1.0,
+        "stream": false
+      }
+    ]
+  },
+  "ambient.cliffs.waves": {
+    "sounds": [
+      {
+        "name": "koppenclimatemod:ambience/cliff_waves",
+        "volume": 1.0,
+        "stream": true
+      }
+    ]
+  },
+  "ambient.alpine.wind": {
+    "sounds": [
+      {
+        "name": "koppenclimatemod:ambience/hot_desert_wind",
+        "volume": 0.35,
+        "pitch": 0.8,
+        "stream": true
+      }
+    ]
   }
 }

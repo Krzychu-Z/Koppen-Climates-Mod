@@ -54,7 +54,16 @@ public final class RiceTerraceSites {
     }
 
     public Optional<Site> site(int cellX, int cellZ, SurfaceBiomes biomes) {
-        return this.cells.computeIfAbsent(key(cellX, cellZ), k -> this.find(cellX, cellZ, biomes));
+        // (worked out outside the map's lock, so threads generating chunks never wait on each other; two threads
+        // working out the same cell at once come to the same answer)
+        long key = key(cellX, cellZ);
+        Optional<Site> site = this.cells.get(key);
+        if (site == null) {
+            site = this.find(cellX, cellZ, biomes);
+            Optional<Site> raced = this.cells.putIfAbsent(key, site);
+            if (raced != null) site = raced;
+        }
+        return site;
     }
 
     /** Whether the block column lies in some site's terraces. */

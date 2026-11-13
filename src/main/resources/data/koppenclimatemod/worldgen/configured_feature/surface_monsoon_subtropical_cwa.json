@@ -1,0 +1,7 @@
+{
+  "type": "koppenclimatemod:biome_surface",
+  "config": {
+    "biome": "koppenclimatemod:monsoon_subtropical_cwa",
+    "style": "monsoon_hills"
+  }
+}

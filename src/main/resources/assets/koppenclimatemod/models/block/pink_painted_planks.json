@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cube_all",
+  "textures": {
+    "all": "koppenclimatemod:block/pink_painted_planks"
+  }
+}

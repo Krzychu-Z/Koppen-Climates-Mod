@@ -22,15 +22,16 @@ import net.minecraft.world.level.gameevent.GameEvent;
 import javax.annotation.Nullable;
 
 /**
- * Farmland soil tilled with a hoe (SubtropicalFarming): farmland like vanilla's - it's watered from up to four blocks
- * away, dries out and is trampled back - but it goes back to farmland soil, not dirt, and crops on it grow twice as
- * fast (SubtropicalFarming). Crops and stems may stand on it (CropFarmlandMixin).
+ * Farmland soil tilled with a hoe (SubtropicalFarming): farmland like vanilla's, but the rich, black soil holds
+ * its moisture by itself - it never needs water nearby and never dries out - and crops on it grow twice as fast
+ * (SubtropicalFarming). Trampled, it goes back to farmland soil, not dirt. Crops and stems may stand on it (CropFarmlandMixin).
  */
 public class TilledSoilBlock extends FarmBlock {
     public static final MapCodec<TilledSoilBlock> CODEC = simpleCodec(TilledSoilBlock::new);
 
     public TilledSoilBlock(Properties properties) {
         super(properties);
+        this.registerDefaultState(this.stateDefinition.any().setValue(MOISTURE, 7));
     }
 
     @Override
@@ -52,16 +53,8 @@ public class TilledSoilBlock extends FarmBlock {
 
     @Override
     public void randomTick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
-        int moisture = state.getValue(MOISTURE);
-        if (!nearWater(level, pos) && !level.isRainingAt(pos.above())) {
-            if (moisture > 0) {
-                level.setBlock(pos, state.setValue(MOISTURE, moisture - 1), 2);
-            } else if (!level.getBlockState(pos.above()).is(BlockTags.MAINTAINS_FARMLAND)) {
-                toSoil(null, state, level, pos);
-            }
-        } else if (moisture < 7) {
-            level.setBlock(pos, state.setValue(MOISTURE, 7), 2);
-        }
+        // always moist, water or no water
+        if (state.getValue(MOISTURE) < 7) level.setBlock(pos, state.setValue(MOISTURE, 7), 2);
     }
 
     @Override
@@ -81,10 +74,4 @@ public class TilledSoilBlock extends FarmBlock {
         level.gameEvent(GameEvent.BLOCK_CHANGE, pos, GameEvent.Context.of(entity, soil));
     }
 
-    private static boolean nearWater(LevelReader level, BlockPos pos) {
-        for (BlockPos p : BlockPos.betweenClosed(pos.offset(-4, 0, -4), pos.offset(4, 1, 4))) {
-            if (level.getFluidState(p).is(FluidTags.WATER)) return true;
-        }
-        return false;
-    }
 }

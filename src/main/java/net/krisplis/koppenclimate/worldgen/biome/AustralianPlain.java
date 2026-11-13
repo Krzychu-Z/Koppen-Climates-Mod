@@ -106,4 +106,21 @@ public final class AustralianPlain implements DensityFunction {
     public KeyDispatchDataCodec<? extends DensityFunction> codec() {
         return CODEC;
     }
+
+    // Value equality, so that the same function used twice (in the terrain and in the biomes' depth) is
+    // recognised as one by a chunk's noise caches and worked out only once.
+    @Override
+    public boolean equals(Object other) {
+        return this == other || other instanceof AustralianPlain o && this.floor == o.floor
+                && this.continents.equals(o.continents)
+                && this.erosion.equals(o.erosion)
+                && this.temperature.equals(o.temperature)
+                && this.humidity.equals(o.humidity)
+                && this.undulation.equals(o.undulation);
+    }
+
+    @Override
+    public int hashCode() {
+        return java.util.Objects.hash(this.floor, this.continents, this.erosion, this.temperature, this.humidity, this.undulation);
+    }
 }

@@ -5,8 +5,8 @@
   "effects": {
     "fog_color": 12638463,
     "sky_color": 7907327,
-    "water_color": 4159204,
-    "water_fog_color": 329011,
+    "water_color": 6388580,
+    "water_fog_color": 2302743,
     "foliage_color": 3193611,
     "mood_sound": {
       "block_search_extent": 8,
@@ -70,9 +70,15 @@
       },
       {
         "type": "koppenclimatemod:viper",
-        "weight": 2,
+        "weight": 60,
         "minCount": 1,
-        "maxCount": 1
+        "maxCount": 3
+      },
+      {
+        "type": "koppenclimatemod:alligator",
+        "weight": 25,
+        "minCount": 1,
+        "maxCount": 2
       }
     ],
     "monster": [
@@ -193,6 +199,7 @@
     [
       "minecraft:glow_lichen",
       "minecraft:trees_swamp",
+      "koppenclimatemod:swamp_mangroves",
       "koppenclimatemod:swamp_platanus",
       "koppenclimatemod:subtropical_tall_grass",
       "koppenclimatemod:subtropical_grass",
@@ -200,6 +207,7 @@
       "minecraft:patch_waterlily",
       "minecraft:brown_mushroom_swamp",
       "minecraft:red_mushroom_swamp",
+      "koppenclimatemod:swamp_cattails",
       "koppenclimatemod:swamp_sugar_cane",
       "minecraft:patch_pumpkin",
       "minecraft:seagrass_swamp"

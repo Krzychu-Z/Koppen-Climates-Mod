@@ -155,4 +155,22 @@ public final class CsaHills implements DensityFunction {
     public KeyDispatchDataCodec<? extends DensityFunction> codec() {
         return CODEC;
     }
+
+    // Value equality, so that the same function used twice (in the terrain and in the biomes' depth) is
+    // recognised as one by a chunk's noise caches and worked out only once.
+    @Override
+    public boolean equals(Object other) {
+        return this == other || other instanceof CsaHills o && this.ceiling == o.ceiling
+                && this.continents.equals(o.continents)
+                && this.temperature.equals(o.temperature)
+                && this.humidity.equals(o.humidity)
+                && this.ridges.equals(o.ridges)
+                && this.hills.equals(o.hills)
+                && this.erosion.equals(o.erosion);
+    }
+
+    @Override
+    public int hashCode() {
+        return java.util.Objects.hash(this.ceiling, this.continents, this.temperature, this.humidity, this.ridges, this.hills, this.erosion);
+    }
 }
