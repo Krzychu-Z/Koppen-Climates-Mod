@@ -4,6 +4,9 @@
     "koppenclimatemod:redwood_forest_csb",
     "koppenclimatemod:temperate_forest_cfb",
     "koppenclimatemod:continental_forest_dfb",
-    "koppenclimatemod:pine_forest_dfb"
+    "koppenclimatemod:pine_forest_dfb",
+    "koppenclimatemod:cold_lakeland_dfc",
+    "koppenclimatemod:continental_mountains_dfc",
+    "koppenclimatemod:subpolar_taiga_dfc"
   ]
 }

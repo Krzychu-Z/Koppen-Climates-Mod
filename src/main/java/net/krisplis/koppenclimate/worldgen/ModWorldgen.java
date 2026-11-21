@@ -38,6 +38,21 @@ public class ModWorldgen {
     public static final RegistryObject<Feature<net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration>> ALPINE_STREAM =
             FEATURES.register("alpine_stream", () -> new net.krisplis.koppenclimate.worldgen.feature.AlpineStreamFeature(
                     net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration.CODEC));
+    // the Cold lakeland's (Dfc) round lakes
+    public static final RegistryObject<Feature<net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration>> ROUND_LAKE =
+            FEATURES.register("round_lake", () -> new net.krisplis.koppenclimate.worldgen.feature.RoundLakeFeature(
+                    net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration.CODEC));
+    // the Ice cap's (EF) ice shelf, and the Tundra's (ET) warm geothermal pools
+    public static final RegistryObject<Feature<net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration>> ICE_CAP =
+            FEATURES.register("ice_cap", () -> new net.krisplis.koppenclimate.worldgen.feature.IceCapFeature(
+                    net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration.CODEC));
+    public static final RegistryObject<Feature<net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration>> GEOTHERMAL_POOL =
+            FEATURES.register("geothermal_pool", () -> new net.krisplis.koppenclimate.worldgen.feature.GeothermalPoolFeature(
+                    net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration.CODEC));
+    // Pompeii's (Csa) scorched, ever-burning ground
+    public static final RegistryObject<Feature<net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration>> POMPEII_GROUND =
+            FEATURES.register("pompeii_ground", () -> new net.krisplis.koppenclimate.worldgen.feature.PompeiiGroundFeature(
+                    net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration.CODEC));
     // placement only between two heights (the Alps' spruce foothills, the dwarf pines at the bottom of the mid-altitude)
     public static final DeferredRegister<net.minecraft.world.level.levelgen.placement.PlacementModifierType<?>> PLACEMENT_MODIFIERS =
             DeferredRegister.create(Registries.PLACEMENT_MODIFIER_TYPE, KoppenClimateMod.MOD_ID);
@@ -142,6 +157,9 @@ public class ModWorldgen {
     // the Cfb's Flooded rivers: vanilla's lowland rivers, broadened (a ceiling)
     public static final RegistryObject<MapCodec<net.krisplis.koppenclimate.worldgen.biome.CfbRiver>> CFB_RIVER =
             DENSITY_FUNCTION_TYPES.register("cfb_river", () -> net.krisplis.koppenclimate.worldgen.biome.CfbRiver.MAP_CODEC);
+    // the Nile: one great, rare river through the hot deserts (a ceiling: NileMap, NileRiver)
+    public static final RegistryObject<MapCodec<net.krisplis.koppenclimate.worldgen.biome.NileRiver>> NILE_RIVER =
+            DENSITY_FUNCTION_TYPES.register("nile_river", () -> net.krisplis.koppenclimate.worldgen.biome.NileRiver.MAP_CODEC);
     // the Alps: long flat valleys high up between huge, sharp mountains (ceiling and floor)
     public static final RegistryObject<MapCodec<net.krisplis.koppenclimate.worldgen.biome.AlpineTerrain>> ALPINE_TERRAIN =
             DENSITY_FUNCTION_TYPES.register("alpine", () -> net.krisplis.koppenclimate.worldgen.biome.AlpineTerrain.MAP_CODEC);

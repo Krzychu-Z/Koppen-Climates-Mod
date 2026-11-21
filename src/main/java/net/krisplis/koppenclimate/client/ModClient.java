@@ -77,6 +77,7 @@ public final class ModClient {
     @SubscribeEvent
     public static void onRegisterLayers(EntityRenderersEvent.RegisterLayerDefinitions e) {
         e.registerLayerDefinition(AnacondaModel.LAYER, AnacondaModel::createBodyLayer);
+        e.registerLayerDefinition(TemplarRenderer.SURCOAT, TemplarRenderer::createSurcoatLayer);
         e.registerLayerDefinition(CrocodileModel.LAYER, CrocodileModel::createBodyLayer);
         e.registerLayerDefinition(PiranhaModel.LAYER, PiranhaModel::createBodyLayer);
         e.registerLayerDefinition(CobraModel.LAYER, CobraModel::createBodyLayer);
@@ -89,6 +90,9 @@ public final class ModClient {
         e.registerLayerDefinition(LionModel.LAYER, LionModel::createBodyLayer);
         e.registerLayerDefinition(ElephantModel.LAYER, ElephantModel::createBodyLayer);
         e.registerLayerDefinition(RhinoModel.LAYER, RhinoModel::createBodyLayer);
+        e.registerLayerDefinition(MooseModel.LAYER, MooseModel::createBodyLayer);
+        e.registerLayerDefinition(DustDevilModel.LAYER, DustDevilModel::createBodyLayer);
+        e.registerLayerDefinition(ReindeerModel.LAYER, ReindeerModel::createBodyLayer);
         e.registerLayerDefinition(GiraffeModel.LAYER, GiraffeModel::createBodyLayer);
         e.registerLayerDefinition(KoalaModel.LAYER, KoalaModel::createBodyLayer);
         e.registerLayerDefinition(KangarooModel.LAYER, KangarooModel::createBodyLayer);
@@ -105,6 +109,14 @@ public final class ModClient {
         e.registerEntityRenderer(ModEntities.VIPER.get(), SavannaRenderers::viper);
         e.registerEntityRenderer(ModEntities.TERMITE.get(), TermiteRenderer::new);
         e.registerEntityRenderer(ModEntities.SCORPION.get(), ScorpionRenderer::new);
+        e.registerEntityRenderer(ModEntities.DUST_DEVIL.get(), DustDevilRenderer::new);
+        e.registerEntityRenderer(ModEntities.ROMAN_LEGIONNAIRE.get(), RomanLegionnaireRenderer::new);
+        e.registerEntityRenderer(ModEntities.TEMPLAR.get(), TemplarRenderer::new);
+        e.registerEntityRenderer(ModEntities.TINY_GHAST.get(), net.minecraft.client.renderer.entity.GhastRenderer::new);
+        e.registerEntityRenderer(ModEntities.MUTANT_ZOMBIE.get(), MutantZombieRenderer::new);
+        e.registerEntityRenderer(ModEntities.MUTANT_DOG.get(), MutantDogRenderer::new);
+        e.registerEntityRenderer(ModEntities.CRAWLING_MUTANT.get(), MutantZombieRenderer::new);
+        e.registerEntityRenderer(ModEntities.EVOKER_SOLDIER.get(), EvokerSoldierRenderer::new);
         e.registerEntityRenderer(ModEntities.SHARK.get(), SharkRenderer::new);
         e.registerEntityRenderer(ModEntities.CRAB.get(), CrabRenderer::new);
         e.registerEntityRenderer(ModEntities.EAGLE.get(), EagleRenderer::new);
@@ -114,6 +126,8 @@ public final class ModClient {
         e.registerEntityRenderer(ModEntities.LION.get(), SavannaRenderers::lion);
         e.registerEntityRenderer(ModEntities.ELEPHANT.get(), SavannaRenderers::elephant);
         e.registerEntityRenderer(ModEntities.RHINO.get(), SavannaRenderers::rhino);
+        e.registerEntityRenderer(ModEntities.MOOSE.get(), c -> new SavannaRenderers.Scaled<>(c, new MooseModel(c.bakeLayer(MooseModel.LAYER)), 1.0F, 1.0F, "moose"));
+        e.registerEntityRenderer(ModEntities.REINDEER.get(), c -> new SavannaRenderers.Scaled<>(c, new ReindeerModel(c.bakeLayer(ReindeerModel.LAYER)), 0.6F, 1.0F, "reindeer"));
         e.registerEntityRenderer(ModEntities.GIRAFFE.get(), SavannaRenderers::giraffe);
         e.registerEntityRenderer(ModEntities.JACKAL.get(), SavannaRenderers::jackal);
         e.registerEntityRenderer(ModEntities.ZEBRA.get(), SavannaRenderers.Zebra::new);

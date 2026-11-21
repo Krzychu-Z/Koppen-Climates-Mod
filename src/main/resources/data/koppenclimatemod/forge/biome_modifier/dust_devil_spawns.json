@@ -1,0 +1,18 @@
+{
+  "type": "forge:add_spawns",
+  "biomes": [
+    "koppenclimatemod:hot_desert_bwh",
+    "koppenclimatemod:continental_desert_bwk",
+    "koppenclimatemod:desert_mountains_bwk",
+    "koppenclimatemod:lush_desert_bsh",
+    "koppenclimatemod:dry_steppe_bsk",
+    "koppenclimatemod:australian_desert_bsh",
+    "koppenclimatemod:nile_bwh"
+  ],
+  "spawners": {
+    "type": "koppenclimatemod:dust_devil",
+    "weight": 140,
+    "minCount": 1,
+    "maxCount": 3
+  }
+}

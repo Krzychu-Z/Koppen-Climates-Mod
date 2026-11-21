@@ -1,0 +1,7 @@
+{
+  "type": "koppenclimatemod:highland_castle",
+  "biomes": "#koppenclimatemod:highland_castle_biomes",
+  "step": "surface_structures",
+  "terrain_adaptation": "none",
+  "spawn_overrides": {}
+}

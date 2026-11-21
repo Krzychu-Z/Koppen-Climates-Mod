@@ -9,7 +9,8 @@
     "BiomeRareRainMixin",
     "BushBlockSandMixin",
     "PlayerShoulderAccessor",
-    "CropFarmlandMixin"
+    "CropFarmlandMixin",
+    "PlayerScopingMixin"
   ],
   "client": [
     "ClientLevelSkyMixin",

@@ -91,6 +91,15 @@ public class ModItems {
     // the shotgun, found hidden in the red farms' barns: fires copper bullets (BULLET)
     public static final RegistryObject<Item> SHOTGUN = ITEMS.register("shotgun",
             () -> new net.krisplis.koppenclimate.item.custom.ShotgunItem(new Item.Properties().stacksTo(1).durability(250)));
+    // the Kar98k, four of them hidden about the French village: aim with the right button, fire with the left (bullets)
+    public static final RegistryObject<Item> KAR98K = ITEMS.register("kar98k",
+            () -> new net.krisplis.koppenclimate.item.custom.Kar98kItem(new Item.Properties().stacksTo(1).durability(400)));
+    // the Mosin-Nagant, on a rooftop of the abandoned Soviet estate: a telescopic sight on the right button, fire with the left
+    public static final RegistryObject<Item> MOSIN = ITEMS.register("mosin_nagant",
+            () -> new net.krisplis.koppenclimate.item.custom.MosinItem(new Item.Properties().stacksTo(1).durability(400)));
+    // the AK-47, hidden in the same estate: no sights, but a shot at every click
+    public static final RegistryObject<Item> AK47 = ITEMS.register("ak47",
+            () -> new net.krisplis.koppenclimate.item.custom.Ak47Item(new Item.Properties().stacksTo(1).durability(600)));
     public static final RegistryObject<Item> RICE = ITEMS.register("rice",
             () -> new Item(new Item.Properties()));
     // three rice and a bowl: fills a third of the hunger bar (7 of its 20 points) and gives the bowl back
@@ -104,8 +113,47 @@ public class ModItems {
             () -> new Item(new Item.Properties()));
     // jade set in gold: worn on the right hand, no poison takes hold and it gives two golden hearts
     public static final RegistryObject<Item> JADE_RING = ITEMS.register("jade_ring",
-            () -> new net.krisplis.koppenclimate.item.custom.JadeRingItem(new Item.Properties().stacksTo(1)
+            () -> new net.krisplis.koppenclimate.item.custom.JadeRingItem(new Item.Properties().durability(net.krisplis.koppenclimate.event.Rings.WEAR)
                     .rarity(net.minecraft.world.item.Rarity.RARE)));
+
+    // amber set in gold, from Pompeii's hidden hoard: worn on the left hand, no fire burns and you breathe under water
+    public static final RegistryObject<Item> AMBER_RING = ITEMS.register("amber_ring",
+            () -> new net.krisplis.koppenclimate.item.custom.AmberRingItem(new Item.Properties().durability(net.krisplis.koppenclimate.event.Rings.WEAR).fireResistant()
+                    .rarity(net.minecraft.world.item.Rarity.EPIC)));
+    // a gold ring set with a ruby, under the Gothic Cathedral's altar: worn on the left hand, you can't die
+    public static final RegistryObject<Item> RUBY_RING = ITEMS.register("ruby_ring",
+            () -> new net.krisplis.koppenclimate.item.custom.RubyRingItem(new Item.Properties().durability(net.krisplis.koppenclimate.event.Rings.WEAR).fireResistant()
+                    .rarity(net.minecraft.world.item.Rarity.EPIC)));
+    // a gold ring set with a sapphire, sealed in the Highland Castle's dungeon: worn on the left hand, you never take fall damage and can fly
+    public static final RegistryObject<Item> SAPPHIRE_RING = ITEMS.register("sapphire_ring",
+            () -> new net.krisplis.koppenclimate.item.custom.SapphireRingItem(new Item.Properties().durability(net.krisplis.koppenclimate.event.Rings.WEAR).fireResistant()
+                    .rarity(net.minecraft.world.item.Rarity.EPIC)));
+    // black graphite set in steel, in a basement of the abandoned Soviet estate: worn on the left hand, every blow comes back on whoever struck it
+    public static final RegistryObject<Item> GRAPHITE_RING = ITEMS.register("graphite_ring",
+            () -> new net.krisplis.koppenclimate.item.custom.GraphiteRingItem(new Item.Properties().durability(net.krisplis.koppenclimate.event.Rings.WEAR)
+                    .fireResistant().rarity(net.minecraft.world.item.Rarity.EPIC)));
+    // the five rings forged into one (crafting): all their powers and the strongest Regeneration; never wears, can't be destroyed
+    public static final RegistryObject<Item> ELDER_RING = ITEMS.register("elder_ring",
+            () -> new net.krisplis.koppenclimate.item.custom.ElderRingItem(new Item.Properties().stacksTo(1).fireResistant()
+                    .rarity(net.minecraft.world.item.Rarity.EPIC)));
+    public static final RegistryObject<Item> MUTANT_ZOMBIE_SPAWN_EGG = ITEMS.register("mutant_zombie_spawn_egg",
+            () -> new ForgeSpawnEggItem(ModEntities.MUTANT_ZOMBIE, 0x8C8A3A, 0x6A7486, new Item.Properties()));
+    public static final RegistryObject<Item> CRAWLING_MUTANT_SPAWN_EGG = ITEMS.register("crawling_mutant_spawn_egg",
+            () -> new ForgeSpawnEggItem(ModEntities.CRAWLING_MUTANT, 0x8C8A3A, 0x9CFF5A, new Item.Properties()));
+    public static final RegistryObject<Item> MUTANT_DOG_SPAWN_EGG = ITEMS.register("mutant_dog_spawn_egg",
+            () -> new ForgeSpawnEggItem(ModEntities.MUTANT_DOG, 0x4E9A2E, 0xE8D020, new Item.Properties()));
+    // a ghast's white with grey
+    public static final RegistryObject<Item> TINY_GHAST_SPAWN_EGG = ITEMS.register("tiny_ghast_spawn_egg",
+            () -> new ForgeSpawnEggItem(ModEntities.TINY_GHAST, 0xF9F9F9, 0xBCBCBC, new Item.Properties()));
+    // field grey and steel
+    public static final RegistryObject<Item> EVOKER_SOLDIER_SPAWN_EGG = ITEMS.register("evoker_soldier_spawn_egg",
+            () -> new ForgeSpawnEggItem(ModEntities.EVOKER_SOLDIER, 0x565C4A, 0x8A8E80, new Item.Properties()));
+    // the surcoat's white with the red cross
+    public static final RegistryObject<Item> TEMPLAR_SPAWN_EGG = ITEMS.register("templar_spawn_egg",
+            () -> new ForgeSpawnEggItem(ModEntities.TEMPLAR, 0xE8E4DA, 0xB01818, new Item.Properties()));
+    // bone-white with the legion's red
+    public static final RegistryObject<Item> ROMAN_LEGIONNAIRE_SPAWN_EGG = ITEMS.register("roman_legionnaire_spawn_egg",
+            () -> new ForgeSpawnEggItem(ModEntities.ROMAN_LEGIONNAIRE, 0xC1C1C1, 0xA4161A, new Item.Properties()));
 
     // dark brown with a sandy belly and hood
     public static final RegistryObject<Item> SHARK_SPAWN_EGG = ITEMS.register("shark_spawn_egg",
@@ -393,6 +441,8 @@ public class ModItems {
     public static final RegistryObject<Item> ROSEMARY_SPRIG = ITEMS.register("rosemary_sprig", () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> ROSEMARY_OIL = ITEMS.register("rosemary_oil",
             () -> new Item(new Item.Properties().stacksTo(16).craftRemainder(net.minecraft.world.item.Items.GLASS_BOTTLE)));
+    public static final RegistryObject<Item> DUST_DEVIL_SPAWN_EGG = ITEMS.register("dust_devil_spawn_egg",
+            () -> new net.minecraftforge.common.ForgeSpawnEggItem(net.krisplis.koppenclimate.entity.ModEntities.DUST_DEVIL, 0xDEC48C, 0xA88A5A, new Item.Properties()));
     public static final RegistryObject<Item> SCORPION_SPAWN_EGG = ITEMS.register("scorpion_spawn_egg",
             () -> new net.minecraftforge.common.ForgeSpawnEggItem(net.krisplis.koppenclimate.entity.ModEntities.SCORPION, 0x8A6A3A, 0x3A2A1A, new Item.Properties()));
     // ------------------------------------------------------------------ the African savanna's animals
@@ -420,6 +470,10 @@ public class ModItems {
             () -> new net.minecraftforge.common.ForgeSpawnEggItem(net.krisplis.koppenclimate.entity.ModEntities.GIRAFFE, 0xD6AC64, 0x804C24, new Item.Properties()));
     public static final RegistryObject<Item> ELEPHANT_SPAWN_EGG = ITEMS.register("elephant_spawn_egg",
             () -> new net.minecraftforge.common.ForgeSpawnEggItem(net.krisplis.koppenclimate.entity.ModEntities.ELEPHANT, 0x7E7A76, 0xECE2C4, new Item.Properties()));
+    public static final RegistryObject<Item> MOOSE_SPAWN_EGG = ITEMS.register("moose_spawn_egg",
+            () -> new net.minecraftforge.common.ForgeSpawnEggItem(net.krisplis.koppenclimate.entity.ModEntities.MOOSE, 0x4A3628, 0xC6B288, new Item.Properties()));
+    public static final RegistryObject<Item> REINDEER_SPAWN_EGG = ITEMS.register("reindeer_spawn_egg",
+            () -> new net.minecraftforge.common.ForgeSpawnEggItem(net.krisplis.koppenclimate.entity.ModEntities.REINDEER, 0x806E5A, 0xE2D8C4, new Item.Properties()));
     public static final RegistryObject<Item> RHINO_SPAWN_EGG = ITEMS.register("rhino_spawn_egg",
             () -> new net.minecraftforge.common.ForgeSpawnEggItem(net.krisplis.koppenclimate.entity.ModEntities.RHINO, 0x7C746A, 0xAAA08C, new Item.Properties()));
     public static final RegistryObject<Item> LION_SPAWN_EGG = ITEMS.register("lion_spawn_egg",

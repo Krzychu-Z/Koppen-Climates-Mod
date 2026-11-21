@@ -112,6 +112,9 @@ public final class CfaCsbContent {
         }
         if (tab == CreativeModeTabs.COMBAT) {
             event.accept(ModItems.SHOTGUN);
+            event.accept(ModItems.KAR98K);
+            event.accept(ModItems.MOSIN);
+            event.accept(ModItems.AK47);
         }
         if (tab == CreativeModeTabs.FUNCTIONAL_BLOCKS) {
             event.accept(ModBlocks.CHINESE_LANTERN);

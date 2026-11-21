@@ -111,4 +111,15 @@ public class ScorpionEntity extends PathfinderMob {
     public int getAmbientSoundInterval() {
         return 300;
     }
+
+    // Pompeii's scorpions live on its burning ground: the fire doesn't hurt them
+    @Override
+    public net.minecraft.world.entity.SpawnGroupData finalizeSpawn(net.minecraft.world.level.ServerLevelAccessor level,
+            net.minecraft.world.DifficultyInstance difficulty, net.minecraft.world.entity.MobSpawnType reason,
+            @javax.annotation.Nullable net.minecraft.world.entity.SpawnGroupData data) {
+        if (level.getBiome(this.blockPosition()).is(net.krisplis.koppenclimate.worldgen.biome.ModBiomes.POMPEII)) {
+            this.addEffect(new MobEffectInstance(MobEffects.FIRE_RESISTANCE, MobEffectInstance.INFINITE_DURATION, 0, true, false));
+        }
+        return super.finalizeSpawn(level, difficulty, reason, data);
+    }
 }

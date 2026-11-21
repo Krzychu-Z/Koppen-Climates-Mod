@@ -1669,6 +1669,24 @@ public class ModBlocks {
             () -> new net.minecraft.world.level.block.ColoredFallingBlock(new net.minecraft.util.ColorRGBA(0xFFD8D6CE),
                     BlockBehaviour.Properties.ofFullCopy(Blocks.GRAVEL).mapColor(MapColor.QUARTZ))
     );
+
+    // ------------------------------------------------------------------ the far north
+    // the Tundra's black volcanic sand, on its shores
+    public static final RegistryObject<Block> BLACK_SAND = registerBlock("black_sand",
+            () -> new net.minecraft.world.level.block.ColoredFallingBlock(new net.minecraft.util.ColorRGBA(0xFF2A2828),
+                    BlockBehaviour.Properties.ofFullCopy(Blocks.SAND).mapColor(MapColor.COLOR_BLACK))
+    );
+    // the Tundra's hot springs well up from these
+    public static final RegistryObject<Block> GEOTHERMAL_VENT = registerBlock("geothermal_vent",
+            () -> new net.krisplis.koppenclimate.block.custom.GeothermalVentBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.SMOOTH_BASALT)
+                    .lightLevel(s -> 5).mapColor(MapColor.COLOR_BLACK))
+    );
+    // the Viking villages' sauna stoves
+    public static final RegistryObject<Block> SAUNA_STOVE = registerBlock("sauna_stove",
+            () -> new net.krisplis.koppenclimate.block.custom.SaunaStoveBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.STONE)
+                    .strength(2.5F, 6.0F).noOcclusion()
+                    .lightLevel(s -> s.getValue(net.krisplis.koppenclimate.block.custom.SaunaStoveBlock.LIT) ? 15 : 0))
+    );
     // wild rosemary, one or two blocks tall: slows you down, drops sticks and sometimes rosemary
     public static final RegistryObject<Block> ROSEMARY = registerBlock("rosemary",
             () -> new net.krisplis.koppenclimate.block.custom.RosemaryBlock(BlockBehaviour.Properties.of().mapColor(MapColor.PLANT)

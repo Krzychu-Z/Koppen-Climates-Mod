@@ -54,7 +54,8 @@ public abstract class VillagerProfessionLayerMixin {
         LivingEntity entity = this.koppenclimatemod$entity;
         if (!visible || !"villager".equals(this.path) || entity == null || entity.isBaby()
                 || !(entity instanceof VillagerDataHolder holder)) return visible;
-        if (holder.getVillagerData().getType() != VillageRegistry.GERMAN.get()) return visible;
+        var type = holder.getVillagerData().getType();
+        if (type != VillageRegistry.GERMAN.get() && type != VillageRegistry.TIROL.get() && type != VillageRegistry.VIKING.get()) return visible;
         ResourceLocation key = BuiltInRegistries.VILLAGER_PROFESSION.getKey(holder.getVillagerData().getProfession());
         if (!"minecraft".equals(key.getNamespace()) || !KOPPENCLIMATEMOD$THAI_OUTFITS.contains(key.getPath())) return visible;
         return false;
@@ -72,7 +73,9 @@ public abstract class VillagerProfessionLayerMixin {
                 : type == VillageRegistry.VENETIAN.get() ? "venetian_profession"
                 : type == VillageRegistry.CHINESE.get() ? "chinese_profession"
                 : type == VillageRegistry.JAPANESE.get() ? "japanese_profession"
-                : type == VillageRegistry.GERMAN.get() ? "german_profession" : null;
+                : type == VillageRegistry.GERMAN.get() ? "german_profession"
+                : type == VillageRegistry.TIROL.get() ? "tirol_profession"
+                : type == VillageRegistry.VIKING.get() ? "viking_profession" : null;
         if (folder == null) return texture;
         VillagerProfession profession = holder.getVillagerData().getProfession();
         ResourceLocation key = BuiltInRegistries.VILLAGER_PROFESSION.getKey(profession);

@@ -32,6 +32,11 @@
     "koppenclimatemod:scottish_highland_cfc",
     "koppenclimatemod:scottish_cliffs_cfc",
     "koppenclimatemod:continental_forest_dfb",
-    "koppenclimatemod:pine_forest_dfb"
+    "koppenclimatemod:pine_forest_dfb",
+    "koppenclimatemod:continental_clearing_dfb",
+    "koppenclimatemod:cold_lakeland_dfc",
+    "koppenclimatemod:continental_mountains_dfc",
+    "koppenclimatemod:tundra_et",
+    "koppenclimatemod:subpolar_taiga_dfc"
   ]
 }

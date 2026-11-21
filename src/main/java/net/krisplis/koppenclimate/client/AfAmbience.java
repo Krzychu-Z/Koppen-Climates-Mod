@@ -35,6 +35,9 @@ public final class AfAmbience {
 
     @Nullable
     private static Loop current;
+    // the wind over the dry lands (B: the deserts, the steppe, the Australian desert, the Nile): a second loop,
+    // under whatever else plays there, day and night
+    private static Loop wind;
     // how far the clouds have faded away (0 = full clouds, 1 = none): they thin out gradually over the hot desert, the
     // Sahel and the Mediterranean (see LevelRendererCloudsMixin) and come back gradually when the player leaves
     private static volatile float cloudFade;
@@ -43,6 +46,31 @@ public final class AfAmbience {
     private static final float CLOUD_FADE_TICKS = 120.0F;
     // whether the player is by one of the Dalmatian island towns (out in the sea, so known by its Venetian villagers)
     private static boolean nearIslandTown;
+    // the Mediterranean river also runs through the humid subtropics (Cfa, Cwa): there it sounds (and looks, under
+    // its sky) like the subtropics about it, not the Mediterranean
+    private static boolean subtropicalRiver;
+
+    /** The Mediterranean's own ground and rivers - but not its river where it runs through the subtropics. */
+    private static boolean mediterranean(Holder<Biome> biome) {
+        return ModBiomes.isMediterranean(biome) && !(biome.is(ModBiomes.MEDITERRANEAN_RIVER) && subtropicalRiver);
+    }
+
+    /** Whether the land around this river is the subtropics' (Cfa, Cwa) rather than the Mediterranean's. */
+    private static boolean amidSubtropics(Minecraft mc, LocalPlayer player) {
+        int subtropical = 0, mediterranean = 0;
+        for (int ring = 1; ring <= 4; ring++) {
+            for (int k = 0; k < 8; k++) {
+                double a = k * Math.PI / 4;
+                net.minecraft.core.BlockPos at = net.minecraft.core.BlockPos.containing(player.getX() + Math.cos(a) * 24 * ring,
+                        player.getY(), player.getZ() + Math.sin(a) * 24 * ring);
+                Holder<Biome> b = mc.level.getBiome(at);
+                if (ModBiomes.isSubtropical(b)) subtropical++;
+                else if (ModBiomes.isMediterranean(b) && !b.is(ModBiomes.MEDITERRANEAN_RIVER)) mediterranean++;
+            }
+        }
+        // (ties - rivers wide enough that most of the ring is water - go to the subtropics when there's any of them about)
+        return subtropical > 0 && subtropical >= mediterranean;
+    }
 
     public static boolean hideClouds() {
         return cloudFade >= 1.0F && cloudFadeO >= 1.0F;
@@ -58,6 +86,67 @@ public final class AfAmbience {
 
     public static float haunt(float partialTick) {
         return net.minecraft.util.Mth.lerp(partialTick, hauntO, haunt);
+    }
+
+    // how far the sky and the fog have turned to Pompeii's fiery red (0-1), fading in on entering it
+    private static float pompeii, pompeiiO;
+    // Pompeii's red: the sky by day, a dark glowing ember at night; its fog, thick with smoke and ash
+    private static final net.minecraft.world.phys.Vec3 POMPEII_SKY = new net.minecraft.world.phys.Vec3(0.77, 0.20, 0.10);
+    private static final net.minecraft.world.phys.Vec3 POMPEII_FOG = new net.minecraft.world.phys.Vec3(0.60, 0.17, 0.08);
+
+    public static float pompeii(float partialTick) {
+        return net.minecraft.util.Mth.lerp(partialTick, pompeiiO, pompeii);
+    }
+
+    /** The red Pompeii's fire casts over the sky - never quite dark, even at night. */
+    public static net.minecraft.world.phys.Vec3 pompeiiSky(net.minecraft.world.phys.Vec3 sky, float daylight, float partialTick) {
+        float red = pompeii(partialTick);
+        if (red <= 0.0F) return sky;
+        return sky.lerp(POMPEII_SKY.scale(Math.max(daylight, 0.45F)), red * 0.9F);
+    }
+
+    // its fog too (vanilla's fog takes the biome's fog colour by day, but goes black at night)
+    @SubscribeEvent
+    public static void onFogColor(net.minecraftforge.client.event.ViewportEvent.ComputeFogColor event) {
+        float green = radiation((float) event.getPartialTick());
+        if (green > 0.0F && event.getCamera().getFluidInCamera() == net.minecraft.world.level.material.FogType.NONE) {
+            // the estate's fog: a murky green, by day and (dimmer) by night
+            Minecraft m = Minecraft.getInstance();
+            float day = m.level == null ? 1.0F : Mth.clamp(Mth.cos(m.level.getTimeOfDay((float) event.getPartialTick())
+                    * ((float) Math.PI * 2F)) * 2.0F + 0.5F, 0.0F, 1.0F);
+            net.minecraft.world.phys.Vec3 fog = new net.minecraft.world.phys.Vec3(event.getRed(), event.getGreen(), event.getBlue())
+                    .lerp(new net.minecraft.world.phys.Vec3(0.42, 0.62, 0.22).scale(Math.max(day, 0.35F)), green * 0.85F);
+            event.setRed((float) fog.x);
+            event.setGreen((float) fog.y);
+            event.setBlue((float) fog.z);
+        }
+        float red = pompeii((float) event.getPartialTick());
+        if (red <= 0.0F || event.getCamera().getFluidInCamera() != net.minecraft.world.level.material.FogType.NONE) return;
+        Minecraft mc = Minecraft.getInstance();
+        float daylight = mc.level == null ? 1.0F : Mth.clamp(Mth.cos(mc.level.getTimeOfDay((float) event.getPartialTick())
+                * ((float) Math.PI * 2F)) * 2.0F + 0.5F, 0.0F, 1.0F);
+        net.minecraft.world.phys.Vec3 fog = new net.minecraft.world.phys.Vec3(event.getRed(), event.getGreen(), event.getBlue())
+                .lerp(POMPEII_FOG.scale(Math.max(daylight, 0.5F)), red * 0.85F);
+        event.setRed((float) fog.x);
+        event.setGreen((float) fog.y);
+        event.setBlue((float) fog.z);
+    }
+
+    private static void fadePompeii(boolean in) {
+        pompeiiO = pompeii;
+        pompeii = in ? Math.min(1.0F, pompeii + 0.025F) : Math.max(0.0F, pompeii - 0.025F);
+    }
+
+    // how far the sky and fog have turned the estate's sickly green (0-1)
+    private static float glow, glowO;
+
+    public static float radiation(float partialTick) {
+        return Mth.lerp(partialTick, glowO, glow);
+    }
+
+    private static void fadeRadiation(boolean in) {
+        glowO = glow;
+        glow = in ? Math.min(1.0F, glow + 0.02F) : Math.max(0.0F, glow - 0.02F);
     }
 
     private static void fadeHaunt(boolean haunted) {
@@ -89,14 +178,19 @@ public final class AfAmbience {
         glowworms(mc, player);
         owls(mc, player);
         woodBirds(mc, player);
-        SoundEvent wanted = null;
+        SoundEvent wanted = null, windWanted = null;
         if (player != null && mc.level != null && !player.isRemoved()) {
             Holder<Biome> here = mc.level.getBiome(player.blockPosition());
             // no clouds over the hot desert, the Sahel or the Mediterranean
+            // (and over the Nile, which runs through the deserts)
+            if (player.tickCount % 40 == 0) subtropicalRiver = here.is(ModBiomes.MEDITERRANEAN_RIVER) && amidSubtropics(mc, player);
             fadeClouds(here.is(ModBiomes.HOT_DESERT) || here.is(ModBiomes.CONTINENTAL_DESERT) || here.is(ModBiomes.DRY_STEPPE) || here.is(ModBiomes.AUSTRALIAN_DESERT)
-                    || ModBiomes.isMediterranean(here));
+                    || here.is(ModBiomes.NILE) || mediterranean(here));
+            fadePompeii(here.is(ModBiomes.POMPEII));
             fadeHaunt(player.hasEffect(net.krisplis.koppenclimate.effect.ModEffects.HAUNTED.getHolder().get()));
+            fadeRadiation(player.hasEffect(net.krisplis.koppenclimate.effect.ModEffects.RADIATION.getHolder().get()));
             wanted = pick(here, mc.level.getDayTime());
+            if (ModBiomes.isDesert(here) || here.is(ModBiomes.NILE)) windWanted = ModSounds.HOT_DESERT_WIND.get();
             // the Dalmatian island towns stand out in the sea: around one, the sea sounds like the Mediterranean beach
             if (player.tickCount % 40 == 0) nearIslandTown = nearVenetians(mc, player);
             if (wanted == null && nearIslandTown && here.is(net.minecraft.tags.BiomeTags.IS_OCEAN)) {
@@ -106,6 +200,7 @@ public final class AfAmbience {
             }
         } else {
             cloudFade = cloudFadeO = 0.0F;
+            pompeii = pompeiiO = 0.0F;
         }
         seaUnderCliffs(mc, player != null && mc.level != null && !player.isRemoved() ? mc.level.getBiome(player.blockPosition()) : null);
         if (current != null && (current.isStopped() || !mc.getSoundManager().isActive(current))) {
@@ -118,6 +213,15 @@ public final class AfAmbience {
         if (current == null && wanted != null) {
             current = new Loop(wanted);
             mc.getSoundManager().play(current);
+        }
+        if (wind != null && (wind.isStopped() || !mc.getSoundManager().isActive(wind))) wind = null;
+        if (wind != null && wind.event != windWanted) {
+            wind.fadeOut();
+            wind = null;
+        }
+        if (wind == null && windWanted != null) {
+            wind = new Loop(windWanted);
+            mc.getSoundManager().play(wind);
         }
     }
 
@@ -154,7 +258,7 @@ public final class AfAmbience {
         long time = Math.floorMod(mc.level.getDayTime(), 24000L);
         if (time < NIGHT_START || time >= NIGHT_END) return;
         Holder<Biome> here = mc.level.getBiome(player.blockPosition());
-        if (!ModBiomes.isMediterranean(here) && !here.is(ModBiomes.AUSTRALIAN_DESERT)) return;
+        if (!mediterranean(here) && !here.is(ModBiomes.AUSTRALIAN_DESERT)) return;
         var random = mc.level.random;
         double cx = 0, cy = 0, cz = 0;
         boolean found = false;
@@ -184,7 +288,7 @@ public final class AfAmbience {
         Holder<Biome> biome = mc.level.getBiome(player.blockPosition());
         // outside the night or the biome, check again in a few seconds rather than waiting out a whole pause
         if (time < NIGHT_START || time >= NIGHT_END
-                || !(ModBiomes.isMediterranean(biome) || ModBiomes.isDesert(biome) || biome.is(ModBiomes.REDWOOD_FOREST)
+                || !(mediterranean(biome) || ModBiomes.isDesert(biome) || biome.is(ModBiomes.REDWOOD_FOREST)
                 || isTemperateWood(biome))) {
             owlCooldown = 100;
             return;
@@ -194,12 +298,23 @@ public final class AfAmbience {
         double angle = random.nextDouble() * Math.PI * 2, distance = 6 + random.nextDouble() * 6;
         mc.getSoundManager().play(new net.minecraft.client.resources.sounds.SimpleSoundInstance(ModSounds.OWL.get(), SoundSource.AMBIENT,
                 0.9F + random.nextFloat() * 0.1F, 0.9F + random.nextFloat() * 0.2F, SoundInstance.createUnseededRandom(),
-                player.getX() + Math.cos(angle) * distance, player.getY() + 2 + random.nextDouble() * 4, player.getZ() + Math.sin(angle) * distance));
+                player.getX() + Math.cos(angle) * distance, earLevel(player, random), player.getZ() + Math.sin(angle) * distance));
+    }
+
+    /**
+     * The height to play a one-off ambient sound at: about the player's ears. A sound placed high above them is in
+     * front of them whenever they look up, and the game plays sounds in front louder than sounds behind or above
+     * (most of all with directional audio), so a call from above would grow loud just by looking at the sky.
+     */
+    private static double earLevel(LocalPlayer player, net.minecraft.util.RandomSource random) {
+        return player.getEyeY() - 0.5 + random.nextDouble();
     }
 
     static boolean isTemperateWood(Holder<Biome> biome) {
         return biome.is(ModBiomes.TEMPERATE_FOREST) || biome.is(ModBiomes.SUNFLOWER_FIELD)
-                || biome.is(ModBiomes.CONTINENTAL_FOREST) || biome.is(ModBiomes.PINE_FOREST) || biome.is(ModBiomes.ALPINE_VALLEY);
+                || biome.is(ModBiomes.CONTINENTAL_FOREST) || biome.is(ModBiomes.PINE_FOREST) || biome.is(ModBiomes.ALPINE_VALLEY)
+                || biome.is(ModBiomes.CONTINENTAL_MOUNTAINS) || biome.is(ModBiomes.CONTINENTAL_CLEARING)
+                || biome.is(ModBiomes.COLD_LAKELAND) || biome.is(ModBiomes.SUBPOLAR_TAIGA);
     }
 
     // by day, now and then, a crow somewhere in the Continental forest (Dfb) - and less often in the Temperate forest
@@ -214,10 +329,11 @@ public final class AfAmbience {
         Holder<Biome> biome = mc.level.getBiome(player.blockPosition());
         SoundEvent call = null;
         if (time < NIGHT_START || time >= NIGHT_END) {
-            if (biome.is(ModBiomes.PINE_FOREST) || biome.is(ModBiomes.ALPINE_VALLEY)) {
+            if (biome.is(ModBiomes.PINE_FOREST) || biome.is(ModBiomes.ALPINE_VALLEY) || biome.is(ModBiomes.COLD_LAKELAND)) {
                 call = ModSounds.DFB_WOODPECKER.get();
                 birdCooldown = 200 + random.nextInt(300);       // every 10-25 seconds
-            } else if (biome.is(ModBiomes.CONTINENTAL_FOREST)) {
+            } else if (biome.is(ModBiomes.CONTINENTAL_FOREST) || biome.is(ModBiomes.CONTINENTAL_MOUNTAINS)
+                    || biome.is(ModBiomes.CONTINENTAL_CLEARING)) {
                 call = ModSounds.DFB_CROW.get();
                 birdCooldown = 240 + random.nextInt(300);       // every 12-27 seconds
             }
@@ -230,7 +346,7 @@ public final class AfAmbience {
         double angle = random.nextDouble() * Math.PI * 2, distance = 3 + random.nextDouble() * 5;
         mc.getSoundManager().play(new net.minecraft.client.resources.sounds.SimpleSoundInstance(call, SoundSource.AMBIENT,
                 1.0F, 0.95F + random.nextFloat() * 0.1F, SoundInstance.createUnseededRandom(),
-                player.getX() + Math.cos(angle) * distance, player.getY() + 2 + random.nextDouble() * 3, player.getZ() + Math.sin(angle) * distance));
+                player.getX() + Math.cos(angle) * distance, earLevel(player, random), player.getZ() + Math.sin(angle) * distance));
     }
 
     // the sea under the cliffs (White cliffs, Scottish cliffs): a second loop, under the wind
@@ -257,7 +373,7 @@ public final class AfAmbience {
         if (ModBiomes.isRainforest(biome)) {
             return (night ? ModSounds.AMAZON_NIGHT : ModSounds.AMAZON_DAY).get();
         }
-        if (biome.is(ModBiomes.AFRICAN_SAVANNA)) {
+        if (biome.is(ModBiomes.AFRICAN_SAVANNA) || biome.is(ModBiomes.SAVANNA_RIVER)) {
             return (night ? ModSounds.SAVANNA_NIGHT : ModSounds.SAVANNA_DAY).get();
         }
         if (biome.is(ModBiomes.MEDITERRANEAN_BEACH)) {
@@ -267,7 +383,7 @@ public final class AfAmbience {
             // the forest by day; at night it falls quiet but for the owls
             return night ? null : ModSounds.REDWOOD_FOREST_DAY.get();
         }
-        if (ModBiomes.isSubtropical(biome)) {
+        if (ModBiomes.isSubtropical(biome) || biome.is(ModBiomes.MEDITERRANEAN_RIVER) && subtropicalRiver) {
             // the humid subtropics (Cfa), plains and swamp alike
             return (night ? ModSounds.CFA_NIGHT : ModSounds.CFA_DAY).get();
         }
@@ -292,11 +408,11 @@ public final class AfAmbience {
             // a faint wind over the fields
             return ModSounds.CFB_WIND.get();
         }
-        if (ModBiomes.isDesert(biome)) {
-            // the wind over the sand by day; at night it drops, and only the owls are heard
-            return night ? null : ModSounds.HOT_DESERT_WIND.get();
+        if (ModBiomes.isDesert(biome) || biome.is(ModBiomes.NILE)) {
+            // (the dry lands' wind plays on its own loop, day and night: see wind)
+            return null;
         }
-        if (ModBiomes.isMediterranean(biome)) {
+        if (mediterranean(biome)) {
             return (night ? ModSounds.MEDITERRANEAN_NIGHT : ModSounds.MEDITERRANEAN_DAY).get();
         }
         if (biome.is(ModBiomes.TROPICAL_BEACH)) {
@@ -326,7 +442,7 @@ public final class AfAmbience {
                     : event == ModSounds.CFB_WIND.get() ? 0.15F
                     : event == ModSounds.ALPINE_WIND.get() ? 0.18F
                     : event == ModSounds.CFB_FOREST.get() ? 0.8F
-                    : event == ModSounds.CLIFF_WAVES.get() ? 1.0F
+                    : event == ModSounds.CLIFF_WAVES.get() ? 0.3F
                     : event == ModSounds.AUSTRALIAN_DESERT_DAY.get() ? 0.5F
                     : event == ModSounds.REDWOOD_FOREST_DAY.get() ? 0.8F : 1.0F;
         }

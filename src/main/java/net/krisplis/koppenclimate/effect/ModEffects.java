@@ -20,6 +20,10 @@ public class ModEffects {
     public static final RegistryObject<MobEffect> HAUNTED = MOB_EFFECTS.register("haunted",
             () -> new PsychedeliaEffect(MobEffectCategory.NEUTRAL, 0xE3C04A));
 
+    // Radiation: on everyone in the abandoned Soviet estate ("Chernobyl"); harmless in itself, but the sky turns green (AfAmbience)
+    public static final RegistryObject<MobEffect> RADIATION = MOB_EFFECTS.register("radiation",
+            () -> new PsychedeliaEffect(MobEffectCategory.NEUTRAL, 0x7CFC3A));
+
     // Cedar Scent: from cedar perfume; friendly animals and villagers come to the player, hostile mobs keep away (CedarScent)
     public static final RegistryObject<MobEffect> CEDAR_SCENT = MOB_EFFECTS.register("cedar_scent",
             () -> new PsychedeliaEffect(MobEffectCategory.BENEFICIAL, 0xB0703C));

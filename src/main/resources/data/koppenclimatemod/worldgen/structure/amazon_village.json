@@ -1,6 +1,6 @@
 {
   "type": "koppenclimatemod:amazon_village",
-  "biomes": "#koppenclimatemod:tropical_forests",
+  "biomes": "#koppenclimatemod:amazon_village_biomes",
   "step": "top_layer_modification",
   "terrain_adaptation": "beard_thin",
   "spawn_overrides": {}

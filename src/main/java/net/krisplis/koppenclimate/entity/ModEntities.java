@@ -125,6 +125,39 @@ public class ModEntities {
                     .build("termite"));
 
     // a small scorpion of the Mediterranean, a bit bigger than a termite: stings what comes too close
+    // the Dust Devil: a whirlwind of sand that flings you skywards (the dry B lands, day and night, and the Cursed Oases)
+    public static final RegistryObject<EntityType<net.krisplis.koppenclimate.entity.custom.DustDevilEntity>> DUST_DEVIL = ENTITY_TYPES.register("dust_devil",
+            () -> EntityType.Builder.of(net.krisplis.koppenclimate.entity.custom.DustDevilEntity::new, MobCategory.MONSTER)
+                    .sized(0.9F, 2.2F).eyeHeight(1.6F).clientTrackingRange(10).build("dust_devil"));
+    // the evoker soldier: an evoker in a field-grey uniform with a rifle, occupying the French village (Cfb)
+    public static final RegistryObject<EntityType<net.krisplis.koppenclimate.entity.custom.EvokerSoldierEntity>> EVOKER_SOLDIER = ENTITY_TYPES.register("evoker_soldier",
+            () -> EntityType.Builder.of(net.krisplis.koppenclimate.entity.custom.EvokerSoldierEntity::new, MobCategory.MONSTER)
+                    .sized(0.6F, 1.95F).passengerAttachments(2.0F).ridingOffset(-0.6F).clientTrackingRange(10).build("evoker_soldier"));
+    // the mutant zombie of the abandoned Soviet estate (subpolar taiga and tundra): two-headed or three-legged, unburnt by the sun, its blows poison
+    public static final RegistryObject<EntityType<net.krisplis.koppenclimate.entity.custom.MutantZombieEntity>> MUTANT_ZOMBIE = ENTITY_TYPES.register("mutant_zombie",
+            () -> EntityType.Builder.of(net.krisplis.koppenclimate.entity.custom.MutantZombieEntity::new, MobCategory.MONSTER)
+                    .sized(0.6F, 1.95F).eyeHeight(1.74F).passengerAttachments(2.0125F).ridingOffset(-0.7F).clientTrackingRange(8).build("mutant_zombie"));
+    // the crawling mutant: flat on the ground and terribly fast
+    public static final RegistryObject<EntityType<net.krisplis.koppenclimate.entity.custom.CrawlingMutantEntity>> CRAWLING_MUTANT = ENTITY_TYPES.register("crawling_mutant",
+            () -> EntityType.Builder.of(net.krisplis.koppenclimate.entity.custom.CrawlingMutantEntity::new, MobCategory.MONSTER)
+                    .sized(0.8F, 0.6F).eyeHeight(0.4F).clientTrackingRange(8).build("crawling_mutant"));
+    // the mutant dog guarding the Graphite ring in the estate's basement
+    public static final RegistryObject<EntityType<net.krisplis.koppenclimate.entity.custom.MutantDogEntity>> MUTANT_DOG = ENTITY_TYPES.register("mutant_dog",
+            () -> EntityType.Builder.of(net.krisplis.koppenclimate.entity.custom.MutantDogEntity::new, MobCategory.MONSTER)
+                    .sized(0.6F, 0.85F).eyeHeight(0.68F).passengerAttachments(new net.minecraft.world.phys.Vec3(0.0, 0.81875, -0.0625))
+                    .clientTrackingRange(10).build("mutant_dog"));
+    // the tiny ghast: a ghast a quarter the size, swarming over the Highland Castle (Scottish highlands); sized as a ghast, shrunk by its scale attribute
+    public static final RegistryObject<EntityType<net.krisplis.koppenclimate.entity.custom.TinyGhastEntity>> TINY_GHAST = ENTITY_TYPES.register("tiny_ghast",
+            () -> EntityType.Builder.of(net.krisplis.koppenclimate.entity.custom.TinyGhastEntity::new, MobCategory.MONSTER)
+                    .sized(4.0F, 4.0F).eyeHeight(2.6F).passengerAttachments(4.0625F).ridingOffset(0.5F).fireImmune().clientTrackingRange(10).build("tiny_ghast"));
+    // the Templar: a dead knight of the Cursed Crusade (the Gothic Cathedral), rushing in iron and the red cross
+    public static final RegistryObject<EntityType<net.krisplis.koppenclimate.entity.custom.TemplarEntity>> TEMPLAR = ENTITY_TYPES.register("templar",
+            () -> EntityType.Builder.of(net.krisplis.koppenclimate.entity.custom.TemplarEntity::new, MobCategory.MONSTER)
+                    .sized(0.6F, 1.99F).eyeHeight(1.74F).ridingOffset(-0.7F).clientTrackingRange(10).build("templar"));
+    // the Roman Legionnaire: a skeleton in red armour keeping burning Pompeii (Csa), immune to its fire
+    public static final RegistryObject<EntityType<net.krisplis.koppenclimate.entity.custom.RomanLegionnaireEntity>> ROMAN_LEGIONNAIRE = ENTITY_TYPES.register("roman_legionnaire",
+            () -> EntityType.Builder.of(net.krisplis.koppenclimate.entity.custom.RomanLegionnaireEntity::new, MobCategory.MONSTER)
+                    .sized(0.6F, 1.99F).eyeHeight(1.74F).ridingOffset(-0.7F).fireImmune().clientTrackingRange(8).build("roman_legionnaire"));
     public static final RegistryObject<EntityType<net.krisplis.koppenclimate.entity.custom.ScorpionEntity>> SCORPION = ENTITY_TYPES.register("scorpion",
             () -> EntityType.Builder.of(net.krisplis.koppenclimate.entity.custom.ScorpionEntity::new, MobCategory.CREATURE)
                     .sized(0.5F, 0.3F)
@@ -154,6 +187,16 @@ public class ModEntities {
     public static final RegistryObject<EntityType<net.krisplis.koppenclimate.entity.custom.JackalEntity>> JACKAL = ENTITY_TYPES.register("jackal",
             () -> EntityType.Builder.of(net.krisplis.koppenclimate.entity.custom.JackalEntity::new, MobCategory.CREATURE)
                     .sized(0.72F, 1.0F).eyeHeight(0.82F).clientTrackingRange(10).build("jackal"));
+
+    // ------------------------------------------------------------------ the far north's animals
+    // the moose of the Cold lakeland (Dfc): huge, and mildly aggressive
+    public static final RegistryObject<EntityType<net.krisplis.koppenclimate.entity.custom.MooseEntity>> MOOSE = ENTITY_TYPES.register("moose",
+            () -> EntityType.Builder.of(net.krisplis.koppenclimate.entity.custom.MooseEntity::new, MobCategory.CREATURE)
+                    .sized(1.5F, 2.3F).eyeHeight(2.0F).clientTrackingRange(10).build("moose"));
+    // the reindeer of the Subpolar taiga (Dfc) and the Tundra (ET), which will draw a boat through the air
+    public static final RegistryObject<EntityType<net.krisplis.koppenclimate.entity.custom.ReindeerEntity>> REINDEER = ENTITY_TYPES.register("reindeer",
+            () -> EntityType.Builder.of(net.krisplis.koppenclimate.entity.custom.ReindeerEntity::new, MobCategory.CREATURE)
+                    .sized(0.9F, 1.6F).eyeHeight(1.45F).clientTrackingRange(10).updateInterval(2).build("reindeer"));
 
     // ------------------------------------------------------------------ the Australian desert's animals
     // the koala: small and round, asleep on its eucalyptus
@@ -251,6 +294,14 @@ public class ModEntities {
         event.put(RATTLESNAKE.get(), net.krisplis.koppenclimate.entity.custom.RattlesnakeEntity.createAttributes().build());
         event.put(TERMITE.get(), net.krisplis.koppenclimate.entity.custom.TermiteEntity.createAttributes().build());
         event.put(SCORPION.get(), net.krisplis.koppenclimate.entity.custom.ScorpionEntity.createAttributes().build());
+        event.put(DUST_DEVIL.get(), net.krisplis.koppenclimate.entity.custom.DustDevilEntity.createAttributes().build());
+        event.put(EVOKER_SOLDIER.get(), net.krisplis.koppenclimate.entity.custom.EvokerSoldierEntity.createAttributes().build());
+        event.put(MUTANT_ZOMBIE.get(), net.krisplis.koppenclimate.entity.custom.MutantZombieEntity.createAttributes().build());
+        event.put(CRAWLING_MUTANT.get(), net.krisplis.koppenclimate.entity.custom.CrawlingMutantEntity.createAttributes().build());
+        event.put(MUTANT_DOG.get(), net.krisplis.koppenclimate.entity.custom.MutantDogEntity.createAttributes().build());
+        event.put(TINY_GHAST.get(), net.krisplis.koppenclimate.entity.custom.TinyGhastEntity.createAttributes().build());
+        event.put(TEMPLAR.get(), net.krisplis.koppenclimate.entity.custom.TemplarEntity.createAttributes().build());
+        event.put(ROMAN_LEGIONNAIRE.get(), net.krisplis.koppenclimate.entity.custom.RomanLegionnaireEntity.createAttributes().build());
         event.put(BLACK_MAMBA.get(), net.krisplis.koppenclimate.entity.custom.MambaEntity.createAttributes().build());
         event.put(GIRAFFE.get(), net.krisplis.koppenclimate.entity.custom.GiraffeEntity.createAttributes().build());
         event.put(ELEPHANT.get(), net.krisplis.koppenclimate.entity.custom.ElephantEntity.createAttributes().build());
@@ -266,10 +317,14 @@ public class ModEntities {
         event.put(KOALA.get(), net.krisplis.koppenclimate.entity.custom.KoalaEntity.createAttributes().build());
         event.put(KANGAROO.get(), net.krisplis.koppenclimate.entity.custom.KangarooEntity.createAttributes().build());
         event.put(HYENA.get(), net.krisplis.koppenclimate.entity.custom.HyenaEntity.createAttributes().build());
+        event.put(MOOSE.get(), net.krisplis.koppenclimate.entity.custom.MooseEntity.createAttributes().build());
+        event.put(REINDEER.get(), net.krisplis.koppenclimate.entity.custom.ReindeerEntity.createAttributes().build());
     }
 
     // Where they may appear: on solid ground. Which biomes is in forge/biome_modifier/*_spawns.json
     private static void registerSpawnPlacements(SpawnPlacementRegisterEvent event) {
+        event.register(DUST_DEVIL.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+                net.krisplis.koppenclimate.entity.custom.DustDevilEntity::checkDustDevilSpawnRules, SpawnPlacementRegisterEvent.Operation.REPLACE);
         event.register(ANACONDA.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
                 Mob::checkMobSpawnRules, SpawnPlacementRegisterEvent.Operation.REPLACE);
         // crocodiles only ever appear near water
@@ -280,6 +335,8 @@ public class ModEntities {
                 (type, level, reason, pos, random) -> Mob.checkMobSpawnRules(type, level, reason, pos, random) && nearWater(level, pos, 6),
                 SpawnPlacementRegisterEvent.Operation.REPLACE);
         // the savanna's animals stand on its grass; rhinos only by its ponds
+        registerAnimal(event, MOOSE.get());
+        registerAnimal(event, REINDEER.get());
         for (var type : java.util.List.of(GIRAFFE.get(), ELEPHANT.get(), LION.get(), ZEBRA.get(), JACKAL.get(), WARM_PIG.get())) {
             registerAnimal(event, type);
         }
@@ -293,6 +350,9 @@ public class ModEntities {
                 Mob::checkMobSpawnRules, SpawnPlacementRegisterEvent.Operation.REPLACE);
         event.register(SCORPION.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
                 Mob::checkMobSpawnRules, SpawnPlacementRegisterEvent.Operation.REPLACE);
+        // legionnaires in any light, by day as by night (only Pompeii lists them)
+        event.register(ROMAN_LEGIONNAIRE.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+                net.minecraft.world.entity.monster.Monster::checkAnyLightMonsterSpawnRules, SpawnPlacementRegisterEvent.Operation.REPLACE);
         event.register(BLACK_PANTHER.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
                 Mob::checkMobSpawnRules, SpawnPlacementRegisterEvent.Operation.REPLACE);
         event.register(COBRA.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,

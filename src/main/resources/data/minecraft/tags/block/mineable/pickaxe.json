@@ -74,6 +74,8 @@
     "koppenclimatemod:marble_tile_slab",
     "koppenclimatemod:marble_tile_wall",
     "koppenclimatemod:terracotta_roof_tiles",
-    "koppenclimatemod:orange_sandstone"
+    "koppenclimatemod:orange_sandstone",
+    "koppenclimatemod:geothermal_vent",
+    "koppenclimatemod:sauna_stove"
   ]
 }

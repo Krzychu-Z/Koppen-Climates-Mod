@@ -23,7 +23,7 @@ import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConf
  * there) are filled with sand, so the river beds are dry sandy valleys. The desert mountains (BWk): plain, one-
  * coloured terracotta from their tops down to y 48 (their creeks keep their water: they're river biome). The Lush
  * desert (BSh) and its ghost towns: the continental desert's sand and sandstone, patched with coarse dirt; its rivers
- * keep a little water, but only down low (at sea level), and only a block deep - any higher up, they're dry too.
+ * have run dry like all the others (only the Nile, its own biome, keeps its water in the dry climates).
  * The Dry steppe (BSk): the continental desert's ground and dry rivers, but of ordinary (yellow) sand over the
  * sandstone, with a tuft of grass growing straight out of the sand on every single block (BushBlockSandMixin). The
  * Australian desert (BSh): the continental desert's ground in vanilla's red sand and red sandstone.
@@ -66,8 +66,8 @@ public class HotDesertSurfaceFeature extends Feature<NoneFeatureConfiguration> {
                 BlockState sandstone = australian ? Blocks.RED_SANDSTONE.defaultBlockState() : orangeSandstone;
                 // dry up the water (and lava) over it
                 int surface = level.getHeight(Heightmap.Types.WORLD_SURFACE_WG, x, z) - 1;
-                boolean shallowRiver = lush && surface <= LUSH_WATER_MAX_Y
-                        && level.getBlockState(pos.set(x, surface, z)).getFluidState().is(net.minecraft.tags.FluidTags.WATER);
+                // (no river keeps any water in the dry climates now - the Nile, its own biome, is the only water there)
+                boolean shallowRiver = false;
                 if (surface > top && surface - top <= FILL_DEPTH) {
                     // (the Lush desert's low rivers: filled up to a block under their surface)
                     int fillTo = shallowRiver ? surface - 1 : surface;

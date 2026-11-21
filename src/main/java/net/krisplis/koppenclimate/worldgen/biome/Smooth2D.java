@@ -24,11 +24,29 @@ public final class Smooth2D implements DensityFunction {
     private static final int CELL = 4;
 
     private final DensityFunction argument;
-    // the corners of the cell asked about last: terrain is generated cell by cell, every block of a cell's column
-    // in turn, so they are nearly always the same ones (an immutable snapshot, so threads can share it safely)
+    // the cell asked about last: terrain is generated cell by cell, every block of a cell's column in turn, so it is
+    // nearly always the same one (an immutable snapshot, so threads can share it safely)
     private volatile Corners last;
+    // the corners worked out lately: each is shared by four cells, and the Alps' terrain looks at points round
+    // about (the slope of the weirdness), so the same corners come up again and again. A small fixed table, one
+    // corner per slot, each entry immutable (threads may share it without locks).
+    private final Corner[] corners = new Corner[CORNERS];
+    private static final int CORNERS = 256;
 
     private record Corners(int x0, int z0, double v00, double v10, double v01, double v11) {
+    }
+
+    private record Corner(int x, int z, double value) {
+    }
+
+    private double corner(int x, int z, int y) {
+        int slot = (int) (((x * 0x9E3779B1L) ^ (z * 0x85EBCA77L)) >>> 7) & (CORNERS - 1);
+        Corner c = this.corners[slot];
+        if (c == null || c.x() != x || c.z() != z) {
+            c = new Corner(x, z, this.argument.compute(new SinglePointContext(x, y, z)));
+            this.corners[slot] = c;
+        }
+        return c.value();
     }
 
     public Smooth2D(DensityFunction argument) {
@@ -46,11 +64,8 @@ public final class Smooth2D implements DensityFunction {
         Corners c = this.last;
         if (c == null || c.x0() != x0 || c.z0() != z0) {
             int y = context.blockY();
-            c = new Corners(x0, z0,
-                    this.argument.compute(new SinglePointContext(x0, y, z0)),
-                    this.argument.compute(new SinglePointContext(x0 + CELL, y, z0)),
-                    this.argument.compute(new SinglePointContext(x0, y, z0 + CELL)),
-                    this.argument.compute(new SinglePointContext(x0 + CELL, y, z0 + CELL)));
+            c = new Corners(x0, z0, this.corner(x0, z0, y), this.corner(x0 + CELL, z0, y),
+                    this.corner(x0, z0 + CELL, y), this.corner(x0 + CELL, z0 + CELL, y));
             this.last = c;
         }
         double fx = (x - x0) / (double) CELL, fz = (z - z0) / (double) CELL;

@@ -255,6 +255,21 @@
           ]
         }
       ]
+    },
+    {
+      "rolls": 1.0,
+      "bonus_rolls": 0.0,
+      "entries": [
+        {
+          "type": "minecraft:empty",
+          "weight": 24
+        },
+        {
+          "type": "minecraft:item",
+          "name": "koppenclimatemod:jade_ring",
+          "weight": 1
+        }
+      ]
     }
   ],
   "random_sequence": "koppenclimatemod:chests/thai_village_house"

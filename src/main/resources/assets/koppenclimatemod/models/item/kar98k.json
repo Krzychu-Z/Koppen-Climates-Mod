@@ -1,0 +1,17 @@
+{
+  "loader": "forge:separate_transforms",
+  "base": {
+    "parent": "koppenclimatemod:item/kar98k_3d"
+  },
+  "perspectives": {
+    "gui": {
+      "parent": "koppenclimatemod:item/kar98k_icon"
+    },
+    "ground": {
+      "parent": "koppenclimatemod:item/kar98k_icon"
+    },
+    "fixed": {
+      "parent": "koppenclimatemod:item/kar98k_icon"
+    }
+  }
+}

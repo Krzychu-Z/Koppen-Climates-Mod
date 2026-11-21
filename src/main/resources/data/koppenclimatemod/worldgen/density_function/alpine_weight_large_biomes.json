@@ -1,61 +1,66 @@
 {
-  "type": "minecraft:cache_2d",
+  "type": "minecraft:interpolated",
   "argument": {
-    "type": "koppenclimatemod:alpine",
-    "continents": {
-      "type": "koppenclimatemod:smooth_2d",
-      "argument": "minecraft:overworld_large_biomes/continents"
-    },
-    "erosion": {
-      "type": "koppenclimatemod:smooth_2d",
-      "argument": "minecraft:overworld_large_biomes/erosion"
-    },
-    "ridges": {
-      "type": "koppenclimatemod:smooth_2d",
-      "argument": "minecraft:overworld/ridges"
-    },
-    "temperature": {
-      "type": "koppenclimatemod:smooth_2d",
-      "argument": {
-        "type": "minecraft:flat_cache",
+    "type": "minecraft:cache_2d",
+    "argument": {
+      "type": "koppenclimatemod:alpine",
+      "continents": {
+        "type": "koppenclimatemod:smooth_2d",
+        "argument": "minecraft:overworld_large_biomes/continents"
+      },
+      "erosion": {
+        "type": "koppenclimatemod:smooth_2d",
+        "argument": "minecraft:overworld_large_biomes/erosion"
+      },
+      "ridges": {
+        "type": "koppenclimatemod:smooth_2d",
+        "argument": "minecraft:overworld/ridges"
+      },
+      "temperature": {
+        "type": "koppenclimatemod:smooth_2d",
         "argument": {
-          "type": "minecraft:shifted_noise",
-          "noise": "minecraft:temperature_large",
-          "shift_x": "minecraft:shift_x",
-          "shift_y": 0.0,
-          "shift_z": "minecraft:shift_z",
-          "xz_scale": 0.25,
-          "y_scale": 0.0
+          "type": "minecraft:flat_cache",
+          "argument": {
+            "type": "minecraft:shifted_noise",
+            "noise": "minecraft:temperature_large",
+            "shift_x": "minecraft:shift_x",
+            "shift_y": 0.0,
+            "shift_z": "minecraft:shift_z",
+            "xz_scale": 0.25,
+            "y_scale": 0.0
+          }
         }
-      }
-    },
-    "humidity": {
-      "type": "koppenclimatemod:smooth_2d",
-      "argument": {
-        "type": "minecraft:flat_cache",
+      },
+      "humidity": {
+        "type": "koppenclimatemod:smooth_2d",
         "argument": {
-          "type": "minecraft:shifted_noise",
-          "noise": "minecraft:vegetation_large",
-          "shift_x": "minecraft:shift_x",
-          "shift_y": 0.0,
-          "shift_z": "minecraft:shift_z",
-          "xz_scale": 0.25,
-          "y_scale": 0.0
+          "type": "minecraft:flat_cache",
+          "argument": {
+            "type": "minecraft:shifted_noise",
+            "noise": "minecraft:vegetation_large",
+            "shift_x": "minecraft:shift_x",
+            "shift_y": 0.0,
+            "shift_z": "minecraft:shift_z",
+            "xz_scale": 0.25,
+            "y_scale": 0.0
+          }
         }
-      }
-    },
-    "peaks": {
-      "type": "minecraft:noise",
-      "noise": "koppenclimatemod:alpine_peaks",
-      "xz_scale": 0.55,
-      "y_scale": 0.0
-    },
-    "detail": {
-      "type": "minecraft:noise",
-      "noise": "koppenclimatemod:alpine_detail",
-      "xz_scale": 1.0,
-      "y_scale": 0.0
-    },
-    "mode": "weight"
+      },
+      "peaks": {
+        "type": "minecraft:noise",
+        "noise": "koppenclimatemod:alpine_peaks",
+        "xz_scale": 0.55,
+        "y_scale": 0.0
+      },
+      "detail": {
+        "type": "minecraft:noise",
+        "noise": "koppenclimatemod:alpine_detail",
+        "xz_scale": 1.0,
+        "y_scale": 0.0
+      },
+      "offset": "minecraft:overworld_large_biomes/offset",
+      "base": "koppenclimatemod:vanilla_initial_large_biomes",
+      "mode": "weight"
+    }
   }
 }

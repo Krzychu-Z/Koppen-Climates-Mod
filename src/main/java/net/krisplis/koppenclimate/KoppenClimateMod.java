@@ -57,6 +57,7 @@ public class KoppenClimateMod {
         ModSounds.register(modEventBus);
         net.krisplis.koppenclimate.particle.ModParticles.register(modEventBus);
         VillageRegistry.register(modEventBus);
+        net.krisplis.koppenclimate.network.ModNetwork.register();
 
         // Register the item to a creative tab
         modEventBus.addListener(this::addCreative);
@@ -96,7 +97,7 @@ public class KoppenClimateMod {
             for (var egg : java.util.List.of(ModItems.TERMITE_SPAWN_EGG, ModItems.BLACK_MAMBA_SPAWN_EGG, ModItems.GIRAFFE_SPAWN_EGG,
                     ModItems.ELEPHANT_SPAWN_EGG, ModItems.RHINO_SPAWN_EGG, ModItems.LION_SPAWN_EGG, ModItems.ZEBRA_SPAWN_EGG,
                     ModItems.JACKAL_SPAWN_EGG, ModItems.WARM_PIG_SPAWN_EGG, ModItems.KOALA_SPAWN_EGG, ModItems.KANGAROO_SPAWN_EGG,
-                    ModItems.HYENA_SPAWN_EGG)) event.accept(egg);
+                    ModItems.HYENA_SPAWN_EGG, ModItems.MOOSE_SPAWN_EGG, ModItems.REINDEER_SPAWN_EGG)) event.accept(egg);
         }
         if (event.getTabKey() == CreativeModeTabs.NATURAL_BLOCKS) {
             event.accept(ModBlocks.DRY_GRASS);
@@ -160,12 +161,13 @@ public class KoppenClimateMod {
                     ModBlocks.OLIVE_SAPLING, ModBlocks.ITALIAN_PINE_LOG, ModBlocks.ITALIAN_PINE_LEAVES, ModBlocks.ITALIAN_PINE_SAPLING,
                     ModBlocks.CYPRESS_LEAVES, ModBlocks.CYPRESS_SAPLING, ModBlocks.FIG_LOG, ModBlocks.FIG_LEAVES, ModBlocks.FIG_SAPLING,
                     ModBlocks.LEMON_LEAVES, ModBlocks.LEMON_SAPLING, ModBlocks.LAVENDER, ModBlocks.AGAVE, ModBlocks.NERIUM,
-                    ModBlocks.MARBLE)) event.accept(b);
+                    ModBlocks.MARBLE, ModBlocks.BLACK_SAND, ModBlocks.GEOTHERMAL_VENT)) event.accept(b);
             event.accept(ModBlocks.WINE_POLE);
             event.accept(ModBlocks.HOP_POLE);
             event.accept(ModItems.BARLEY_SEEDS);
         }
         if (tab == CreativeModeTabs.FUNCTIONAL_BLOCKS) {
+            event.accept(ModBlocks.SAUNA_STOVE);
             for (var i : java.util.List.of(ModItems.OLIVE_SIGN, ModItems.OLIVE_HANGING_SIGN, ModItems.ITALIAN_PINE_SIGN,
                     ModItems.ITALIAN_PINE_HANGING_SIGN, ModItems.FIG_SIGN, ModItems.FIG_HANGING_SIGN,
                     ModItems.JOSHUA_SIGN, ModItems.JOSHUA_HANGING_SIGN, ModItems.DEAD_OAK_SIGN, ModItems.DEAD_OAK_HANGING_SIGN,
@@ -197,6 +199,14 @@ public class KoppenClimateMod {
         }
         if (tab == CreativeModeTabs.SPAWN_EGGS) {
             event.accept(ModItems.SCORPION_SPAWN_EGG);
+            event.accept(ModItems.ROMAN_LEGIONNAIRE_SPAWN_EGG);
+            event.accept(ModItems.TEMPLAR_SPAWN_EGG);
+            event.accept(ModItems.TINY_GHAST_SPAWN_EGG);
+            event.accept(ModItems.MUTANT_ZOMBIE_SPAWN_EGG);
+            event.accept(ModItems.MUTANT_DOG_SPAWN_EGG);
+            event.accept(ModItems.CRAWLING_MUTANT_SPAWN_EGG);
+            event.accept(ModItems.EVOKER_SOLDIER_SPAWN_EGG);
+            event.accept(ModItems.DUST_DEVIL_SPAWN_EGG);
         }
     }
 
@@ -441,6 +451,11 @@ public class KoppenClimateMod {
         }
         if(event.getTabKey() == CreativeModeTabs.TOOLS_AND_UTILITIES) {
             event.accept(ModItems.JADE_RING);
+            event.accept(ModItems.AMBER_RING);
+            event.accept(ModItems.RUBY_RING);
+            event.accept(ModItems.SAPPHIRE_RING);
+            event.accept(ModItems.GRAPHITE_RING);
+            event.accept(ModItems.ELDER_RING);
         }
         if(event.getTabKey() == CreativeModeTabs.FUNCTIONAL_BLOCKS) {
             event.accept(ModItems.MAHOGANY_SIGN);

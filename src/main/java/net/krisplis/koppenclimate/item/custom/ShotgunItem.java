@@ -24,8 +24,8 @@ import net.minecraft.world.phys.Vec3;
 
 /**
  * The shotgun, found hidden under the hay in the red farms' barns (RedFarmPiece). Each shot uses up one of the
- * cowboy souls' copper bullets (ModItems.BULLET); it hits the first creature in its line of fire, up to 32 blocks
- * away, for eight hearts, and throws it back - about three blocks for a creature of a man's size, less the heavier
+ * cowboy souls' copper bullets (ModItems.BULLET: the same ammunition feeds every gun); it hits the first creature in
+ * its line of fire, up to 32 blocks away (shattering glass and suchlike on the way), for eight hearts, and throws it back - about three blocks for a creature of a man's size, less the heavier
  * it is (by the size of its body, and its own resistance to being knocked back), a little more for small game. It
  * goes off with a loud bang (sounds/item/shotgun.ogg) and one small puff of smoke at the muzzle - where the muzzle is
  * as each one sees it: the shooter in first person sees it out in front of his view, everyone else (and the shooter in
@@ -111,8 +111,17 @@ public class ShotgunItem extends Item {
         Vec3 start = player.getEyePosition();
         Vec3 look = player.getViewVector(1.0F);
         Vec3 end = start.add(look.scale(RANGE));
-        // stopped by the first solid block
-        BlockHitResult block = level.clip(new ClipContext(start, end, ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, player));
+        // stopped by the first solid block - shattering any glass, pumpkins, pots, lanterns and the like on its way
+        // (Kar98kItem.breaks)
+        BlockHitResult block;
+        Vec3 from = start;
+        for (int pierced = 0; ; pierced++) {
+            block = level.clip(new ClipContext(from, end, ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, player));
+            if (block.getType() == HitResult.Type.MISS || pierced >= 16
+                    || !Kar98kItem.breaks(level.getBlockState(block.getBlockPos()))) break;
+            level.destroyBlock(block.getBlockPos(), true, player);
+            from = block.getLocation().add(look.scale(0.05));
+        }
         if (block.getType() != HitResult.Type.MISS) end = block.getLocation();
         EntityHitResult hit = ProjectileUtil.getEntityHitResult(level, player, start, end,
                 new AABB(start, end).inflate(1.0), e -> e instanceof LivingEntity && e.isAlive() && !e.isSpectator() && e != player, 0.3F);

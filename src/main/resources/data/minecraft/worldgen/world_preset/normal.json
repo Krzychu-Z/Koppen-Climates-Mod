@@ -29,7 +29,10 @@
             "mountains": "koppenclimatemod:desert_mountains_bwk",
             "lush": "koppenclimatemod:lush_desert_bsh",
             "steppe": "koppenclimatemod:dry_steppe_bsk",
-            "australian": "koppenclimatemod:australian_desert_bsh"
+            "australian": "koppenclimatemod:australian_desert_bsh",
+            "nile": "koppenclimatemod:nile_bwh",
+            "pompeii": "koppenclimatemod:pompeii_csa",
+            "savanna_river": "koppenclimatemod:savanna_river_as"
           },
           "mediterranean_zones": {
             "forest": "koppenclimatemod:mediterranean_forest_csa",
@@ -59,7 +62,15 @@
               "pine_forest": "koppenclimatemod:pine_forest_dfb",
               "alpine_valley": "koppenclimatemod:alpine_valley_dfb",
               "alpine_mid_altitude": "koppenclimatemod:alpine_mid_altitude_dfc",
-              "alpine_high_altitude": "koppenclimatemod:alpine_high_altitude_et"
+              "alpine_high_altitude": "koppenclimatemod:alpine_high_altitude_et",
+              "continental_mountains": "koppenclimatemod:continental_mountains_dfc",
+              "continental_clearing": "koppenclimatemod:continental_clearing_dfb",
+              "cold_lakeland": "koppenclimatemod:cold_lakeland_dfc",
+              "polar_zones": {
+                "tundra": "koppenclimatemod:tundra_et",
+                "ice_cap": "koppenclimatemod:ice_cap_ef",
+                "subpolar_taiga": "koppenclimatemod:subpolar_taiga_dfc"
+              }
             }
           }
         },

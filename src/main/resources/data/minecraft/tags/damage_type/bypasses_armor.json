@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
-    "koppenclimatemod:kangaroo_kick"
+    "koppenclimatemod:kangaroo_kick",
+    "koppenclimatemod:rifle"
   ]
 }

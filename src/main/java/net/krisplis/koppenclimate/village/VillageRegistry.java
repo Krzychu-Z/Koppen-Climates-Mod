@@ -158,6 +158,84 @@ public final class VillageRegistry {
     public static final RegistryObject<StructurePieceType> GERMAN_VILLAGE_PIECE =
             STRUCTURE_PIECES.register("german_village", () -> (StructurePieceType.ContextlessType) GermanVillagePiece::new);
 
+    // ---------------------------------------------------------------- Tirol villages of the Alpine valleys (Dfb)
+
+    // villagers in Tyrolean Tracht (textures/entity/villager/type/tirol.png, tirol_profession/)
+    public static final RegistryObject<VillagerType> TIROL = VILLAGER_TYPES.register("tirol", () -> new VillagerType("tirol"));
+
+    public static final RegistryObject<StructureType<TirolVillageStructure>> TIROL_VILLAGE =
+            STRUCTURE_TYPES.register("tirol_village", () -> () -> TirolVillageStructure.CODEC);
+
+    public static final RegistryObject<StructurePieceType> TIROL_VILLAGE_PIECE =
+            STRUCTURE_PIECES.register("tirol_village", () -> (StructurePieceType.ContextlessType) TirolVillagePiece::new);
+
+    // ---------------------------------------------------------------- the Cursed Oasis of the hot deserts
+
+    public static final RegistryObject<StructureType<CursedOasisStructure>> CURSED_OASIS =
+            STRUCTURE_TYPES.register("cursed_oasis", () -> () -> CursedOasisStructure.CODEC);
+
+    public static final RegistryObject<StructurePieceType> CURSED_OASIS_PIECE =
+            STRUCTURE_PIECES.register("cursed_oasis", () -> (StructurePieceType.ContextlessType) CursedOasisPiece::new);
+
+    // ---------------------------------------------------------------- the abandoned Soviet estate of the subpolar taiga and tundra
+
+    public static final RegistryObject<StructureType<ChernobylStructure>> CHERNOBYL =
+            STRUCTURE_TYPES.register("chernobyl", () -> () -> ChernobylStructure.CODEC);
+
+    public static final RegistryObject<StructurePieceType> CHERNOBYL_PIECE =
+            STRUCTURE_PIECES.register("chernobyl", () -> (StructurePieceType.ContextlessType) ChernobylPiece::new);
+
+    // ---------------------------------------------------------------- the Highland Castle of the Scottish highlands (Cfc)
+
+    public static final RegistryObject<StructureType<CastleStructure>> HIGHLAND_CASTLE =
+            STRUCTURE_TYPES.register("highland_castle", () -> () -> CastleStructure.CODEC);
+
+    public static final RegistryObject<StructurePieceType> CASTLE_PIECE =
+            STRUCTURE_PIECES.register("highland_castle", () -> (StructurePieceType.ContextlessType) CastlePiece::new);
+
+    // ---------------------------------------------------------------- the English Mansion of the English countryside (Cfb)
+
+    public static final RegistryObject<StructureType<MansionStructure>> ENGLISH_MANSION =
+            STRUCTURE_TYPES.register("english_mansion", () -> () -> MansionStructure.CODEC);
+
+    public static final RegistryObject<StructurePieceType> MANSION_PIECE =
+            STRUCTURE_PIECES.register("english_mansion", () -> (StructurePieceType.ContextlessType) MansionPiece::new);
+
+    // ---------------------------------------------------------------- the French village of the temperate forest (Cfb)
+
+    public static final RegistryObject<StructureType<FrenchVillageStructure>> FRENCH_VILLAGE =
+            STRUCTURE_TYPES.register("french_village", () -> () -> FrenchVillageStructure.CODEC);
+
+    public static final RegistryObject<StructurePieceType> FRENCH_VILLAGE_PIECE =
+            STRUCTURE_PIECES.register("french_village", () -> (StructurePieceType.ContextlessType) FrenchVillagePiece::new);
+
+    // ---------------------------------------------------------------- the Gothic Cathedral of the temperate forest (Cfb)
+
+    public static final RegistryObject<StructureType<CathedralStructure>> GOTHIC_CATHEDRAL =
+            STRUCTURE_TYPES.register("gothic_cathedral", () -> () -> CathedralStructure.CODEC);
+
+    public static final RegistryObject<StructurePieceType> CATHEDRAL_PIECE =
+            STRUCTURE_PIECES.register("gothic_cathedral", () -> (StructurePieceType.ContextlessType) CathedralPiece::new);
+
+    // ---------------------------------------------------------------- Pompeii, the ever-burning Roman town of the Mediterranean (Csa)
+
+    public static final RegistryObject<StructureType<PompeiiStructure>> POMPEII =
+            STRUCTURE_TYPES.register("pompeii", () -> () -> PompeiiStructure.CODEC);
+
+    public static final RegistryObject<StructurePieceType> POMPEII_PIECE =
+            STRUCTURE_PIECES.register("pompeii", () -> (StructurePieceType.ContextlessType) PompeiiPiece::new);
+
+    // ---------------------------------------------------------------- Viking villages of the Subpolar taiga (Dfc)
+
+    // villagers in Norse dress (textures/entity/villager/type/viking.png, viking_profession/)
+    public static final RegistryObject<VillagerType> VIKING = VILLAGER_TYPES.register("viking", () -> new VillagerType("viking"));
+
+    public static final RegistryObject<StructureType<VikingVillageStructure>> VIKING_VILLAGE =
+            STRUCTURE_TYPES.register("viking_village", () -> () -> VikingVillageStructure.CODEC);
+
+    public static final RegistryObject<StructurePieceType> VIKING_VILLAGE_PIECE =
+            STRUCTURE_PIECES.register("viking_village", () -> (StructurePieceType.ContextlessType) VikingVillagePiece::new);
+
     public static final RegistryObject<StructureType<ThaiVillageStructure>> THAI_VILLAGE =
             STRUCTURE_TYPES.register("thai_village", () -> () -> ThaiVillageStructure.CODEC);
 

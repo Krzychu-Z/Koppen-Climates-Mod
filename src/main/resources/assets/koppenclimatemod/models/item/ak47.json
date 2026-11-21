@@ -1,0 +1,17 @@
+{
+ "loader": "forge:separate_transforms",
+ "base": {
+  "parent": "koppenclimatemod:item/ak47_3d"
+ },
+ "perspectives": {
+  "gui": {
+   "parent": "koppenclimatemod:item/ak47_icon"
+  },
+  "ground": {
+   "parent": "koppenclimatemod:item/ak47_icon"
+  },
+  "fixed": {
+   "parent": "koppenclimatemod:item/ak47_icon"
+  }
+ }
+}

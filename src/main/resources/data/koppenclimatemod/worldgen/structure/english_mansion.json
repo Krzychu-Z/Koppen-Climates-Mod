@@ -1,0 +1,7 @@
+{
+  "type": "koppenclimatemod:english_mansion",
+  "biomes": "#koppenclimatemod:english_mansion_biomes",
+  "step": "surface_structures",
+  "terrain_adaptation": "none",
+  "spawn_overrides": {}
+}

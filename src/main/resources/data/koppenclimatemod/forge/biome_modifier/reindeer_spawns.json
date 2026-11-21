@@ -1,0 +1,10 @@
+{
+  "type": "forge:add_spawns",
+  "biomes": "koppenclimatemod:subpolar_taiga_dfc",
+  "spawners": {
+    "type": "koppenclimatemod:reindeer",
+    "weight": 8,
+    "minCount": 3,
+    "maxCount": 6
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "lit=false": {
+      "model": "koppenclimatemod:block/sauna_stove"
+    },
+    "lit=true": {
+      "model": "koppenclimatemod:block/sauna_stove_lit"
+    }
+  }
+}

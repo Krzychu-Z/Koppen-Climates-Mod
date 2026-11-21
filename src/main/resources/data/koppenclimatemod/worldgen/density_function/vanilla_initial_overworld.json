@@ -1,0 +1,223 @@
+{
+  "type": "minecraft:max",
+  "argument1": {
+    "type": "minecraft:min",
+    "argument1": {
+      "type": "minecraft:max",
+      "argument1": {
+        "type": "minecraft:add",
+        "argument1": 0.1171875,
+        "argument2": {
+          "type": "minecraft:mul",
+          "argument1": {
+            "type": "minecraft:y_clamped_gradient",
+            "from_value": 0.0,
+            "from_y": -64,
+            "to_value": 1.0,
+            "to_y": -40
+          },
+          "argument2": {
+            "type": "minecraft:add",
+            "argument1": -0.1171875,
+            "argument2": {
+              "type": "minecraft:add",
+              "argument1": -0.078125,
+              "argument2": {
+                "type": "minecraft:mul",
+                "argument1": {
+                  "type": "minecraft:y_clamped_gradient",
+                  "from_value": 1.0,
+                  "from_y": 240,
+                  "to_value": 0.0,
+                  "to_y": 256
+                },
+                "argument2": {
+                  "type": "minecraft:add",
+                  "argument1": 0.078125,
+                  "argument2": {
+                    "type": "minecraft:clamp",
+                    "input": {
+                      "type": "minecraft:add",
+                      "argument1": -0.703125,
+                      "argument2": {
+                        "type": "minecraft:mul",
+                        "argument1": 4.0,
+                        "argument2": {
+                          "type": "minecraft:quarter_negative",
+                          "argument": {
+                            "type": "minecraft:mul",
+                            "argument1": "minecraft:overworld/depth",
+                            "argument2": {
+                              "type": "minecraft:cache_2d",
+                              "argument": "minecraft:overworld/factor"
+                            }
+                          }
+                        }
+                      }
+                    },
+                    "max": 64.0,
+                    "min": -64.0
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "argument2": {
+        "type": "koppenclimatemod:volcanic_islands",
+        "continents": "minecraft:overworld/continents",
+        "temperature": {
+          "type": "minecraft:shifted_noise",
+          "noise": "minecraft:temperature",
+          "shift_x": "minecraft:shift_x",
+          "shift_y": 0.0,
+          "shift_z": "minecraft:shift_z",
+          "xz_scale": 0.25,
+          "y_scale": 0.0
+        },
+        "humidity": {
+          "type": "minecraft:shifted_noise",
+          "noise": "minecraft:vegetation",
+          "shift_x": "minecraft:shift_x",
+          "shift_y": 0.0,
+          "shift_z": "minecraft:shift_z",
+          "xz_scale": 0.25,
+          "y_scale": 0.0
+        }
+      }
+    },
+    "argument2": {
+      "type": "minecraft:min",
+      "argument1": {
+        "type": "minecraft:clamp",
+        "min": -1.0,
+        "max": 1.0,
+        "input": {
+          "type": "minecraft:mul",
+          "argument1": 0.25,
+          "argument2": {
+            "type": "minecraft:add",
+            "argument1": "koppenclimatemod:savanna_ceiling_overworld",
+            "argument2": {
+              "type": "minecraft:y_clamped_gradient",
+              "from_y": -64,
+              "to_y": 320,
+              "from_value": 64.0,
+              "to_value": -320.0
+            }
+          }
+        }
+      },
+      "argument2": {
+        "type": "minecraft:clamp",
+        "min": -1.0,
+        "max": 1.0,
+        "input": {
+          "type": "minecraft:mul",
+          "argument1": 0.25,
+          "argument2": {
+            "type": "minecraft:add",
+            "argument1": "koppenclimatemod:cfa_ceiling_overworld",
+            "argument2": {
+              "type": "minecraft:y_clamped_gradient",
+              "from_y": -64,
+              "to_y": 320,
+              "from_value": 64.0,
+              "to_value": -320.0
+            }
+          }
+        }
+      }
+    }
+  },
+  "argument2": {
+    "type": "minecraft:max",
+    "argument1": {
+      "type": "minecraft:min",
+      "argument1": {
+        "type": "minecraft:clamp",
+        "min": -10.0,
+        "max": 1.0,
+        "input": {
+          "type": "minecraft:mul",
+          "argument1": 0.25,
+          "argument2": {
+            "type": "minecraft:add",
+            "argument1": "koppenclimatemod:csa_hills_overworld",
+            "argument2": {
+              "type": "minecraft:y_clamped_gradient",
+              "from_y": -64,
+              "to_y": 320,
+              "from_value": 64.0,
+              "to_value": -320.0
+            }
+          }
+        }
+      },
+      "argument2": {
+        "type": "minecraft:clamp",
+        "min": -10.0,
+        "max": 1.0,
+        "input": {
+          "type": "minecraft:mul",
+          "argument1": 0.25,
+          "argument2": {
+            "type": "minecraft:add",
+            "argument1": -60.0,
+            "argument2": {
+              "type": "minecraft:y_clamped_gradient",
+              "from_y": -64,
+              "to_y": 320,
+              "from_value": -64.0,
+              "to_value": 320.0
+            }
+          }
+        }
+      }
+    },
+    "argument2": {
+      "type": "minecraft:min",
+      "argument1": {
+        "type": "minecraft:clamp",
+        "min": -10.0,
+        "max": 1.0,
+        "input": {
+          "type": "minecraft:mul",
+          "argument1": 0.25,
+          "argument2": {
+            "type": "minecraft:add",
+            "argument1": "koppenclimatemod:cfa_floor_overworld",
+            "argument2": {
+              "type": "minecraft:y_clamped_gradient",
+              "from_y": -64,
+              "to_y": 320,
+              "from_value": 64.0,
+              "to_value": -320.0
+            }
+          }
+        }
+      },
+      "argument2": {
+        "type": "minecraft:clamp",
+        "min": -10.0,
+        "max": 1.0,
+        "input": {
+          "type": "minecraft:mul",
+          "argument1": 0.25,
+          "argument2": {
+            "type": "minecraft:add",
+            "argument1": -60.0,
+            "argument2": {
+              "type": "minecraft:y_clamped_gradient",
+              "from_y": -64,
+              "to_y": 320,
+              "from_value": -64.0,
+              "to_value": 320.0
+            }
+          }
+        }
+      }
+    }
+  }
+}

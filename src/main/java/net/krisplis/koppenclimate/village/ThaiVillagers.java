@@ -40,7 +40,7 @@ import java.util.Map;
  *   <li>Thai farmers tend the rice terraces instead of fields: by day they wade out to ripe rice, harvest it and
  *       replant it. The harvest feeds the village (it goes into the farmer's food, which villagers share, eat
  *       and breed on).</li>
- *   <li>The Thai cleric - the village priest - deals in jade.</li>
+ *   <li>The Thai cleric - the village priest - deals in jade, and as a master sells the jade ring.</li>
  * </ul>
  */
 @Mod.EventBusSubscriber(modid = KoppenClimateMod.MOD_ID, bus = Mod.EventBusSubscriber.Bus.FORGE)
@@ -71,6 +71,11 @@ public final class ThaiVillagers {
             // and in the Cherry orchards they are Japanese (see JapaneseVillagePiece)
             map.put(ModBiomes.CHERRY_ORCHARD, VillageRegistry.JAPANESE.get());
             map.put(ModBiomes.SUBTROPICAL_RICE_TERRACES, VillageRegistry.CHINESE.get());
+            // villagers born in the Alpine valleys are Tyrolean (see TirolVillagePiece)
+            map.put(ModBiomes.ALPINE_VALLEY, VillageRegistry.TIROL.get());
+            // in the Subpolar taiga and the Tundra they are Vikings (see VikingVillagePiece)
+            map.put(ModBiomes.SUBPOLAR_TAIGA, VillageRegistry.VIKING.get());
+            map.put(ModBiomes.TUNDRA, VillageRegistry.VIKING.get());
             // and villagers born in the Mediterranean (Csa) are Venetian (see TuscanVillagePiece)
             for (var csa : java.util.List.of(ModBiomes.MEDITERRANEAN, ModBiomes.MEDITERRANEAN_FOREST, ModBiomes.OLIVE_GROVE,
                     ModBiomes.MEDITERRANEAN_RIVER, ModBiomes.MEDITERRANEAN_FARMLAND, ModBiomes.LAVENDER_FIELD, ModBiomes.MEDITERRANEAN_BEACH)) {
@@ -153,6 +158,10 @@ public final class ThaiVillagers {
                 new MerchantOffer(new ItemCost(ModItems.JADE.get(), 1), new ItemStack(Items.EMERALD, 12), 8, 20, 0.05F)));
         event.getTrades().get(4).add(thaiOnly((trader, random) ->
                 new MerchantOffer(new ItemCost(Items.EMERALD, 28), new ItemStack(ModItems.JADE.get()), 4, 30, 0.05F)));
+        // and a master priest sells a jade ring (which can't be crafted), one at a time
+        event.getTrades().get(5).add(thaiOnly((trader, random) ->
+                new MerchantOffer(new ItemCost(Items.EMERALD, 48), java.util.Optional.of(new ItemCost(ModItems.JADE.get(), 2)),
+                        new ItemStack(ModItems.JADE_RING.get()), 1, 30, 0.05F)));
     }
 
     private static VillagerTrades.ItemListing thaiOnly(VillagerTrades.ItemListing listing) {

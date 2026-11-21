@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "equipment",
+  "ingredients": [
+    {
+      "item": "koppenclimatemod:jade_ring"
+    },
+    {
+      "item": "koppenclimatemod:amber_ring"
+    },
+    {
+      "item": "koppenclimatemod:ruby_ring"
+    },
+    {
+      "item": "koppenclimatemod:sapphire_ring"
+    },
+    {
+      "item": "koppenclimatemod:graphite_ring"
+    }
+  ],
+  "result": {
+    "id": "koppenclimatemod:elder_ring",
+    "count": 1
+  }
+}

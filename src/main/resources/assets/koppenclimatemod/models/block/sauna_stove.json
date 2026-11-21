@@ -1,0 +1,180 @@
+{
+  "parent": "minecraft:block/block",
+  "textures": {
+    "particle": "koppenclimatemod:block/sauna_stove_side",
+    "front": "koppenclimatemod:block/sauna_stove_front",
+    "side": "koppenclimatemod:block/sauna_stove_side",
+    "stones": "koppenclimatemod:block/sauna_stones"
+  },
+  "elements": [
+    {
+      "from": [
+        1,
+        0,
+        1
+      ],
+      "to": [
+        15,
+        10,
+        15
+      ],
+      "faces": {
+        "north": {
+          "texture": "#front",
+          "uv": [
+            1,
+            6,
+            15,
+            16
+          ]
+        },
+        "south": {
+          "texture": "#side",
+          "uv": [
+            1,
+            6,
+            15,
+            16
+          ]
+        },
+        "east": {
+          "texture": "#side",
+          "uv": [
+            1,
+            6,
+            15,
+            16
+          ]
+        },
+        "west": {
+          "texture": "#side",
+          "uv": [
+            1,
+            6,
+            15,
+            16
+          ]
+        },
+        "up": {
+          "texture": "#side"
+        },
+        "down": {
+          "texture": "#side",
+          "cullface": "down"
+        }
+      }
+    },
+    {
+      "from": [
+        2,
+        10,
+        2
+      ],
+      "to": [
+        14,
+        13,
+        14
+      ],
+      "faces": {
+        "north": {
+          "texture": "#stones",
+          "uv": [
+            2,
+            3,
+            14,
+            6
+          ]
+        },
+        "south": {
+          "texture": "#stones",
+          "uv": [
+            2,
+            3,
+            14,
+            6
+          ]
+        },
+        "east": {
+          "texture": "#stones",
+          "uv": [
+            2,
+            3,
+            14,
+            6
+          ]
+        },
+        "west": {
+          "texture": "#stones",
+          "uv": [
+            2,
+            3,
+            14,
+            6
+          ]
+        },
+        "up": {
+          "texture": "#stones"
+        }
+      }
+    },
+    {
+      "from": [
+        4,
+        13,
+        4
+      ],
+      "to": [
+        12,
+        15,
+        12
+      ],
+      "faces": {
+        "north": {
+          "texture": "#stones",
+          "uv": [
+            4,
+            1,
+            12,
+            3
+          ]
+        },
+        "south": {
+          "texture": "#stones",
+          "uv": [
+            4,
+            1,
+            12,
+            3
+          ]
+        },
+        "east": {
+          "texture": "#stones",
+          "uv": [
+            4,
+            1,
+            12,
+            3
+          ]
+        },
+        "west": {
+          "texture": "#stones",
+          "uv": [
+            4,
+            1,
+            12,
+            3
+          ]
+        },
+        "up": {
+          "texture": "#stones",
+          "uv": [
+            4,
+            4,
+            12,
+            12
+          ]
+        }
+      }
+    }
+  ]
+}

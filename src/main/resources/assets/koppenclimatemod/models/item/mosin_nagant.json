@@ -1,0 +1,17 @@
+{
+ "loader": "forge:separate_transforms",
+ "base": {
+  "parent": "koppenclimatemod:item/mosin_nagant_3d"
+ },
+ "perspectives": {
+  "gui": {
+   "parent": "koppenclimatemod:item/mosin_nagant_icon"
+  },
+  "ground": {
+   "parent": "koppenclimatemod:item/mosin_nagant_icon"
+  },
+  "fixed": {
+   "parent": "koppenclimatemod:item/mosin_nagant_icon"
+  }
+ }
+}

@@ -25,6 +25,11 @@ public class ModBiomes {
     public static final ResourceKey<Biome> MEDITERRANEAN_FOREST = key("mediterranean_forest_csa");
     public static final ResourceKey<Biome> OLIVE_GROVE = key("olive_grove_csa");
     public static final ResourceKey<Biome> MEDITERRANEAN_RIVER = key("mediterranean_river_csa");
+    // the river of the sand deserts (B): emerald water between green banks, crocodiles and piranhas
+    public static final ResourceKey<Biome> NILE = key("nile_bwh");
+    public static final ResourceKey<Biome> SAVANNA_RIVER = key("savanna_river_as");
+    // Pompeii (Csa): the ever-burning Roman town's patch of the Mediterranean, red-skied (PompeiiSites)
+    public static final ResourceKey<Biome> POMPEII = key("pompeii_csa");
     public static final ResourceKey<Biome> MEDITERRANEAN_FARMLAND = key("mediterranean_farmland_csa");
     public static final ResourceKey<Biome> LAVENDER_FIELD = key("lavender_field_csa");
     // every Csa biome, its beach included (tags/worldgen/biome/is_mediterranean.json)
@@ -75,6 +80,13 @@ public class ModBiomes {
     public static final ResourceKey<Biome> ALPINE_VALLEY = key("alpine_valley_dfb");
     public static final ResourceKey<Biome> ALPINE_MID = key("alpine_mid_altitude_dfc");
     public static final ResourceKey<Biome> ALPINE_HIGH = key("alpine_high_altitude_et");
+    public static final ResourceKey<Biome> CONTINENTAL_MOUNTAINS = key("continental_mountains_dfc");
+    public static final ResourceKey<Biome> CONTINENTAL_CLEARING = key("continental_clearing_dfb");
+    public static final ResourceKey<Biome> COLD_LAKELAND = key("cold_lakeland_dfc");
+    // the far north: the Tundra (ET) and the Ice cap (EF) and the Subpolar taiga (Dfc)
+    public static final ResourceKey<Biome> TUNDRA = key("tundra_et");
+    public static final ResourceKey<Biome> SUBPOLAR_TAIGA = key("subpolar_taiga_dfc");
+    public static final ResourceKey<Biome> ICE_CAP = key("ice_cap_ef");
     // inside them, great sweeps of rice terraces
     public static final ResourceKey<Biome> SUBTROPICAL_RICE_TERRACES = key("subtropical_rice_terraces_cwa");
 

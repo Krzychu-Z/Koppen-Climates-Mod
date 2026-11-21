@@ -1,0 +1,7 @@
+{
+  "type": "koppenclimatemod:pompeii",
+  "biomes": "#koppenclimatemod:pompeii_biomes",
+  "step": "surface_structures",
+  "terrain_adaptation": "none",
+  "spawn_overrides": {}
+}
